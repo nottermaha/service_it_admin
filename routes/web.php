@@ -19,13 +19,17 @@ Route::get('/', function () {
 
 Route::get('/persons-manager', 'PersonsManagerController@get_persons');
 Route::get('/person-manager-form', 'PersonsManagerController@form');
-Route::get('/manager-form-edit/{id}', 'PersonsManagerController@form_edit')->where('id', '[0-9]+');
+Route::get('/person-manager-form-edit/{id}', 'PersonsManagerController@form_edit')->where('id', '[0-9]+');
 Route::post('/person-manager/create', 'PersonsManagerController@create');
 Route::post('/person-manager/edit/{id}', 'PersonsManagerController@edit')->where('id', '[0-9]+');
 Route::get('/person-manager/delete/{id}' ,'PersonsManagerController@delete')->where('id', '[0-9]+');
 
 Route::get('/persons-employee', 'PersonsEmployeeController@get_persons');
-Route::get('/person-employee-form', 'PersonsManagerController@form');
+Route::get('/person-employee-form', 'PersonsEmployeeController@form');
+Route::get('/person-employee-form-edit/{id}', 'PersonsEmployeeController@form_edit')->where('id', '[0-9]+');
+Route::post('/person-employee/create', 'PersonsEmployeeController@create');
+Route::post('/person-employee/edit/{id}', 'PersonsEmployeeController@edit')->where('id', '[0-9]+');
+Route::get('/person-employee/delete/{id}' ,'PersonsEmployeeController@delete')->where('id', '[0-9]+');
 
 Route::get('/stores', 'StoreController@get_store_branch');
 Route::post('/store-branch/create', 'StoreController@create_store_branch');

@@ -4,7 +4,7 @@
 @section('title', 'รายการบุคคล')
 
 @section('content_header')
-    <h1>รายการบุคคล</h1>
+    <h1>รายการผู้จัดการร้าน</h1>
 @stop
 
 @section('content')
@@ -55,7 +55,7 @@
             <td class="text-center">{{ $person->status_name }}</td>
             <!-- <td class="text-center"><a href="<?php echo url('/person/edit') ?>" class="btn btn-warning">แก้ไข</a></td> -->
             <!-- <td class="text-center"><a href="<?php echo url('/from-edit') ?>/{{$person->id}}" class="btn btn-warning">แก้ไข</a></td> -->
-            <td><a href="{{ url('/manager-form-edit/'.$person->id)  }}" class="btn btn-warning">แก้ไข</a></a></td>   
+            <td><a href="{{ url('/person-manager-form-edit/'.$person->id)  }}" class="btn btn-warning">แก้ไข</a></a></td>   
             <td class="text-center"><a href="<?php echo url('/person-manager/delete') ?>/{{$person->id}}" class="btn btn-danger">ลบ</a></td>
           </tr>
           @endforeach

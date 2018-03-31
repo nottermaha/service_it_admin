@@ -4,7 +4,7 @@
 @section('title', 'รายการบุคคล')
 
 @section('content_header')
-    <h1>รายการบุคคล</h1>
+    <h1>รายการพนักงาน</h1>
 @stop
 
 @section('content')
@@ -14,7 +14,7 @@
 
       <div class="row">
         <div class="col-xs-12 text-right">
-          <?= link_to('/person-form',$title='add data',['class'=>'btn btn-primary '],$secure=null); ?>
+          <?= link_to('/person-employee-form',$title='add data',['class'=>'btn btn-primary '],$secure=null); ?>
         </div> 
       </div>
       <br>
@@ -45,10 +45,8 @@
             <td>{{ $person->name }}</td>
             <td>{{ $person->last_name }}</td>
             <td class="text-center">{{ $person->status_name }}</td>
-            <!-- <td class="text-center"><a href="<?php echo url('/person/edit') ?>" class="btn btn-warning">แก้ไข</a></td> -->
-            <!-- <td class="text-center"><a href="<?php echo url('/from-edit') ?>/{{$person->id}}" class="btn btn-warning">แก้ไข</a></td> -->
-            <td><a href="{{ url('/form-edit/'.$person->id)  }}" class="btn btn-warning">แก้ไข</a></a></td>   
-            <td class="text-center"><a href="<?php echo url('/person/delete') ?>/{{$person->id}}" class="btn btn-danger">ลบ</a></td>
+            <td><a href="{{ url('/person-employee-form-edit/'.$person->id)  }}" class="btn btn-warning">แก้ไข</a></a></td>   
+            <td class="text-center"><a href="<?php echo url('/person-employee/delete') ?>/{{$person->id}}" class="btn btn-danger">ลบ</a></td>
           </tr>
           @endforeach
         </tbody>
