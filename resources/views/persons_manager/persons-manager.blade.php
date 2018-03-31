@@ -22,7 +22,7 @@
 
       <div class="row">
         <div class="col-xs-12 text-right">
-          <?= link_to('/person-form',$title='add data',['class'=>'btn btn-primary '],$secure=null); ?>
+          <?= link_to('/person-manager-form',$title='add data',['class'=>'btn btn-primary '],$secure=null); ?>
         </div> 
       </div>
       <br>
@@ -32,7 +32,7 @@
 
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">รายการบุคคล</h3>
+              <h3 class="box-title">รายการผู้จัดการร้าน</h3>
             </div>
 
        <div class="box-body table-responsive ">
@@ -55,8 +55,8 @@
             <td class="text-center">{{ $person->status_name }}</td>
             <!-- <td class="text-center"><a href="<?php echo url('/person/edit') ?>" class="btn btn-warning">แก้ไข</a></td> -->
             <!-- <td class="text-center"><a href="<?php echo url('/from-edit') ?>/{{$person->id}}" class="btn btn-warning">แก้ไข</a></td> -->
-            <td><a href="{{ url('/form-edit/'.$person->id)  }}" class="btn btn-warning">แก้ไข</a></a></td>   
-            <td class="text-center"><a href="<?php echo url('/person/delete') ?>/{{$person->id}}" class="btn btn-danger">ลบ</a></td>
+            <td><a href="{{ url('/manager-form-edit/'.$person->id)  }}" class="btn btn-warning">แก้ไข</a></a></td>   
+            <td class="text-center"><a href="<?php echo url('/person-manager/delete') ?>/{{$person->id}}" class="btn btn-danger">ลบ</a></td>
           </tr>
           @endforeach
         </tbody>

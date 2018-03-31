@@ -10,25 +10,22 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
-
+// Route::get('/person-form', function() {
+//     return view('persons/person-form');
+// });
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/persons', 'PersonsController@get_persons');
-// Route::get('/person-form', function() {
-//     return view('persons/person-form');
-// });
-// Route::get('/person-form-edit', function() {
-//     return view('persons/person-form-edit');
-// });
+Route::get('/persons-manager', 'PersonsManagerController@get_persons');
+Route::get('/person-manager-form', 'PersonsManagerController@form');
+Route::get('/manager-form-edit/{id}', 'PersonsManagerController@form_edit')->where('id', '[0-9]+');
+Route::post('/person-manager/create', 'PersonsManagerController@create');
+Route::post('/person-manager/edit/{id}', 'PersonsManagerController@edit')->where('id', '[0-9]+');
+Route::get('/person-manager/delete/{id}' ,'PersonsManagerController@delete')->where('id', '[0-9]+');
 
-
-Route::get('/person-form', 'PersonsController@form');
-Route::get('/form-edit/{id}', 'PersonsController@form_edit')->where('id', '[0-9]+');
-Route::post('/person/create', 'PersonsController@create');
-Route::post('/person/edit/{id}', 'PersonsController@edit')->where('id', '[0-9]+');
-Route::get('/person/delete/{id}' ,'PersonsController@delete')->where('id', '[0-9]+');
+Route::get('/persons-employee', 'PersonsEmployeeController@get_persons');
+Route::get('/person-employee-form', 'PersonsManagerController@form');
 
 Route::get('/stores', 'StoreController@get_store_branch');
 Route::post('/store-branch/create', 'StoreController@create_store_branch');

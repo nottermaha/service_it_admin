@@ -6,13 +6,15 @@ use App\Persons;
 use App\Store_branch;
 use Illuminate\Http\Request;
 
-class PersonsController extends Controller
+class PersonsManagerController extends Controller
 {    
     public function get_persons() {
-      $persons = Persons::where('status', 1)->get();
+      $persons = Persons::where('status', 1)
+      ->where('type',2)
+      ->get();
       $persons = $this->get_status_name($persons);
 
-      return view('persons_manager/persons', ['persons' => $persons]);
+      return view('persons_manager/persons-manager', ['persons' => $persons]);
     }
     private function get_status_name($persons)
     {
@@ -26,7 +28,7 @@ class PersonsController extends Controller
     {
       $stores = Store_branch::where('status', 1)->get();
       
-      return View('persons_manager/person-form',['stores'=>$stores]);
+      return View('persons_manager/person-manager-form',['stores'=>$stores]);
     }
     public function form_edit($id)
     {
@@ -50,13 +52,14 @@ class PersonsController extends Controller
       ];
       $stores = Persons::where('status', 1)->get();
       
-      return View('persons_manager/person-form-edit',['stores'=>$stores],$data);
+      return View('persons_manager/person-manager-form-edit',['stores'=>$stores],$data);
     }
     public function create(Request $request)
     { 
       // echo $request;exit();
         $person = new Persons;
         $person->store_branch_id = $request->store_branch_id;
+        $person->type = 2;
         $person->status = true;
         $person->username = $request->username;
         $person->password = $request->password;
@@ -74,7 +77,7 @@ class PersonsController extends Controller
         $person->date_out = $request->date_out;
         $person->save();
 
-        return redirect('persons');
+        return redirect('persons-manager');
     }
 
     public function edit(Request $request)
@@ -99,7 +102,7 @@ class PersonsController extends Controller
       $person->date_out = $request->date_out;
       $person->save();
 
-      return redirect('persons');
+      return redirect('persons-manager');
     }
 
     public function delete($id)
@@ -108,7 +111,7 @@ class PersonsController extends Controller
       $person->status = 0;
       $person->save();
 
-      return redirect('persons');
+      return redirect('persons-manager');
     }
 
 

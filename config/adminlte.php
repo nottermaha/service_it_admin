@@ -136,17 +136,17 @@ return [
             'submenu' => [
                             [
                                 'text' => 'ผู้จัดการร้าน',
-                                'url'  => '/persons',
+                                'url'  => '/persons-manager',
                                 'icon' => 'user-circle',
                             ],
                             [
                                 'text' => 'พนักงาน',
-                                'url'  => '/',
+                                'url'  => '/persons-employee',
                                 'icon'  => 'user-o',
                             ],
                             [
                                 'text' => 'สมาชิก',
-                                'url'  => '/',
+                                'url'  => '/persons-member',
                                 'icon'  => 'user',
                             ],
                         ]

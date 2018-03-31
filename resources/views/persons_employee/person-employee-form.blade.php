@@ -8,17 +8,26 @@
 
 @section('content')
   <!-- <form role="form" class="form-horizontal" action="/person/create" method="post"> -->
-  <form role="form" class="form-horizontal" action="<?php echo url('/person/edit') ?>/{{$id}}" method="post">
+  <form role="form" class="form-horizontal" action="<?php echo url('/person-manager/create') ?>" method="post">
 <div class="row">
     <div class="col-md-12">
         <div class="box box-default">
+                <!-- <div class="box-header with-border">
+                    <h3 class="box-title">บันทึกข้อมูลการเข้าสู่ระบบ</h3>
+                </div> -->
             <div class="box-body">
             {{ csrf_field() }}
 
                 <div class="form-group">
-                    <label for="Name" class="control-label col-sm-3">ร้านที่สังกัด</label>
+                    <label for="Name" class="control-label col-sm-3">เลือกร้าน</label>
                     <div class="col-sm-6">
-                       
+                        <select class="form-control select2" style="width: 100%;" name="store_branch_id">
+                        <option selected="selected">เลือกร้านที่จะให้สังกัด</option>
+                        <!-- <option disabled="disabled">California (disabled)</option> -->
+                        @foreach ($stores as $value)
+                        <option value="{{ $value->id }}">{{ $value->name }}</option>
+                        @endforeach
+                        </select>
                     </div>
                 </div>
             
@@ -37,14 +46,14 @@
                 <div class="form-group">
                     <label for="Name" class="control-label col-sm-3">ชื่อ-นามสกุล</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="Name" name="name" placeholder="ชื่อ-นามสกุล..." value="{{$name}}">
+                        <input type="text" class="form-control" id="Name" name="name" placeholder="ชื่อ-นามสกุล...">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="Person_id" class="control-label col-sm-3">เลขประจำตัวประชาชน</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="Person_id" name="person_id" placeholder="เลขประจำตัวประชาชน..." value="{{$person_id}}">
+                            <input type="text" class="form-control" id="Person_id" name="person_id" placeholder="เลขประจำตัวประชาชน...">
                         </div>
                 </div>
 
@@ -69,7 +78,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="datepicker" name="birthday" placeholder="วัน/เดือน/ปีเกิด..." data-date-format="yyyy-mm-dd" value="{{$birthday}}">
+                                <input type="text" class="form-control pull-right" id="datepicker" name="birthday" placeholder="วัน/เดือน/ปีเกิด..." data-date-format="yyyy-mm-dd">
                             </div>
                         </div>          
                 </div>
@@ -81,7 +90,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-envelope fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="Email" name="email" placeholder="อีเมล์..." value="{{$email}}">
+                                <input type="text" class="form-control pull-right" id="Email" name="email" placeholder="อีเมล์...">
                             </div>
                         </div> 
                 </div>
@@ -93,7 +102,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-phone fa-lg"></i>
                                 </div>
-                                    <input type="text" class="form-control pull-right" id="Phone" name="phone" placeholder="เบอร์โทร..." value="{{$phone}}">
+                                    <input type="text" class="form-control pull-right" id="Phone" name="phone" placeholder="เบอร์โทร...">
                             </div>
                         </div> 
                 </div> 
@@ -105,7 +114,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-picture-o fa-lg"></i>
                                 </div>
-                                <input type="file" class="form-control pull-right" id="Image" name="image_url" placeholder="รูปประจำตัว..." value="{{$image_url}}">
+                                <input type="file" class="form-control pull-right" id="Image" name="image_url" placeholder="รูปประจำตัว...">
                             </div>
                         </div> 
                 </div>
@@ -113,7 +122,7 @@
                 <div class="form-group">
                     <label for="Address" class="control-label col-sm-3">ที่อยู่</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" rows="3" placeholder="ที่อยู่ ..." name="address" value="{{$address}}"></textarea>
+                            <textarea class="form-control" rows="3" placeholder="ที่อยู่ ..." name="address"></textarea>
                         </div>
                 </div>
 
@@ -136,7 +145,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-user fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="Username" name="username" placeholder="ชื่อผู้ใช้..." value="{{$username}}">
+                                <input type="text" class="form-control pull-right" id="Username" name="username" placeholder="ชื่อผู้ใช้..." >
                             </div>
                         </div> 
                 </div>
@@ -148,7 +157,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-lock fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="Password" name="password" placeholder="รหัสผ่าน..." value="{{$password}}">
+                                <input type="text" class="form-control pull-right" id="Password" name="password" placeholder="รหัสผ่าน..." >
                             </div>
                         </div>  
                 </div>
@@ -160,7 +169,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-lock fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="Password" name="password" placeholder="ป้อนรหัสผ่านเดิม..." value="{{$password}}">
+                                <input type="text" class="form-control pull-right" id="Password" name="password" placeholder="ป้อนรหัสผ่านเดิม...">
                             </div>
                         </div>  
                 </div>
@@ -184,7 +193,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-user fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="Position" name="position" placeholder="ตำแหน่ง..." value="{{$position}}">
+                                <input type="text" class="form-control pull-right" id="Position" name="position" placeholder="ตำแหน่ง...">
                             </div>
                         </div> 
                 </div> 
@@ -196,7 +205,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-lock fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="Salary" name="salary" placeholder="เงินเดือน..." value="{{$salary}}">
+                                <input type="text" class="form-control pull-right" id="Salary" name="salary" placeholder="เงินเดือน...">
                             </div>
                         </div>    
                 </div>
@@ -208,7 +217,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="datepicker2" name="date_in" placeholder="วันเข้าเป็นพนักงาน..." data-date-format="yyyy-mm-dd" value="{{$date_in}}">
+                                <input type="text" class="form-control pull-right" id="datepicker2" name="date_in" placeholder="วันเข้าเป็นพนักงาน..." data-date-format="yyyy-mm-dd">
                             </div>
                         </div>
                 </div> 
@@ -220,7 +229,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar fa-lg"></i>
                                 </div>
-                                    <input type="text" class="form-control pull-right" id="datepicker3" name="date_out" placeholder="วันออกจากงาน..." data-date-format="yyyy-mm-dd" value="{{$date_out}}">
+                                    <input type="text" class="form-control pull-right" id="datepicker3" name="date_out" placeholder="วันออกจากงาน..." data-date-format="yyyy-mm-dd">
                                 </div>
                             </div>
                         </div> 
@@ -232,7 +241,6 @@
 
     <div class="row">
         <div class="col-sm-12 text-right">
-            <input type="hidden" name="id"value="{{$id}}">
           <button type="submit" class="btn btn-success">บันทึก</button>
         </div>
     </div>
@@ -242,28 +250,28 @@
 @stop
 
 @section('css')
-<link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="../bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
   <!-- daterange picker -->
-  <link rel="stylesheet" href="../bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap datepicker -->
-  <link rel="stylesheet" href="../bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <!-- iCheck for checkboxes and radio inputs -->
-  <link rel="stylesheet" href="../plugins/iCheck/all.css">
+  <link rel="stylesheet" href="plugins/iCheck/all.css">
 
 @stop
 
 @section('js')
-<script src="../bower_components/select2/dist/js/select2.full.min.js"></script>
+<script src="bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- date-range-picker -->
-<script src="../bower_components/moment/min/moment.min.js"></script>
-<script src="../bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="bower_components/moment/min/moment.min.js"></script>
+<script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 <!-- bootstrap datepicker -->
-<script src="../bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
 <!-- iCheck 1.0.1 -->
-<script src="../plugins/iCheck/icheck.min.js"></script>
+<script src="plugins/iCheck/icheck.min.js"></script>
 
 
 <script>
