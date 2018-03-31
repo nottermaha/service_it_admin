@@ -31,6 +31,14 @@ Route::post('/person-employee/create', 'PersonsEmployeeController@create');
 Route::post('/person-employee/edit/{id}', 'PersonsEmployeeController@edit')->where('id', '[0-9]+');
 Route::get('/person-employee/delete/{id}' ,'PersonsEmployeeController@delete')->where('id', '[0-9]+');
 
+Route::get('/persons-member', 'PersonsMemberController@get_persons');
+Route::get('/persons-member', 'PersonsMemberController@get_persons');
+Route::get('/person-member-form', 'PersonsMemberController@form');
+Route::get('/person-member-form-edit/{id}', 'PersonsMemberController@form_edit')->where('id', '[0-9]+');
+Route::post('/person-member/create', 'PersonsMemberController@create');
+Route::post('/person-member/edit/{id}', 'PersonsMemberController@edit')->where('id', '[0-9]+');
+Route::get('/person-member/delete/{id}' ,'PersonsMemberController@delete')->where('id', '[0-9]+');
+
 Route::get('/stores', 'StoreController@get_store_branch');
 Route::post('/store-branch/create', 'StoreController@create_store_branch');
 Route::get('/store-branch-form-edit/{id}', 'StoreController@form_edit')->where('id', '[0-9]+');

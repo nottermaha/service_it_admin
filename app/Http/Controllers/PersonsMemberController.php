@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Persons;
-use App\Store_branch;
+use App\PersonsMember;
 use Illuminate\Http\Request;
 
-class PersonsEmployeeController extends Controller
+class PersonsMemberController extends Controller
 {    
     public function get_persons() {
-      $persons = Persons::where('status', 1)
-      ->where('type',3)
-      ->where('store_branch_id',2)
+      $persons = PersonsMember::where('status', 1)
+      // ->where('type',4)
+      // ->where('store_branch_id',2)
       ->get();
       $persons = $this->get_status_name($persons);
 
-      return view('persons_employee/persons-employee', ['persons' => $persons]);
+      return view('persons_member/persons-member', ['persons' => $persons]);
     }
     private function get_status_name($persons)
     {
@@ -26,14 +25,12 @@ class PersonsEmployeeController extends Controller
       return $persons;
     }
     public function form()
-    {
-      $stores = Store_branch::where('status', 1)->get();
-      
-      return View('persons_employee/person-employee-form',['stores'=>$stores]);
+    {      
+      return View('persons_member/person-member-form');
     }
     public function form_edit($id)
     {
-      $person = Persons::find($id);
+      $person = PersonsMember::find($id);
       $data = [
         'id' => $person->id,
         'username' => $person->username,
@@ -46,20 +43,14 @@ class PersonsEmployeeController extends Controller
         'phone' => $person->phone,
         'image_url' => $person->image_url,
         'address' => $person->address,
-        'position' => $person->position,
-        'salary' => $person->salary,
-        'date_in' => $person->date_in,
-        'date_out' => $person->date_out,
       ];
       
-      return View('persons_employee/person-employee-form-edit',$data);
+      return View('persons_member/person-member-form-edit',$data);
     }
     public function create(Request $request)
     { 
       // echo $request;exit();
-        $person = new Persons;
-        $person->store_branch_id = 2;
-        $person->type = 3;
+        $person = new PersonsMember;
         $person->status = true;
         $person->username = $request->username;
         $person->password = $request->password;
@@ -71,19 +62,16 @@ class PersonsEmployeeController extends Controller
         $person->phone = $request->phone;
         $person->image_url = $request->image_url;
         $person->address = $request->address;
-        $person->position = $request->position;
-        $person->salary = $request->salary;
-        $person->date_in = $request->date_in;
-        $person->date_out = $request->date_out;
+
         $person->save();
 
-        return redirect('persons-employee');
+        return redirect('persons-member');
     }
 
     public function edit(Request $request)
     {
       // echo $request;exit();
-      $person = Persons::find($request->id);
+      $person = PersonsMember::find($request->id);
       // $person->store_branch_id = $request->store_branch_id;
       $person->status = true;
       $person->username = $request->username;
@@ -96,22 +84,18 @@ class PersonsEmployeeController extends Controller
       $person->phone = $request->phone;
       $person->image_url = $request->image_url;
       $person->address = $request->address;
-      $person->position = $request->position;
-      $person->salary = $request->salary;
-      $person->date_in = $request->date_in;
-      $person->date_out = $request->date_out;
       $person->save();
 
-      return redirect('persons-employee');
+      return redirect('persons-member');
     }
 
     public function delete($id)
     {
-      $person = Persons::find($id);
+      $person = PersonsMember::find($id);
       $person->status = 0;
       $person->save();
 
-      return redirect('persons-employee');
+      return redirect('persons-member');
     }
 
 

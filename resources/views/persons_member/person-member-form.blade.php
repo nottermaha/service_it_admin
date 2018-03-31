@@ -1,0 +1,210 @@
+@extends('adminlte::page')
+
+@section('title', 'Dashboard')
+
+@section('content_header')
+    <h1>ฟอร์มบันทึกข้อมูลสมาชิก</h1>
+@stop
+
+@section('content')
+  <!-- <form role="form" class="form-horizontal" action="/person/create" method="post"> -->
+  <form role="form" class="form-horizontal" action="<?php echo url('/person-member/create') ?>" method="post">
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">บันทึกข้อมูลทั่วไป</h3>
+                </div>
+            <div class="box-body">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <label for="Name" class="control-label col-sm-3">ชื่อ-นามสกุล</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="Name" name="name" placeholder="ชื่อ-นามสกุล...">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Person_id" class="control-label col-sm-3">เลขประจำตัวประชาชน</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="Person_id" name="person_id" placeholder="เลขประจำตัวประชาชน...">
+                        </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Gender" class="control-label col-sm-3">เพศ</label>
+                        <div class="col-sm-2">
+                            <label>
+                                <input type="radio" name="gender" class="flat-red2" checked value="1">
+                            </label>&nbsp;&nbsp;ชาย  
+                        </div>
+                        <div class="col-sm-2">
+                            <label>
+                                <input type="radio" name="gender" class="flat-red2" value="2">
+                            </label>&nbsp;&nbsp;หญิง
+                        </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Birthday" class="control-label col-sm-3">วัน/เดือน/ปีเกิด</label>
+                        <div class="col-sm-9">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar fa-lg"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker" name="birthday" placeholder="วัน/เดือน/ปีเกิด..." data-date-format="yyyy-mm-dd">
+                            </div>
+                        </div>          
+                </div>
+
+                <div class="form-group">
+                    <label for="Birthday" class="control-label col-sm-3">อีเมล์</label>
+                        <div class="col-sm-9">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-envelope fa-lg"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="Email" name="email" placeholder="อีเมล์...">
+                            </div>
+                        </div> 
+                </div>
+
+                <div class="form-group">
+                    <label for="Birthday" class="control-label col-sm-3">เบอร์โทร</label>
+                        <div class="col-sm-9">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-phone fa-lg"></i>
+                                </div>
+                                    <input type="text" class="form-control pull-right" id="Phone" name="phone" placeholder="เบอร์โทร...">
+                            </div>
+                        </div> 
+                </div> 
+
+                <div class="form-group">
+                    <label for="Birthday" class="control-label col-sm-3">รูปประจำตัว</label>
+                        <div class="col-sm-9">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-picture-o fa-lg"></i>
+                                </div>
+                                <input type="file" class="form-control pull-right" id="Image" name="image_url" placeholder="รูปประจำตัว...">
+                            </div>
+                        </div> 
+                </div>
+
+                <div class="form-group">
+                    <label for="Address" class="control-label col-sm-3">ที่อยู่</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" rows="3" placeholder="ที่อยู่ ..." name="address"></textarea>
+                        </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">บันทึกข้อมูลการเข้าสู่ระบบ</h3>
+                </div>
+            <div class="box-body">
+            {{ csrf_field() }}
+
+                <div class="form-group">
+                    <label for="Birthday" class="control-label col-sm-3">ชื่อผู้ใช้</label>
+                        <div class="col-sm-9">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-user fa-lg"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="Username" name="username" placeholder="ชื่อผู้ใช้..." >
+                            </div>
+                        </div> 
+                </div>
+
+                <div class="form-group">
+                    <label for="Birthday" class="control-label col-sm-3">รหัสผ่าน</label>
+                        <div class="col-sm-9">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-lock fa-lg"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="Password" name="password" placeholder="รหัสผ่าน..." >
+                            </div>
+                        </div>  
+                </div>
+
+                <div class="form-group">
+                    <label for="Birthday" class="control-label col-sm-3">รหัสผ่านอีกครั้ง</label>
+                        <div class="col-sm-9">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-lock fa-lg"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="Password" name="password" placeholder="ป้อนรหัสผ่านเดิม...">
+                            </div>
+                        </div>  
+                </div>
+            
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 text-right">
+          <button type="submit" class="btn btn-success">บันทึก</button>
+        </div>
+    </div>
+  </form>
+
+
+@stop
+
+@section('css')
+<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="plugins/iCheck/all.css">
+
+@stop
+
+@section('js')
+<script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+<!-- date-range-picker -->
+<script src="bower_components/moment/min/moment.min.js"></script>
+<script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap datepicker -->
+<script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+<!-- iCheck 1.0.1 -->
+<script src="plugins/iCheck/icheck.min.js"></script>
+
+
+<script>
+  //Flat red color scheme for iCheck
+  $('input[type="checkbox"].flat-red2, input[type="radio"].flat-red2').iCheck({
+  checkboxClass: 'icheckbox_flat-green',
+  radioClass   : 'iradio_flat-green'
+  })
+  //Date picker
+  $('#datepicker').datepicker({
+  autoclose: true
+  })
+  $('#datepicker2').datepicker({
+  autoclose: true
+  })
+  $('#datepicker3').datepicker({
+  autoclose: true
+  })
+    //Initialize Select2 Elements
+    $('.select2').select2()
+</script>
+@stop
