@@ -44,6 +44,8 @@ Route::post('/store-branch/create', 'StoreController@create_store_branch');
 Route::get('/store-branch-form-edit/{id}', 'StoreController@form_edit')->where('id', '[0-9]+');
 Route::post('/store-branch/edit/{id}','StoreController@edit_store_branch')->where('id','[0-9]+');
 Route::get('/store-branch/delete/{id}','StoreController@delete')->where('id','[0-9]+');
+
+Route::get('/repair-member', 'RepairsMemberController@get_repair');
 // Route::get('store-form',function(){
 //     return view('stores/store-form');
 // });

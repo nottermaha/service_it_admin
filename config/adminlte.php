@@ -130,6 +130,24 @@ return [
             // 'label_color' => 'success',
         ],
         [
+            'text'        => 'ซ่อมอุปกรณ์',
+            'url'         => '/repair',
+            'icon'        => 'wrench',
+            'submenu' =>[
+                            [
+                                'text'        => 'ลูกค้าสมาชิก',
+                                'url'         => '/repair-member',
+                                'icon'        => '',   
+                            ],
+                            [
+                                'text'        => 'ลูกค้าทั่วไป',
+                                'url'         => '/repair-general',
+                                'icon'        => '',
+                            ]
+                        ]
+
+        ],
+        [
             'text'        => 'บุคคล',
             'url'         => '',
             'icon'        => 'users',
