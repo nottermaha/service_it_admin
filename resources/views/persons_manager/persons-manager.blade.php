@@ -1,23 +1,30 @@
+<!-- css header-leftmenu -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 2 | Dashboard</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+  <!-- Morris chart -->
+  <!-- jvectormap -->
+  <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
 
-@extends('adminlte::page')
+</head>
+<!--End css header-leftmenu -->
 
-@section('title', 'รายการบุคคล')
+ @include('form/header-leftmenu')
 
-@section('content_header')
-    <h1>รายการผู้จัดการร้าน</h1>
-@stop
-
-@section('content')
-              
-    <!-- <div class="row">
-      <div class="col-md-12 text-right">
-        <a href="/person-form" class="btn btn-primary">Add&nbsp;New!</a>
-        <a href="<?php echo url('person-form') ?>" class="btn btn-primary">Add&nbsp;New!</a>
-        <?= link_to('person-form',$title='add data',['class'=>'btn btn-primary '],$secure=null); ?>
-      </div> 
-    </div> -->
-
-    <br>
     <section class="content">
 
       <div class="row">
@@ -65,15 +72,24 @@
     </div>
     </div>
     </div>
-    </section>
-@stop
 
-@section('css')
+    </section>
+@include('form/footer')
+
+<!-- js header-leftmenu -->
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- End js header-leftmenu -->
+
   <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-@stop
 
-@section('js')
 <!-- DataTables -->
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -86,4 +102,3 @@
 
 </script>
 
-@stop

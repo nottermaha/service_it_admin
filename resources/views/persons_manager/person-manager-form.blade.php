@@ -1,12 +1,31 @@
-@extends('adminlte::page')
+<!-- css header-leftmenu -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 2 | Dashboard</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+  <!-- Morris chart -->
+  <!-- jvectormap -->
+  <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
 
-@section('title', 'Dashboard')
+</head>
+<!--End css header-leftmenu -->
 
-@section('content_header')
-    <h1>ฟอร์มบันทึกข้อมูลบุคคล</h1>
-@stop
+ @include('form/header-leftmenu')
 
-@section('content')
+    <section class="content">
   <!-- <form role="form" class="form-horizontal" action="/person/create" method="post"> -->
   <form role="form" class="form-horizontal" action="<?php echo url('/person-manager/create') ?>" method="post">
 <div class="row">
@@ -246,10 +265,10 @@
     </div>
   </form>
 
+  </section>
+@include('form/footer')
 
-@stop
 
-@section('css')
 <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
@@ -260,9 +279,7 @@
   <!-- iCheck for checkboxes and radio inputs -->
   <link rel="stylesheet" href="plugins/iCheck/all.css">
 
-@stop
 
-@section('js')
 <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- date-range-picker -->
 <script src="bower_components/moment/min/moment.min.js"></script>
@@ -293,4 +310,3 @@
     //Initialize Select2 Elements
     $('.select2').select2()
 </script>
-@stop

@@ -12,10 +12,20 @@ class PersonsEmployeeController extends Controller
       $persons = Persons::where('status', 1)
       ->where('type',3)
       ->where('store_branch_id',2)
-      ->get();
+      ->get();     
+       $data = [
+        'name1' => "notter1", 
+        'name2' => "notter2",
+        'name3' => "notter3",
+        'num1' => 10,
+        'num2' => 20,
+        'num3' => 25,       
+      ];
       $persons = $this->get_status_name($persons);
 
-      return view('persons_employee/persons-employee', ['persons' => $persons]);
+      // print_r($go);exit();
+
+      return view('persons_employee/persons-employee', ['persons' => $persons],$data);
     }
     private function get_status_name($persons)
     {

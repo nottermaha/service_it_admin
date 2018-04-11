@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/persons-manager', 'PersonsManagerController@get_persons');
 Route::get('/person-manager-form', 'PersonsManagerController@form');
 Route::get('/person-manager-form-edit/{id}', 'PersonsManagerController@form_edit')->where('id', '[0-9]+');
@@ -32,7 +33,7 @@ Route::post('/person-employee/edit/{id}', 'PersonsEmployeeController@edit')->whe
 Route::get('/person-employee/delete/{id}' ,'PersonsEmployeeController@delete')->where('id', '[0-9]+');
 
 Route::get('/persons-member', 'PersonsMemberController@get_persons');
-Route::get('/persons-member', 'PersonsMemberController@get_persons');
+// Route::get('/persons-member', 'PersonsMemberController@get_persons');
 Route::get('/person-member-form', 'PersonsMemberController@form');
 Route::get('/person-member-form-edit/{id}', 'PersonsMemberController@form_edit')->where('id', '[0-9]+');
 Route::post('/person-member/create', 'PersonsMemberController@create');
@@ -46,6 +47,8 @@ Route::post('/store-branch/edit/{id}','StoreController@edit_store_branch')->wher
 Route::get('/store-branch/delete/{id}','StoreController@delete')->where('id','[0-9]+');
 
 Route::get('/repair-member', 'RepairsMemberController@get_repair');
+
+Route::get('/repair-general', 'RepairsGeneralController@get_repair');
 // Route::get('store-form',function(){
 //     return view('stores/store-form');
 // });
