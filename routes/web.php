@@ -49,6 +49,8 @@ Route::get('/store-branch/delete/{id}','StoreController@delete')->where('id','[0
 Route::get('/repair-member', 'RepairsMemberController@get_repair');
 
 Route::get('/repair-general', 'RepairsGeneralController@get_repair');
+
+Route::get('/dashboard', 'DashboardController@count_male');
 // Route::get('store-form',function(){
 //     return view('stores/store-form');
 // });
