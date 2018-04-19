@@ -14,7 +14,7 @@ class PersonsManagerController extends Controller
       ->get();
       $persons = $this->get_status_name($persons);
 
-      return view('persons_manager/persons-manager', ['persons' => $persons]);
+      return view('persons_manager/persons-manager', ['persons' => $persons],$data);
     }
     private function get_status_name($persons)
     {

@@ -13,11 +13,11 @@
 // Route::get('/person-form', function() {
 //     return view('persons/person-form');
 // });
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-
+Route::get('/', 'DashboardController@count_male');
 Route::get('/persons-manager', 'PersonsManagerController@get_persons');
 Route::get('/person-manager-form', 'PersonsManagerController@form');
 Route::get('/person-manager-form-edit/{id}', 'PersonsManagerController@form_edit')->where('id', '[0-9]+');
@@ -47,8 +47,14 @@ Route::post('/store-branch/edit/{id}','StoreController@edit_store_branch')->wher
 Route::get('/store-branch/delete/{id}','StoreController@delete')->where('id','[0-9]+');
 
 Route::get('/repair-member', 'RepairsMemberController@get_repair');
+Route::post('/repair-member/create', 'RepairsMemberController@create');
+Route::post('/repair-member/edit/{id}', 'RepairsMemberController@edit');
+Route::get('/repair-member/delete/{id}', 'RepairsMemberController@delete');
 
 Route::get('/repair-general', 'RepairsGeneralController@get_repair');
+Route::post('/repair-general/create', 'RepairsGeneralController@create');
+Route::post('/repair-general/edit/{id}', 'RepairsGeneralController@edit');
+Route::get('/repair-general/delete/{id}', 'RepairsGeneralController@delete');
 
 Route::get('/dashboard', 'DashboardController@count_male');
 // Route::get('store-form',function(){

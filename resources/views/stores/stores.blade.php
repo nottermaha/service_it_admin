@@ -68,15 +68,15 @@
             class="btn btn-warning">แก้ไข</a></td> -->
             <td><a href="" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-branch{{ $store->id }}">แก้ไข</a></a></td> 
 
-                    <div class="modal fade" id="modal-edit-branch{{ $store->id }}">
-        
+<!-- //////////////////////////////modal-edit-branch//////////////////////////////// -->
+      <div class="modal fade" id="modal-edit-branch{{ $store->id }}">
         <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">บันทึกข้อมูลสาขาใหม่</h4>
-          </div>        
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">บันทึกข้อมูลสาขาใหม่</h4>
+            </div>        
           <?= Form::open(array('url' => '/store-branch/edit/'. $store->id)) ?>   
           <div class="modal-body">
             <div class="row">
@@ -101,7 +101,7 @@
         </div>
       </div>          
     </div>
-
+<!-- //////////////////////////////Enfmodal-edit-branch//////////////////////////////// -->
             <td class="text-center"><a href="<?php echo url('/store-branch/delete') ?>/{{$store->id}}" 
             class="btn btn-danger">ลบ</a></td>
 
@@ -149,6 +149,7 @@
             </div>
           </div>          
         </div>
+        <!-- //////////////////////////////End modal-add-branch//////////////////////////////// -->
           
   
         </section>

@@ -3,19 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Repair;
+use App\PersonsMember;
 use Illuminate\Http\Request;
 
 class RepairsMemberController extends Controller
 {    
     public function get_repair() {
-      $repairs = Repair::where('status', 1)
+      $items = [// select data show in table
+        'persons_member.*'
+        , 'persons_member.name'
+        ,'repair.date_in_repair'
+        ,'repair.price'
+        ,'repair.id'
+        ,'repair.status'
+    ];
+      $repairs = Repair::
+      leftJoin('persons_member', 'persons_member.id', '=', 'repair.persons_member_id')
       ->where('store_branch_id',2)
-      ->where('persons_member_id',1)
-      ->where('persons_id',14)
-      ->get();
+      ->where('persons_member_id', '!=',NULL)
+      ->where('repair.status', 1)
+      // ->where('persons_id',14)
+      ->get($items);
       $repairs = $this->get_status_name($repairs);
+      $member = PersonsMember::where('status',1)->get(); //show in modal
 
-      return view('repairs_member/repairs-member', ['repairs' => $repairs]);
+      return view('repairs_member/repairs-member', ['repairs' => $repairs,'members'=>$member]);
     }
     private function get_status_name($repairs)
     {
@@ -25,79 +37,39 @@ class RepairsMemberController extends Controller
 
       return $repairs;
     }
-    // public function form()
-    // {      
-    //   return View('persons_member/person-member-form');
-    // }
-    // public function form_edit($id)
-    // {
-    //   $person = PersonsMember::find($id);
-    //   $data = [
-    //     'id' => $person->id,
-    //     'username' => $person->username,
-    //     'password' => $person->password,
-    //     'name' => $person->name,
-    //     'person_id' => $person->person_id,
-    //     'gender' => $person->gender,
-    //     'email' => $person->email,
-    //     'birthday' => $person->birthday,
-    //     'phone' => $person->phone,
-    //     'image_url' => $person->image_url,
-    //     'address' => $person->address,
-    //   ];
-      
-    //   return View('persons_member/person-member-form-edit',$data);
-    // }
-    // public function create(Request $request)
-    // { 
-    //   // echo $request;exit();
-    //     $person = new PersonsMember;
-    //     $person->status = true;
-    //     $person->username = $request->username;
-    //     $person->password = $request->password;
-    //     $person->name = $request->name;
-    //     $person->person_id = $request->person_id;
-    //     $person->gender = $request->gender;
-    //     $person->birthday = $request->birthday;
-    //     $person->email = $request->email;
-    //     $person->phone = $request->phone;
-    //     $person->image_url = $request->image_url;
-    //     $person->address = $request->address;
+    public function create(Request $request)
+    { 
+      // echo $request;exit();
+        $repair = new Repair;
+        $repair->store_branch_id = 2;
+        $repair->persons_member_id = $request->member_id;
+        $repair->persons_id =  12;
+        $repair->date_in_repair =  $request->date_in_repair;
+        $repair->price =  $request->price;
+        $repair->status = true;
+        $repair->save();
 
-    //     $person->save();
+        return redirect('repair-member');
+    }
+    public function edit(Request $request)
+    {
+      $repair = Repair::find($request->id);
+      $repair->persons_member_id = $request->member_id;
+      $repair->date_in_repair =  $request->date_in_repair;
+      $repair->price =  $request->price;
+      $repair->status = true;
+      $repair->save();
 
-    //     return redirect('persons-member');
-    // }
+      return redirect('repair-member');
+    }
+    public function delete($id)
+    {
+      $store = Repair::find($id);
+      $store->status = 0;
+      $store->save();
 
-    // public function edit(Request $request)
-    // {
-    //   // echo $request;exit();
-    //   $person = PersonsMember::find($request->id);
-    //   // $person->store_branch_id = $request->store_branch_id;
-    //   $person->status = true;
-    //   $person->username = $request->username;
-    //   $person->password = $request->password;
-    //   $person->name = $request->name;
-    //   $person->person_id = $request->person_id;
-    //   $person->gender = $request->gender;
-    //   $person->birthday = $request->birthday;
-    //   $person->email = $request->email;
-    //   $person->phone = $request->phone;
-    //   $person->image_url = $request->image_url;
-    //   $person->address = $request->address;
-    //   $person->save();
-
-    //   return redirect('persons-member');
-    // }
-
-    // public function delete($id)
-    // {
-    //   $person = PersonsMember::find($id);
-    //   $person->status = 0;
-    //   $person->save();
-
-    //   return redirect('persons-member');
-    // }
+       return redirect('repair-member');
+    }
 
 
 }
