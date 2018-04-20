@@ -14,8 +14,12 @@ class RepairsMemberController extends Controller
         , 'persons_member.name'
         ,'repair.date_in_repair'
         ,'repair.price'
+        ,'repair.after_price'
+        ,'repair.date_out_repair'
+        ,'repair.guarantee'
         ,'repair.id'
         ,'repair.status'
+        ,'repair.persons_member_id'
     ];
       $repairs = Repair::
       leftJoin('persons_member', 'persons_member.id', '=', 'repair.persons_member_id')
@@ -54,9 +58,19 @@ class RepairsMemberController extends Controller
     public function edit(Request $request)
     {
       $repair = Repair::find($request->id);
-      $repair->persons_member_id = $request->member_id;
+      // echo $request['member_id'];exit();
+      if($request['member_id']>=1){
+        $repair->persons_member_id = $request->member_id;
+      }
+      else{
+        $repair->persons_member_id = $request->member_id_old;
+      } 
+      // $repair->persons_member_id = $request->member_id;
       $repair->date_in_repair =  $request->date_in_repair;
       $repair->price =  $request->price;
+      $repair->after_price =  $request->after_price;
+      $repair->date_out_repair =  $request->date_out_repair;
+      $repair->guarantee =  $request->guarantee;
       $repair->status = true;
       $repair->save();
 

@@ -62,8 +62,136 @@
             <td>{{ $repair->name }}</td>
             <td>{{ $repair->name }}</td>
             <td class="text-center">{{ $repair->status_name }}</td>
-            <td><a href="" class="btn btn-warning">แก้ไข</a></a></td>   
-            <td class="text-center"><a href="" class="btn btn-danger">ลบ</a></td>
+            <td>
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-repair{{ $repair->id }}">
+                      แก้ไข
+            </button>
+            </td>
+            <td class="text-center"><a href="<?php echo url('/repair-general/delete') ?>/{{$repair->id}}" 
+            class="btn btn-danger">ลบ</a></td>   
+            <!-- //////////////////////////////modal-edit-repair//////////////////////////////// -->
+
+        <div class="modal fade " id="modal-edit-repair{{ $repair->id }}">
+        
+        <div class="modal-dialog ">
+        <div class="modal-content ">
+          <div class="modal-header " >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">บันทึกข้อมูลแจ้งซ่อมใหม่</h4>
+          </div>        
+          <?= Form::open(array('url' => '/repair-general/edit/'. $repair->id)) ?>
+          <div class="modal-body">
+           
+          <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">ชื่อ-สกุล</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="name" placeholder="ชื่อ-สกุล..." value="{{ $repair->name }}">
+                      </div>
+                    </div>
+              </div>
+            </div>
+
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">เบอร์โทร</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="phone" placeholder="เบอร์โทร..." value="{{ $repair->phone }}">
+                      </div>
+                    </div>
+              </div>
+            </div>
+
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">วันที่ซ่อม</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="date" class="form-control pull-right" id="Name" name="date_in_repair" placeholder="วันที่ซ่อม..." value="{{ $repair->date_in_repair }}">
+                      </div>
+                    </div>
+              </div>
+            </div>
+
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">ราคาประเมิน</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="price" placeholder="ราคาประเมิน..." value="{{ $repair->price }}">
+                      </div>
+                    </div>
+              </div>
+            </div>
+
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">ราคา</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="after_price" placeholder="ราคา..." value="{{ $repair->after_price }}">
+                      </div>
+                    </div>
+              </div>
+            </div>
+
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">วันที่รับคืน</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="date" class="form-control pull-right" id="Name" name="date_out_repair" placeholder="วันที่รับคืน..." value="{{ $repair->date_out_repair }}">
+                      </div>
+                    </div>
+              </div>
+            </div>
+
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">ประกันหลังซ่อม</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="guarantee" placeholder="ประกันหลังซ่อม..." value="{{ $repair->guarantee }}">
+                      </div>
+                    </div>
+              </div>
+            </div>
+
+          </div> 
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
+            <button type="submit" class="btn btn-success">บันทึก</button>
+          </div>
+          {!! Form::close() !!}
+        </div>
+      </div>          
+    </div>
+    <!-- //////////////////////////////End modal-edit-repair//////////////////////////////// -->
+
           </tr>
           @endforeach
         </tbody>

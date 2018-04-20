@@ -40,4 +40,27 @@ class RepairsGeneralController extends Controller
 
         return redirect('repair-general');
     }
+    public function edit(Request $request)
+    {
+      $repair = Repair::find($request->id);
+      $repair->name =  $request->name;
+        $repair->phone =  $request->phone;
+        $repair->date_in_repair =  $request->date_in_repair;
+        $repair->price =  $request->price;
+        $repair->after_price =  $request->after_price;
+        $repair->date_out_repair =  $request->date_out_repair;
+        $repair->guarantee =  $request->guarantee;
+        $repair->status = true;
+      $repair->save();
+
+      return redirect('repair-general');
+    }
+    public function delete($id)
+    {
+      $store = Repair::find($id);
+      $store->status = 0;
+      $store->save();
+
+       return redirect('repair-general');
+    }
 }

@@ -56,6 +56,8 @@ Route::post('/repair-general/create', 'RepairsGeneralController@create');
 Route::post('/repair-general/edit/{id}', 'RepairsGeneralController@edit');
 Route::get('/repair-general/delete/{id}', 'RepairsGeneralController@delete');
 
+Route::get('/list-repair/{id}', 'ListRepairsController@get_list_repair_by_id');
+
 Route::get('/dashboard', 'DashboardController@count_male');
 // Route::get('store-form',function(){
 //     return view('stores/store-form');
