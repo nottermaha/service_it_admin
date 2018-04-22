@@ -14,6 +14,7 @@ class RepairsMemberController extends Controller
         , 'persons_member.name'
         ,'repair.date_in_repair'
         ,'repair.price'
+        ,'repair.equipment_follow'
         ,'repair.after_price'
         ,'repair.date_out_repair'
         ,'repair.guarantee'
@@ -26,9 +27,12 @@ class RepairsMemberController extends Controller
       ->where('store_branch_id',2)
       ->where('persons_member_id', '!=',NULL)
       ->where('repair.status', 1)
+      ->orderBy('repair.id', 'desc')
+      // ->orderBy('News.id', 'desc')
       // ->where('persons_id',14)
       ->get($items);
-      $repairs = $this->get_status_name($repairs);
+      // echo $repairs;exit();
+      // $repairs = $this->get_status_name($repairs);
       $member = PersonsMember::where('status',1)->get(); //show in modal
 
       return view('repairs_member/repairs-member', ['repairs' => $repairs,'members'=>$member]);
@@ -50,6 +54,7 @@ class RepairsMemberController extends Controller
         $repair->persons_id =  12;
         $repair->date_in_repair =  $request->date_in_repair;
         $repair->price =  $request->price;
+        $repair->equipment_follow =  $request->equipment_follow;
         $repair->status = true;
         $repair->save();
 
@@ -68,6 +73,7 @@ class RepairsMemberController extends Controller
       // $repair->persons_member_id = $request->member_id;
       $repair->date_in_repair =  $request->date_in_repair;
       $repair->price =  $request->price;
+      $repair->equipment_follow =  $request->equipment_follow;
       $repair->after_price =  $request->after_price;
       $repair->date_out_repair =  $request->date_out_repair;
       $repair->guarantee =  $request->guarantee;

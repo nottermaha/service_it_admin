@@ -60,7 +60,7 @@
         <tbody>
           @foreach ($repairs as $repair)
           <tr>
-            <td>{{ $repair->name }}</td>
+            <td>{{ $repair->id }}</td>
             <td>{{ $repair->name }}</td>
             <!-- <td class="text-center">{{ $repair->status_name }}</td> -->
             <td><a href="{{ url('/list-repair/'.$repair->id)  }}" class="btn btn-info">รายการย่อย</a></a></td> 
@@ -70,7 +70,8 @@
               </button>
             </td>  
             <td class="text-center"><a href="<?php echo url('/repair-member/delete') ?>/{{$repair->id}}" 
-            class="btn btn-danger">ลบ</a></td>
+            class="btn btn-danger">ลบ</a>
+            </td>
 
             <!-- //////////////////////////////modal-edit-repair//////////////////////////////// -->
 
@@ -110,6 +111,20 @@
                             <i class="fa fa-user fa-lg"></i>
                         </div>
                           <input type="date" class="form-control pull-right" id="Name" name="date_in_repair" placeholder="วันที่ซ่อม..." value="{{ $repair->date_in_repair }}">
+                      </div>
+                    </div>
+              </div>
+            </div>
+
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">อุปกรณ์ที่นำมาด้วย</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="equipment_follow" placeholder="อุปกรณ์ที่นำมาด้วย..." value="{{ $repair->equipment_follow }}">
                       </div>
                     </div>
               </div>
@@ -234,6 +249,19 @@
             </div>
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">อุปกรณ์ที่นำมาด้วย</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="equipment_follow" placeholder="อุปกรณ์ที่นำมาด้วย...">
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">ราคาประเมิน</b>
                     <div class="col-md-8">
                       <div class="input-group date">
@@ -245,7 +273,7 @@
                     </div>
               </div>
             </div>
-
+          
           </div> 
           <div class="modal-footer">
             <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>

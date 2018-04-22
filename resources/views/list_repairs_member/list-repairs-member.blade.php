@@ -42,35 +42,138 @@
 
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">รายการย่อย</h3>
+              <h3 class="box-title">รายการย่อยถ</h3>
             </div>
 
        <div class="box-body table-responsive ">
               <table id="example" class="table table-bordered table-striped table-hover  ">
         <thead >
           <tr>
-            <th>ชื่อ</th>
-            <th>สกุล</th>
-            <th>รายการย่อย</th>
+          <th>id</th>
+            <th>รายการ</th>
             <th>แก้ไข</th>
             <th>ลบ</th>
           </tr>
         </thead>
         
         <tbody>
-          @foreach ($repairs as $repair)
+          @foreach ($list_repairs as $list_repair)
           <tr>
-            <td>{{ $repair->name }}</td>
-            <td>{{ $repair->name }}</td>
-            <!-- <td class="text-center">{{ $repair->status_name }}</td> -->
-            <td class=""><a href="" class="btn btn-info">รายการย่อย</a></td>
+            <td>{{ $list_repair->id }}</td>
+            <td>{{ $list_repair->list_name }}</td>
             <td>
-              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-repair{{ $repair->id }}">
+              <button type="button" class="btn btn-warning" data-toggle="modal" <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-repair{{ $list_repair->id }}">
                       แก้ไข
               </button>
             </td>  
-            <td class="text-center"><a href="<?php echo url('/repair-member/delete') ?>/{{$repair->id}}" 
+            <td class="text-center"><a href="<?php echo url('/list-repair/delete') ?>/{{$list_repair->id}}" 
             class="btn btn-danger">ลบ</a></td>
+
+        <!-- //////////////////////////////modal-edit-repair//////////////////////////////// -->
+
+        <div class="modal fade " id="modal-edit-repair{{ $list_repair->id }}">
+        
+        <div class="modal-dialog ">
+        <div class="modal-content ">
+          <div class="modal-header " >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">บันทึกข้อมูลรายการแจ้งซ่ออม</h4>
+          </div>        
+          <?= Form::open(array('url' => '/list-repair/edit/'.$list_repair->id )) ?>
+          <div class="modal-body">
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">รายการที่ซ่อม</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="list_name" placeholder="รายการที่ซ่อม..." value="{{ $list_repair->list_name }}">
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">รายละเอียดเพิ่มเติม</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="detail" placeholder="รายละเอียดเพิ่มเติม..." value="{{ $list_repair->detail }}">
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">อาการเบื้องต้น</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="symptom" placeholder="อาการเบื้องต้น..." value="{{ $list_repair->symptom }}">
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">สถานะการซ่อม</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="status_list_repair" placeholder="อาการเบื้องต้น..." value="{{ $list_repair->status_list_repair }}">
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">ราคา</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="price" placeholder="อาการเบื้องต้น..." value="{{ $list_repair->price }}">
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">รูปภาพ</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="image" placeholder="อาการเบื้องต้น..." value="{{ $list_repair->image }}">
+                      </div>
+                    </div>
+              </div>
+            </div>
+          
+          </div> 
+          <div class="modal-footer">
+          <input type="hidden" name="repair_id"value="{{$repair_id}}">
+          <input type="hidden" name="id"value="{{$list_repair->id}}">
+            <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
+            <button type="submit" class="btn btn-success">บันทึก</button>
+          </div>
+          {!! Form::close() !!}
+        </div>
+      </div>          
+    </div>
+    <!-- //////////////////////////////End modal-edit-repair//////////////////////////////// -->
+
 
           </tr>
           @endforeach
@@ -81,7 +184,70 @@
     </div>
     </div>
 
+        <!-- //////////////////////////////modal-add-repair//////////////////////////////// -->
 
+        <div class="modal fade " id="modal-add-repair">
+        
+        <div class="modal-dialog ">
+        <div class="modal-content ">
+          <div class="modal-header " >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">บันทึกข้อมูลรายการแจ้งซ่ออม</h4>
+          </div>        
+          <?= Form::open(array('url' => '/list-repair/create')) ?>
+          <div class="modal-body">
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">รายการที่ซ่อม</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="list_name" placeholder="รายการที่ซ่อม...">
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">รายละเอียดเพิ่มเติม</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="detail" placeholder="รายละเอียดเพิ่มเติม...">
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">อาการเบื้องต้น</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="symptom" placeholder="อาการเบื้องต้น...">
+                      </div>
+                    </div>
+              </div>
+            </div>
+          
+          </div> 
+          <div class="modal-footer">
+          <input type="hidden" name="repair_id"value="{{$repair_id}}">
+            <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
+            <button type="submit" class="btn btn-success">บันทึก</button>
+          </div>
+          {!! Form::close() !!}
+        </div>
+      </div>          
+    </div>
+    <!-- //////////////////////////////End modal-add-repair//////////////////////////////// -->
     </section>
 @include('form/footer')
 

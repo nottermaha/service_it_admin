@@ -50,7 +50,7 @@
           <tr>
             <th>ชื่อ</th>
             <th>สกุล</th>
-            <th>สถานะ</th>
+            <th>รายการย่อย</th>
             <th>แก้ไข</th>
             <th>ลบ</th>
           </tr>
@@ -61,7 +61,7 @@
           <tr>
             <td>{{ $repair->name }}</td>
             <td>{{ $repair->name }}</td>
-            <td class="text-center">{{ $repair->status_name }}</td>
+            <td><a href="{{ url('/list-repair/'.$repair->id)  }}" class="btn btn-info">รายการย่อย</a></a></td> 
             <td>
             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-repair{{ $repair->id }}">
                       แก้ไข
