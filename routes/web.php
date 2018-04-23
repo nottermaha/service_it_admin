@@ -62,6 +62,15 @@ Route::post('/list-repair/edit/{id}', 'ListRepairsController@edit');
 Route::get('/list-repair/delete/{id}', 'ListRepairsController@delete');
 
 Route::get('/import_part','ImportPartsController@get');
+Route::post('/import_part/create','ImportPartsController@create');
+Route::post('/import_part/edit/{id}','ImportPartsController@edit');
+Route::get('/import_part/delete/{id}','ImportPartsController@delete');
+
+Route::get('/list-part/{id}', 'ListPartsController@get_list_parts_by_id');
+Route::post('/list-part/create', 'ListPartsController@create');
+Route::post('/list-part/edit/{id}', 'ListPartsController@edit');
+Route::get('/list-part/delete/{id}', 'ListPartsController@delete');
+
 
 Route::get('/dashboard', 'DashboardController@count_male');
 // Route::get('store-form',function(){

@@ -14,5 +14,32 @@ class ImportPartsController extends Controller
       // echo $Import_parts;exit();
       return view('import_part/import-part', ['Import_parts' => $Import_parts]);
     }
+    public function create(Request $request)
+    { 
+      // echo $request;exit();
+        $import_part = new ImportPart;
+        $import_part->lot_name = $request->lot_name;
+        $import_part->status = true;
+        $import_part->save();
+
+        return redirect('import_part');
+    }
+    public function edit(Request $request)
+    {
+      $import_part = ImportPart::find($request->id);
+      $import_part->lot_name = $request->lot_name;
+      $import_part->status = true;
+      $import_part->save();
+
+      return redirect('import_part');
+    }
+    public function delete($id)
+    {
+      $import_part = ImportPart::find($id);
+      $import_part->status = 0;
+      $import_part->save();
+
+      return redirect('import_part');
+    }
    
 }
