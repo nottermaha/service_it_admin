@@ -71,13 +71,22 @@ Route::post('/list-part/create', 'ListPartsController@create');
 Route::post('/list-part/edit/{id}', 'ListPartsController@edit');
 Route::get('/list-part/delete/{id}', 'ListPartsController@delete');
 
+Route::get('/setting-status-repair','SettingStatusController@get');
+Route::post('/setting-status-repair/create','SettingStatusController@create');
+Route::post('/setting-status-repair/edit/{id}','SettingStatusController@edit');
+Route::get('/setting-status-repair/delete/{id}','SettingStatusController@delete');
+
+Route::get('/gallery','GallerysController@get');
+Route::post('/gallery/create','GallerysController@create');
+Route::post('/gallery/edit/{id}','GallerysController@edit');
+Route::post('/gallery/delete/{id}','GallerysController@delete');
 
 Route::get('/dashboard', 'DashboardController@count_male');
 // Route::get('store-form',function(){
 //     return view('stores/store-form');
 // });
 
-
+//คือเส้นทางการเรียก
 Route::get('/login', function () {
     return view('login');
 });

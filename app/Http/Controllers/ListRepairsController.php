@@ -3,21 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\ListRepair;
+use App\SettingStatusRepair;
+
 use Illuminate\Http\Request;
 
 class ListRepairsController extends Controller
 {    
     public function get_list_repair_by_id($id) {
-      // echo $id;exit();
-      $list_repairs = ListRepair::where('status', 1)
-      // $repairs = ListRepair::find($id);
-      ->where('repair_id',$id)
-      // ->where('persons_member_id',NULL)
-      // ->where('persons_id',14)
+      $items = [// select data show in table
+        'setting_status_repair.*'
+        , 'setting_status_repair.name'
+        ,'list_repair.list_name'
+        ,'list_repair.detail'
+        ,'list_repair.symptom'
+        ,'list_repair.image'
+        ,'list_repair.price'
+        ,'list_repair.status_list_repair'
+        ,'list_repair.id'
+    ];
+      $list_repairs = ListRepair::
+      leftJoin('setting_status_repair', 'setting_status_repair.id', '=', 'list_repair.status_list_repair')
+      ->where('list_repair.status', 1)
+      ->where('list_repair.repair_id',$id)
+      ->get($items);
+      $setting_status_repairs = SettingStatusRepair::where('status', 1)
       ->get();
       $repair_id['repair_id']=$id;
-      // echo $repairs;exit();
-      return view('list_repairs_member/list-repairs-member', ['list_repairs' => $list_repairs],$repair_id);
+
+      // echo $setting_status_repair;exit();
+      return view('list_repairs/list-repairs', ['list_repairs' => $list_repairs,'setting_status_repairs'=>$setting_status_repairs],$repair_id);
     }
     public function create(Request $request)
     { 
@@ -35,12 +49,19 @@ class ListRepairsController extends Controller
     }
     public function edit(Request $request)
     {
+      // echo $request['status_list_repair'];exit();
       $repair = ListRepair::find($request->id);
+      if($request['status_list_repair']>=1){
+        $repair->status_list_repair = $request->status_list_repair;
+      }
+      else{
+        $repair->status_list_repair = $request->status_list_repair_old;
+      } 
       $repair->repair_id = $request->repair_id;
       $repair->list_name =  $request->list_name;
       $repair->detail =  $request->detail;
       $repair->symptom =  $request->symptom;
-      $repair->status_list_repair =  $request->status_list_repair;
+      // $repair->status_list_repair =  $request->status_list_repair;
       $repair->price =  $request->price;
       $repair->image =  $request->image;
       $repair->status = true;

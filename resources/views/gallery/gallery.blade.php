@@ -30,7 +30,7 @@
 
       <div class="row">
         <div class="col-xs-12 text-right">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-import-part">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-gallery">
                     add data
             </button>
         </div> 
@@ -42,40 +42,68 @@
 
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">รายการล็อตอะไหล่</h3>
+              <h3 class="box-title">รายการรูปภาพ</h3>
             </div>
 
        <div class="box-body table-responsive ">
               <table id="example" class="table table-bordered table-striped table-hover  ">
         <thead >
           <tr>
-          <th>id</th>
-            <th>รายการ</th>
-            <th>เพิ่มเมื่อ</th>
-            <th>แก้ไขล่าสุด</th>
-            <th>รายการอะไหล่</th>
+            <th>id</th>
+            <th>รูปภาพ</th>
             <th>แก้ไข</th>
             <th>ลบ</th>
           </tr>
         </thead>
         
         <tbody>
-          @foreach ($Import_parts as $Import_part)
+          @foreach ($gallerys as $gallery)
           <tr>
-            <td>{{ $Import_part->id }}</td>
-            <td>{{ $Import_part->lot_name }}</td>
-            <td>{{ $Import_part->created_at }}</td>
-            <td>{{ $Import_part->updated_at }}</td>
-            <td><a href="{{ url('/list-part/'.$Import_part->id)  }}" class="btn btn-info">รายการอะไหล่</a></a></td> 
-            <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-import-part{{ $Import_part->id }}">
+          <td>{{ $gallery->id }}</td>
+          <td>{{ $gallery->img_url }}</td>
+          <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-gallery{{ $gallery->id }}">
                       แก้ไข
             </button>
-            </td>
-            <td class="text-center"><a href="<?php echo url('/import_part/delete') ?>/{{$Import_part->id}}" 
-            class="btn btn-danger">ลบ</a></td> 
-      <!-- //////////////////////////////modal-edit-import-part//////////////////////////////// -->
+          </td>
+          <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-gallery{{ $gallery->id }}">
+                      ลบ
+            </button>
+          </td>
+          <!-- <td class="text-center"><a href="<?php echo url('/gallery/delete') ?>/{{$gallery->id}}" 
+            class="btn btn-danger">ลบ</a></td> -->
+            <!-- //////////////////////////////modal-delete-gallery//////////////////////////////// -->
 
-        <div class="modal fade " id="modal-edit-import-part{{ $Import_part->id }}">
+        <div class="modal fade " id="modal-delete-gallery{{ $gallery->id }}">
+        
+        <div class="modal-dialog ">
+        <div class="modal-content ">
+          <div class="modal-header " >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">ลบข้อมูล</h4>
+          </div>        
+          <?= Form::open(array('url' => '/gallery/delete/'.$gallery->id)) ?>
+          <div class="modal-body">
+            
+            <div class="row" >
+              <div class="form-group">
+                    <b for="" class="control-label col-md-8"style="text-align:right">กดปุ่ม "ลบข้อมูล" เพื่อทำการลบข้อมูล </b>
+              </div>
+            </div>  
+          
+          </div> 
+          <div class="modal-footer">
+            <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button>
+            <button type="submit" class="btn btn-danger">ลบข้อมูล</button>
+          </div>
+          {!! Form::close() !!}
+        </div>
+      </div>          
+    </div>
+    <!-- //////////////////////////////End modal-delete-gallery//////////////////////////////// -->
+           <!-- //////////////////////////////modal-edit-gallery//////////////////////////////// -->
+
+        <div class="modal fade " id="modal-edit-gallery{{ $gallery->id }}">
         
         <div class="modal-dialog ">
         <div class="modal-content ">
@@ -84,23 +112,22 @@
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>
           </div>        
-          <?= Form::open(array('url' => '/import_part/edit/'.$Import_part->id)) ?>
+          <?= Form::open(array('url' => '/gallery/edit/'.$gallery->id)) ?>
           <div class="modal-body">
             
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
-                    <b for="" class="control-label col-md-3"style="text-align:right">ชื่อล็อต</b>
+                    <b for="" class="control-label col-md-3"style="text-align:right">รูปภาพ</b>
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
                             <i class="fa fa-user fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="lot_name" placeholder="ชื่อล็อต..." value="{{ $Import_part->lot_name }}">
+                          <input type="text" class="form-control pull-right" id="Name" name="img_url" placeholder="รูปภาพ..." value="{{ $gallery->img_url }}">
                       </div>
                     </div>
               </div>
-            </div>
-            
+            </div>  
           
           </div> 
           <div class="modal-footer">
@@ -111,7 +138,8 @@
         </div>
       </div>          
     </div>
-    <!-- //////////////////////////////End modal-edit-import-part//////////////////////////////// -->
+    <!-- //////////////////////////////End modal-edit-gallery//////////////////////////////// -->
+     
           </tr>
           @endforeach
         </tbody>
@@ -120,10 +148,9 @@
     </div>
     </div>
     </div>
+<!-- //////////////////////////////modal-add-gallery//////////////////////////////// -->
 
-       <!-- //////////////////////////////modal-add-import-part//////////////////////////////// -->
-
-        <div class="modal fade " id="modal-add-import-part">
+        <div class="modal fade " id="modal-add-gallery">
         
         <div class="modal-dialog ">
         <div class="modal-content ">
@@ -132,23 +159,22 @@
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>
           </div>        
-          <?= Form::open(array('url' => '/import_part/create')) ?>
+          <?= Form::open(array('url' => '/gallery/create')) ?>
           <div class="modal-body">
             
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
-                    <b for="" class="control-label col-md-3"style="text-align:right">ชื่อล็อต</b>
+                    <b for="" class="control-label col-md-3"style="text-align:right">รูปภาพ</b>
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
                             <i class="fa fa-user fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="lot_name" placeholder="ชื่อล็อต...">
+                          <input type="text" class="form-control pull-right" id="Name" name="img_url" placeholder="ชื่อล็อต...">
                       </div>
                     </div>
               </div>
-            </div>
-            
+            </div>  
           
           </div> 
           <div class="modal-footer">
@@ -160,7 +186,6 @@
       </div>          
     </div>
     <!-- //////////////////////////////End modal-add-import-part//////////////////////////////// -->
-
     </section>
 @include('form/footer')
 

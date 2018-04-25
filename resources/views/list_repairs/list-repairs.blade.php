@@ -124,13 +124,14 @@
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">สถานะการซ่อม</b>
-                    <div class="col-md-8">
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
-                        </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="status_list_repair" placeholder="อาการเบื้องต้น..." value="{{ $list_repair->status_list_repair }}">
-                      </div>
+                    <div class="col-md-8">               
+                        <select class="form-control select2" style="width: 100%;" name="status_list_repair">
+                        <option selected="selected">สถานะที่เคยเลือก [ {{ $list_repair->name }} ]</option>
+                        <!-- <option disabled="disabled">California (disabled)</option> -->
+                        @foreach ($setting_status_repairs as $setting_status_repair)
+                        <option value="{{ $setting_status_repair->id }}">{{ $setting_status_repair->name }}</option>
+                        @endforeach
+                        </select>
                     </div>
               </div>
             </div>
@@ -163,8 +164,8 @@
           
           </div> 
           <div class="modal-footer">
+          <input type="hidden" name="status_list_repair_old" value="{{ $list_repair->status_list_repair }}">
           <input type="hidden" name="repair_id"value="{{$repair_id}}">
-          <input type="hidden" name="id"value="{{$list_repair->id}}">
             <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
             <button type="submit" class="btn btn-success">บันทึก</button>
           </div>

@@ -30,7 +30,7 @@
 
       <div class="row">
         <div class="col-xs-12 text-right">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-import-part">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-setting-status-repair">
                     add data
             </button>
         </div> 
@@ -42,40 +42,35 @@
 
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">รายการล็อตอะไหล่</h3>
+              <h3 class="box-title">ตั้งค่าสถานะการแจ้งซ่อม</h3>
             </div>
 
        <div class="box-body table-responsive ">
               <table id="example" class="table table-bordered table-striped table-hover  ">
         <thead >
           <tr>
-          <th>id</th>
-            <th>รายการ</th>
-            <th>เพิ่มเมื่อ</th>
-            <th>แก้ไขล่าสุด</th>
-            <th>รายการอะไหล่</th>
+            <th>ไอดี</th>
+            <th>ชื่อสถานะ</th>
             <th>แก้ไข</th>
             <th>ลบ</th>
           </tr>
         </thead>
         
         <tbody>
-          @foreach ($Import_parts as $Import_part)
+          @foreach ($setting_status_repairs as $setting_status_repair)
           <tr>
-            <td>{{ $Import_part->id }}</td>
-            <td>{{ $Import_part->lot_name }}</td>
-            <td>{{ $Import_part->created_at }}</td>
-            <td>{{ $Import_part->updated_at }}</td>
-            <td><a href="{{ url('/list-part/'.$Import_part->id)  }}" class="btn btn-info">รายการอะไหล่</a></a></td> 
-            <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-import-part{{ $Import_part->id }}">
+            <td>{{ $setting_status_repair->id }}</td>
+            <td>{{ $setting_status_repair->name }}</td>
+            <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-setting-status-repair{{ $setting_status_repair->id }}">
                       แก้ไข
             </button>
             </td>
-            <td class="text-center"><a href="<?php echo url('/import_part/delete') ?>/{{$Import_part->id}}" 
+            <td class="text-center"><a href="<?php echo url('/setting-status-repair/delete') ?>/{{$setting_status_repair->id}}" 
             class="btn btn-danger">ลบ</a></td> 
-      <!-- //////////////////////////////modal-edit-import-part//////////////////////////////// -->
 
-        <div class="modal fade " id="modal-edit-import-part{{ $Import_part->id }}">
+<!-- //////////////////////////////modal-edit-setting-status-repair//////////////////////////////// -->
+
+        <div class="modal fade " id="modal-edit-setting-status-repair{{ $setting_status_repair->id }}">
         
         <div class="modal-dialog ">
         <div class="modal-content ">
@@ -84,18 +79,18 @@
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>
           </div>        
-          <?= Form::open(array('url' => '/import_part/edit/'.$Import_part->id)) ?>
+          <?= Form::open(array('url' => '/setting-status-repair/edit/'.$setting_status_repair->id)) ?>
           <div class="modal-body">
             
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
-                    <b for="" class="control-label col-md-3"style="text-align:right">ชื่อล็อต</b>
+                    <b for="" class="control-label col-md-3"style="text-align:right">ชื่อสถานะ</b>
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
                             <i class="fa fa-user fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="lot_name" placeholder="ชื่อล็อต..." value="{{ $Import_part->lot_name }}">
+                          <input type="text" class="form-control pull-right" id="Name" name="name" placeholder="ชื่อสถานะ..." value="{{ $setting_status_repair->name }}">
                       </div>
                     </div>
               </div>
@@ -111,7 +106,7 @@
         </div>
       </div>          
     </div>
-    <!-- //////////////////////////////End modal-edit-import-part//////////////////////////////// -->
+    <!-- //////////////////////////////End modal-edit-setting-status-repair//////////////////////////////// -->
           </tr>
           @endforeach
         </tbody>
@@ -120,10 +115,9 @@
     </div>
     </div>
     </div>
+       <!-- //////////////////////////////modal-add-setting-status-repair//////////////////////////////// -->
 
-       <!-- //////////////////////////////modal-add-import-part//////////////////////////////// -->
-
-        <div class="modal fade " id="modal-add-import-part">
+        <div class="modal fade " id="modal-add-setting-status-repair">
         
         <div class="modal-dialog ">
         <div class="modal-content ">
@@ -132,18 +126,18 @@
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>
           </div>        
-          <?= Form::open(array('url' => '/import_part/create')) ?>
+          <?= Form::open(array('url' => '/setting-status-repair/create')) ?>
           <div class="modal-body">
             
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
-                    <b for="" class="control-label col-md-3"style="text-align:right">ชื่อล็อต</b>
+                    <b for="" class="control-label col-md-3"style="text-align:right">ชื่อสถานะ</b>
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
                             <i class="fa fa-user fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="lot_name" placeholder="ชื่อล็อต...">
+                          <input type="text" class="form-control pull-right" id="Name" name="name" placeholder="ชื่อสถานะ...">
                       </div>
                     </div>
               </div>
@@ -159,8 +153,7 @@
         </div>
       </div>          
     </div>
-    <!-- //////////////////////////////End modal-add-import-part//////////////////////////////// -->
-
+    <!-- //////////////////////////////End modal-add-setting-status-repair//////////////////////////////// -->
     </section>
 @include('form/footer')
 
