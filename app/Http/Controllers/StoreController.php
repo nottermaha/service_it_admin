@@ -35,7 +35,8 @@ class StoreController extends Controller
         $store->name = $request->name;
         $store->status = true;
         $store->save();
-
+        $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
+        
         return redirect('stores');
     }
 
@@ -45,6 +46,7 @@ class StoreController extends Controller
       $store->store_id = '1';
       $store->name = $request->name;
       $store->save();
+      $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
 
       return redirect('stores');
     }
@@ -54,6 +56,7 @@ class StoreController extends Controller
       $store = Store_branch::find($id);
       $store->status = 0;
       $store->save();
+      $store2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว'); 
 
        return redirect('stores');
     }

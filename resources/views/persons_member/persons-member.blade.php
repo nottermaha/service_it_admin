@@ -19,6 +19,7 @@
   <!-- Morris chart -->
   <!-- jvectormap -->
   <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
+  <script src="  https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
 
 </head>
 <!--End css header-leftmenu -->
@@ -29,9 +30,10 @@
 
       <div class="row">
         <div class="col-xs-12 text-right">
-          <?= link_to('/person-member-form',$title='add data',['class'=>'btn btn-primary '],$secure=null); ?>
+          <?= link_to('/person-member-form',$title='&nbsp;เพิ่มข้อมูล',['class'=>'btn btn-primary fa  fa-plus-circle fa-lg'],$secure=null); ?>
         </div> 
       </div>
+
       <br>
 
       <div class="row">
@@ -46,7 +48,7 @@
               <table id="example" class="table table-bordered table-striped table-hover  ">
         <thead >
           <tr>
-            <th>ชื่อ</th>
+            <th>#</th>
             <th>สกุล</th>
             <th>สถานะ</th>
             <th>แก้ไข</th>
@@ -55,13 +57,45 @@
         </thead>
         
         <tbody>
+          <?php $i=0 ?>
           @foreach ($persons as $person)
           <tr>
+            <td>{{ $i=$i+1 }}</td>
             <td>{{ $person->name }}</td>
-            <td>{{ $person->last_name }}</td>
             <td class="text-center">{{ $person->status_name }}</td>
-            <td><a href="{{ url('/person-member-form-edit/'.$person->id)  }}" class="btn btn-warning">แก้ไข</a></a></td>   
-            <td class="text-center"><a href="<?php echo url('/person-member/delete') ?>/{{$person->id}}" class="btn btn-danger">ลบ</a></td>
+            <td><a href="{{ url('/person-member-form-edit/'.$person->id)  }}" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a></td>   
+            <!-- <td class="text-center"><a href="<?php echo url('/person-member/delete') ?>/{{$person->id}}" class="btn btn-danger">ลบ</a></td> -->
+            <td>
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-person-member{{ $person->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
+              </button>
+            </td>
+            <!-- //////////////////////////////modal-delete-person-member//////////////////////////////// -->
+
+            <div class="modal fade " id="modal-delete-person-member{{ $person->id }}">
+              <div class="modal-dialog ">
+                <div class="modal-content ">
+                  <div class="modal-header " >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">ลบข้อมูล</h4>
+                  </div>        
+                <?= Form::open(array('url' => '/person-member/delete/'.$person->id)) ?>
+                    <div class="modal-body">
+                      <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-9"style="text-align:right">กดปุ่ม "ลบข้อมูล" เพื่อยืนยันการลบข้อมูล </b>
+                        </div>
+                      </div>  
+                    </div> 
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button>
+                        <button type="submit" class="btn btn-danger">ลบข้อมูล</button>
+                      </div>
+                {!! Form::close() !!}
+                </div>
+              </div>          
+            </div>
+    <!-- //////////////////////////////End modal-delete-person-member//////////////////////////////// -->
           </tr>
           @endforeach
         </tbody>
@@ -70,6 +104,33 @@
     </div>
     </div>
     </div>
+
+     @if (session()->has('status_create'))     
+     <script>swal({ title: "<?php echo session()->get('status_create'); ?>",        
+                     text: "ผลการทํางาน",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+     @elseif (session()->has('status_edit'))     
+     <script>swal({ title: "<?php echo session()->get('status_edit'); ?>",        
+                     text: "ผลการทํางาน",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+         @elseif (session()->has('status_delete'))     
+     <script>swal({ title: "<?php echo session()->get('status_delete'); ?>",        
+                     text: "ผลการทํางาน",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+     @endif 
+     
     </section>
 @include('form/footer')
 

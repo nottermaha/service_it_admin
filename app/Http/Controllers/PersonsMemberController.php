@@ -16,6 +16,13 @@ class PersonsMemberController extends Controller
 
       return view('persons_member/persons-member', ['persons' => $persons]);
     }
+    public function report_person_member() {
+      $persons = PersonsMember::where('status', 1)
+      ->get();
+      $persons = $this->get_status_name($persons);
+
+      return view('report/re-person-member-excel', ['persons' => $persons]);
+    }
     private function get_status_name($persons)
     {
       foreach ($persons as $key => $value) {
@@ -62,8 +69,8 @@ class PersonsMemberController extends Controller
         $person->phone = $request->phone;
         $person->image_url = $request->image_url;
         $person->address = $request->address;
-
         $person->save();
+        $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
 
         return redirect('persons-member');
     }
@@ -85,6 +92,7 @@ class PersonsMemberController extends Controller
       $person->image_url = $request->image_url;
       $person->address = $request->address;
       $person->save();
+      $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
 
       return redirect('persons-member');
     }
@@ -94,6 +102,7 @@ class PersonsMemberController extends Controller
       $person = PersonsMember::find($id);
       $person->status = 0;
       $person->save();
+      $person2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว');
 
       return redirect('persons-member');
     }

@@ -170,13 +170,13 @@
             
             </div>
         </div>
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                <button type="submit" class="btn btn-success">บันทึก</button>
+                </div>
+            </div>
     </div>
 
-    <div class="row">
-        <div class="col-sm-12 text-right">
-          <button type="submit" class="btn btn-success">บันทึก</button>
-        </div>
-    </div>
   </form>
 
     </section>

@@ -181,6 +181,7 @@ return [
         App\Providers\RouteServiceProvider::class,
                 // notter 
         Collective\Html\HtmlServiceProvider::class,
+        Intervention\image\ImageServiceProvider::class,
             // notter 
 
     ],
@@ -234,6 +235,7 @@ return [
         // notter 
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacades::class,
+        'Image'=> Intervention\Image\Facades\Image::class,
         // notter 
     ],
 

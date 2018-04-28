@@ -14,7 +14,7 @@ class PersonsManagerController extends Controller
       ->get();
       $persons = $this->get_status_name($persons);
 
-      return view('persons_manager/persons-manager', ['persons' => $persons],$data);
+      return view('persons_manager/persons-manager', ['persons' => $persons]);
     }
     private function get_status_name($persons)
     {
@@ -76,6 +76,7 @@ class PersonsManagerController extends Controller
         $person->date_in = $request->date_in;
         $person->date_out = $request->date_out;
         $person->save();
+        $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
 
         return redirect('persons-manager');
     }
@@ -101,6 +102,7 @@ class PersonsManagerController extends Controller
       $person->date_in = $request->date_in;
       $person->date_out = $request->date_out;
       $person->save();
+      $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
 
       return redirect('persons-manager');
     }
@@ -110,6 +112,7 @@ class PersonsManagerController extends Controller
       $person = Persons::find($id);
       $person->status = 0;
       $person->save();
+      $person2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว');
 
       return redirect('persons-manager');
     }

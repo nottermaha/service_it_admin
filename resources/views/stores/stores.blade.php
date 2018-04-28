@@ -19,6 +19,7 @@
   <!-- Morris chart -->
   <!-- jvectormap -->
   <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
+  <script src="  https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
 
 </head>
 <!--End css header-leftmenu -->
@@ -31,7 +32,7 @@
         <div class="col-xs-12 text-right">
           <!-- <?= link_to('store-form',$title='add data',['class'=>'btn btn-primary '],['data-toggle'=>'btn btn-primary '],['data-toggle'=>'#modal-default '],$secure=null); ?> -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-branch">
-                    add data
+                <i class="fa  fa-plus-circle fa-lg"></i> &nbsp; เพิ่มข้อมูล
             </button>
         </div> 
       </div>
@@ -50,7 +51,7 @@
               <table id="example" class="table table-bordered table-striped table-hover  ">
         <thead >
           <tr>
-            <th>ลำดับ</th>
+            <th>#</th>
             <th>สาขา</th>
             <th>สถานะ</th>
             <th>แก้ไข</th>
@@ -59,14 +60,44 @@
         </thead>
         
         <tbody>
+          <?php $i=0 ?>
           @foreach ($stores as $store )
           <tr>
-            <td>{{ $store->index }}</td>
+            <td>{{ $i=$i+1 }}</td>
             <td ><a href=""data-toggle="modal" data-target="#modal-show-store-branch">{{ $store->name }}</a></td>
-            <td class="text-center">{{ $store->status_name }}</td>
-            <!-- <td class="text-center"><a href="<?php echo url('') ?>/{{$store->id}}" 
-            class="btn btn-warning">แก้ไข</a></td> -->
-            <td><a href="" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-branch{{ $store->id }}">แก้ไข</a></a></td> 
+            <td class="text-center">{{ $store->status_name }}</td>>
+            <td><a href="" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-branch{{ $store->id }}"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a></td> 
+            <td>
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-branch{{ $store->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
+              </button>
+            </td>
+            <!-- //////////////////////////////modal-delete-branch//////////////////////////////// -->
+
+            <div class="modal fade " id="modal-delete-branch{{ $store->id }}">
+              <div class="modal-dialog ">
+                <div class="modal-content ">
+                  <div class="modal-header " >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">ลบข้อมูล</h4>
+                  </div>        
+                <?= Form::open(array('url' => '/store-branch/delete/'.$store->id)) ?>
+                    <div class="modal-body">
+                      <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-9"style="text-align:right">กดปุ่ม "ลบข้อมูล" เพื่อยืนยันการลบข้อมูล </b>
+                        </div>
+                      </div>  
+                    </div> 
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button>
+                        <button type="submit" class="btn btn-danger">ลบข้อมูล</button>
+                      </div>
+                {!! Form::close() !!}
+                </div>
+              </div>          
+            </div>
+    <!-- //////////////////////////////End modal-delete-store//////////////////////////////// -->
 
 <!-- //////////////////////////////modal-edit-branch//////////////////////////////// -->
       <div class="modal fade" id="modal-edit-branch{{ $store->id }}">
@@ -102,8 +133,6 @@
       </div>          
     </div>
 <!-- //////////////////////////////Enfmodal-edit-branch//////////////////////////////// -->
-            <td class="text-center"><a href="<?php echo url('/store-branch/delete') ?>/{{$store->id}}" 
-            class="btn btn-danger">ลบ</a></td>
 
           </tr>
           @endforeach
@@ -150,7 +179,33 @@
           </div>          
         </div>
         <!-- //////////////////////////////End modal-add-branch//////////////////////////////// -->
-          
+        
+        @if (session()->has('status_create'))     
+     <script>swal({ title: "<?php echo session()->get('status_create'); ?>",        
+                     text: "ผลการทํางาน",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+     @elseif (session()->has('status_edit'))     
+     <script>swal({ title: "<?php echo session()->get('status_edit'); ?>",        
+                     text: "ผลการทํางาน",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+         @elseif (session()->has('status_delete'))     
+     <script>swal({ title: "<?php echo session()->get('status_delete'); ?>",        
+                     text: "ผลการทํางาน",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+     @endif 
+
   
         </section>
 @include('form/footer')

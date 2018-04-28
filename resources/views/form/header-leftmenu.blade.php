@@ -358,8 +358,10 @@
             <li class="active"><a href="{{ url('/import_part')  }}"><i class="fa fa-circle-o"></i> นำเข้าอะไหล่</a></li>
           </ul>
         </li>
-        
-        <li class="treeview">
+        <?php $data='' ;
+     $data=session('key','default');
+     $data3=session('key2','default');  ?>
+        <li class="treeview" >
         <a href="#">
             <i class="fa fa-dashboard"></i> <span>ตั้งค่า</span>
             <span class="pull-right-container">
@@ -371,6 +373,18 @@
             <li class="active"><a href="{{ url('/gallery')  }}"><i class="fa fa-circle"></i>สไลด์ภาพ</a></li>
           </ul>
         </li>
+            <li class="treeview" >
+        <a href="#">
+            <i class="fa fa-dashboard"></i> <span>ออกรายงาน</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active"><a href="{{ url('/report-person-member')  }}"><i class="fa fa-circle"></i> สถานะการแจ้งซ่อม</a></li>
+          </ul>
+        </li> 
+
 
     </section>
     <!-- /.sidebar -->

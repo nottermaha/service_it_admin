@@ -13,19 +13,10 @@ class PersonsEmployeeController extends Controller
       ->where('type',3)
       ->where('store_branch_id',2)
       ->get();     
-       $data = [
-        'name1' => "notter1", 
-        'name2' => "notter2",
-        'name3' => "notter3",
-        'num1' => 10,
-        'num2' => 20,
-        'num3' => 25,       
-      ];
       $persons = $this->get_status_name($persons);
-
       // print_r($go);exit();
 
-      return view('persons_employee/persons-employee', ['persons' => $persons],$data);
+      return view('persons_employee/persons-employee', ['persons' => $persons]);
     }
     private function get_status_name($persons)
     {
@@ -86,6 +77,7 @@ class PersonsEmployeeController extends Controller
         $person->date_in = $request->date_in;
         $person->date_out = $request->date_out;
         $person->save();
+        $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว');
 
         return redirect('persons-employee');
     }
@@ -111,6 +103,7 @@ class PersonsEmployeeController extends Controller
       $person->date_in = $request->date_in;
       $person->date_out = $request->date_out;
       $person->save();
+      $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
 
       return redirect('persons-employee');
     }
@@ -120,6 +113,7 @@ class PersonsEmployeeController extends Controller
       $person = Persons::find($id);
       $person->status = 0;
       $person->save();
+      $person2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว');
 
       return redirect('persons-employee');
     }

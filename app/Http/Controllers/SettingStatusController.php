@@ -22,6 +22,7 @@ class SettingStatusController extends Controller
         $setting_status_repairs->name = $request->name;
         $setting_status_repairs->status = true;
         $setting_status_repairs->save();
+        $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
 
         return redirect('/setting-status-repair');
     }
@@ -32,7 +33,7 @@ class SettingStatusController extends Controller
       $setting->name = $request->name;
       $setting->status = true;
       $setting->save();
-
+      $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
       return redirect('/setting-status-repair');
     }
     public function delete($id)
@@ -40,7 +41,7 @@ class SettingStatusController extends Controller
       $setting_status_repairs = SettingStatusRepair::find($id);
       $setting_status_repairs->status = 0;
       $setting_status_repairs->save();
-
+      $setting_status_repairs2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว'); 
       return redirect('/setting-status-repair');
     }
 }

@@ -30,6 +30,7 @@ class ListPartsController extends Controller
       $list_parts->pay_out = $request->pay_out;
       $list_parts->status = true;
       $list_parts->save();
+      $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
 
       return redirect('list-part/'.$list_parts['import_parts_id']);
   }
@@ -45,7 +46,8 @@ class ListPartsController extends Controller
       $list_parts->pay_out = $request->pay_out;
       $list_parts->status = true;
       $list_parts->save();
-      // echo $repair['repair_id'];exit();
+      $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว');
+
       return redirect('list-part/'.$list_parts['import_parts_id']);
   }
   public function delete($id)
@@ -53,7 +55,8 @@ class ListPartsController extends Controller
     $list_parts = ListPart::find($id);
     $list_parts->status = 0;
     $list_parts->save();
-    // echo $repair_id['repair_id'];exit();
+    $list_parts2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว'); 
+
     return redirect('list-part/'.$list_parts['import_parts_id']);
   }
 

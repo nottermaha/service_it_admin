@@ -23,14 +23,14 @@ Route::get('/person-manager-form', 'PersonsManagerController@form');
 Route::get('/person-manager-form-edit/{id}', 'PersonsManagerController@form_edit')->where('id', '[0-9]+');
 Route::post('/person-manager/create', 'PersonsManagerController@create');
 Route::post('/person-manager/edit/{id}', 'PersonsManagerController@edit')->where('id', '[0-9]+');
-Route::get('/person-manager/delete/{id}' ,'PersonsManagerController@delete')->where('id', '[0-9]+');
+Route::post('/person-manager/delete/{id}' ,'PersonsManagerController@delete')->where('id', '[0-9]+');
 
 Route::get('/persons-employee', 'PersonsEmployeeController@get_persons');
 Route::get('/person-employee-form', 'PersonsEmployeeController@form');
 Route::get('/person-employee-form-edit/{id}', 'PersonsEmployeeController@form_edit')->where('id', '[0-9]+');
 Route::post('/person-employee/create', 'PersonsEmployeeController@create');
 Route::post('/person-employee/edit/{id}', 'PersonsEmployeeController@edit')->where('id', '[0-9]+');
-Route::get('/person-employee/delete/{id}' ,'PersonsEmployeeController@delete')->where('id', '[0-9]+');
+Route::post('/person-employee/delete/{id}' ,'PersonsEmployeeController@delete')->where('id', '[0-9]+');
 
 Route::get('/persons-member', 'PersonsMemberController@get_persons');
 // Route::get('/persons-member', 'PersonsMemberController@get_persons');
@@ -38,48 +38,53 @@ Route::get('/person-member-form', 'PersonsMemberController@form');
 Route::get('/person-member-form-edit/{id}', 'PersonsMemberController@form_edit')->where('id', '[0-9]+');
 Route::post('/person-member/create', 'PersonsMemberController@create');
 Route::post('/person-member/edit/{id}', 'PersonsMemberController@edit')->where('id', '[0-9]+');
-Route::get('/person-member/delete/{id}' ,'PersonsMemberController@delete')->where('id', '[0-9]+');
+Route::post('/person-member/delete/{id}' ,'PersonsMemberController@delete')->where('id', '[0-9]+');
 
 Route::get('/stores', 'StoreController@get_store_branch');
 Route::post('/store-branch/create', 'StoreController@create_store_branch');
 Route::get('/store-branch-form-edit/{id}', 'StoreController@form_edit')->where('id', '[0-9]+');
 Route::post('/store-branch/edit/{id}','StoreController@edit_store_branch')->where('id','[0-9]+');
-Route::get('/store-branch/delete/{id}','StoreController@delete')->where('id','[0-9]+');
+Route::post('/store-branch/delete/{id}','StoreController@delete')->where('id','[0-9]+');
 
 Route::get('/repair-member', 'RepairsMemberController@get_repair');
 Route::post('/repair-member/create', 'RepairsMemberController@create');
 Route::post('/repair-member/edit/{id}', 'RepairsMemberController@edit');
-Route::get('/repair-member/delete/{id}', 'RepairsMemberController@delete');
+Route::post('/repair-member/delete/{id}', 'RepairsMemberController@delete');
 
 Route::get('/repair-general', 'RepairsGeneralController@get_repair');
 Route::post('/repair-general/create', 'RepairsGeneralController@create');
 Route::post('/repair-general/edit/{id}', 'RepairsGeneralController@edit');
-Route::get('/repair-general/delete/{id}', 'RepairsGeneralController@delete');
+Route::post('/repair-general/delete/{id}', 'RepairsGeneralController@delete');
 
 Route::get('/list-repair/{id}', 'ListRepairsController@get_list_repair_by_id');
 Route::post('/list-repair/create', 'ListRepairsController@create');
 Route::post('/list-repair/edit/{id}', 'ListRepairsController@edit');
-Route::get('/list-repair/delete/{id}', 'ListRepairsController@delete');
+Route::post('/list-repair/delete/{id}', 'ListRepairsController@delete');
 
 Route::get('/import_part','ImportPartsController@get');
 Route::post('/import_part/create','ImportPartsController@create');
 Route::post('/import_part/edit/{id}','ImportPartsController@edit');
-Route::get('/import_part/delete/{id}','ImportPartsController@delete');
+Route::post('/import_part/delete/{id}','ImportPartsController@delete');
 
 Route::get('/list-part/{id}', 'ListPartsController@get_list_parts_by_id');
 Route::post('/list-part/create', 'ListPartsController@create');
 Route::post('/list-part/edit/{id}', 'ListPartsController@edit');
-Route::get('/list-part/delete/{id}', 'ListPartsController@delete');
+Route::post('/list-part/delete/{id}', 'ListPartsController@delete');
 
 Route::get('/setting-status-repair','SettingStatusController@get');
 Route::post('/setting-status-repair/create','SettingStatusController@create');
 Route::post('/setting-status-repair/edit/{id}','SettingStatusController@edit');
-Route::get('/setting-status-repair/delete/{id}','SettingStatusController@delete');
+Route::post('/setting-status-repair/delete/{id}','SettingStatusController@delete');
 
 Route::get('/gallery','GallerysController@get');
 Route::post('/gallery/create','GallerysController@create');
 Route::post('/gallery/edit/{id}','GallerysController@edit');
 Route::post('/gallery/delete/{id}','GallerysController@delete');
+
+Route::post('/test_login','AuthenController@login');
+Route::post('/logout','AuthenController@logout');
+
+Route::get('/report-person-member', 'PersonsMemberController@report_person_member');
 
 Route::get('/dashboard', 'DashboardController@count_male');
 // Route::get('store-form',function(){

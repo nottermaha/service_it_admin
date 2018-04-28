@@ -57,6 +57,7 @@ class RepairsMemberController extends Controller
         $repair->equipment_follow =  $request->equipment_follow;
         $repair->status = true;
         $repair->save();
+        $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
 
         return redirect('repair-member');
     }
@@ -79,6 +80,7 @@ class RepairsMemberController extends Controller
       $repair->guarantee =  $request->guarantee;
       $repair->status = true;
       $repair->save();
+      $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
 
       return redirect('repair-member');
     }
@@ -87,6 +89,7 @@ class RepairsMemberController extends Controller
       $store = Repair::find($id);
       $store->status = 0;
       $store->save();
+      $person2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว');
 
        return redirect('repair-member');
     }

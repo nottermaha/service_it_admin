@@ -20,6 +20,7 @@
   <!-- Morris chart -->
   <!-- jvectormap -->
   <link rel="stylesheet" href="../bower_components/jvectormap/jquery-jvectormap.css">
+  <script src="  https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
 
 </head>
 <!--End css header-leftmenu -->
@@ -31,7 +32,7 @@
       <div class="row">
         <div class="col-xs-12 text-right">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-list-part">
-                    add data
+                <i class="fa  fa-plus-circle fa-lg"></i> &nbsp; เพิ่มข้อมูล
             </button>
         </div> 
       </div>
@@ -49,7 +50,7 @@
               <table id="example" class="table table-bordered table-striped table-hover  ">
         <thead >
           <tr>
-          <th>id</th>
+            <th>#</th>
             <th>รายการ</th>
             <th>แก้ไข</th>
             <th>ลบ</th>
@@ -57,17 +58,49 @@
         </thead>
         
         <tbody>
+          <?php $i=0 ?>
           @foreach ($list_parts as $list_part)
           <tr>
-            <td>{{ $list_part->id }}</td>
+            <td>{{ $i=$i+1 }}</td>
             <td>{{ $list_part->name }}</td>
             <td>
-              <button type="button" class="btn btn-warning" data-toggle="modal" <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-list-part{{ $list_part->id }}">
-                      แก้ไข
+              <button type="button" class="btn btn-warning" data-toggle="modal" <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-list-part{{ $list_part->id }}"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข
               </button>
             </td>  
-            <td class="text-center"><a href="<?php echo url('/list-part/delete/') ?>/{{$list_part->id}}" 
-            class="btn btn-danger">ลบ</a></td>
+            <!-- <td class="text-center"><a href="<?php echo url('/list-part/delete/') ?>/{{$list_part->id}}" 
+            class="btn btn-danger">ลบ</a></td> -->
+            <td>
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-list-part{{ $list_part->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
+              </button>
+          </td>
+          <!-- //////////////////////////////modal-delete-list-part//////////////////////////////// -->
+
+            <div class="modal fade " id="modal-delete-list-part{{ $list_part->id }}">
+              <div class="modal-dialog ">
+                <div class="modal-content ">
+                  <div class="modal-header " >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">ลบข้อมูล</h4>
+                  </div>        
+                <?= Form::open(array('url' => '/list-part/delete/'.$list_part->id)) ?>
+                    <div class="modal-body">
+                      <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-9"style="text-align:right">กดปุ่ม "ลบข้อมูล" เพื่อยืนยันการลบข้อมูล </b>
+                        </div>
+                      </div>  
+                    </div> 
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button>
+                        <button type="submit" class="btn btn-danger">ลบข้อมูล</button>
+                      </div>
+                {!! Form::close() !!}
+                </div>
+              </div>          
+            </div>
+    <!-- //////////////////////////////End modal-delete-list-part//////////////////////////////// -->
+
 <!-- //////////////////////////////modal-add-list-part//////////////////////////////// -->
 
         <div class="modal fade " id="modal-edit-list-part{{ $list_part->id }}">
@@ -284,6 +317,34 @@
       </div>          
     </div>
     <!-- //////////////////////////////End modal-add-list-part//////////////////////////////// -->
+
+     @if (session()->has('status_create'))     
+     <script>swal({ title: "<?php echo session()->get('status_create'); ?>",        
+                     text: "ผลการทํางาน",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+     @elseif (session()->has('status_edit'))     
+     <script>swal({ title: "<?php echo session()->get('status_edit'); ?>",        
+                     text: "ผลการทํางาน",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+         @elseif (session()->has('status_delete'))     
+     <script>swal({ title: "<?php echo session()->get('status_delete'); ?>",        
+                     text: "ผลการทํางาน",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+     @endif 
+
+
     </section>
 @include('form/footer')
 

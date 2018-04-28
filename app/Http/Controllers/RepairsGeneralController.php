@@ -28,8 +28,10 @@ class RepairsGeneralController extends Controller
     public function create(Request $request)
     { 
       // echo $request;exit();
+
+     $data3=session('key2','default');  
         $repair = new Repair;
-        $repair->store_branch_id = 2;
+        $repair->store_branch_id = $data3;
         $repair->persons_id =  12;
         $repair->name =  $request->name;
         $repair->phone =  $request->phone;
@@ -37,6 +39,7 @@ class RepairsGeneralController extends Controller
         $repair->price =  $request->price;
         $repair->status = true;
         $repair->save();
+        $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
 
         return redirect('repair-general');
     }
@@ -51,7 +54,8 @@ class RepairsGeneralController extends Controller
         $repair->date_out_repair =  $request->date_out_repair;
         $repair->guarantee =  $request->guarantee;
         $repair->status = true;
-      $repair->save();
+        $repair->save();
+        $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
 
       return redirect('repair-general');
     }
@@ -60,6 +64,7 @@ class RepairsGeneralController extends Controller
       $store = Repair::find($id);
       $store->status = 0;
       $store->save();
+      $person2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว');
 
        return redirect('repair-general');
     }

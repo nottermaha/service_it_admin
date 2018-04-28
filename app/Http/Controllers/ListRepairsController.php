@@ -44,6 +44,7 @@ class ListRepairsController extends Controller
         $repair->symptom =  $request->symptom;
         $repair->status = true;
         $repair->save();
+        $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
         // echo $repair['repair_id'];exit();
         return redirect('list-repair/'.$repair['repair_id']);
     }
@@ -66,6 +67,7 @@ class ListRepairsController extends Controller
       $repair->image =  $request->image;
       $repair->status = true;
       $repair->save();
+      $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
 
       return redirect('list-repair/'.$repair['repair_id']);
     }
@@ -75,6 +77,7 @@ class ListRepairsController extends Controller
       $repair = ListRepair::find($id);
       $repair->status = 0;
       $repair->save();
+      $repair2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว');
       // $repair_id['repair_id']=$repair['repair_id'];
       // echo $repair_id['repair_id'];exit();
       return redirect('list-repair/'.$repair['repair_id']);
