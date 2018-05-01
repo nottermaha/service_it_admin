@@ -81,6 +81,11 @@ Route::post('/gallery/create','GallerysController@create');
 Route::post('/gallery/edit/{id}','GallerysController@edit');
 Route::post('/gallery/delete/{id}','GallerysController@delete');
 
+Route::get('/questtion-post','BoardPostsController@get_question_post');
+Route::post('/questtion-post/create','BoardPostsController@create_question_post');
+Route::get('/answer-post-form/{id}','BoardPostsController@form_get_answer_post');
+Route::post('/answer-post/create','BoardPostsController@create_answer_post');
+
 Route::post('/test_login','AuthenController@login');
 Route::post('/logout','AuthenController@logout');
 
@@ -92,6 +97,9 @@ Route::get('/dashboard', 'DashboardController@count_male');
 // });
 
 //คือเส้นทางการเรียก
+//ที่ต้องใส่ session BoardPostsController@create_answer_post',PersonsManagerController@create
+//,RepairsMemberController@get_repair,RepairsGeneralController@get_repair
+//ImportPartsController@get
 Route::get('/login', function () {
     return view('login');
 });

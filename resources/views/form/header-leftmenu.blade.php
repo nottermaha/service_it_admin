@@ -349,6 +349,18 @@
 
         <li class="treeview">
         <a href="#">
+            <i class="fa fa-dashboard"></i> <span>กระทู้ถาม-ตอบ</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="active"><a href="{{ url('/questtion-post')  }}"><i class="fa fa-circle-o"></i> รายการกระทู้</a></li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+        <a href="#">
             <i class="fa fa-dashboard"></i> <span>อะไหล่</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
