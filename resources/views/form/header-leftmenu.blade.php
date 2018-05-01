@@ -383,6 +383,7 @@
           <ul class="treeview-menu">
             <li class="active"><a href="{{ url('/setting-status-repair')  }}"><i class="fa fa-circle"></i> สถานะการแจ้งซ่อม</a></li>
             <li class="active"><a href="{{ url('/gallery')  }}"><i class="fa fa-circle"></i>สไลด์ภาพ</a></li>
+            <li class="active"><a href="{{ url('/news')  }}"><i class="fa fa-circle"></i>ข่าวสาร</a></li>
           </ul>
         </li>
             <li class="treeview" >

@@ -86,6 +86,11 @@ Route::post('/questtion-post/create','BoardPostsController@create_question_post'
 Route::get('/answer-post-form/{id}','BoardPostsController@form_get_answer_post');
 Route::post('/answer-post/create','BoardPostsController@create_answer_post');
 
+Route::get('/news','NewsController@get');
+Route::post('/new/create','NewsController@create');
+Route::post('/new/edit/{id}','NewsController@edit');
+Route::post('/new/delete/{id}','NewsController@delete');
+
 Route::post('/test_login','AuthenController@login');
 Route::post('/logout','AuthenController@logout');
 
