@@ -1,4 +1,39 @@
 
+<style>
+
+.button_black {background-color:black;}
+</style>
+<style>
+    .color-palette {
+      height: 35px;
+      line-height: 35px;
+      text-align: center;
+    }
+
+    .color-palette-set {
+      margin-bottom: 15px;
+    }
+
+    .color-palette span {
+      display: none;
+      font-size: 12px;
+    }
+
+    .color-palette:hover span {
+      display: block;
+    }
+
+    .color-palette-box h4 {
+      position: absolute;
+      top: 100%;
+      left: 25px;
+      margin-top: -40px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 12px;
+      display: block;
+      z-index: 7;
+    }
+  </style>
 <!-- css header-leftmenu -->
 <head>
   <meta charset="utf-8">
@@ -52,6 +87,7 @@
           <tr>
           <th>#</th>
             <th>รายการ</th>
+            <th>สถานะการซ่อม</th>
             <th>แก้ไข</th>
             <th>ลบ</th>
           </tr>
@@ -64,7 +100,36 @@
             <td>{{ $i=$i+1 }}</td>
             <td>{{ $list_repair->list_name }}</td>
             <td>
-              <button type="button" class="btn btn-warning" data-toggle="modal" <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-repair{{ $list_repair->id }}">
+            @if( $list_repair->status_color==1 )
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            @elseif( $list_repair->status_color==2 )
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            @elseif( $list_repair->status_color==3 )
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            @elseif( $list_repair->status_color==4 )
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            @elseif( $list_repair->status_color==5 )
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            @elseif( $list_repair->status_color==6 )
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            @elseif( $list_repair->status_color==7 )
+            <button type="button" class="btn bg-navy color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            @elseif( $list_repair->status_color==8 )
+            <button type="button" class="btn bg-teal-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            @elseif( $list_repair->status_color==9 )
+            <button type="button" class="btn bg-purple-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            @elseif( $list_repair->status_color==10 )
+            <button type="button" class="btn bg-orange-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            @elseif( $list_repair->status_color==11 )
+            <button type="button" class="btn bg-maroon-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            @elseif( $list_repair->status_color==12 )
+            <button type="button" class="btn bg-black-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            @endif
+            {{ $list_repair->name }}</td>
+            </button>
+            </td>
+            <td>
+             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-repair{{ $list_repair->id }}">
                   <i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข
               </button>
             </td>  
@@ -101,6 +166,50 @@
               </div>          
             </div>
     <!-- //////////////////////////////End modal-delete-list-repair//////////////////////////////// -->
+
+<!-- //////////////////////////////modal-edit-list-repair//////////////////////////////// -->
+
+        <div class="modal fade " id="modal-edit-status-repair{{ $list_repair->id }}">
+        
+        <div class="modal-dialog ">
+        <div class="modal-content ">
+          <div class="modal-header " >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">สถานะการซ่อม</h4>
+          </div>        
+          <?= Form::open(array('url' => '/list-repair-status/edit/'.$list_repair->id )) ?>
+          <div class="modal-body">
+
+            <div class="row" >
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">สถานะการซ่อม</b>
+                    <div class="col-md-8">               
+                        <select class="form-control select2" style="width: 100%;" name="status_list_repair">
+                        <option selected="selected">สถานะที่เคยเลือก [ {{ $list_repair->name }} ]</option>
+                        <!-- <option disabled="disabled">California (disabled)</option> -->
+                        @foreach ($setting_status_repairs as $setting_status_repair)
+                        <option value="{{ $setting_status_repair->id }}">{{ $setting_status_repair->name }}</option>
+                        @endforeach
+                        </select>
+                    </div>
+              </div>
+            </div>
+
+
+          
+          </div> 
+          <div class="modal-footer">
+          <input type="hidden" name="status_list_repair_old" value="{{ $list_repair->status_list_repair }}">
+          <input type="hidden" name="repair_id"value="{{$repair_id}}">
+            <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
+            <button type="submit" class="btn btn-success">บันทึก</button>
+          </div>
+          {!! Form::close() !!}
+        </div>
+      </div>          
+    </div>
+    <!-- //////////////////////////////End modal-edit-status-repair//////////////////////////////// -->
 
         <!-- //////////////////////////////modal-edit-list-repair//////////////////////////////// -->
 

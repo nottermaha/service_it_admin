@@ -17,7 +17,7 @@
 //     return view('welcome');
 // });
 
-Route::get('/', 'DashboardController@count_male');
+Route::get('/', 'PersonsManagerController@get_persons');
 Route::get('/persons-manager', 'PersonsManagerController@get_persons');
 Route::get('/person-manager-form', 'PersonsManagerController@form');
 Route::get('/person-manager-form-edit/{id}', 'PersonsManagerController@form_edit')->where('id', '[0-9]+');
@@ -54,11 +54,13 @@ Route::post('/repair-member/delete/{id}', 'RepairsMemberController@delete');
 Route::get('/repair-general', 'RepairsGeneralController@get_repair');
 Route::post('/repair-general/create', 'RepairsGeneralController@create');
 Route::post('/repair-general/edit/{id}', 'RepairsGeneralController@edit');
+Route::get('/repair-general-status/edit/{id}', 'RepairsGeneralController@status_repair');
 Route::post('/repair-general/delete/{id}', 'RepairsGeneralController@delete');
 
 Route::get('/list-repair/{id}', 'ListRepairsController@get_list_repair_by_id');
 Route::post('/list-repair/create', 'ListRepairsController@create');
 Route::post('/list-repair/edit/{id}', 'ListRepairsController@edit');
+Route::post('/list-repair-status/edit/{id}', 'ListRepairsController@edit_status');
 Route::post('/list-repair/delete/{id}', 'ListRepairsController@delete');
 
 Route::get('/import_part','ImportPartsController@get');
@@ -87,6 +89,7 @@ Route::get('/answer-post-form/{id}','BoardPostsController@form_get_answer_post')
 Route::post('/answer-post/create','BoardPostsController@create_answer_post');
 
 Route::get('/news','NewsController@get');
+Route::get('/maha','NewsController@maha');
 Route::post('/new/create','NewsController@create');
 Route::post('/new/edit/{id}','NewsController@edit');
 Route::post('/new/delete/{id}','NewsController@delete');
@@ -96,7 +99,8 @@ Route::post('/logout','AuthenController@logout');
 
 Route::get('/report-person-member', 'PersonsMemberController@report_person_member');
 
-Route::get('/dashboard', 'DashboardController@count_male');
+Route::get('/dashboard', 'DashboardController@dashboard');
+Route::get('/test', 'DashboardController@get_hour');
 // Route::get('store-form',function(){
 //     return view('stores/store-form');
 // });

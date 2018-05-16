@@ -1,4 +1,39 @@
 
+
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <style>
+    .color-palette {
+      height: 35px;
+      line-height: 35px;
+      text-align: center;
+    }
+
+    .color-palette-set {
+      margin-bottom: 15px;
+    }
+
+    .color-palette span {
+      display: none;
+      font-size: 12px;
+    }
+
+    .color-palette:hover span {
+      display: block;
+    }
+
+    .color-palette-box h4 {
+      position: absolute;
+      top: 100%;
+      left: 25px;
+      margin-top: -40px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 12px;
+      display: block;
+      z-index: 7;
+    }
+  </style>
 <!-- css header-leftmenu -->
 <head>
   <meta charset="utf-8">
@@ -51,6 +86,7 @@
           <tr>
             <th>#</th>
             <th>ชื่อสถานะ</th>
+            <th>สี</th>
             <th>แก้ไข</th>
             <th>ลบ</th>
           </tr>
@@ -62,6 +98,33 @@
           <tr>
           <td>{{ $i=$i+1 }}</td>
             <td>{{ $setting_status_repair->name }}</td>
+            <td>
+            @if($setting_status_repair->status_color==1) 
+            <div class="bg-light-blue-active color-palette"><span>น้ำเงิน</span>
+            @elseif($setting_status_repair->status_color==2)
+            <div class="bg-aqua-active color-palette"><span>ฟ้า</span></div>
+            @elseif($setting_status_repair->status_color==3)
+            <div class="bg-green-active color-palette"><span>เขียว</span></div>
+            @elseif($setting_status_repair->status_color==4)
+            <div class="bg-yellow-active color-palette"><span>เหลือง</span></div>
+            @elseif($setting_status_repair->status_color==5)
+            <div class="bg-red-active color-palette"><span>แดง</span></div>
+            @elseif($setting_status_repair->status_color==6)
+            <div class="bg-gray-active color-palette"><span>เทา</span></div>
+            @elseif($setting_status_repair->status_color==7)
+            <div class="bg-navy color-palette"><span>น้ำเงินเข้ม</span></div>
+            @elseif($setting_status_repair->status_color==8)
+            <div class="bg-teal-active color-palette"><span>ฟ้าอ่อน</span></div>
+            @elseif($setting_status_repair->status_color==9)
+            <div class="bg-purple-active color-palette"><span>ม่วง</span></div>
+            @elseif($setting_status_repair->status_color==10)
+            <div class="bg-orange-active color-palette"><span>ส้ม</span></div>
+            @elseif($setting_status_repair->status_color==11)
+            <div class="bg-maroon-active color-palette"><span>ชมพู</span></div>
+            @elseif($setting_status_repair->status_color==12)  
+            <div class="bg-black-active color-palette"><span>ดำ</span></div>
+            @endif
+            </td>
             <td>
               <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-setting-status-repair{{ $setting_status_repair->id }}">
               <i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข
@@ -128,6 +191,116 @@
                     </div>
               </div>
             </div>
+
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">เลือกสี</b>
+                    <div class="col-md-8">
+
+                    <div class="row">
+                      <div class="col-md-5" >
+                            <label>
+                                <input type="radio" name="status_color" id=""class="flat-red2"  value="1">
+                            </label>น้ำเงิน
+                            <div class="bg-light-blue-active color-palette"><span>น้ำเงิน</span>
+                            </div> 
+                      </div>
+                            <div class="col-md-2"></div>
+                      <div class="col-md-5" style="">
+                            <label>
+                                <input type="radio" name="status_color" class="flat-red2"  value="2">
+                            </label>ฟ้า
+                            <div class="bg-aqua-active color-palette"><span>ฟ้า</span></div> 
+                      </div>
+                    </div>
+
+                     <div class="row">
+                      <div class="col-md-5" >
+                            <label>
+                                <input type="radio" name="status_color" class="flat-red2"  value="3">
+                            </label>เขียว
+                            <div class="bg-green-active color-palette"><span>เขียว</span></div>
+                      </div>
+                            <div class="col-md-2"></div>
+                      <div class="col-md-5" style="">
+                            <label>
+                                <input type="radio" name="status_color" class="flat-red2"  value="4">
+                            </label>เหลือง
+                            <div class="bg-yellow-active color-palette"><span>เหลือง</span></div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-5" >
+                            <label>
+                                <input type="radio" name="status_color" class="flat-red2"  value="5">
+                            </label>แดง
+                            <div class="bg-red-active color-palette"><span>แดง</span></div>
+                      </div>
+                            <div class="col-md-2"></div>
+                      <div class="col-md-5" style="">
+                            <label>
+                                <input type="radio" name="status_color" class="flat-red2"  value="6">
+                            </label>เทา
+                            <div class="bg-gray-active color-palette"><span>เทา</span></div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-5" >
+                            <label>
+                                <input type="radio" name="status_color" class="flat-red2"  value="7">
+                            </label>น้ำเงินเข้ม
+                            <div class="bg-navy color-palette"><span>น้ำเงินเข้ม</span></div>
+                      </div>
+                            <div class="col-md-2"></div>
+                      <div class="col-md-5" style="">
+                            <label>
+                                <input type="radio" name="status_color" class="flat-red2"  value="8">
+                            </label>ฟ้าอ่อน
+                            <div class="bg-teal-active color-palette"><span>ฟ้าอ่อน</span></div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-5" >
+                            <label>
+                                <input type="radio" name="status_color" class="flat-red2"  value="9">
+                            </label>ม่วง
+                            <div class="bg-purple-active color-palette"><span>ม่วง</span></div>
+                      </div>
+                            <div class="col-md-2"></div>
+                      <div class="col-md-5" style="">
+                            <label>
+                                <input type="radio" name="status_color" class="flat-red2"  value="10">
+                            </label>ส้ม
+                            <div class="bg-orange-active color-palette"><span>ส้ม</span></div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-5" >
+                            <label>
+                                <input type="radio" name="status_color" class="flat-red2"  value="11">
+                            </label>ชมพู
+                            <div class="bg-maroon-active color-palette"><span>ชมพู</span></div>
+                      </div>
+                            <div class="col-md-2"></div>
+                      <div class="col-md-5" style="">
+                            <label>
+                                <input type="radio" name="status_color" class="flat-red2"  value="12">
+                            </label>ดำ
+                            <div class="bg-black-active color-palette"><span>ดำ</span></div>
+                      </div>
+                    </div>
+                        
+
+                    </div>
+
+              </div>
+            </div>
+
+
             
           
           </div> 

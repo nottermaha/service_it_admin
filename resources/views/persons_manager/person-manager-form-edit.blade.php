@@ -27,7 +27,8 @@
 
     <section class="content">
   <!-- <form role="form" class="form-horizontal" action="/person/create" method="post"> -->
-  <form role="form" class="form-horizontal" action="<?php echo url('/person-manager/edit') ?>/{{$id}}" method="post">
+  <!-- <form role="form" class="form-horizontal" action="<?php echo url('/person-manager/edit') ?>/{{$id}}" method="post"> -->
+  {!!  Form::open(['url'=>'/person-manager/edit/'.$id,'class'=>'form-horizontal','files'=>true])   !!}
 <div class="row">
     <div class="col-md-12">
         <div class="box box-default">
@@ -36,8 +37,8 @@
 
                 <div class="form-group">
                     <label for="Name" class="control-label col-sm-3">ร้านที่สังกัด</label>
-                    <div class="col-sm-6">
-                       
+                    <div for="Name" class="control-label col-sm-3">
+                    {{$branch_name}}
                     </div>
                 </div>
             
@@ -118,12 +119,19 @@
                 </div> 
 
                 <div class="form-group">
-                    <label for="Birthday" class="control-label col-sm-3">รูปประจำตัว</label>
-                        <div class="col-sm-9">
+                    <div class="row">
+                        <div class="col-md-5">
+                        </div>
+                        <div class="col-md-7">
+                            <a href="{{ asset('image/person-manager/picture/'.$image_url ) }}"><img src="{{ asset('image/person-manager/resize/'.$image_url) }}"style="padding-bottom:20px;"></a>
+                        </div>
+                    </div>
+                    <label for="Birthday" class="control-label col-sm-3" >รูปประจำตัว</label>
+                        <div class="col-sm-9" >
                             <div class="input-group date">
                                 <div class="input-group-addon">
                                     <i class="fa fa-picture-o fa-lg"></i>
-                                </div>
+                                </div> 
                                 <input type="file" class="form-control pull-right" id="Image" name="image_url" placeholder="รูปประจำตัว..." value="{{$image_url}}">
                             </div>
                         </div> 

@@ -29,9 +29,9 @@ class RepairsGeneralController extends Controller
     { 
       // echo $request;exit();
 
-     $data3=session('key2','default');  
+    //  $data3=session('key2','default');  
         $repair = new Repair;
-        $repair->store_branch_id = $data3;
+        $repair->store_branch_id = 2;
         $repair->persons_id =  12;
         $repair->name =  $request->name;
         $repair->phone =  $request->phone;
@@ -58,6 +58,20 @@ class RepairsGeneralController extends Controller
         $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
 
       return redirect('repair-general');
+    }
+    public function status_repair($id)
+    {
+      $store = Repair::find($id);
+      // echo $store;exit();
+      if($store['status_repair']==0||$store['status_repair']==NULL){
+      $store->status_repair = 1;
+      }
+      else{
+        $store->status_repair = 0;
+      }
+      $store->save();
+
+       return redirect('repair-general');
     }
     public function delete($id)
     {

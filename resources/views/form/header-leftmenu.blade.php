@@ -307,6 +307,7 @@
           </a>
           <ul class="treeview-menu">
             <li class="active"><a href="{{ url('/dashboard')  }}"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+            <li class="active"><a href="{{ url('/test')  }}"><i class="fa fa-circle-o"></i> test</a></li>
           </ul>
         </li>
 
@@ -384,6 +385,7 @@
             <li class="active"><a href="{{ url('/setting-status-repair')  }}"><i class="fa fa-circle"></i> สถานะการแจ้งซ่อม</a></li>
             <li class="active"><a href="{{ url('/gallery')  }}"><i class="fa fa-circle"></i>สไลด์ภาพ</a></li>
             <li class="active"><a href="{{ url('/news')  }}"><i class="fa fa-circle"></i>ข่าวสาร</a></li>
+            <li class="active"><a href="{{ url('/maha')  }}"><i class="fa fa-circle"></i>maha</a></li>
           </ul>
         </li>
             <li class="treeview" >

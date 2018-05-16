@@ -52,6 +52,7 @@
             <th>#</th>
             <th>สกุล</th>
             <th>รายการย่อย</th>
+            <th>สถานะ</th>
             <th>แก้ไข</th>
             <th>ลบ</th>
           </tr>
@@ -64,6 +65,14 @@
             <td>{{ $i=$i+1 }}</td>
             <td>{{ $repair->name }}</td>
             <td><a href="{{ url('/list-repair/'.$repair->id)  }}" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp;รายการย่อย</a></a></td> 
+            @if($repair->status_repair==0)
+             <td class="text-center"><a href="<?php echo url('/repair-general-status/edit') ?>/{{$repair->id}}" 
+            class="btn btn-danger">ยังไม่เสร็จ</a></td>
+
+            @elseif($repair->status_repair==1)
+            <td class="text-center"><a href="<?php echo url('/repair-general-status/edit') ?>/{{$repair->id}}" 
+            class="btn btn-success">เสร็จแล้ว</a></td>  
+            @endif
             <td>
             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-repair{{ $repair->id }}">
                 <i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข

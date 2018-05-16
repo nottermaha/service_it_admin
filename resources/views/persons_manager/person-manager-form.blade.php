@@ -27,7 +27,8 @@
 
     <section class="content">
   <!-- <form role="form" class="form-horizontal" action="/person/create" method="post"> -->
-  <form role="form" class="form-horizontal" action="<?php echo url('/person-manager/create') ?>" method="post">
+  <!-- <form role="form" class="form-horizontal" action="<?php echo url('/person-manager/create') ?>" method="post"> -->
+  {!!  Form::open(['url'=>'/person-manager/create','class'=>'form-horizontal','files'=>true])   !!}
 <div class="row">
     <div class="col-md-12">
         <div class="box box-default">

@@ -48,7 +48,8 @@
         <thead >
           <tr>
             <th>#</th>
-            <th>สกุล</th>
+            <th>รูปภาพ</th>
+            <th>ชื่อขสกุล</th>
             <th>สถานะ</th>
             <th>แก้ไข</th>
             <th>ลบ</th>
@@ -60,6 +61,9 @@
           @foreach ($persons as $person)
           <tr>
             <td>{{ $i=$i+1 }}</td>
+            <td>
+            <a href="{{ asset('image/person-manager/picture/'.$person->image_url) }}"><img src="{{ asset('image/person-manager/resize/'.$person->image_url) }}"></a> 
+          </td>
             <td>{{ $person->name }}</td>
             <td class="text-center">{{ $person->status_name }}</td>
             <td><a href="{{ url('/person-manager-form-edit/'.$person->id)  }}" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a></td>   

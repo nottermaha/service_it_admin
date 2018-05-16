@@ -26,7 +26,7 @@ class PersonsMemberController extends Controller
     private function get_status_name($persons)
     {
       foreach ($persons as $key => $value) {
-        $persons[$key]['status_name'] = ($value['status'] == 1? 'เปิดใช้งาน' : 'ปิดใช้งาน');
+        $persons[$key]['status_name'] = ($value['status'] == 1? 'เปิดใช้งาน':'ปิดใช้งาน');
       }
 
       return $persons;

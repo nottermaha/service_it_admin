@@ -8,7 +8,10 @@ use Image; //เรียกใช้ library จดัการรูปภา�
 
 class NewsController extends Controller
 {    
-
+  public function maha() {
+    // echo $news;exit();
+    return view('new/maha');
+  }
   public function get() {
     $news = News::where('status', 1)
     ->get();

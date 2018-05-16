@@ -31,6 +31,7 @@ class SettingStatusController extends Controller
       $setting = SettingStatusRepair::find($request->id);
       $setting->store_branch_id = 2;
       $setting->name = $request->name;
+      $setting->status_color = $request->status_color;
       $setting->status = true;
       $setting->save();
       $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 

@@ -151,7 +151,7 @@
               </div>
               <!-- /.mailbox-controls -->
               <div class="mailbox-read-message">
-                {{$question_posts_message}}  
+                {!! $question_posts_message !!}  
               </div>
               <!-- /.mailbox-read-message -->
             </div>
@@ -179,7 +179,8 @@
                       </span><!-- /.username -->
                   <!-- It is a long established fact that a reader will be distracted
                   by the readable content of a page when looking at its layout. -->
-                  {{$ansewr_post->answer_message}}
+                  {!!str_limit($ansewr_post->answer_message, 20)!!}
+
                 </div>
                 <!-- /.comment-text -->
               </div>

@@ -13,6 +13,7 @@ class ListRepairsController extends Controller
       $items = [// select data show in table
         'setting_status_repair.*'
         , 'setting_status_repair.name'
+        , 'setting_status_repair.status_color'
         ,'list_repair.list_name'
         ,'list_repair.detail'
         ,'list_repair.symptom'
@@ -68,6 +69,22 @@ class ListRepairsController extends Controller
       $repair->status = true;
       $repair->save();
       $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+
+      return redirect('list-repair/'.$repair['repair_id']);
+    }
+    public function edit_status(Request $request)
+    {
+      // echo $request['status_list_repair'];exit();
+      $repair = ListRepair::find($request->id);
+      if($request['status_list_repair']>=1){
+        $repair->status_list_repair = $request->status_list_repair;
+      }
+      else{
+        $repair->status_list_repair = $request->status_list_repair_old;
+      } 
+      $repair->status = true;
+      $repair->save();
+      $request->session()->flash('status_edit', 'แก้ไขข้อมูลสถานะการซ่อมเรียบร้อย'); 
 
       return redirect('list-repair/'.$repair['repair_id']);
     }
