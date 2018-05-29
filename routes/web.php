@@ -17,7 +17,13 @@
 //     return view('welcome');
 // });
 
-Route::get('/', 'PersonsManagerController@get_persons');
+
+// Route::get('/', function () {
+//     return view('font_pages/index');
+// });
+Route::get('/', 'IndexController@index');
+//////////////////////////////////////////End endpoint font/////////////////////////////////////////////
+
 Route::get('/persons-manager', 'PersonsManagerController@get_persons');
 Route::get('/person-manager-form', 'PersonsManagerController@form');
 Route::get('/person-manager-form-edit/{id}', 'PersonsManagerController@form_edit')->where('id', '[0-9]+');

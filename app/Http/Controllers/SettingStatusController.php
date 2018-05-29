@@ -20,6 +20,7 @@ class SettingStatusController extends Controller
         $setting_status_repairs = new SettingStatusRepair;
         $setting_status_repairs->store_branch_id = 2;
         $setting_status_repairs->name = $request->name;
+        $setting_status_repairs->status_color = $request->status_color;
         $setting_status_repairs->status = true;
         $setting_status_repairs->save();
         $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
