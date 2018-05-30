@@ -401,15 +401,15 @@
         </li> 
 
         <li class="treeview">
-        <a href="#">
+        <!-- <a href="#">
             <i class="fa fa-dashboard"></i> <span>index</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active"><a href="{{ url('/')  }}"><i class="fa fa-circle-o"></i> index</a></li>
-          </ul>
+          </a> -->
+          <!-- <ul class="treeview-menu"> -->
+            <li ><a href="{{ url('/')  }}"><i class="fa fa-circle-o"></i>ออกจากระบบ</a></li>
+          <!-- </ul> -->
         </li>
 
 

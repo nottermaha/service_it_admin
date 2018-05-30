@@ -64,7 +64,7 @@
           
           </div> 
           <div class="modal-footer">
-            <input type="text" name="question_id" value="{{$question_posts_id}}">
+            <input type="hidden" name="question_id" value="{{$question_posts_id}}">
             <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
             <button type="submit" class="btn btn-success">บันทึก</button>
           </div>
@@ -179,7 +179,7 @@
                       </span><!-- /.username -->
                   <!-- It is a long established fact that a reader will be distracted
                   by the readable content of a page when looking at its layout. -->
-                  {!!str_limit($ansewr_post->answer_message, 20)!!}
+                  {!! $ansewr_post->answer_message !!}
 
                 </div>
                 <!-- /.comment-text -->

@@ -178,7 +178,7 @@
                     <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
                     <td><a href="{{ url('/answer-post-form/'.$question_post->id)  }}" ><i ></i>&nbsp;{{$question_post->topic}}</a></td> 
 
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - {{$question_post->message}}...
+                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - {!!str_limit($question_post->message, 70)!!}...
                     </td>
                     <td class="mailbox-attachment"></td>
                     <td class="mailbox-date">5 mins ago</td>

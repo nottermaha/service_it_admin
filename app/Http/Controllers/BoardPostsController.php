@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class BoardPostsController extends Controller
 {    
+  public function get_question_post_font() {
+    $question_posts = QuestionPost::where('status', 1)
+    ->get();
+
+    // echo $question_posts;exit();
+    return view('font_pages/board-question', ['question_posts' => $question_posts]);
+  }
 
   public function get_question_post() {
     $question_posts = QuestionPost::where('status', 1)
@@ -16,7 +23,19 @@ class BoardPostsController extends Controller
     // echo $question_posts;exit();
     return view('board/question_post', ['question_posts' => $question_posts]);
   }
-
+  
+  public function create_question_post_font(Request $request)
+    { 
+      // echo $request;exit();
+        $question_posts = new QuestionPost;
+        $question_posts->topic = $request->topic;
+        $question_posts->message = $request->message;
+        $question_posts->status = true;
+        $question_posts->save();
+        // $question_posts->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว');
+        
+        return redirect('font-board-question');
+    }
   public function create_question_post(Request $request)
     { 
       // echo $request;exit();
@@ -41,6 +60,18 @@ class BoardPostsController extends Controller
       // echo $ansewr_posts;exit();
       return view('board/answer-post', ['ansewr_posts' => $ansewr_posts],$data);
     }
+    public function form_get_answer_post_font(Request $request) {
+      $question_posts = QuestionPost::find($request->id);
+      $data = [
+        'question_posts_id' => $question_posts->id,
+        'question_posts_topic' => $question_posts->topic,
+        'question_posts_message' => $question_posts->message,
+      ];
+      $ansewr_posts = $this->get_answer_posts($question_posts['id']);
+      // echo $ansewr_posts;exit();
+      return view('font_pages/board-answer', ['ansewr_posts' => $ansewr_posts],$data);
+    }
+    
     public function get_answer_posts($question_posts_id)
     {
       $items = [// select data show in table

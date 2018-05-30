@@ -18,10 +18,25 @@
 // });
 
 
-// Route::get('/', function () {
-//     return view('font_pages/index');
-// });
+Route::get('/font-board-answer', function () {
+    return view('font_pages/board-answer');
+});
 Route::get('/', 'IndexController@index');
+
+Route::get('/font-new', 'FontNewController@news');
+Route::post('/font-new-detail', 'FontNewController@new_by_id');
+
+Route::get('/font-board-question','BoardPostsController@get_question_post_font');
+Route::post('/questtion-post-font/create','BoardPostsController@create_question_post_font');
+
+Route::post('/font-board-answer','BoardPostsController@form_get_answer_post_font');
+
+Route::get('/font-guarantee', function () {
+    return view('font_pages/guarantee');
+});
+
+// Route::get('/font-new-detail/{id}', 'FontNewController@new_by_id')->where('id', '[0-9]+');
+
 //////////////////////////////////////////End endpoint font/////////////////////////////////////////////
 
 Route::get('/persons-manager', 'PersonsManagerController@get_persons');

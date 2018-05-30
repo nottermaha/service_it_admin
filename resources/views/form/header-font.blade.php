@@ -313,17 +313,32 @@
                 +1-541-754-3010
             </a>
         </div>
+        
         <div class="float-right user-account-btn dropdown">
-            <a href="../admin-template/index.html" title="MonarchUI Admin Template" class="btn btn-sm float-left btn-alt btn-hover mrg10R btn-default">
-                <span>Back to admin</span>
+            <button title="MonarchUI Admin Template" class="btn btn-sm float-left btn-alt btn-hover mrg10R btn-default">
+                <span data-toggle="modal" data-target="#modal-login">เข้าสู่ระบบ</span>
                 <i class="glyph-icon icon-arrow-right"></i>
-            </a>
+            </button>
+
             <a href="#" title="My Account" class="user-profile clearfix" data-toggle="dropdown" aria-expanded="false">
                 <img width="28" src="assets/image-resources/gravatar.jpg" alt="Profile image">
                 <span>Thomas Barnes</span>
                 <i class="glyph-icon icon-angle-down"></i>
             </a>
-            <div class="dropdown-menu pad0B float-right">
+            
+
+<ul class="header-nav collapse">
+        <li>
+            <a href="#" title="Homepages">
+                หน้าแรก
+                <i class="glyph-icon icon-angle-down"></i>
+            </a>
+            <ul>
+                <li><a href="{{ url('/')  }}" title="Homepage example 1"><span>หน้าแรก</span></a></li>
+            </ul>
+        </li>
+            
+           <div class="dropdown-menu ">
                 <div class="box-sm">
                     <div class="login-box clearfix">
                         <div class="user-img">
@@ -331,7 +346,7 @@
                             <img src="assets/image-resources/gravatar.jpg" alt="">
                         </div>
                         <div class="user-info">
-                        <span>
+                         <span>
                             Thomas Barnes
                             <i>UX/UI developer</i>
                         </span>
@@ -369,8 +384,63 @@
                 </div>
             </div>
         </div>
+        
     </div><!-- .container -->
 </div><!-- .top-bar -->
+
+       <!-- //////////////////////////////modal-login//////////////////////////////// -->
+
+        <div class="modal fade " id="modal-login">
+        
+        <div class="modal-dialog ">
+        <div class="modal-content ">
+          <div class="modal-header " >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">ล็อกอิน</h4>
+          </div>  
+
+                      <div id="login-form" class="content-box">
+                <div class="content-box-wrapper pad20A">
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">ชื่อผู้ใช้:</label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon addon-inside bg-white font-primary">
+                                <i class="glyph-icon icon-envelope-o"></i>
+                            </span>
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="ชื่อผู้ใช้...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">รหัสผ่าน:</label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-addon addon-inside bg-white font-primary">
+                                <i class="glyph-icon icon-unlock-alt"></i>
+                            </span>
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="รหัสผ่าน...">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="checkbox-primary col-md-6" style="height: 20px;">
+
+                        </div>
+                        <div class="text-right col-md-6">
+                            <a href="#" class="switch-button" switch-target="#login-forgot" switch-parent="#login-form" title="Recover password">สมัครสมาชิก</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-pane">
+                <a href="{{ url('/dashboard')  }}" class="btn btn-block btn-primary">เข้าสู่ระบบ</a>
+                    <!-- <button type="submit" class="btn btn-block btn-primary">ล็อกอิน</button> -->
+                </div>
+            </div>      
+         
+        </div>
+      </div>          
+    </div>
+    <!-- //////////////////////////////End modal-login//////////////////////////////// -->
+
 <div class="main-header bg-header wow fadeInDown">
     <div class="container">
     <a href="index.html" class="header-logo" title="Monarch - Create perfect presentation websites"></a><!-- .header-logo -->
@@ -397,152 +467,71 @@
     <ul class="header-nav collapse">
         <li>
             <a href="#" title="Homepages">
-                Homepages
+                หน้าแรก
                 <i class="glyph-icon icon-angle-down"></i>
             </a>
             <ul>
-                <li><a href="index.html" title="Homepage example 1"><span>Homepage example 1</span></a></li>
-                <li><a href="index-alt.html" title="Homepage example 2"><span>Homepage example 2</span></a></li>
-                <li><a href="index-alt-2.html" title="Homepage example 3"><span>Homepage example 3</span></a></li>
-                <li><a href="index-alt-4.html" title="Homepage example 5"><span>Homepage example 4</span></a></li>
-                <li class="divider"></li>
-                <li><a href="../admin-template/index.html" title="Admin dashboard 1"><span>Admin dashboard 1</span></a></li>
-                <li><a href="../admin-template/index-alt.html" title="Admin dashboard 2"><span>Admin dashboard 2</span></a></li>
+                <li><a href="{{ url('/')  }}" title="Homepage example 1"><span>หน้าแรก</span></a></li>
             </ul>
         </li>
         <li>
-            <a href="#" title="Hero sections">
-                Hero sections
-                <i class="glyph-icon icon-angle-down"></i>
-            </a>
-            <ul class="footer-nav">
-                <li><a href="hero-static.html" title="Static hero sections"><span>Static sections</span></a></li>
-                <li><a href="hero-alignments.html" title="Hero alignments"><span>Hero alignments</span></a></li>
-                <li><a href="hero-overlays.html" title="Hero overlays"><span>Hero overlays</span></a></li>
-                <li><a href="hero-video.html" title="Hero with video backgrounds"><span>Video sections</span></a></li>
-                <li><a href="hero-elements.html" title="Hero sections with elements"><span>Hero elements</span></a></li>
-                <li><a href="hero-parallax.html" title="Hero with parallax backgrounds"><span>Parallax sections</span></a></li>
-                <li><a href="hero-images.html" title="Hero with image backgrounds"><span>Hero backgrounds</span></a></li>
-                <li><a href="hero-patterns.html" title="Hero with pattern backgrounds"><span>Hero patterns</span></a></li>
-                <li><a href="hero-gradients.html" title="Hero with gradient backgrounds"><span>Hero gradients</span></a></li>
-            </ul>
-        </li>
-        <li class="sf-mega">
-            <a href="#" title="Features">
-                Features
-                <i class="glyph-icon icon-angle-down"></i>
-            </a>
-            <ul class="sf-mega-menu clearfix">
-                <li class="col-lg-2 col-xs-12 col-sm-4 col-md-2">
-                    <h3 class="header">Portfolios</h3>
-                    <a href="portfolio-2col.html" title="Portfolio with 2 columns"><span>Portfolio 2 columns</span></a>
-                    <a href="portfolio-3col.html" title="Portfolio with 3 columns"><span>Portfolio 3 columns</span></a>
-                    <a href="portfolio-4col.html" title="Portfolio with 4 columns"><span>Portfolio 4 columns</span></a>
-                    <a href="portfolio-masonry.html" title="Portfolio masonry"><span>Portfolio masonry</span></a>
-                </li>
-                <li class="col-lg-2 col-xs-12 col-sm-4 col-md-2">
-                    <h3 class="header">Headers</h3>
-                    <a href="header-fixed.html" title="Fixed header"><span>Fixed header</span></a>
-                    <a href="header-no-top-menu.html" title="Remove top menu"><span>Remove top menu</span></a>
-                    <a href="header-animations.html" title="Header animations"><span>Header animations</span></a>
-                    <a href="header-transparent.html" title="Transparent header"><span>Transparent header</span></a>
-                    <a href="header-resizable.html" title="Resizable header"><span>Resizable header</span></a>
-                </li>
-                <li class="col-lg-2 col-xs-12 col-sm-4 col-md-2">
-                    <h3 class="header">Pages</h3>
-                    <a href="features-box.html" title="Features boxes"><span>Features boxes</span></a>
-                    <a href="contact-us.html" title="Contact us"><span>Contact us</span></a>
-                    <h3 class="header mrg15T">Framework</h3>
-                    <a href="tile-boxes.html" title="Tile boxes"><span>Tile boxes</span></a>
-                </li>
-                <li class="col-lg-6 col-xs-12 col-sm-4 col-md-6">
-                    <h3 class="header pad0L">Navigation Slideshow</h3>
-                    <div class="clearfix">
-                        <div class="owl-slider-5 slider-wrapper">
-                            <div>
-                                <a href="blog-single.html" title="">
-                                    <img src="assets/image-resources/slides-bg/slide-1.jpg" class="img-full" alt="Example alternate text">
-                                </a>
-                            </div>
-                            <div>
-                                <a href="blog-single.html" title="">
-                                    <img src="assets/image-resources/slides-bg/slide-2.jpg" class="img-full" alt="Example alternate text">
-                                </a>
-                            </div>
-                            <div>
-                                <a href="blog-single.html" title="">
-                                    <img src="assets/image-resources/slides-bg/slide-3.jpg" class="img-full" alt="Example alternate text">
-                                </a>
-                            </div>
-                            <div>
-                                <a href="blog-single.html" title="">
-                                    <img src="assets/image-resources/slides-bg/slide-4.jpg" class="img-full" alt="Example alternate text">
-                                </a>
-                            </div>
-                            <div>
-                                <a href="blog-single.html" title="">
-                                    <img src="assets/image-resources/slides-bg/slide-5.jpg" class="img-full" alt="Example alternate text">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="divider mrg20T mrg20B"></div>
-                        <h4 class="header pad0L">Gadgets &amp; Illustrations</h4>
-                        <p>No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know.</p>
-                    </div>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <a href="#" title="Components">
-                Components
+            <a href="#" title="Homepages">
+            ซ่อมสินค้า
                 <i class="glyph-icon icon-angle-down"></i>
             </a>
             <ul>
-                <li>
-                    <a href="content-boxes.html" title="Components framework">
-                        <span>Components framework</span>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="pricing-table.html" title="Pricing tables">
-                        <span>Pricing tables</span>
-                    </a>
-                </li>
-                <li><a href="carousels.html" title="Carousels"><span>Carousels</span></a></li>
-                <li><a href="slideshows.html" title="Slideshows"><span>Slideshows</span></a></li>
-                <li><a href="testimonials.html" title="Testimonials"><span>Testimonials</span></a></li>
-                <li><a href="icon-boxes.html" title="Icon boxes"><span>Icon boxes</span></a></li>
-                <li><a href="cta-boxes.html" title="Call to action boxes"><span>Call to action boxes</span></a></li>
-                <li><a href="features-box.html" title="Features boxes"><span>Features boxes</span></a></li>
+                <li><a href="index.html" title="Homepage example 1"><span>ซ่อมสินค้า</span></a></li>
             </ul>
         </li>
         <li>
-            <a href="#" title="Pages">
-                Pages
+            <a href="#" title="Homepages">
+            ฟีดข่าว
                 <i class="glyph-icon icon-angle-down"></i>
             </a>
             <ul>
-                <li>
-                    <h3 class="header">Blog</h3>
-                    <a href="blog-sidebar.html" title="Blog with sidebar"><span>Blog sidebar I</span></a>
-                    <a href="blog-sidebar-alt.html" title="Blog with sidebar alternate"><span>Blog sidebar II</span></a>
-                    <div class="divider"></div>
-                    <a href="blog-fullwidth.html" title="Blog without sidebar"><span>Blog full width I</span></a>
-                    <a href="blog-fullwidth-alt.html" title="Blog without sidebar alternate"><span>Blog full width II</span></a>
-                    <div class="divider"></div>
-                    <a href="blog-masonry.html" title="Blog masonry"><span>Blog masonry</span></a>
-                    <a href="blog-masonry-sidebar.html" title="Blog masonry with sidebar"><span>Blog masonry sidebar</span></a>
-                    <div class="divider"></div>
-                    <a href="blog-single.html" title="Blog single post"><span>Blog single post</span></a>
-                </li>
-                <li>
-                    <h3 class="header">Others</h3>
-                    <a href="features-tour.html" title="Features tour"><span>Features tour</span></a>
-                    <a href="contact-us.html" title="Contact us"><span>Contact us</span></a>
-                </li>
+                <li><a href="{{ url('/font-new')  }}" title="Homepage example 1"><span>ฟีดข่าว</span></a></li>
             </ul>
         </li>
+        <li>
+            <a href="#" title="Homepages">
+            โปรโมชั่น
+                <i class="glyph-icon icon-angle-down"></i>
+            </a>
+            <ul>
+                <li><a href="" title="Homepage example 1"><span>โปรโมชั่น</span></a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#" title="Homepages">
+            เกี่ยวกับเรา
+                <i class="glyph-icon icon-angle-down"></i>
+            </a>
+            <ul>
+                <li><a href="{{ url('/font-contact')  }}" title="Homepage example 1"><span>เกี่ยวกับเรา</span></a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#" title="Homepages">
+            การรับประกัน
+                <i class="glyph-icon icon-angle-down"></i>
+            </a>
+            <ul>
+                <li><a href="{{ url('/font-guarantee')  }}" title="Homepage example 1"><span>การรับประกัน</span></a></li>
+            </ul>
+        </li>
+
+                <li>
+            <a href="#" title="Homepages">
+            กระทู้ถามตอบ
+                <i class="glyph-icon icon-angle-down"></i>
+            </a>
+            <ul>
+                <li><a href="{{ url('/font-board-question')  }}" title="Homepage example 1"><span>กระทู้ถามตอบ</span></a></li>
+            </ul>
+        </li>
+
     </ul><!-- .header-nav -->
 </div><!-- .container -->
 </div><!-- .main-header -->

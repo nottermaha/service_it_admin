@@ -26,7 +26,6 @@ class AuthenController extends Controller
             $data=session('key2','default'); 
                     // echo 'kk'.$data;exit();
           } 
-          
           return redirect('gallery');
         }
         else if($result=='[]'){
