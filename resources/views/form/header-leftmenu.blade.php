@@ -11,7 +11,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <span class="logo-lg"><b>Mac Service</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -307,7 +307,7 @@
           </a>
           <ul class="treeview-menu">
             <li class="active"><a href="{{ url('/dashboard')  }}"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li class="active"><a href="{{ url('/test')  }}"><i class="fa fa-circle-o"></i> test</a></li>
+            <!-- <li class="active"><a href="{{ url('/test')  }}"><i class="fa fa-circle-o"></i> test</a></li> -->
           </ul>
         </li>
 

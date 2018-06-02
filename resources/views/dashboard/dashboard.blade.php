@@ -310,11 +310,11 @@
     var areaChart       = new Chart(areaChartCanvas)
 
     var areaChartData = {
-      labels  : ['1 {{$month}} {{$year}}', '3 {{$month}} {{$year}}', '5 {{$month}} {{$year}}',
-      '7 {{$month}} {{$year}}', '9 {{$month}} {{$year}}', '11 {{$month}} {{$year}}',
-       '13 {{$month}} {{$year}}','15 {{$month}} {{$year}}' ,'17 {{$month}} {{$year}}' 
-       ,'19 {{$month}} {{$year}}' ,'21 {{$month}} {{$year}}','23 {{$month}} {{$year}}'
-       ,'25 {{$month}} {{$year}}' , '27 {{$month}} {{$year}}' ,'29 {{$month}} {{$year}}'
+      labels  : ['1 {{$month}} {{$year}}','2 {{$month}} {{$year}}', '3 {{$month}} {{$year}}','4 {{$month}} {{$year}}', '5 {{$month}} {{$year}}','6 {{$month}} {{$year}}',
+      '7 {{$month}} {{$year}}','8 {{$month}} {{$year}}', '9 {{$month}} {{$year}}','10 {{$month}} {{$year}}', '11 {{$month}} {{$year}}','12 {{$month}} {{$year}}',
+       '13 {{$month}} {{$year}}','14 {{$month}} {{$year}}','15 {{$month}} {{$year}}' ,'16 {{$month}} {{$year}}','17 {{$month}} {{$year}}','18 {{$month}} {{$year}}' 
+       ,'19 {{$month}} {{$year}}' ,'20 {{$month}} {{$year}}','21 {{$month}} {{$year}}','22 {{$month}} {{$year}}','23 {{$month}} {{$year}}','24 {{$month}} {{$year}}'
+       ,'25 {{$month}} {{$year}}' ,'26 {{$month}} {{$year}}', '27 {{$month}} {{$year}}' ,'28 {{$month}} {{$year}}','29 {{$month}} {{$year}}','30 {{$month}} {{$year}}'
        ,'31 {{$month}} {{$year}}'],
       datasets: [
         // {
@@ -335,11 +335,11 @@
           pointStrokeColor    : 'rgba(60,141,188,1)',
           pointHighlightFill  : '#fff',
           pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : [{{$day_01}}, {{$day_03}}, {{$day_05}},
-          {{$day_07}}  ,{{$day_09}} ,{{$day_11}}  
-          ,{{$day_13}} ,{{$day_15}} ,{{$day_17}}  
-          ,{{$day_19}} ,{{$day_21}}  ,{{$day_23}}  
-          ,{{$day_25}} ,{{$day_27}} ,{{$day_29}} ,{{$day_31}}]
+          data                : [{{$day_01}},{{$day_02}}, {{$day_03}},{{$day_04}}, {{$day_05}}
+          ,{{$day_06}},{{$day_07}},{{$day_08}},{{$day_09}} ,{{$day_10}},{{$day_11}}  
+          ,{{$day_12}},{{$day_13}} ,{{$day_14}},{{$day_15}} ,{{$day_16}},{{$day_17}}  
+          ,{{$day_18}},{{$day_19}} ,{{$day_20}},{{$day_21}}  ,{{$day_22}},{{$day_23}}  
+          ,{{$day_24}},{{$day_25}} ,{{$day_26}},{{$day_27}} ,{{$day_28}},{{$day_29}} ,{{$day_30}},{{$day_31}}]
         }
       ]
     }

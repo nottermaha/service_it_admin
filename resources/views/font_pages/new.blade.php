@@ -320,7 +320,7 @@
                 <div class="center-vertical">
                     <div class="center-content">
                         <h3 class="thumb-heading animated bounceIn">
-                            Cookie monsters
+                            <!-- Cookie monsters -->
                             <small>12 March 2015</small>
                         </h3>
                     </div>

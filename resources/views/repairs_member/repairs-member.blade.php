@@ -51,8 +51,10 @@
         <thead >
           <tr>
             <th>#</th>
+            <th>เลขบิล</th>
             <th>สกุล</th>
             <th>รายการย่อย</th>
+            <th>ปิดบิล</th>
             <th>แก้ไข</th>
             <th>ลบ</th>
           </tr>
@@ -63,9 +65,11 @@
           @foreach ($repairs as $repair)
           <tr>
             <td>{{ $i=$i+1 }}</td>
+            <td>B03152018</td>
             <td>{{ $repair->name }}</td>
             <!-- <td class="text-center">{{ $repair->status_name }}</td> -->
-            <td><a href="{{ url('/list-repair/'.$repair->id)  }}" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp; รายการย่อย</a></a></td> 
+            <td><a href="{{ url('/list-repair/'.$repair->id)  }}" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp; รายการย่อย</a></a></td>     
+            <td><a href="" class="btn btn-danger"></i>&nbsp; ปิดบิล</a></a></td> 
             <td>
               <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-repair{{ $repair->id }}">
                   <i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข

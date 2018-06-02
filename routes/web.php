@@ -21,6 +21,9 @@
 Route::get('/font-board-answer', function () {
     return view('font_pages/board-answer');
 });
+Route::get('/font-contact', function () {
+    return view('font_pages/contact');
+});
 Route::get('/', 'IndexController@index');
 
 Route::get('/font-new', 'FontNewController@news');
@@ -40,6 +43,7 @@ Route::get('/font-guarantee', function () {
 //////////////////////////////////////////End endpoint font/////////////////////////////////////////////
 
 Route::get('/persons-manager', 'PersonsManagerController@get_persons');
+Route::post('/persons-manager2', 'PersonsManagerController@get_persons2');
 Route::get('/person-manager-form', 'PersonsManagerController@form');
 Route::get('/person-manager-form-edit/{id}', 'PersonsManagerController@form_edit')->where('id', '[0-9]+');
 Route::post('/person-manager/create', 'PersonsManagerController@create');

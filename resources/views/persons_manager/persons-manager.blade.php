@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <title>ServiceIt | Manager</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -25,8 +25,68 @@
 <!--End css header-leftmenu -->
 
  @include('form/header-leftmenu')
+  <!-- Content Wrapper. Contains page content
+  <div class="content-wrapper">
+    Content Header (Page header)
+    <section class="content-header">
+      <h1>
+        Dashboard
+        <small>Control panel</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+      </ol>
+    </section> -->
 
+
+      <!-- Content Wrapper. Contains page content -->
+  <!-- <div class="content-wrapper"> -->
+    <!-- Content Header (Page header) -->
+    <!-- <section class="content-header"> -->
+      <!-- <h1>
+        บคคล /
+        <small>ผู้จัดการร้าน</small>
+      </h1> -->
+      <!-- <br><br> -->
+      <!-- <ol class="breadcrumb"> -->
+        <!-- <li><a><h2><i class="fa fa-dashboard"></i>บุคคล</h2></a></li> -->
+        <!-- <li class="active">ผู้จัดการร้าน</li> -->
+      <!-- </ol> -->
+    <!-- </section> -->
+    
     <section class="content">
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default">
+                <!-- <div class="box-header with-border">
+                    <h3 class="box-title">บันทึกข้อมูลการเข้าสู่ระบบ</h3>
+                </div> -->
+            <div class="box-body">
+            {{ csrf_field() }}
+<?= Form::open(array('url' => '/persons-manager2')) ?>
+                <div class="form-group">
+                    <label for="Name" class="control-label col-sm-3">เลือกร้าน</label>
+                    <div class="col-sm-6">
+                        <select  class="form-control select2" style="width: 100%;" name="store_branch_id" required >
+                        <option selected="selected" required><b> เลือกร้านที่ต้องการดูข้อมูล</b></option>
+                        <!-- <option disabled="disabled">California (disabled)</option> -->
+                        @foreach ($store_branch as $value)
+                        <option value="{{ $value->id }}" required>{{ $value->name }}</option>
+                        @endforeach
+                        </select>
+                    </div>
+                    
+                      <div style="padding-left:130px;">
+                          <button type="submit" class="btn btn-primary"><i class="fas fa-list-ul"></i>&nbsp; ตกลง</button>
+                      </div>
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
       <div class="row">
         <div class="col-xs-12 text-right">
@@ -40,7 +100,7 @@
 
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">รายการผู้จัดการร้าน</h3>
+              <h3 class="box-title">รายการผู้จัดการร้าน @if($check!=0){{$store_branch_name}} @endif</h3>
             </div>
 
        <div class="box-body table-responsive ">
@@ -49,26 +109,30 @@
           <tr>
             <th>#</th>
             <th>รูปภาพ</th>
-            <th>ชื่อขสกุล</th>
-            <th>สถานะ</th>
-            <th>แก้ไข</th>
-            <th>ลบ</th>
+            <th style="text-align:center">ชื่อขสกุล</th>
+            <th style="text-align:center">สถานะ</th>
+            <th style="text-align:center">แก้ไข</th>
+            <th style="text-align:center">ลบ</th>
           </tr>
         </thead>
         
         <tbody>
+        @if($check!=0)
+        @if($persons!=NULL)
           <?php $i=0 ?>
           @foreach ($persons as $person)
           <tr>
             <td>{{ $i=$i+1 }}</td>
-            <td>
-            <a href="{{ asset('image/person-manager/picture/'.$person->image_url) }}"><img src="{{ asset('image/person-manager/resize/'.$person->image_url) }}"></a> 
-          </td>
-            <td>{{ $person->name }}</td>
+            <td width="100px;">
+                    <!-- <img src="dist/img/user1-128x128.jpg" alt="User Image"> -->
+                    <a href="{{ asset('image/person-manager/picture/'.$person->image_url) }}"><img src="{{ asset('image/person-manager/resize/'.$person->image_url) }}" style="height:100px;width:100px;border-radius: 50%;"></a> 
+
+            </td>
+            <td style="text-align:center">{{ $person->name }}</td>
             <td class="text-center">{{ $person->status_name }}</td>
-            <td><a href="{{ url('/person-manager-form-edit/'.$person->id)  }}" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a></td>   
+            <td style="text-align:center"><a href="{{ url('/person-manager-form-edit/'.$person->id)  }}" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a></td>   
             <!-- <td class="text-center"><a href="<?php echo url('/person-manager/delete') ?>/{{$person->id}}" class="btn btn-danger">ลบ</a></td> -->
-            <td>
+            <td style="text-align:center">
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-person-manager{{ $person->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
               </button>
             </td>
@@ -101,6 +165,9 @@
     <!-- //////////////////////////////End modal-delete-person-manager//////////////////////////////// -->
           </tr>
           @endforeach
+        
+        @endif
+        @endif
         </tbody>
       </table>
       </div>
@@ -132,6 +199,15 @@
                      position: 'top-end',       
                      showConfirmButton: false     }); 
     </script>
+    @elseif (session()->has('status_select_store_branch'))     
+     <script>swal({ title: "<?php echo session()->get('status_select_store_branch'); ?>",        
+                     text: "ผลการทํางาน",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+
      @endif 
 
     </section>

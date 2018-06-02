@@ -10,14 +10,46 @@ use Image; //เรียกใช้ library จดัการรูปภา�
 class PersonsManagerController extends Controller
 {    
     public function get_persons() {
-      $persons = Persons::where('status', 1)
-      ->where('type',2)
-      ->get();
-      $persons = $this->get_status_name($persons);
-      // echo $persons;exit();
-
-      return view('persons_manager/persons-manager', ['persons' => $persons]);
+      // $persons = Persons::where('status', 1)
+      // ->where('type',2)
+      // ->get();
+      // $persons = $this->get_status_name($persons);
+      $store_branch = Store_branch::where('status', 1)->get();
+      $check['check']=0;
+      // echo $store_branch;exit();
+// 'persons' => $persons,
+      return view('persons_manager/persons-manager', ['store_branch' => $store_branch],$check);
     }
+    public function get_persons2(Request $request) {
+      $store_branch = Store_branch::where('status', 1)->get();
+        if($request['store_branch_id']>=1){
+        // echo $request['store_branch_id'];exit();
+        $persons = Persons::where('status', 1)
+        ->where('type',2)
+        ->where('store_branch_id',$request->store_branch_id)
+        ->get();
+        // $persons = $this->get_status_name($persons);
+
+        $store_branch_select = Store_branch::find($request->store_branch_id);
+        $data = [
+          'check' => 1,
+          'store_branch_name' => $store_branch_select->name,
+      ];
+
+      return view('persons_manager/persons-manager', ['persons' => $persons,'store_branch' => $store_branch], $data);
+      }
+      // else{
+      // $request->session()->flash('status_select_store_branch', 'กรุณาเลือกร้านที่ต้องการก่อน');
+      // $check['check']=0;
+      // return view('persons_manager/persons-manager', ['store_branch' => $store_branch],$check);
+      // } 
+    }
+
+    // public function get_store_branch($store_branch) {
+    //   $stores = Store_branch::where('status', 1)->get();
+    //   return $store_branch;
+    // }
+
     private function get_status_name($persons)
     {
       foreach ($persons as $key => $value) {
@@ -94,7 +126,7 @@ class PersonsManagerController extends Controller
         } 
         else{
           // echo '5555555555555';exit();                
-          $person->image_url = 'default.jpg';        
+          $person->image_url = 'default.png';        
          }
         $person->save();
         $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 

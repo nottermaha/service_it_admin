@@ -118,14 +118,16 @@ class DashboardController extends Controller
 public function get_repair_hour_in_day()
 {        
   $result = Repair::all();
-  $current_day=(date('d'));
+  $current_day=(date('Y-m-d'));
+ 
   // echo  $current_day;exit();
   $result8=[];$result9=[];$result10=[];$result11=[];$result12=[];
   $result13=[];$result14=[];$result15=[];$result16=[];$result17=[];
   foreach($result as $key=>$value)
   { 
-    if($current_day==date("d", strtotime($value['created_at'])) )
+    if($current_day==date("Y-m-d", strtotime($value['created_at'])) )
     {
+
       
      $time=date("H", strtotime($value['created_at']));
     //  echo "....".$time."...."; 

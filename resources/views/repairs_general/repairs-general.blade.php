@@ -50,6 +50,7 @@
         <thead >
           <tr>
             <th>#</th>
+            <th>เลขบิล</th>
             <th>สกุล</th>
             <th>รายการย่อย</th>
             <th>สถานะ</th>
@@ -63,8 +64,10 @@
           @foreach ($repairs as $repair)
           <tr>
             <td>{{ $i=$i+1 }}</td>
+            <td>B03152018</td>
             <td>{{ $repair->name }}</td>
             <td><a href="{{ url('/list-repair/'.$repair->id)  }}" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp;รายการย่อย</a></a></td> 
+            <td><a href="" class="btn btn-danger"></i>&nbsp; ปิดบิล</a></a></td> 
             @if($repair->status_repair==0)
              <td class="text-center"><a href="<?php echo url('/repair-general-status/edit') ?>/{{$repair->id}}" 
             class="btn btn-danger">ยังไม่เสร็จ</a></td>
