@@ -27,7 +27,26 @@
 
     <section class="content">
   <!-- <form role="form" class="form-horizontal" action="/person/create" method="post"> -->
-  <form role="form" class="form-horizontal" action="<?php echo url('/person-employee/create') ?>" method="post">
+  <!-- <form role="form" class="form-horizontal" action="<?php echo url('/person-employee/create') ?>" method="post"> -->
+
+    {!!  Form::open(['url'=>'/person-employee-create','class'=>'form-horizontal','files'=>true])   !!}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-default">
+            <div class="box-body">
+            {{ csrf_field() }}
+
+                <div class="form-group">
+                    <label for="Name" class="control-label col-sm-3">ร้านที่สังกัด</label>
+                    <div for="Name" class="control-label col-sm-3">
+                    {{$store_branch_name}}
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-md-6">
@@ -235,6 +254,8 @@
 
     <div class="row">
         <div class="col-sm-12 text-right">
+        <input type="text" name="check" value="1">
+        <input type="text" name="store_branch_id" value="{{$store_branch_id}}">
           <button type="submit" class="btn btn-success">บันทึก</button>
         </div>
     </div>

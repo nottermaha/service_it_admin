@@ -17,7 +17,7 @@ class PersonsManagerController extends Controller
       $store_branch = Store_branch::where('status', 1)->get();
       $check['check']=0;
       // echo $store_branch;exit();
-// 'persons' => $persons,
+
       return view('persons_manager/persons-manager', ['store_branch' => $store_branch],$check);
     }
     public function get_persons2(Request $request) {
@@ -34,6 +34,7 @@ class PersonsManagerController extends Controller
         $data = [
           'check' => 1,
           'store_branch_name' => $store_branch_select->name,
+          'store_branch_id' => $store_branch_select->id,
       ];
 
       return view('persons_manager/persons-manager', ['persons' => $persons,'store_branch' => $store_branch], $data);
@@ -58,19 +59,26 @@ class PersonsManagerController extends Controller
 
       return $persons;
     }
-    public function form()
+    public function form(Request $request)
     {
-      $stores = Store_branch::where('status', 1)->get();
+      $stores_branch = Store_branch::find($request->store_branch_id);
+      $data =[
+        'store_branch_id' => $stores_branch->id,
+        'store_branch_name' => $stores_branch->name,
+      ];
       
-      return View('persons_manager/person-manager-form',['stores'=>$stores]);
+      // return View('persons_manager/person-manager-form',['stores'=>$stores]);
+      // $store_branch_id = $request->$store_branch_id;
+      // echo $data['store_branch_id'];exit();
+      return View('persons_manager/person-manager-form',$data);
     }
-    public function form_edit($id)
+    public function form_edit(Request $request)
     {
-      $person = Persons::find($id);
+      $person = Persons::find($request->id);
        $items = [
         'store_branch.name as branch_name'
         ];
-      $stores = Persons::where('persons.id',$id)
+      $stores = Persons::where('persons.id',$request->id)
       ->leftJoin('store_branch', 'store_branch.id', '=', 'persons.store_branch_id')
       ->first($items);
 
@@ -90,6 +98,7 @@ class PersonsManagerController extends Controller
         'salary' => $person->salary,
         'date_in' => $person->date_in,
         'date_out' => $person->date_out,
+        'store_branch_id'=>$person->store_branch_id,
         'branch_name'=>$stores['branch_name'],
       ];
      
@@ -98,6 +107,8 @@ class PersonsManagerController extends Controller
     public function create(Request $request)
     { 
       // echo $request;exit();
+      // $data['store_branch_id']=$request->store_branch_id;
+      // echo $data['store_branch_id'];exit();
         $person = new Persons;
         $person->store_branch_id = $request->store_branch_id;
         $person->type = 2;
@@ -131,7 +142,22 @@ class PersonsManagerController extends Controller
         $person->save();
         $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
 
-        return redirect('persons-manager');
+        $store_branch = Store_branch::where('status', 1)->get();
+        // echo $request['store_branch_id'];exit();
+        $persons = Persons::where('status', 1)
+        ->where('type',2)
+        ->where('store_branch_id',$request->store_branch_id)
+        ->get();
+        // $persons = $this->get_status_name($persons);
+        $store_branch_select = Store_branch::find($request->store_branch_id);
+        $data = [
+          'check' => 1,
+          'store_branch_name' => $store_branch_select->name,
+          'store_branch_id' => $store_branch_select->id,
+      ];
+
+      return view('persons_manager/persons-manager', ['persons' => $persons,'store_branch' => $store_branch], $data);
+      
     }
 
     public function edit(Request $request)
@@ -169,17 +195,49 @@ class PersonsManagerController extends Controller
       $person->save();
       $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
 
-      return redirect('persons-manager');
+      // return redirect('persons-manager');
+      $store_branch = Store_branch::where('status', 1)->get();
+
+      // echo $request['store_branch_id'];exit();
+      $persons = Persons::where('status', 1)
+      ->where('type',2)
+      ->where('store_branch_id',$request->store_branch_id)
+      ->get();
+      // $persons = $this->get_status_name($persons);
+
+      $store_branch_select = Store_branch::find($request->store_branch_id);
+      $data = [
+        'check' => 1,
+        'store_branch_name' => $store_branch_select->name,
+        'store_branch_id' => $store_branch_select->id,
+    ];
+
+    return view('persons_manager/persons-manager', ['persons' => $persons,'store_branch' => $store_branch], $data);
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
-      $person = Persons::find($id);
+      $person = Persons::find($request->id);
       $person->status = 0;
       $person->save();
       $person2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว');
 
-      return redirect('persons-manager');
+      // return redirect('persons-manager');
+      $store_branch = Store_branch::where('status', 1)->get();
+      // echo $request['store_branch_id'];exit();
+      $persons = Persons::where('status', 1)
+      ->where('type',2)
+      ->where('store_branch_id',$request->store_branch_id)
+      ->get();
+      // $persons = $this->get_status_name($persons);
+      $store_branch_select = Store_branch::find($request->store_branch_id);
+      $data = [
+        'check' => 1,
+        'store_branch_name' => $store_branch_select->name,
+        'store_branch_id' => $store_branch_select->id,
+    ];
+
+    return view('persons_manager/persons-manager', ['persons' => $persons,'store_branch' => $store_branch], $data);
     }
 
 

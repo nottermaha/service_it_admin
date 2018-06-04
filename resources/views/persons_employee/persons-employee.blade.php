@@ -28,10 +28,55 @@
 
     <section class="content">
 
+    <br>
       <div class="row">
+          <div class="col-md-12">
+              <div class="box box-default">
+                      <!-- <div class="box-header with-border">
+                          <h3 class="box-title">บันทึกข้อมูลการเข้าสู่ระบบ</h3>
+                      </div> -->
+                  <div class="box-body">
+                  {{ csrf_field() }}
+                      <?= Form::open(array('url' => '/persons-employee2')) ?>
+                      <div class="form-group">
+                      <label for="Name" class="col-sm-2"></label>
+                          <b for="Name" class="col-sm-1" style="padding-top:8;">เลือกร้าน</b>
+                          <div class="col-sm-6">
+                              <select  class="form-control select2" style="width: 100%;" name="store_branch_id" required >
+                              <option selected="selected" required><b> เลือกร้านที่ต้องการดูข้อมูล</b></option>
+                              <!-- <option disabled="disabled">California (disabled)</option> -->
+                              @foreach ($store_branch as $value)
+                              <option value="{{ $value->id }}" required>{{ $value->name }}</option>
+                              @endforeach
+                              </select>
+                          </div>
+                          
+                            <div style="padding-left:130px;">
+                                <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp; ตกลง</button>
+                            </div>
+                          {!! Form::close() !!}
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+ @if($check!=0)
+      <!-- <div class="row">
         <div class="col-xs-12 text-right">
           <?= link_to('/person-employee-form',$title='&nbsp;เพิ่มข้อมูล',['class'=>'btn btn-primary fa  fa-plus-circle fa-lg'],$secure=null); ?>
         </div> 
+      </div>
+      <br> -->
+      <div class="row">
+        <div class="col-xs-12 text-right">
+          <?= Form::open(array('url' => '/person-employee-form')) ?>
+            <input type="hidden" name="store_branch_id" value="{{$store_branch_id}}">
+            <div style="padding-left:130px;">
+                <button type="submit" class="btn btn-primary"><i class="fa  fa-plus-circle fa-lg"></i>&nbsp; เพิ่มข้อมูล</button>
+            </div>
+            {!! Form::close() !!}
+            </div> 
       </div>
       <br>
 
@@ -40,7 +85,7 @@
 
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">รายการพนักงาน</h3>
+              <h3 class="box-title">รายการพนักงาน @if($check!=0){{$store_branch_name}} @endif</h3>
             </div>
 
        <div class="box-body table-responsive ">
@@ -48,10 +93,11 @@
         <thead >
           <tr>
             <th>#</th>
-            <th>สกุล</th>
-            <th>สถานะ</th>
-            <th>แก้ไข</th>
-            <th>ลบ</th>
+            <th>รูปภาพ</th>
+            <th class="text-center">ชื่อ-สกุล</th>
+            <th class="text-center">สถานะ</th>
+            <th class="text-center">แก้ไข</th>
+            <th class="text-center">ลบ</th>
           </tr>
         </thead>
         
@@ -60,11 +106,30 @@
           @foreach ($persons as $person)
           <tr>
             <td>{{ $i=$i+1 }}</td>
+            <td width="100px;">
+                    <!-- <img src="dist/img/user1-128x128.jpg" alt="User Image"> -->
+                    <a href="{{ asset('image/person-employee/picture/'.$person->image_url) }}"><img src="{{ asset('image/person-employee/resize/'.$person->image_url) }}" style="height:100px;width:100px;border-radius: 50%;"></a> 
+
+            </td>
             <td>{{ $person->name }}</td>
             <td class="text-center">{{ $person->status_name }}</td>
-            <td><a href="{{ url('/person-employee-form-edit/'.$person->id)  }}" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a></td>   
+            <!-- <td class="text-center">
+              <a href="{{ url('/person-employee-form-edit/'.$person->id)  }}" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a>
+            </td>    -->
             <!-- <td class="text-center"><a href="<?php echo url('/person-employee/delete') ?>/{{$person->id}}" class="btn btn-danger">ลบ</a></td> -->
             <td>
+              <div class="row">
+                  <div class="col-xs-12 text-right">
+                      <?= Form::open(array('url' => '/person-employee-form-edit')) ?>
+                      <input type="hidden" name="id" value="{{ $person->id }}">
+                      <div class="text-center">
+                          <button type="submit" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</button>
+                      </div>
+                      {!! Form::close() !!}
+                      </div> 
+              </div>
+            </td>
+            <td class="text-center">
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-person-employee{{ $person->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
               </button>
             </td>
@@ -78,7 +143,7 @@
                       <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">ลบข้อมูล</h4>
                   </div>        
-                <?= Form::open(array('url' => '/person-employee/delete/'.$person->id)) ?>
+                <?= Form::open(array('url' => '/person-employee-delete')) ?>
                     <div class="modal-body">
                       <div class="row" >
                         <div class="form-group">
@@ -87,6 +152,8 @@
                       </div>  
                     </div> 
                       <div class="modal-footer">
+                      <input type="text" name="id" value="{{ $person->id }}">
+                      <input type="text" name="store_branch_id" value="{{ $store_branch_id}}">
                         <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button>
                         <button type="submit" class="btn btn-danger">ลบข้อมูล</button>
                       </div>
@@ -99,6 +166,7 @@
           @endforeach
         </tbody>
       </table>
+      @endif
       </div>
     </div>
     </div>

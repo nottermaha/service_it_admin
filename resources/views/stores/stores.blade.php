@@ -49,13 +49,13 @@
 
        <div class="box-body table-responsive ">
               <table id="example" class="table table-bordered table-striped table-hover  ">
-        <thead >
-          <tr>
+        <thead>
+          <tr >
             <th>#</th>
             <th>สาขา</th>
-            <th>สถานะ</th>
-            <th>แก้ไข</th>
-            <th>ลบ</th>
+            <th class="text-center">สถานะ</th>
+            <th class="text-center">แก้ไข</th>
+            <!-- <th class="text-center">ลบ</th> -->
           </tr>
         </thead>
         
@@ -64,13 +64,27 @@
           @foreach ($stores as $store )
           <tr>
             <td>{{ $i=$i+1 }}</td>
-            <td ><a href=""data-toggle="modal" data-target="#modal-show-store-branch">{{ $store->name }}</a></td>
-            <td class="text-center">{{ $store->status_name }}</td>>
-            <td><a href="" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-branch{{ $store->id }}"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a></td> 
-            <td>
-              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-branch{{ $store->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
+            <td >
+              <a href=""data-toggle="modal" data-target="#modal-show-store-branch">{{ $store->name }}</a>
+            </td>
+            @if($store->status==1)
+            <td class="text-center">
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-delete-branch{{ $store->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; เปิดใช้งาน
               </button>
             </td>
+            @elseif($store->status==0)
+            <td class="text-center">
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-branch{{ $store->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ปิดใช้งาน
+              </button>
+            </td>
+            @endif
+            <td class="text-center">
+              <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-branch{{ $store->id }}"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a>
+            </td> 
+            <!-- <td class="text-center">
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-branch{{ $store->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
+              </button>
+            </td> -->
             <!-- //////////////////////////////modal-delete-branch//////////////////////////////// -->
 
             <div class="modal fade " id="modal-delete-branch{{ $store->id }}">

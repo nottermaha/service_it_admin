@@ -28,7 +28,7 @@
     <section class="content">
   <!-- <form role="form" class="form-horizontal" action="/person/create" method="post"> -->
   <!-- <form role="form" class="form-horizontal" action="<?php echo url('/person-manager/create') ?>" method="post"> -->
-  {!!  Form::open(['url'=>'/person-manager/create','class'=>'form-horizontal','files'=>true])   !!}
+  {!!  Form::open(['url'=>'/person-manager-create','class'=>'form-horizontal','files'=>true])   !!}
 <div class="row">
     <div class="col-md-12">
         <div class="box box-default">
@@ -39,15 +39,9 @@
             {{ csrf_field() }}
 
                 <div class="form-group">
-                    <label for="Name" class="control-label col-sm-3">เลือกร้าน</label>
-                    <div class="col-sm-6">
-                        <select class="form-control select2" style="width: 100%;" name="store_branch_id">
-                        <option selected="selected">เลือกร้านที่จะให้สังกัด</option>
-                        <!-- <option disabled="disabled">California (disabled)</option> -->
-                        @foreach ($stores as $value)
-                        <option value="{{ $value->id }}">{{ $value->name }}</option>
-                        @endforeach
-                        </select>
+                    <label for="Name" class="control-label col-sm-3">ร้านที่สังกัด</label>
+                    <div for="Name" class="control-label col-sm-3">
+                    {{$store_branch_name}}
                     </div>
                 </div>
             
@@ -261,6 +255,7 @@
 
     <div class="row">
         <div class="col-sm-12 text-right">
+            <input type="hidden" name="store_branch_id" value="{{$store_branch_id}}">
           <button type="submit" class="btn btn-success">บันทึก</button>
         </div>
     </div>

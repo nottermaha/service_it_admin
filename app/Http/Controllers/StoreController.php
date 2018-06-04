@@ -11,7 +11,9 @@ class StoreController extends Controller
 {   
   
     public function get_store_branch() {
-      $stores = Store_branch::where('status', 1)->get();
+      $stores = Store_branch::
+      orderBy('id','asc')
+      ->get();
       $stores = $this->get_status_name($stores);
 
       return view('stores/stores', ['stores' => $stores]); 
@@ -54,7 +56,12 @@ class StoreController extends Controller
     public function delete($id)
     {
       $store = Store_branch::find($id);
+      if($store['status']==1){
       $store->status = 0;
+      }
+      elseif($store['status']==0){
+        $store->status = 1;
+        }
       $store->save();
       $store2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว'); 
 

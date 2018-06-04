@@ -399,7 +399,7 @@
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">ล็อกอิน</h4>
           </div>  
-
+          {!!  Form::open(['url'=>'/test_login','class'=>'form','files'=>true])   !!}
                       <div id="login-form" class="content-box">
                 <div class="content-box-wrapper pad20A">
 
@@ -409,7 +409,7 @@
                             <span class="input-group-addon addon-inside bg-white font-primary">
                                 <i class="glyph-icon icon-envelope-o"></i>
                             </span>
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="ชื่อผู้ใช้...">
+                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="ชื่อผู้ใช้..." name="username" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -418,7 +418,7 @@
                             <span class="input-group-addon addon-inside bg-white font-primary">
                                 <i class="glyph-icon icon-unlock-alt"></i>
                             </span>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="รหัสผ่าน...">
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="รหัสผ่าน..." name="password" required>
                         </div>
                     </div>
                     <div class="row">
@@ -431,11 +431,12 @@
                     </div>
                 </div>
                 <div class="button-pane">
+                <button type="submit" class="btn btn-block btn-primary">ล็อกอิน</button>
                 <a href="{{ url('/dashboard')  }}" class="btn btn-block btn-primary">เข้าสู่ระบบ</a>
                     <!-- <button type="submit" class="btn btn-block btn-primary">ล็อกอิน</button> -->
                 </div>
             </div>      
-         
+            {!! Form::close() !!}
         </div>
       </div>          
     </div>
@@ -529,6 +530,38 @@
             </a>
             <ul>
                 <li><a href="{{ url('/font-board-question')  }}" title="Homepage example 1"><span>กระทู้ถามตอบ</span></a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#" title="Homepages">
+            โปรไฟล์
+                <i class="glyph-icon icon-angle-down"></i>
+            </a>
+            <ul>
+                <li><a href="{{ url('/font-profile')  }}" title="Homepage example 1"><span>โปรไฟล์</span></a></li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#" title="Homepages">
+            สมัครสมาชิก
+                <i class="glyph-icon icon-angle-down"></i>
+            </a>
+            <ul>
+                <li><a href="{{ url('/font-register')  }}" title="Homepage example 1"><span>สมัครสมาชิก</span></a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#" title="Homepages">
+            ออกจากระบบ
+                <i class="glyph-icon icon-angle-down"></i>
+            </a>
+            <ul>
+                <!-- <li><a href="{{ url('/logout')  }}" title="Homepage example 1"><span>ออกจากระบบ</span></a></li> -->
+                <?= Form::open(array('url' => '/logout')) ?>
+                <button type="submit" class="btn"><i class="fa  fa-plus-circle fa-lg"></i>&nbsp; ออกจากระบบ</button>
+            {!! Form::close() !!}
             </ul>
         </li>
 

@@ -57,43 +57,60 @@
     
     <section class="content">
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="box box-default">
-                <!-- <div class="box-header with-border">
-                    <h3 class="box-title">บันทึกข้อมูลการเข้าสู่ระบบ</h3>
-                </div> -->
-            <div class="box-body">
-            {{ csrf_field() }}
-<?= Form::open(array('url' => '/persons-manager2')) ?>
-                <div class="form-group">
-                    <label for="Name" class="control-label col-sm-3">เลือกร้าน</label>
-                    <div class="col-sm-6">
-                        <select  class="form-control select2" style="width: 100%;" name="store_branch_id" required >
-                        <option selected="selected" required><b> เลือกร้านที่ต้องการดูข้อมูล</b></option>
-                        <!-- <option disabled="disabled">California (disabled)</option> -->
-                        @foreach ($store_branch as $value)
-                        <option value="{{ $value->id }}" required>{{ $value->name }}</option>
-                        @endforeach
-                        </select>
-                    </div>
-                    
-                      <div style="padding-left:130px;">
-                          <button type="submit" class="btn btn-primary"><i class="fas fa-list-ul"></i>&nbsp; ตกลง</button>
-                      </div>
-                    {!! Form::close() !!}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+      <br>
       <div class="row">
+          <div class="col-md-12">
+              <div class="box box-default">
+                      <!-- <div class="box-header with-border">
+                          <h3 class="box-title">บันทึกข้อมูลการเข้าสู่ระบบ</h3>
+                      </div> -->
+                  <div class="box-body">
+                  {{ csrf_field() }}
+                      <?= Form::open(array('url' => '/persons-manager2')) ?>
+                      <div class="form-group">
+                      <label for="Name" class="col-sm-2"></label>
+                          <b for="Name" class="col-sm-1" style="padding-top:8;">เลือกร้าน</b>
+                          <div class="col-sm-6">
+                              <select  class="form-control select2" style="width: 100%;" name="store_branch_id" required >
+                              <option selected="selected" required><b> เลือกร้านที่ต้องการดูข้อมูล</b></option>
+                              <!-- <option disabled="disabled">California (disabled)</option> -->
+                              @foreach ($store_branch as $value)
+                              <option value="{{ $value->id }}" required>{{ $value->name }}</option>
+                              @endforeach
+                              </select>
+                          </div>
+                          
+                            <div style="padding-left:130px;">
+                                <button type="submit" class="btn btn-success"><i class="fa fa-check"></i>&nbsp; ตกลง</button>
+                            </div>
+                          {!! Form::close() !!}
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!-- <div class="row">
         <div class="col-xs-12 text-right">
           <?= link_to('/person-manager-form',$title='&nbsp;เพิ่มข้อมูล',['class'=>'btn btn-primary fa  fa-plus-circle fa-lg'],$secure=null); ?>
         </div> 
       </div>
+      <br> -->
+
+ @if($check!=0)
+ <!-- @if($persons!=NULL) -->
+      <div class="row">
+        <div class="col-xs-12 text-right">
+          <?= Form::open(array('url' => '/person-manager-form')) ?>
+            <input type="hidden" name="store_branch_id" value="{{$store_branch_id}}">
+            <div style="padding-left:130px;">
+                <button type="submit" class="btn btn-primary"><i class="fa  fa-plus-circle fa-lg"></i>&nbsp; เพิ่มข้อมูล</button>
+            </div>
+            {!! Form::close() !!}
+            </div> 
+      </div>
       <br>
+
 
       <div class="row">
         <div class="col-xs-12">
@@ -109,7 +126,7 @@
           <tr>
             <th>#</th>
             <th>รูปภาพ</th>
-            <th style="text-align:center">ชื่อขสกุล</th>
+            <th style="text-align:center">ชื่อ-สกุล</th>
             <th style="text-align:center">สถานะ</th>
             <th style="text-align:center">แก้ไข</th>
             <th style="text-align:center">ลบ</th>
@@ -117,8 +134,7 @@
         </thead>
         
         <tbody>
-        @if($check!=0)
-        @if($persons!=NULL)
+
           <?php $i=0 ?>
           @foreach ($persons as $person)
           <tr>
@@ -130,7 +146,22 @@
             </td>
             <td style="text-align:center">{{ $person->name }}</td>
             <td class="text-center">{{ $person->status_name }}</td>
-            <td style="text-align:center"><a href="{{ url('/person-manager-form-edit/'.$person->id)  }}" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a></td>   
+
+            <!-- <td style="text-align:center"><a href="{{ url('/person-manager-form-edit/'.$person->id)  }}" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a></td>    -->
+            <td>
+              <div class="row">
+                  <div class="col-xs-12 text-right">
+                      <?= Form::open(array('url' => '/person-manager-form-edit')) ?>
+                      <input type="hidden" name="id" value="{{ $person->id }}">
+                      <div style="padding-left:130px;">
+                          <button type="submit" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</button>
+                      </div>
+                      {!! Form::close() !!}
+                      </div> 
+              </div>
+            </td>
+      
+
             <!-- <td class="text-center"><a href="<?php echo url('/person-manager/delete') ?>/{{$person->id}}" class="btn btn-danger">ลบ</a></td> -->
             <td style="text-align:center">
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-person-manager{{ $person->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
@@ -146,7 +177,7 @@
                       <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">ลบข้อมูล</h4>
                   </div>        
-                <?= Form::open(array('url' => '/person-manager/delete/'.$person->id)) ?>
+                <?= Form::open(array('url' => '/person-manager-delete')) ?>
                     <div class="modal-body">
                       <div class="row" >
                         <div class="form-group">
@@ -155,6 +186,8 @@
                       </div>  
                     </div> 
                       <div class="modal-footer">
+                      <input type="text" name="id" value="{{ $person->id }}">
+                      <input type="text" name="store_branch_id" value="{{ $store_branch_id}}">
                         <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button>
                         <button type="submit" class="btn btn-danger">ลบข้อมูล</button>
                       </div>
@@ -166,10 +199,11 @@
           </tr>
           @endforeach
         
-        @endif
-        @endif
+
         </tbody>
-      </table>
+      </table>     
+         <!-- @endif -->
+        @endif
       </div>
     </div>
     </div>

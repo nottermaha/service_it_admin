@@ -38,24 +38,36 @@ Route::get('/font-guarantee', function () {
     return view('font_pages/guarantee');
 });
 
+// Route::get('/font-profile', function () {
+//     return view('font_pages/profile');
+// });
+Route::get('/font-profile','AuthenController@font_profile');
+
+Route::get('/font-register', function () {
+    return view('font_pages/register');
+});
+// Route::get('/font-profile','AuthenController@font_profile');
+
 // Route::get('/font-new-detail/{id}', 'FontNewController@new_by_id')->where('id', '[0-9]+');
 
 //////////////////////////////////////////End endpoint font/////////////////////////////////////////////
 
 Route::get('/persons-manager', 'PersonsManagerController@get_persons');
 Route::post('/persons-manager2', 'PersonsManagerController@get_persons2');
-Route::get('/person-manager-form', 'PersonsManagerController@form');
-Route::get('/person-manager-form-edit/{id}', 'PersonsManagerController@form_edit')->where('id', '[0-9]+');
-Route::post('/person-manager/create', 'PersonsManagerController@create');
-Route::post('/person-manager/edit/{id}', 'PersonsManagerController@edit')->where('id', '[0-9]+');
-Route::post('/person-manager/delete/{id}' ,'PersonsManagerController@delete')->where('id', '[0-9]+');
+Route::post('/person-manager-form', 'PersonsManagerController@form');
+// Route::get('/person-manager-form-edit/{id}', 'PersonsManagerController@form_edit')->where('id', '[0-9]+');
+Route::post('/person-manager-form-edit', 'PersonsManagerController@form_edit');
+Route::post('/person-manager-create', 'PersonsManagerController@create');
+Route::post('/person-manager-edit', 'PersonsManagerController@edit')->where('id', '[0-9]+');
+Route::post('/person-manager-delete' ,'PersonsManagerController@delete')->where('id', '[0-9]+');
 
 Route::get('/persons-employee', 'PersonsEmployeeController@get_persons');
-Route::get('/person-employee-form', 'PersonsEmployeeController@form');
-Route::get('/person-employee-form-edit/{id}', 'PersonsEmployeeController@form_edit')->where('id', '[0-9]+');
-Route::post('/person-employee/create', 'PersonsEmployeeController@create');
-Route::post('/person-employee/edit/{id}', 'PersonsEmployeeController@edit')->where('id', '[0-9]+');
-Route::post('/person-employee/delete/{id}' ,'PersonsEmployeeController@delete')->where('id', '[0-9]+');
+Route::post('/persons-employee2', 'PersonsEmployeeController@get_persons2');
+Route::post('/person-employee-form', 'PersonsEmployeeController@form');
+Route::post('/person-employee-form-edit', 'PersonsEmployeeController@form_edit')->where('id', '[0-9]+');
+Route::post('/person-employee-create', 'PersonsEmployeeController@create');
+Route::post('/person-employee-edit', 'PersonsEmployeeController@edit')->where('id', '[0-9]+');
+Route::post('/person-employee-delete' ,'PersonsEmployeeController@delete')->where('id', '[0-9]+');
 
 Route::get('/persons-member', 'PersonsMemberController@get_persons');
 // Route::get('/persons-member', 'PersonsMemberController@get_persons');
@@ -121,6 +133,8 @@ Route::post('/new/delete/{id}','NewsController@delete');
 
 Route::post('/test_login','AuthenController@login');
 Route::post('/logout','AuthenController@logout');
+Route::get('/profile','AuthenController@profile');
+Route::post('/profile-edit','AuthenController@edit_profile');
 
 Route::get('/report-person-member', 'PersonsMemberController@report_person_member');
 

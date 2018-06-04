@@ -223,15 +223,24 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">
+              <?php $data='' ;
+                    $data=session('s_name','default');
+              ?>
+             @if (session()->has('s_name'))  
+                {{ $data }} 
+             @endif 
+              </span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
-                <p>
-                  Alexander Pierce - Web Developer
+                <p> 
+                @if (session()->has('s_name'))  
+                {{ $data }} 
+                @endif 
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -253,10 +262,16 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{ url('/profile') }}" class="btn btn-default btn-flat">โปรไฟล์</a>
+                 
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+
+                  <?= Form::open(array('url' => '/logout')) ?>
+                           <button type="submit" class="btn btn-default btn-flat"><i class="fas fa-list-ul"></i>&nbsp; ออกจากระบบ</button>
+                     
+                  {!! Form::close() !!}
+
                 </div>
               </li>
             </ul>
@@ -279,8 +294,12 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <p> 
+            @if (session()->has('s_name'))  
+                  {{ $data }} 
+            @endif 
+          </p>
+          <a href="#"><i class="fa fa-circle text-success"></i> ออนไลน์</a>
         </div>
       </div>
       <!-- search form -->
@@ -401,15 +420,20 @@
         </li> 
 
         <li class="treeview">
-        <!-- <a href="#">
-            <i class="fa fa-dashboard"></i> <span>index</span>
+        <a href="#">
+        <i class="fa fa-sign-out"></i> <span>ออกจากระบบ</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-          </a> -->
-          <!-- <ul class="treeview-menu"> -->
-            <li ><a href="{{ url('/')  }}"><i class="fa fa-circle-o"></i>ออกจากระบบ</a></li>
-          <!-- </ul> -->
+          </a>
+          <ul class="treeview-menu">
+
+            <?= Form::open(array('url' => '/logout')) ?>
+                           
+                           <button type="submit" class="btn"></i>&nbsp;<i class="fa fa-sign-out"></i> ยืนยันการออกจากระบบ</button>
+                     
+                  {!! Form::close() !!}
+          </ul>
         </li>
 
 
