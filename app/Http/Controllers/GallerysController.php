@@ -33,9 +33,10 @@ class GallerysController extends Controller
           // echo $request;exit();       
           $filename = str_random(10) . '.' . $request->file('img_url')
           ->getClientOriginalName();             
-          $request->file('img_url')->move(public_path() . '/image/gallery/picture/', $filename);            
-          Image::make(public_path() . '/image/gallery/picture/' . $filename)
-          ->resize(200, 200)->save(public_path() . '/image/gallery/resize/' . $filename);     
+          // $request->file('img_url')->move(public_path() . '/image/gallery/picture/', $filename);
+          $request->file('img_url')->move('image/gallery/picture/', $filename);       
+          Image::make('image/gallery/picture/' . $filename)
+          ->resize(200, 200)->save('image/gallery/resize/' . $filename);     
           // $img = Image::make($request->file('image')->getRealPath());
           $gallerys->img_url = $filename;         
         } 

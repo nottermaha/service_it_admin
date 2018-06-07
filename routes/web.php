@@ -41,12 +41,21 @@ Route::get('/font-guarantee', function () {
 // Route::get('/font-profile', function () {
 //     return view('font_pages/profile');
 // });
+Route::get('/print', function () {
+    return view('repairs_general/print');
+});
 Route::get('/font-profile','AuthenController@font_profile');
 
 Route::get('/font-register', function () {
     return view('font_pages/register');
 });
-// Route::get('/font-profile','AuthenController@font_profile');
+// Route::get('/font-repair', function () {
+//     return view('font_pages/repair');
+// });
+Route::get('/font-repair','RepairsGeneralController@font_general');
+Route::post('/font-repair-general-search','RepairsGeneralController@font_general_search');
+
+Route::post('/font-register-create','AuthenController@create_register');
 
 // Route::get('/font-new-detail/{id}', 'FontNewController@new_by_id')->where('id', '[0-9]+');
 
@@ -91,7 +100,7 @@ Route::post('/repair-member/delete/{id}', 'RepairsMemberController@delete');
 Route::get('/repair-general', 'RepairsGeneralController@get_repair');
 Route::post('/repair-general/create', 'RepairsGeneralController@create');
 Route::post('/repair-general/edit/{id}', 'RepairsGeneralController@edit');
-Route::get('/repair-general-status/edit/{id}', 'RepairsGeneralController@status_repair');
+Route::post('/repair-general-status', 'RepairsGeneralController@status_repair');
 Route::post('/repair-general/delete/{id}', 'RepairsGeneralController@delete');
 
 Route::get('/list-repair/{id}', 'ListRepairsController@get_list_repair_by_id');

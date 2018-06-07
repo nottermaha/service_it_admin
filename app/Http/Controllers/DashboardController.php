@@ -33,6 +33,11 @@ class DashboardController extends Controller
       ->where('type',4)
       ->count();
 
+      $person_member= PersonsMember::where('persons_member.status', 1)
+      ->where('type',4)
+      ->limit(8)
+      ->get();
+
       $results = Persons::where('persons.status', 1)
       ->get();
       $gender = $this->count_male2($results);
@@ -82,7 +87,7 @@ class DashboardController extends Controller
         
       ];
       // echo $data['count_admin'];exit();
-      return view('dashboard/dashboard',$data);
+      return view('dashboard/dashboard',['person_member'=>$person_member],$data);
     }
   
     //////////////////////////////////////////////////////////////////////////////////

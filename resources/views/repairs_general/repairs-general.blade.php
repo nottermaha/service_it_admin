@@ -51,11 +51,15 @@
           <tr>
             <th>#</th>
             <th>เลขบิล</th>
-            <th>สกุล</th>
-            <th>รายการย่อย</th>
-            <th>สถานะ</th>
-            <th>แก้ไข</th>
-            <th>ลบ</th>
+            <th>ชื่อ-สกุล</th>
+            <th>ราคา</th>
+            <th>ช่างซ่อม</th>
+            <th class="text-center">รายการที่ซ่อม</th>
+            <!-- <th class="text-center">ปิดบิล</th> -->
+            <th class="text-center">สถานะ</th>
+            <!-- <th>แก้ไข</th> -->
+            <!-- <th>ลบ</th> -->
+            <th class="text-center">เมนูจัดการ</th>
           </tr>
         </thead>
         
@@ -64,29 +68,156 @@
           @foreach ($repairs as $repair)
           <tr>
             <td>{{ $i=$i+1 }}</td>
-            <td>B03152018</td>
+            <td>{{ $repair->bin_number }}</td>
             <td>{{ $repair->name }}</td>
-            <td><a href="{{ url('/list-repair/'.$repair->id)  }}" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp;รายการย่อย</a></a></td> 
-            <td><a href="" class="btn btn-danger"></i>&nbsp; ปิดบิล</a></a></td> 
-            @if($repair->status_repair==0)
-             <td class="text-center"><a href="<?php echo url('/repair-general-status/edit') ?>/{{$repair->id}}" 
-            class="btn btn-danger">ยังไม่เสร็จ</a></td>
-
-            @elseif($repair->status_repair==1)
-            <td class="text-center"><a href="<?php echo url('/repair-general-status/edit') ?>/{{$repair->id}}" 
-            class="btn btn-success">เสร็จแล้ว</a></td>  
+            <td>{{ $repair->after_price }}</td>
+            <td>{{ $repair->persons_id }}</td>
+            <td class="text-center"><a href="{{ url('/list-repair/'.$repair->id)  }}" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp;รายการที่ซ่อม</a></a></td> 
+            <!-- <td class="text-center"><a href="" class="btn btn-danger"></i>&nbsp; ปิดบิล</a></a></td>  -->
+            @if($repair->status_repair==1)
+            <td class="text-center">
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">สินค้าที่พึ่งเข้าระบบ
+            </td>
+            @elseif($repair->status_repair==2)
+            <td class="text-center">
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">กำลังซ่อมสินค้า
+            </td>
+            @elseif($repair->status_repair==3)
+            <td class="text-center">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">ซ่อมสินค้าเสร็จแล้ว
+            </td>
+            @elseif($repair->status_repair==4)
+            <td class="text-center">
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">ลูกค้ารับสินค้าคืนแล้ว
+            </td>
+            @elseif($repair->status_repair==5)
+            <td class="text-center">
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">ยกเลิกการซ่อม
+            </td>  
             @endif
-            <td>
+
+
+            <!-- <td>
             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-repair{{ $repair->id }}">
                 <i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข
             </button>
-            </td>
+            </td> -->
             <!-- <td class="text-center"><a href="<?php echo url('/repair-general/delete') ?>/{{$repair->id}}" 
             class="btn btn-danger">ลบ</a></td>    -->
-            <td>
+            <!-- <td>
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-repair-general{{ $repair->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
               </button>
+            </td> -->
+            <td class="text-center">
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-manage-repair-general{{ $repair->id }}"><i class="fa fa-pencil-square-o fa-lg"></i>&nbsp; เมนูจัดการ
+              </button>
             </td>
+
+             <!-- //////////////////////////modal-manage-repair-general/////////////////////// -->
+
+            <div class="modal" id="modal-manage-repair-general{{ $repair->id }}">
+              <div class="modal-dialog "style="width:350px;margin-right:100px;" >
+                <div class="modal-content " >
+                  <div class="modal-header " >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">เมนูจัดการ</h4>
+                  </div>        
+
+                    <div class="modal-body">
+                    <div class="modal-header " >
+                      <div class="row" >
+                        <div class="form-group">
+                          <div  class="text-center">
+                              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-repair{{ $repair->id }}" style="width:300px;">
+                                  <i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไขข้อมูล
+                              </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" >
+                        <div class="form-group">
+                          <div  class="text-center">
+                              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-repair-general{{ $repair->id }}" style="width:300px;"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบข้อมูล
+                              </button>
+                          </div>
+                        </div>
+                      </div>  
+                      <div class="row" >
+                        <div class="form-group">
+                          <div  class="text-center">
+                          <a href="" class="btn btn-danger" style="width:300px;">&nbsp; ปิดบิล</a></a>
+                          </div>
+                        </div>
+                      </div>
+                     
+                     </div>
+                     <br>
+                      <div class="row" >
+                        <div class="form-group">
+                          <div  class="text-center">
+                          <a href="<?php echo url('/print') ?>" class="btn btn-success" style="width:300px;"><i class="fa fa-print fa-lg"></i>&nbsp;พิมพ์ใบรับซ่อม</a></a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" >
+                        <div class="form-group">
+                          <div  class="text-center">
+                          <a href="" class="btn btn-success" style="width:300px;"><i class="fa fa-print fa-lg"></i>&nbsp;พิมพ์ใบเสร็จ</a></a>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div> 
+                    
+                </div>
+              </div>          
+            </div>
+    <!-- //////////////////////End modal-manage-repair-general///////////////////////// -->
+<!-- //////////////////////////////modal-edit-status-repair//////////////////////////////// -->
+
+        <div class="modal fade " id="modal-edit-status-repair{{ $repair->id }}">
+        
+        <div class="modal-dialog ">
+        <div class="modal-content ">
+          <div class="modal-header " >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">สถานะการสินค้า</h4>
+          </div>        
+          <?= Form::open(array('url' => '/repair-general-status')) ?>
+          <div class="modal-body">
+
+            <div class="row" >
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">สถานะ</b>
+                    <div class="col-md-8">               
+                        <select class="form-control select2" style="width: 100%;" name="status_repair" required>
+                        <option selected="selected">สถานะที่เคยเลือก [  ]</option>
+                        <!-- <option disabled="disabled">California (disabled)</option> -->
+                  
+                        <option value="1">สินค้าที่พึ่งเข้าระบบ</option>
+                        <option value="2">กำลังซ่อมสินค้า</option>
+                        <option value="3">ซ่อมสินค้าเสร็จแล้ว</option>
+                        <option value="4">ลูกค้ารับสินค้าคืนแล้ว</option>
+                        <option value="5">ยกเลิกการซ่อม</option>
+                        
+                        </select>
+                    </div>
+              </div>
+            </div>
+          
+          </div> 
+          <div class="modal-footer">
+          <input type="text" name="id" value="{{ $repair->id }}">
+            <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
+            <button type="submit" class="btn btn-success">บันทึก</button>
+          </div>
+          {!! Form::close() !!}
+        </div>
+      </div>          
+    </div>
+    <!-- //////////////////////////////End modal-edit-status-repair//////////////////////////////// -->
              <!-- //////////////////////////////modal-delete-repair-general//////////////////////////////// -->
 
             <div class="modal fade " id="modal-delete-repair-general{{ $repair->id }}">

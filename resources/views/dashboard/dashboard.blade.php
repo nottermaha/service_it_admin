@@ -121,10 +121,10 @@
               <!-- USERS LIST -->
               <div class="box box-danger">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Latest Members</h3>
+                  <h3 class="box-title">สมาชิกใหม่</h3>
 
                   <div class="box-tools pull-right">
-                    <span class="label label-danger">8 New Members</span>
+                    <span class="label label-danger">8 สมาชิกคนล่าสุด</span>
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
@@ -134,12 +134,15 @@
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
                   <ul class="users-list clearfix">
+                  @foreach($person_member as $value)
                     <li>
                       <img src="dist/img/user1-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Alexander Pierce</a>
+                      <!-- <a href="{{ asset('image/person-member/picture/'.$value->image_url) }}"><img src="{{ asset('image/person-member/resize/'.$value->image_url) }}" ></a> -->
+                      <a class="users-list-name" href="#">{{$value->name}}</a>
                       <span class="users-list-date">Today</span>
                     </li>
-                    <li>
+                    @endforeach
+                    <!-- <li>
                       <img src="dist/img/user8-128x128.jpg" alt="User Image">
                       <a class="users-list-name" href="#">Norman</a>
                       <span class="users-list-date">Yesterday</span>
@@ -173,7 +176,7 @@
                       <img src="dist/img/user3-128x128.jpg" alt="User Image">
                       <a class="users-list-name" href="#">Nadia</a>
                       <span class="users-list-date">15 Jan</span>
-                    </li>
+                    </li> -->
                   </ul>
                   <!-- /.users-list -->
                 </div>
@@ -266,7 +269,7 @@
 <script src="bower_components/raphael/raphael.min.js"></script>
 <script src="bower_components/morris.js/morris.min.js"></script>
 <!-- ChartJS -->
-<script src="bower_components/Chart.js/Chart.js"></script>
+<script src="bower_components/chart.js/Chart.js"></script>
 
 <script>
   // Datatable

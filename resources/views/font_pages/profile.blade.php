@@ -13,8 +13,9 @@
                 <div class="image-content font-white">
 
                     <div class="meta-box meta-box-bottom">
-                        <img src="assets/image-resources/gravatar.jpg" alt="" class="meta-image img-bordered img-circle">
-                        <h3 class="meta-heading">Alex Rosenberg</h3>
+                        <!-- <img src="assets/image-resources/gravatar.jpg" alt="" class="meta-image img-bordered img-circle"> -->
+                        <a href="{{ asset('image/person-member/picture/'.$image_url) }}"><img src="{{ asset('image/person-member/resize/'.$image_url) }}" style="height:100px;width:100px;border-radius: 50%;"></a> 
+                        <h3 class="meta-heading">{{$name}}</h3>
                         <h4 class="meta-subheading">Ultimate backend programmer</h4>
                     </div>
 

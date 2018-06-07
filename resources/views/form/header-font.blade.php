@@ -481,7 +481,7 @@
                 <i class="glyph-icon icon-angle-down"></i>
             </a>
             <ul>
-                <li><a href="index.html" title="Homepage example 1"><span>ซ่อมสินค้า</span></a></li>
+                <li><a href="{{ url('/font-repair')  }}" title="Homepage example 1"><span>ซ่อมสินค้า</span></a></li>
             </ul>
         </li>
         <li>

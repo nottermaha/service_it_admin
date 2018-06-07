@@ -25,6 +25,7 @@ class AuthenController extends Controller
           session(['s_name'=>$result['0']['name']]);
           session(['s_id'=>$result['0']['id'] ]); 
           session(['s_type'=>$result['0']['type'] ]); 
+          session(['s_store_branch_id'=>$result['0']['store_branch_id'] ]); 
           // session(['key2'=>$result['0']['store_branch_id'] ]); 
           // if (session()->has('key2')) { 
           //   $data=session('key2','default'); 
@@ -49,6 +50,28 @@ class AuthenController extends Controller
         }
        
         // return view('gallery/gallery', ['gallerys' => $gallerys]);
+      }
+
+      public function create_register(Request $request){
+        $person = new PersonsMember;
+        $person->status = true;
+        $person->type = 4;
+        $person->username = $request->username;
+        $person->password = $request->password;
+        $person->name = $request->name;
+        $person->person_id = $request->person_id;
+        $person->gender = $request->gender;
+        $person->birthday = $request->birthday;
+        $person->email = $request->email;
+        $person->phone = $request->phone;
+        $person->image_url = $request->image_url;
+        $person->address = $request->address;
+        $person->save();
+        $request->session()->flash('status_create', 'สมัครสมาชิก');
+        
+        return redirect('/font-register');
+
+        return redirect('list-part/'.$list_parts['import_parts_id']);
       }
       public function font_profile(){
         $id=session('s_id','default');
@@ -216,6 +239,8 @@ class AuthenController extends Controller
         $request->session()->forget('key2');  
         $request->session()->flush();
         $request->session()->forget('s_type');  
+        $request->session()->flush();  
+        $request->session()->forget('s_store_branch_id');  
         $request->session()->flush();  
 
         return redirect('/');

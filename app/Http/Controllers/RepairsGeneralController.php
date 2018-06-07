@@ -3,17 +3,71 @@
 namespace App\Http\Controllers;
 
 use App\Repair;
+use App\Persons;
 use Illuminate\Http\Request;
 
 class RepairsGeneralController extends Controller
 {    
+ 
+  public function font_general() {
+    $data['check']=0;
+    return view('font_pages/repair', $data);
+  }
+  public function font_general_search(Request $request) {
+        // echo $request;exit();
+        $items = [
+          'repair.id as r_id'
+          ,'repair.bin_number as bin_number'
+          ,'repair.name as name'
+          ,'repair.status_repair as status_repair'
+          ,'repair.phone as phone'
+          ,'repair.after_price as after_price'
+          ,'repair.equipment_follow as equipment_follow'
+          ,'persons.name as persons_name'
+          ,'list_repair.list_name as list_repair_name'
+          ,'list_repair.status_list_repair as status_list_repair'
+      ];
+
+        $repairs = Repair::where('repair.status', 1)
+        ->where('repair.bin_number',$request->bin_number)
+        ->leftJoin('persons', 'persons.id', '=', 'repair.persons_id')
+        ->leftJoin('list_repair', 'list_repair.repair_id', '=', 'repair.id')
+        ->get($items);
+        // echo $repairs;exit();
+
+        if(count($repairs)!=0){
+        $data = [
+          'id' => $repairs['0']['id'],
+          'bin_number' => $repairs['0']['bin_number'],
+          'name' => $repairs['0']['name'],
+          'status_repair' => $repairs['0']['status_repair'],
+          'phone' => $repairs['0']['phone'],
+          'after_price' => $repairs['0']['after_price'],
+          'equipment_follow' => $repairs['0']['equipment_follow'],
+          'persons_name' => $repairs['0']['persons_name'],
+
+          'check' => 1,
+        ];
+        // echo $data['id'];exit();
+        return view('font_pages/repair',['repairs'=>$repairs], $data);
+      }
+      else{
+        $data['check']=0;
+        return view('font_pages/repair', $data);
+      }
+ 
+  }
     public function get_repair() {
+      $store_branch_id=session('s_store_branch_id','default');
       $repairs = Repair::where('status', 1)
-      ->where('store_branch_id',2)
+      ->where('store_branch_id',$store_branch_id)
       ->where('persons_member_id',NULL)
       // ->where('persons_id',14)
       ->get();
       $repairs = $this->get_status_name($repairs);
+      $person = Persons::where('status', 1)
+      ->get();
+
 
       return view('repairs_general/repairs-general', ['repairs' => $repairs]);
     }
@@ -27,13 +81,24 @@ class RepairsGeneralController extends Controller
     }
     public function create(Request $request)
     { 
-      // echo $request;exit();
+      $current_day=(date('d'));
+      $current_month=(date('m'));
+      $current_year=(date('y'));
+      $repairs = Repair::
+      orderBy('id','desc')
+      ->limit(1)
+      ->get();
+      // echo $repairs['0']['id']+1;exit();
+      $repair_last_id =$repairs['0']['id']+1;
+      // echo "B2".$current_day."".$current_month."".$current_year."".$repair_last_id;exit();
 
-    //  $data3=session('key2','default');  
+        $store_branch_id=session('s_store_branch_id','default');
         $repair = new Repair;
-        $repair->store_branch_id = 2;
+        $repair->store_branch_id = $store_branch_id;
         $repair->persons_id =  12;
+        $repair->bin_number =  "B2".$current_day."".$current_month."".$current_year."".$repair_last_id;
         $repair->name =  $request->name;
+        $repair->status_repair =  1;
         $repair->phone =  $request->phone;
         $repair->date_in_repair =  $request->date_in_repair;
         $repair->price =  $request->price;
@@ -59,17 +124,17 @@ class RepairsGeneralController extends Controller
 
       return redirect('repair-general');
     }
-    public function status_repair($id)
+    public function status_repair(Request $request)
     {
-      $store = Repair::find($id);
-      // echo $store;exit();
-      if($store['status_repair']==0||$store['status_repair']==NULL){
-      $store->status_repair = 1;
+      // echo $request['status_repair'];exit();
+      $repair = Repair::find($request->id);
+      if($request->status_repair>=1){
+        $repair->status_repair = $request->status_repair;
       }
       else{
-        $store->status_repair = 0;
+        $repair->status_repair = $repair['status_repair'];
       }
-      $store->save();
+      $repair->save();
 
        return redirect('repair-general');
     }

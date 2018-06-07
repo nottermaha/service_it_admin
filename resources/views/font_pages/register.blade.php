@@ -1,4 +1,5 @@
 @include('form/header-font')
+<script src="  https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
 <div id="page-content" class="col-md-10 center-margin frontend-components mrg25T">
 
 <div id="page-title">
@@ -129,7 +130,7 @@
                     <img src="https://main.msger.info/uploads/images/websiteImages/img_logo/mac2fix.jpg" alt="" style="height:100%;width:80%;">
                 </div>
             </div>
-
+            {!!  Form::open(['url'=>'/font-register-create','class'=>'form-horizontal','files'=>true])   !!}
             <div class="col-md-7">
                 <div class="example-box-wrapper">
                 <a class=text-center><b><h1>สมัครสมาชิก</h1></b></a>
@@ -140,8 +141,8 @@
                                 <label class="col-sm-3 control-label">ชื่อผู้ใช้</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="ชื่อผู้ใช้...">
+                                        <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-user " ></i></span>
+                                        <input type="text" class="form-control" placeholder="ชื่อผู้ใช้..." name="username">
                                     </div>
                                 </div>
                             </div><br>
@@ -149,8 +150,8 @@
                                 <label class="col-sm-3 control-label">รหัสผ่าน</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="รหัสผ่าน...">
+                                        <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-lock " ></i></span>
+                                        <input type="text" class="form-control" placeholder="รหัสผ่าน..." name="password">
                                     </div>
                                 </div>
                             </div><br>
@@ -158,8 +159,8 @@
                                 <label class="col-sm-3 control-label">รหัสผ่านอีกครั้ง</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="รหัสผ่านอีกครั้ง..">
+                                        <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-lock "></i></span>
+                                        <input type="text" class="form-control" placeholder="รหัสผ่านอีกครั้ง.." name="password">
                                     </div>
                                 </div>
                             </div>
@@ -172,7 +173,7 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="ชื่อ-นามสกุล...">
+                                        <input type="text" class="form-control" placeholder="ชื่อ-นามสกุล..." name="name">
                                     </div>
                                 </div>
                             </div><br>
@@ -181,7 +182,7 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="เลขประจำตัวประชาชน...">
+                                        <input type="text" class="form-control" placeholder="เลขประจำตัวประชาชน..." name="person_id">
                                     </div>
                                 </div>
                             </div><br>
@@ -189,8 +190,8 @@
                                 <label class="col-sm-3 control-label">เพศ</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="เพศ..">
+                                        <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-venus " ></i></span>
+                                        <input type="text" class="form-control" placeholder="เพศ.." name="gender">
                                     </div>
                                 </div>
                             </div><br>
@@ -198,8 +199,8 @@
                                 <label class="col-sm-3 control-label">วัน/เดือน/ปีเกิด</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="วัน/เดือน/ปีเกิด..">
+                                        <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-calendar " ></i></span>
+                                        <input type="text" class="form-control" placeholder="วัน/เดือน/ปีเกิด.." name="birthday">
                                     </div>
                                 </div>
                             </div><br>
@@ -207,8 +208,8 @@
                                 <label class="col-sm-3 control-label">อีเมล์</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="อีเมล์..">
+                                        <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-envelope " ></i></span>
+                                        <input type="text" class="form-control" placeholder="อีเมล์.." name="email">
                                     </div>
                                 </div>
                             </div><br>
@@ -216,8 +217,8 @@
                                 <label class="col-sm-3 control-label">เบอร์โทร</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="เบอร์โทร..">
+                                        <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-phone " ></i></span>
+                                        <input type="text" class="form-control" placeholder="เบอร์โทร.." name="phone">
                                     </div>
                                 </div>
                             </div><br>
@@ -225,8 +226,8 @@
                                 <label class="col-sm-3 control-label">รูปประจำตัว</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="รูปประจำตัว..">
+                                        <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-picture-o " ></i></span>
+                                        <input type="text" class="form-control" placeholder="รูปประจำตัว.." name="image_url">
                                     </div>
                                 </div>
                             </div><br>
@@ -234,9 +235,16 @@
                                 <label class="col-sm-3 control-label">ที่อยู่</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="ที่อยู่..">
+                                        <span class="input-group-addon"><i class="glyph-icon icon-home"></i></span>
+                                        <!-- <input type="text" class="form-control" placeholder="ที่อยู่.."> -->
+                                          <textarea name="" id="" class="form-control" placeholder="ที่อยู่..." name="address"></textarea>
+
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 text-right">
+                                <button type="submit" class="btn btn-success">บันทึก</button>
                                 </div>
                             </div>
 
@@ -245,6 +253,7 @@
                     </form>
                 </div>
             </div>
+            {!! Form::close() !!}
 
         </div>
         
@@ -258,4 +267,14 @@
 <br><br>
 
 </div>
+    @if (session()->has('status_create'))     
+     <script>swal({ title: "<?php echo session()->get('status_create'); ?>",        
+                     text: "ผลการทํางาน",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+
+     @endif 
 @include('form/footer-font')
