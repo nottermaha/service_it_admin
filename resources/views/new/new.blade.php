@@ -26,6 +26,13 @@
 <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
  @include('form/header-leftmenu')
+ <section class="content-header">
+            <h1 style="background-color:#DCDCDC;padding-top:10px;padding-bottom:10px;padding-left:10px;">
+              ข่าว /
+              <small><a>รายการข่าว</a> </small>
+            </h1>
+          </section> 
+      <br>
 
     <section class="content">
 

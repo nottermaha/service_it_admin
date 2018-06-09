@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Persons;
-use App\Store_branch;
+use App\StoreBranch;
 use Illuminate\Http\Request;
 use Image; //เรียกใช้ library จดัการรูปภาพเข้ามาใช้งาน 
 
@@ -11,21 +11,21 @@ class PersonsEmployeeController extends Controller
 {    
     public function get_persons() {
 
-      $store_branch = Store_branch::where('status', 1)->get();
+      $store_branch = StoreBranch::where('status', 1)->get();
       $check['check']=0;
 
       return view('persons_employee/persons-employee',  ['store_branch' => $store_branch],$check);
     }
 
     public function get_persons2(Request $request) {
-      $store_branch = Store_branch::where('status', 1)->get();
+      $store_branch = StoreBranch::where('status', 1)->get();
         if($request['store_branch_id']>=1){
         $persons = Persons::where('status', 1)
         ->where('type',3)
         ->where('store_branch_id',$request->store_branch_id)
         ->get();
         // $persons = $this->get_status_name($persons);
-        $store_branch_select = Store_branch::find($request->store_branch_id);
+        $store_branch_select = StoreBranch::find($request->store_branch_id);
         $data = [
           'check' => 1,
           'store_branch_name' => $store_branch_select->name,
@@ -47,7 +47,7 @@ class PersonsEmployeeController extends Controller
     public function form(Request $request)
     {
       // $stores = Store_branch::where('status', 1)->get();
-      $stores_branch = Store_branch::find($request->store_branch_id);
+      $stores_branch = StoreBranch::find($request->store_branch_id);
       $data =[
         'store_branch_id' => $stores_branch->id,
         'store_branch_name' => $stores_branch->name,
@@ -124,14 +124,14 @@ class PersonsEmployeeController extends Controller
         $person->save();
         $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
 
-        $store_branch = Store_branch::where('status', 1)->get();
+        $store_branch = StoreBranch::where('status', 1)->get();
         // echo $request['store_branch_id'];exit();
         $persons = Persons::where('status', 1)
         ->where('type',3)
         ->where('store_branch_id',$request->store_branch_id)
         ->get();
         // $persons = $this->get_status_name($persons);
-        $store_branch_select = Store_branch::find($request->store_branch_id);
+        $store_branch_select = StoreBranch::find($request->store_branch_id);
         $data = [
           'check' => 1,
           'store_branch_name' => $store_branch_select->name,
@@ -179,7 +179,7 @@ class PersonsEmployeeController extends Controller
         $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
   
         // return redirect('persons-manager');
-        $store_branch = Store_branch::where('status', 1)->get();
+        $store_branch = StoreBranch::where('status', 1)->get();
   
         // echo $request['store_branch_id'];exit();
         $persons = Persons::where('status', 1)
@@ -188,7 +188,7 @@ class PersonsEmployeeController extends Controller
         ->get();
         // $persons = $this->get_status_name($persons);
   
-        $store_branch_select = Store_branch::find($request->store_branch_id);
+        $store_branch_select = StoreBranch::find($request->store_branch_id);
         $data = [
           'check' => 1,
           'store_branch_name' => $store_branch_select->name,
@@ -206,14 +206,14 @@ class PersonsEmployeeController extends Controller
       $person2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว');
 
         // return redirect('persons-manager');
-        $store_branch = Store_branch::where('status', 1)->get();
+        $store_branch = StoreBranch::where('status', 1)->get();
         // echo $request['store_branch_id'];exit();
         $persons = Persons::where('status', 1)
         ->where('type',3)
         ->where('store_branch_id',$request->store_branch_id)
         ->get();
         // $persons = $this->get_status_name($persons);
-        $store_branch_select = Store_branch::find($request->store_branch_id);
+        $store_branch_select = StoreBranch::find($request->store_branch_id);
         $data = [
           'check' => 1,
           'store_branch_name' => $store_branch_select->name,

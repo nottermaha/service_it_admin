@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Store_branch extends Model
+class StoreBranch extends Model
 {
     protected $table = 'Store_branch';
     public $timestamps = false;

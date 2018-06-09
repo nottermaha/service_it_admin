@@ -1,5 +1,5 @@
 @include('form/header-font')
-<script src="  https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
+
 <div id="page-content" class="col-md-10 center-margin frontend-components mrg25T">
 
 <div id="page-title">
@@ -133,7 +133,7 @@
             {!!  Form::open(['url'=>'/font-register-create','class'=>'form-horizontal','files'=>true])   !!}
             <div class="col-md-7">
                 <div class="example-box-wrapper">
-                <a class=text-center><b><h1>สมัครสมาชิก</h1></b></a>
+                <a class=text-center><b><h1>สมัครสมาชิก</h1></b></a><br>
                     <form class="form-horizontal bordered-row">
                         <div class="form-group">
 
@@ -189,18 +189,28 @@
                             <div class="row">
                                 <label class="col-sm-3 control-label">เพศ</label>
                                 <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-venus " ></i></span>
-                                        <input type="text" class="form-control" placeholder="เพศ.." name="gender">
-                                    </div>
+                                    <label style="padding-right:30px;">
+                                        <input type="radio" id="inlineRadio110" name="gender" class="custom-radio" checked value="1">
+                                        ชาย
+                                    </label>
+                                    <label>
+                                        <input type="radio" id="inlineRadio110" name="gender" class="custom-radio" value"2">
+                                        หญิง
+                                    </label>
                                 </div>
                             </div><br>
                             <div class="row">
                                 <label class="col-sm-3 control-label">วัน/เดือน/ปีเกิด</label>
                                 <div class="col-sm-8">
-                                    <div class="input-group">
+                                    <!-- <div class="input-group">
                                         <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-calendar " ></i></span>
                                         <input type="text" class="form-control" placeholder="วัน/เดือน/ปีเกิด.." name="birthday">
+                                    </div> -->
+                                    <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon">
+                                            <i class="glyph-icon icon-calendar"></i>
+                                        </span>
+                                        <input type="date" class="bootstrap-datepicker form-control" value="02/16/12" data-date-format="mm/dd/yy" name="birthday">
                                     </div>
                                 </div>
                             </div><br>
@@ -227,7 +237,7 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-picture-o " ></i></span>
-                                        <input type="text" class="form-control" placeholder="รูปประจำตัว.." name="image_url">
+                                        <input type="file" class="form-control" placeholder="รูปประจำตัว.." name="image_url">
                                     </div>
                                 </div>
                             </div><br>
@@ -237,20 +247,21 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyph-icon icon-home"></i></span>
                                         <!-- <input type="text" class="form-control" placeholder="ที่อยู่.."> -->
-                                          <textarea name="" id="" class="form-control" placeholder="ที่อยู่..." name="address"></textarea>
+                                          <textarea  id="" class="form-control" placeholder="ที่อยู่..." name="address"></textarea>
+
 
                                     </div>
                                 </div>
-                            </div>
+                            </div><br>
                             <div class="row">
-                                <div class="col-sm-12 text-right">
-                                <button type="submit" class="btn btn-success">บันทึก</button>
+                                <div class="col-sm-12 text-center">
+                                <button type="submit" class="btn btn-primary">สมัครสมาชิก</button>
                                 </div>
                             </div>
 
                         </div> 
 
-                    </form>
+                    <!-- </form> -->
                 </div>
             </div>
             {!! Form::close() !!}

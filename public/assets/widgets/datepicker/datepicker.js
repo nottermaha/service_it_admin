@@ -187,7 +187,7 @@
 
         fill: function() {
             var d = new Date(this.viewDate),
-                year = d.getFullYear(),
+                year = (d.getFullYear())+543,////show year thai by notter
                 month = d.getMonth(),
                 currentDate = this.date.valueOf();
             this.picker.find('.bsdatepicker-days th:eq(1)')
@@ -303,8 +303,9 @@
                             } else if (target.is('.new')) {
                                 month += 1;
                             }
+                            
                             var year = this.viewDate.getFullYear();
-                            this.date = new Date(year, month, day,0,0,0,0);
+                            this.date = new Date(year+543, month, day,0,0,0,0);
                             this.viewDate = new Date(year, month, Math.min(28, day),0,0,0,0);
                             this.fill();
                             this.set();
@@ -371,8 +372,8 @@
         dates:{
             days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
             daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-            daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-            months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+            daysMin: ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส", "อา"],
+            months: ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษถาคม", "มิถุนายน", "กรกฏาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"],
             monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
         },
         isLeapYear: function (year) {

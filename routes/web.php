@@ -27,6 +27,8 @@ Route::get('/font-contact', function () {
 Route::get('/', 'IndexController@index');
 
 Route::get('/font-new', 'FontNewController@news');
+Route::resource('news', 'FontNewController');
+// Route::resource('/font-new', 'FontNewController@news');
 Route::post('/font-new-detail', 'FontNewController@new_by_id');
 
 Route::get('/font-board-question','BoardPostsController@get_question_post_font');
@@ -45,6 +47,7 @@ Route::get('/print', function () {
     return view('repairs_general/print');
 });
 Route::get('/font-profile','AuthenController@font_profile');
+Route::post('/font-profile-edit','AuthenController@font_profile_edit');
 
 Route::get('/font-register', function () {
     return view('font_pages/register');
@@ -81,9 +84,9 @@ Route::post('/person-employee-delete' ,'PersonsEmployeeController@delete')->wher
 Route::get('/persons-member', 'PersonsMemberController@get_persons');
 // Route::get('/persons-member', 'PersonsMemberController@get_persons');
 Route::get('/person-member-form', 'PersonsMemberController@form');
-Route::get('/person-member-form-edit/{id}', 'PersonsMemberController@form_edit')->where('id', '[0-9]+');
+Route::post('/person-member-form-edit', 'PersonsMemberController@form_edit')->where('id', '[0-9]+');
 Route::post('/person-member/create', 'PersonsMemberController@create');
-Route::post('/person-member/edit/{id}', 'PersonsMemberController@edit')->where('id', '[0-9]+');
+Route::post('/person-member-edit', 'PersonsMemberController@edit')->where('id', '[0-9]+');
 Route::post('/person-member/delete/{id}' ,'PersonsMemberController@delete')->where('id', '[0-9]+');
 
 Route::get('/stores', 'StoreController@get_store_branch');
@@ -147,7 +150,8 @@ Route::post('/profile-edit','AuthenController@edit_profile');
 
 Route::get('/report-person-member', 'PersonsMemberController@report_person_member');
 
-Route::get('/dashboard', 'DashboardController@dashboard');
+Route::get('/dashboard', 'DashboardController@dashboard_addmin');
+Route::get('/dashboard_branch', 'DashboardController@dashboard_by_store_branch');
 Route::get('/test', 'DashboardController@get_hour');
 // Route::get('store-form',function(){
 //     return view('stores/store-form');

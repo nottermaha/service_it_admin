@@ -1,7 +1,7 @@
 @include('form/header-font')
 <div id="page-content" class="col-md-10 center-margin frontend-components mrg25T">
 <div class="row mailbox-wrapper">
-<div class="col-md-4">
+<div class="col-md-3">
 
     <div class="panel-layout">
         <div class="panel-box">
@@ -182,217 +182,273 @@
     </div>
 
 </div>
-<div class="col-md-8">
+<div class="col-md-9">
 
     <div class="example-box-wrapper">
         <ul class="list-group row list-group-icons">
             <li class="col-md-3 active">
                 <a href="#tab-example-4" data-toggle="tab" class="list-group-item">
-                    <i class="glyph-icon font-red icon-bullhorn"></i>
-                    ข้อมูลส่วนตัว
+                    <i class="glyph-icon font-green icon-user"></i>
+                     ข้อมูลส่วนตัว 
                 </a>
             </li>
             <li class="col-md-3">
                 <a href="#tab-example-1" data-toggle="tab" class="list-group-item">
-                    <i class="glyph-icon icon-dashboard"></i>
-                    Account Settings
+                    <i class="glyph-icon font-green icon-dashboard"></i>
+                    แก้ไขข้อมูลส่วนตัว
                 </a>
             </li>
             <li class="col-md-3">
                 <a href="#tab-example-2" data-toggle="tab" class="list-group-item">
-                    <i class="glyph-icon font-primary icon-camera"></i>
-                    Messages Inbox
+                <i class="glyph-icon tooltip-button font-green icon-wrench" ></i>
+                    <!-- <i class="glyph-icon font-primary icon-camera"></i> -->
+                    ข้อมูลการซ่อมสินค้า
                 </a>
             </li>
             <li class="col-md-3">
                 <a href="#tab-example-3" data-toggle="tab" class="list-group-item">
-                    <i class="glyph-icon font-blue-alt icon-globe"></i>
+                    <i class="glyph-icon font-blue-alt font-green icon-globe"></i>
                     FAQ Section
                 </a>
             </li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane fade" id="tab-example-1">
+            <div class="tab-pane fade " id="tab-example-1">
                 <div class="alert alert-close alert-success">
-                    <a href="#" title="Close" class="glyph-icon alert-close-btn icon-remove"></a>
-                    <div class="bg-green alert-icon">
-                        <i class="glyph-icon icon-check"></i>
-                    </div>
-                    <div class="alert-content">
-                        <h4 class="alert-title">Example Infobox</h4>
-                        <p>Lorem ipsum dolor sic amet dixit tu...</p>
-                    </div>
+                   <h3 class="text-center"><b>แก้ไขโปรไฟล์</b></h3>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="content-box">
-                            <form class="form-horizontal clearfix pad15L pad15R pad20B bordered-row">
-                                <div class="form-group remove-border">
-                                    <label class="col-sm-7 control-label">Enable account:</label>
-                                    <div class="col-sm-3">
-                                        <input type="checkbox" class="input-switch-alt">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-7 control-label">Visible Profile</label>
-                                    <div class="col-sm-3">
-                                        <input type="checkbox" checked class="input-switch-alt">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-7 control-label">Hide timeline</label>
-                                    <div class="col-sm-3">
-                                        <input type="checkbox" data-on-color="danger" data-size="small" name="checkbox-example-1" class="input-switch" data-on-text="On" data-off-text="Off">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-7 control-label">Is it active?</label>
-                                    <div class="col-sm-3">
-                                        <input type="checkbox" data-on-color="info" data-size="small" name="checkbox-example-2" class="input-switch" data-on-text="On" data-off-text="Off">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-7 control-label">Radio example</label>
-                                    <div class="col-sm-3">
-                                        <input type="checkbox" data-on-color="success" data-size="small" name="checkbox-example-3" class="input-switch" checked data-on-text="On" data-off-text="Off">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="content-box mrg15B">
-                            <h3 class="content-box-header clearfix">
-                                Change Password
-                                <div class="font-size-11 float-right">
-                                    <a href="#" title="">
-                                        <i class="glyph-icon mrg5R opacity-hover icon-plus"></i>
-                                    </a>
-                                    <a href="#" title="">
-                                        <i class="glyph-icon opacity-hover icon-cog"></i>
-                                    </a>
-                                </div>
-                            </h3>
-                            <div class="content-box-wrapper pad0T clearfix">
-                                <form class="form-horizontal pad15L pad15R bordered-row">
-                                    <div class="form-group">
-                                        <label class="col-sm-6 control-label">Old password:</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control" id="" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-6 control-label">New password:</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control" id="" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-6 control-label">Repeat password:</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control" id="" placeholder="">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="button-pane mrg20T">
-                                <button class="btn btn-success">Update Password</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="tab-example-2">
-                <div class="content-box pad25A">
-                    <ul class="chat-box">
-                        <li>
-                            <div class="chat-author">
-                                <img width="36" src="assets/image-resources/gravatar.jpg" alt="">
-                            </div>
-                            <div class="popover left no-shadow">
-                                <div class="arrow"></div>
-                                <div class="popover-content">
-                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
-                                    <div class="chat-time">
-                                        <i class="glyph-icon icon-clock-o"></i>
-                                        a few seconds ago
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="float-left">
-                            <div class="chat-author">
-                                <img width="36" src="assets/image-resources/gravatar.jpg" alt="">
-                            </div>
-                            <div class="popover right no-shadow">
-                                <div class="arrow"></div>
-                                <div class="popover-content">
-                                    <h3>
-                                        <a href="#" title="Agile UI">Agile UI</a>
-                                        <div class="float-right">
-                                            <a href="#" class="btn glyph-icon icon-inbox font-gray tooltip-button" data-placement="bottom" title="This chat line was received in the mail."></a>
-                                        </div>
-                                    </h3>
-                                    This comment line has a title (author name) and a right button panel.
-                                    <div class="chat-time">
-                                        <i class="glyph-icon icon-clock-o"></i>
-                                        a few seconds ago
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="chat-author">
-                                <img width="36" src="assets/image-resources/gravatar.jpg" alt="">
-                            </div>
-                            <div class="popover left no-shadow">
-                                <div class="arrow"></div>
-                                <div class="popover-content">
-                                    This comment line has a bottom button panel, box shadow and title.
-                                    <div class="chat-time">
-                                        <i class="glyph-icon icon-clock-o"></i>
-                                        a few seconds ago
-                                    </div>
-                                    <div class="divider"></div>
-                                    <a href="#" class="btn btn-sm btn-default font-bold text-transform-upr" title=""><span class="button-content">Reply</span></a>
-                                    <a href="#" class="btn btn-sm btn-danger float-right tooltip-button" data-placement="left" title="Remove comment"><i class="glyph-icon icon-remove"></i></a>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="chat-author">
-                                <img width="36" src="assets/image-resources/gravatar.jpg" alt="">
-                            </div>
-                            <div class="popover left no-shadow">
-                                <div class="arrow"></div>
-                                <div class="popover-content">
-                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
-                                    <div class="chat-time">
-                                        <i class="glyph-icon icon-clock-o"></i>
-                                        a few seconds ago
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="float-left">
-                            <div class="chat-author">
-                                <img width="36" src="assets/image-resources/gravatar.jpg" alt="">
-                            </div>
-                            <div class="popover right no-shadow">
-                                <div class="arrow"></div>
-                                <div class="popover-content">
-                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
-                                    <div class="chat-time">
-                                        <i class="glyph-icon icon-clock-o"></i>
-                                        a few seconds ago
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
 
-                    </ul>
+                    <div class="content-box">
+                    {!!  Form::open(['url'=>'/font-profile-edit','class'=>'form-horizontal','files'=>true])   !!}
+                    <div class="form-horizontal pad15L pad15R bordered-row">
+
+                        <div class="form-group">
+
+                            <div class="row">
+                                <label class="col-sm-3 control-label">ชื่อผู้ใช้</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-user " ></i></span>
+                                        <input type="text" class="form-control" placeholder="ชื่อผู้ใช้..." name="username" value="{{$username}}">
+                                    </div>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <label class="col-sm-3 control-label">รหัสผ่าน</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-lock " ></i></span>
+                                        <input type="text" class="form-control" placeholder="รหัสผ่าน..." name="password" value="{{$password}}">
+                                    </div>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <label class="col-sm-3 control-label">รหัสผ่านอีกครั้ง</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-lock "></i></span>
+                                        <input type="text" class="form-control" placeholder="รหัสผ่านอีกครั้ง.." name="password" value="{{$password}}">
+                                    </div>
+                                </div>
+                            </div>
+                           
+                        </div>  
+                        <div class="form-group">
+
+                            <div class="row">
+                                <label class="col-sm-3 control-label">ชื่อ-นามสกุล</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">@</span>
+                                        <input type="text" class="form-control" placeholder="ชื่อ-นามสกุล..." name="name" value="{{$name}}">
+                                    </div>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <label class="col-sm-3 control-label">เลขประจำตัวประชาชน</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">@</span>
+                                        <input type="text" class="form-control" placeholder="เลขประจำตัวประชาชน..." name="person_id" value="{{$person_id}}">
+                                    </div>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <label class="col-sm-3 control-label">เพศ</label>
+                                <div class="col-sm-8">
+                                    <label style="padding-right:30px;">
+                                        <input type="radio" id="inlineRadio110" name="gender" class="custom-radio" checked value="1" value="{{$gender}}">
+                                        ชาย
+                                    </label>
+                                    <label>
+                                        <input type="radio" id="inlineRadio110" name="gender" class="custom-radio" value"2" value="{{$gender}}">
+                                        หญิง
+                                    </label>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <label class="col-sm-3 control-label">วัน/เดือน/ปีเกิด</label>
+                                <div class="col-sm-8">
+                                    <!-- <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-calendar " ></i></span>
+                                        <input type="text" class="form-control" placeholder="วัน/เดือน/ปีเกิด.." name="birthday">
+                                    </div> -->
+                                    <div class="input-prepend input-group">
+                                        <span class="add-on input-group-addon">
+                                            <i class="glyph-icon icon-calendar"></i>
+                                        </span>
+                                        <input type="date" class="bootstrap-datepicker form-control" value="02/16/12" data-date-format="mm/dd/yy" name="birthday" value="{{$birthday}}">
+                                    </div>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <label class="col-sm-3 control-label">อีเมล์</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-envelope " ></i></span>
+                                        <input type="text" class="form-control" placeholder="อีเมล์.." name="email" value="{{$email}}">
+                                    </div>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <label class="col-sm-3 control-label">เบอร์โทร</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-phone " ></i></span>
+                                        <input type="text" class="form-control" placeholder="เบอร์โทร.." name="phone" value="{{$phone}}">
+                                    </div>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <label class="col-sm-3 control-label">รูปประจำตัว</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-picture-o " ></i></span>
+                                        <input type="file" class="form-control" placeholder="รูปประจำตัว.." name="image_url" value="{{$image_url}}">
+                                    </div>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <label class="col-sm-3 control-label">ที่อยู่</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyph-icon icon-home"></i></span>
+                                        <!-- <input type="text" class="form-control" placeholder="ที่อยู่.."> -->
+                                          <textarea  id="" class="form-control" placeholder="ที่อยู่..." name="address" value="{{$address}}">{{$address}}</textarea>
+
+
+                                    </div>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+                                <input type="hidden" name="id" value="{{$id}}">
+                                <button type="submit" class="btn btn-warning">แก้ไขโปรไฟล์</button>
+                                </div>
+                            </div><br><br>
+
+                        </div> 
+                        </div> 
+                    {!! Form::close() !!}
+                </div>
+
                 </div>
             </div>
+
+            <div class="tab-pane fade pad0A" id="tab-example-2">
+                <div class="content-box pad25A">
+                <h3 class="title-hero">
+                        บันทึกข้อมูลการซ่อมสินค้าของท่าน
+                    </h3>
+                    <div class="example-box-wrapper">
+
+                    <table id="datatable-row-highlight" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>บิล</th>
+                        <th>วันที่ซ่อม</th>
+                        <th>ช่างซ่อม</th>
+                        <th>สถานะ</th>
+                        <th>เพิ่มเติม</th>
+                    </tr>
+                    </thead>
+
+                    <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th>บิล</th>
+                        <th>วันที่ซ่อม</th>
+                        <th>ช่างซ่อม</th>
+                        <th>สถานะ</th>
+                        <th>เพิ่มเติม</th>
+                    </tr>
+                    </tfoot>
+
+                    <tbody>
+                    <?php $i=0; ?>
+                        @foreach($repairs as $repair)
+                        <tr>
+                            <td>{{$i=$i+1}}</td>
+                            <td>{{ $repair->bin_number }}</td>
+                            <td>{{ $repair->date_in_repair }}</td>
+                            <td>{{ $repair->persons_name }}</td>
+                            <td>
+                            @if($repair->status_repair==1)
+                                <b style="color:orange;">สินค้าพึ่งเข้าระบบ</b>
+                                @elseif($repair->status_repair==2)
+                                <b style="color:gray;">กำลังซ่อมสินค้า</b>
+                                @elseif($repair->status_repair==3)
+                                <b style="color:green;">ซ่อมสินค้าเสร็จแล้ว</b>
+                                @elseif($repair->status_repair==4)
+                                <b style="color:blue;">ลูกค้ารับสินค้าคืนแล้ว</b>
+                                @elseif($repair->status_repair==5)
+                                <b style="color:red;">ยกเลิกการซ่อมสินค้า</b>
+                                @endif
+                            </td>
+                            <td>
+                            <button title="MonarchUI Admin Template" class="btn btn-sm btn-alt btn-hover mrg10R btn-purple">
+                                <span data-toggle="modal" data-target="#modal-detail">เพิ่มเติม</span>
+                                <i class="glyph-icon icon-bars"></i>
+                            </button>
+                            </td>
+         <!-- //////////////////////////////modal-login//////////////////////////////// -->
+
+    <div class="modal fade " id="modal-detail">
+        <div class="modal-dialog ">
+        <div class="modal-content ">
+          <div class="modal-header " >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">ล็อกอิน</h4>
+          </div>  
+                <div id="login-form" class="content-box">
+                <div class="content-box-wrapper pad20A">
+
+                    <div class="form-group">
+                        gre
+                    </div>
+
+                </div>
+                <div class="button-pane">
+                <button type="submit" class="btn btn-block btn-primary">ล็อกอิน</button>
+
+                </div>
+            </div>      
+
+        </div>
+      </div>          
+    </div>
+    <!-- //////////////////////////////End modal-login//////////////////////////////// -->
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    </table>
+                </div>
+                </div>
+            </div>
+
             <div class="tab-pane fade" id="tab-example-3">
                 <div class="row">
                     <div class="col-md-3">
@@ -616,119 +672,52 @@
             <div class="tab-pane pad0A fade active in" id="tab-example-4">
                 <div class="content-box">
                     <form class="form-horizontal pad15L pad15R bordered-row">
-
-                        <div class="form-group">
-
-                            <div class="row">
-                                <label class="col-sm-3 control-label">ชื่อผู้ใช้</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="ชื่อผู้ใช้..." value="{{$username}}">
-                                    </div>
-                                </div>
-                            </div><br>
-                            <div class="row">
-                                <label class="col-sm-3 control-label">รหัสผ่าน</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="รหัสผ่าน..." value="{{$password}}">
-                                    </div>
-                                </div>
-                            </div><br>
-                            <div class="row">
-                                <label class="col-sm-3 control-label">รหัสผ่านอีกครั้ง</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="รหัสผ่านอีกครั้ง.." value="{{$password}}">
-                                    </div>
-                                </div>
+                    <br><h2 class="text-center"><b style="color:gray">ข้อมูลส่วนตัว</b></h2><hr><br>
+                        <div class="row">
+                            <div class="col-sm-6">                    
+                                <!-- <img src="http://onepiece-treasurecruise.com/en/wp-content/uploads/c1022.png" alt="" style="width:100%;padding-left:20px;padding-right:20px;padding-bottom:20px;"> -->
+                                <img src="{{ asset('image/person-member/picture/'.$image_url) }}" style="width:100%;padding-left:20px;padding-right:20px;padding-bottom:20px;"></a> 
                             </div>
-                           
+                            <div class="col-sm-6">
+                                <div class="row">
+                                <!-- <b class="text-center"><h3><b style="color:gray">รายละเอียด</b></h3></b>  -->
+                                </div>
+                                <div class="row">
+                                <h4 style="color:gray"><b >ชื่อ-นามสกุล : </b> {{$name}}</h4> 
+                                <hr style="margin-top:5px;margin-bottom:5px;">
+                                </div>
+
+                                <div class="row">
+                                <h4 style="color:gray"><b  style="margin-top:-10px;">เลขประจำตัวประชาชน : </b>{{$person_id}} </h4> 
+                                <hr style="margin-top:5px;margin-bottom:5px;">
+                                </div>
+
+                                 <div class="row">
+                                 <h4 style="color:gray"><b  style="margin-top:-10px;">เพศ : </b>{{$gender}}</h4>  
+                                <hr style="margin-top:5px;margin-bottom:5px;">
+                                </div>
+
+                                <div class="row">
+                                <h4 style="color:gray"><b  style="margin-top:-10px;">วัน/เดือน/ปีเกิด : </b>{{$birthday}} </h4> 
+                                <hr style="margin-top:5px;margin-bottom:5px;">
+                                </div>
+
+                                <div class="row">
+                                <h4 style="color:gray"><b  style="margin-top:-10px;">อีเมล์ : </b>{{$email}} </h4> 
+                                <hr style="margin-top:5px;margin-bottom:5px;">
+                                </div>
+
+                                <div class="row">
+                                <h4 style="color:gray"><b  style="margin-top:-10px;">เบอร์โทร : </b>{{$phone}} </h4> 
+                                <hr style="margin-top:5px;margin-bottom:5px;">
+                                </div>
+
+                                <div class="row">
+                                <h4 style="color:gray"><b  style="margin-top:-10px;">ที่อยู่ : </b>{{$address}} </h4> 
+                                </div><br>
+                            </div>
                         </div>  
-                        <div class="form-group">
-
-                            <div class="row">
-                                <label class="col-sm-3 control-label">ชื่อ-นามสกุล</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="ชื่อ-นามสกุล..." value="{{$name}}">
-                                    </div>
-                                </div>
-                            </div><br>
-                            <div class="row">
-                                <label class="col-sm-3 control-label">เลขประจำตัวประชาชน</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="เลขประจำตัวประชาชน..." value="{{$person_id}}">
-                                    </div>
-                                </div>
-                            </div><br>
-                            <div class="row">
-                                <label class="col-sm-3 control-label">เพศ</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="เพศ.." value="{{$gender}}">
-                                    </div>
-                                </div>
-                            </div><br>
-                            <div class="row">
-                                <label class="col-sm-3 control-label">วัน/เดือน/ปีเกิด</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="วัน/เดือน/ปีเกิด.." value="{{$birthday}}">
-                                    </div>
-                                </div>
-                            </div><br>
-                            <div class="row">
-                                <label class="col-sm-3 control-label">อีเมล์</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="อีเมล์.." value="{{$email}}">
-                                    </div>
-                                </div>
-                            </div><br>
-                            <div class="row">
-                                <label class="col-sm-3 control-label">เบอร์โทร</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="เบอร์โทร.." value="{{$phone}}">
-                                    </div>
-                                </div>
-                            </div><br>
-                            <div class="row">
-                                <label class="col-sm-3 control-label">รูปประจำตัว</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="รูปประจำตัว.." value="{{$image_url}}">
-                                    </div>
-                                </div>
-                            </div><br>
-                            <div class="row">
-                                <label class="col-sm-3 control-label">ที่อยู่</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="ที่อยู่.." value="{{$address}}">
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div> 
-
                     </form>
-                    <div class="button-pane mrg20T">
-                        <button class="btn btn-info">Save</button>
-                        <button class="btn btn-link font-gray-dark">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -738,4 +727,14 @@
 </div>
 </div>
 </div>
+@if (session()->has('status_edit'))     
+     <script>swal({ title: "<?php echo session()->get('status_edit'); ?>",        
+                     text: "ผลการทํางาน",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+
+     @endif 
 @include('form/footer-font')

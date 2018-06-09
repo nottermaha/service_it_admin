@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\PersonsMember;
 use Illuminate\Http\Request;
+use Image; //เรียกใช้ library จดัการรูปภาพเข้ามาใช้งาน 
 
 class PersonsMemberController extends Controller
 {    
@@ -35,9 +36,9 @@ class PersonsMemberController extends Controller
     {      
       return View('persons_member/person-member-form');
     }
-    public function form_edit($id)
+    public function form_edit(Request $request)
     {
-      $person = PersonsMember::find($id);
+      $person = PersonsMember::find($request->id);
       $data = [
         'id' => $person->id,
         'username' => $person->username,
@@ -59,6 +60,7 @@ class PersonsMemberController extends Controller
       // echo $request;exit();
         $person = new PersonsMember;
         $person->status = true;
+        $person->type = 4;
         $person->username = $request->username;
         $person->password = $request->password;
         $person->name = $request->name;
@@ -67,8 +69,20 @@ class PersonsMemberController extends Controller
         $person->birthday = $request->birthday;
         $person->email = $request->email;
         $person->phone = $request->phone;
-        $person->image_url = $request->image_url;
+        // $person->image_url = $request->image_url;
         $person->address = $request->address;
+        if ($request->hasFile('image_url')) {        
+          $filename = str_random(10) . '.' . $request->file('image_url')
+          ->getClientOriginalName();             
+          $request->file('image_url')->move(public_path() . '/image/person-member/picture/', $filename);           
+          Image::make(public_path() . '/image/person-member/picture/' . $filename)
+          ->resize(200, 200)->save(public_path() . '/image/person-member/resize/' . $filename);     
+          $person->image_url = $filename;         
+        } 
+        else{
+          // echo '5555555555555';exit();                
+          $person->image_url = 'default.png';        
+         }
         $person->save();
         $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
 
@@ -89,8 +103,20 @@ class PersonsMemberController extends Controller
       $person->birthday = $request->birthday;
       $person->email = $request->email;
       $person->phone = $request->phone;
-      $person->image_url = $request->image_url;
+      // $person->image_url = $request->image_url;
       $person->address = $request->address;
+      if ($request->hasFile('image_url')) {        
+        $filename = str_random(10) . '.' . $request->file('image_url')
+        ->getClientOriginalName();             
+        $request->file('image_url')->move(public_path() . '/image/person-member/picture/', $filename);           
+        Image::make(public_path() . '/image/person-member/picture/' . $filename)
+        ->resize(200, 200)->save(public_path() . '/image/person-member/resize/' . $filename);     
+        $person->image_url = $filename;         
+      } 
+      else{
+        // echo '5555555555555';exit();                
+        $person->image_url = $person['image_url'];        
+        }
       $person->save();
       $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
 

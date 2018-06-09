@@ -97,7 +97,7 @@ class BoardPostsController extends Controller
               $answer_posts[$key]['is_name']=$value['member_name'];
               $answer_posts[$key]['is_type']=$value['member_type'];
             }
-            else if($answer_posts[$key]['p_id']!=NULL)
+            else if($answer_posts[$key]['p_id']==NULL)
             {
               $answer_posts[$key]['is_name']=$value['person_name'];
               $answer_posts[$key]['is_type']=$value['person_type'];

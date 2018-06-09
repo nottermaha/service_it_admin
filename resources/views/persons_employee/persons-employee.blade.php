@@ -25,6 +25,13 @@
 <!--End css header-leftmenu -->
 
  @include('form/header-leftmenu')
+          <section class="content-header">
+            <h1 style="background-color:#DCDCDC;padding-top:10px;padding-bottom:10px;padding-left:10px;">
+              บุคคล /
+              <small><a>พนักงาน</a> </small>
+            </h1>
+          </section> 
+      <br>
 
     <section class="content">
 

@@ -25,6 +25,13 @@
 <!--End css header-leftmenu -->
 
  @include('form/header-leftmenu')
+          <section class="content-header">
+            <h1 style="background-color:#DCDCDC;padding-top:10px;padding-bottom:10px;padding-left:10px;">
+              บุคคล /
+              <small><a>สมาชิก</a> </small>
+            </h1>
+          </section> 
+      <br>
 
     <section class="content">
 
@@ -49,10 +56,11 @@
         <thead >
           <tr>
             <th>#</th>
-            <th>สกุล</th>
-            <th>สถานะ</th>
-            <th>แก้ไข</th>
-            <th>ลบ</th>
+            <th>รูปภาพ</th>
+            <th style="text-align:center">ชื่อ-สกุล</th>
+            <th style="text-align:center">สถานะ</th>
+            <th style="text-align:center">แก้ไข</th>
+            <th style="text-align:center">ลบ</th>
           </tr>
         </thead>
         
@@ -61,11 +69,23 @@
           @foreach ($persons as $person)
           <tr>
             <td>{{ $i=$i+1 }}</td>
-            <td>{{ $person->name }}</td>
+            <td width="100px;">
+                    <!-- <img src="dist/img/user1-128x128.jpg" alt="User Image"> -->
+                    <a href="{{ asset('image/person-member/picture/'.$person->image_url) }}"><img src="{{ asset('image/person-member/resize/'.$person->image_url) }}" style="height:100px;width:100px;border-radius: 50%;"></a> 
+
+            </td>
+            <td >{{ $person->name }}</td>
             <td class="text-center">{{ $person->status_name }}</td>
-            <td><a href="{{ url('/person-member-form-edit/'.$person->id)  }}" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a></td>   
+            <!-- <td><a href="{{ url('/person-member-form-edit/'.$person->id)  }}" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a>
+            </td>    -->
+            <td style="text-align:center">
+                      <?= Form::open(array('url' => '/person-member-form-edit')) ?>
+                      <input type="hidden" name="id" value="{{ $person->id }}">
+                          <button type="submit" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</button>
+                      {!! Form::close() !!}
+            </td>
             <!-- <td class="text-center"><a href="<?php echo url('/person-member/delete') ?>/{{$person->id}}" class="btn btn-danger">ลบ</a></td> -->
-            <td>
+            <td style="text-align:center">
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-person-member{{ $person->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
               </button>
             </td>

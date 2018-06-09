@@ -25,6 +25,13 @@
 <!--End css header-leftmenu -->
 
  @include('form/header-leftmenu')
+          <section class="content-header">
+            <h1 style="background-color:#DCDCDC;padding-top:10px;padding-bottom:10px;padding-left:10px;">
+              บุคคล /
+              <small><a>ผู้จัดการร้าน</a> </small>
+            </h1>
+          </section> 
+      <br>
   <!-- Content Wrapper. Contains page content
   <div class="content-wrapper">
     Content Header (Page header)

@@ -28,7 +28,7 @@
     <section class="content">
   <!-- <form role="form" class="form-horizontal" action="/person/create" method="post"> -->
   <!-- <form role="form" class="form-horizontal" action="<?php echo url('/person-employee/edit') ?>/{{$id}}" method="post"> -->
-  {!!  Form::open(['url'=>'/person-employee-edit','class'=>'form-horizontal','files'=>true])   !!}
+  {!!  Form::open(['url'=>'/person-member-edit','class'=>'form-horizontal','files'=>true])   !!}
 <div class="row">
     <div class="col-md-12">
         <div class="box box-default">
@@ -134,7 +134,7 @@
                 <div class="form-group">
                     <label for="Address" class="control-label col-sm-3">ที่อยู่</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" rows="3" placeholder="ที่อยู่ ..." name="address" value="{{$address}}"></textarea>
+                            <textarea class="form-control" rows="3" placeholder="ที่อยู่ ..." name="address" value="{{$address}}">{{$address}}</textarea>
                         </div>
                 </div>
 

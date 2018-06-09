@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Store;
-use App\Store_branch;
+use App\StoreBranch;
 
 use Illuminate\Http\Request;
 
@@ -11,7 +11,7 @@ class StoreController extends Controller
 {   
   
     public function get_store_branch() {
-      $stores = Store_branch::
+      $stores = StoreBranch::
       orderBy('id','asc')
       ->get();
       $stores = $this->get_status_name($stores);
@@ -32,7 +32,7 @@ class StoreController extends Controller
 
     public function create_store_branch(Request $request)
     {
-        $store = new Store_branch;
+        $store = new StoreBranch;
         $store->store_id = '1';
         $store->name = $request->name;
         $store->status = true;
@@ -44,7 +44,7 @@ class StoreController extends Controller
 
     public function edit_store_branch(Request $request)
     {
-      $store = Store_branch::find($request->id);
+      $store = StoreBranch::find($request->id);
       $store->store_id = '1';
       $store->name = $request->name;
       $store->save();
@@ -55,7 +55,7 @@ class StoreController extends Controller
 
     public function delete($id)
     {
-      $store = Store_branch::find($id);
+      $store = StoreBranch::find($id);
       if($store['status']==1){
       $store->status = 0;
       }

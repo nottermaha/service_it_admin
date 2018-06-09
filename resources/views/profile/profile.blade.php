@@ -36,14 +36,14 @@
     <div class="box box-primary">
       <div class="box-body box-profile">
         <!-- <img class="profile-user-img img-responsive img-circle" src="dist/img/user4-128x128.jpg" alt="User profile picture"> -->
-        @if($type==2)
+        @if($type==1||$type==2)
         <a href="{{ asset('image/person-manager/picture/'.$image_url) }}"><img class="profile-user-img img-responsive img-circle" src="{{ asset('image/person-manager/resize/'.$image_url) }}" ></a>
         @elseif($type==3)
         <a href="{{ asset('image/person-employee/picture/'.$image_url) }}"><img class="profile-user-img img-responsive img-circle" src="{{ asset('image/person-employee/resize/'.$image_url) }}" ></a>
         @endif
         <h3 class="profile-username text-center">{{$name}}</h3>
 
-        <p class="text-muted text-center">Software Engineer</p>
+        <!-- <p class="text-muted text-center">Software Engineer</p> -->
 
         <ul class="list-group list-group-unbordered">
           <li class="list-group-item">
@@ -73,7 +73,9 @@
         <strong><i class="fa fa-book margin-r-5"></i> ตำแหน่ง</strong>
 
         <p class="text-muted">
-        @if($type==2)
+        @if($type==1)
+        <p class="text-muted">แอดมิน</p>
+        @elseif($type==2)
         <p class="text-muted">ผู้จัดการร้าน</p>
         @elseif($type==3)
         <p class="text-muted">พนักงาน</p>
@@ -111,122 +113,87 @@
   <div class="col-md-9">
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
-        <li><a href="#timeline" data-toggle="tab">Timeline</a></li>
+        <li class="active"><a href="#activity" data-toggle="tab">โปรไฟล์</a></li>
+        <li><a href="#timeline" data-toggle="tab">ทามไลน์</a></li>
         <li><a href="#settings" data-toggle="tab">แก้ไขโปรไฟล์</a></li>
       </ul>
       <div class="tab-content">
         <div class="active tab-pane" id="activity">
           <!-- Post -->
-          <div class="post">
-            <div class="user-block">
-              <img class="img-circle img-bordered-sm" src="dist/img/user1-128x128.jpg" alt="user image">
-                  <span class="username">
-                    <a href="#">Jonathan Burke Jr.</a>
-                    <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                  </span>
-              <span class="description">Shared publicly - 7:30 PM today</span>
-            </div>
-            <!-- /.user-block -->
-            <p>
-              Lorem ipsum represents a long-held tradition for designers,
-              typographers and the like. Some people hate it and argue for
-              its demise, but others ignore the hate as they create awesome
-              tools to help create filler text for everyone from bacon lovers
-              to Charlie Sheen fans.
-            </p>
-            <ul class="list-inline">
-              <li><a href="#" class="link-black text-sm"><i class="fa fa-share margin-r-5"></i> Share</a></li>
-              <li><a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
-              </li>
-              <li class="pull-right">
-                <a href="#" class="link-black text-sm"><i class="fa fa-comments-o margin-r-5"></i> Comments
-                  (5)</a></li>
-            </ul>
-
-            <input class="form-control input-sm" type="text" placeholder="Type a comment">
-          </div>
-          <!-- /.post -->
-
-          <!-- Post -->
           <div class="post clearfix">
-            <div class="user-block">
-              <img class="img-circle img-bordered-sm" src="dist/img/user7-128x128.jpg" alt="User Image">
-                  <span class="username">
-                    <a href="#">Sarah Ross</a>
-                    <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                  </span>
-              <span class="description">Sent you a message - 3 days ago</span>
-            </div>
-            <!-- /.user-block -->
-            <p>
-              Lorem ipsum represents a long-held tradition for designers,
-              typographers and the like. Some people hate it and argue for
-              its demise, but others ignore the hate as they create awesome
-              tools to help create filler text for everyone from bacon lovers
-              to Charlie Sheen fans.
-            </p>
-
-            <form class="form-horizontal">
-              <div class="form-group margin-bottom-none">
-                <div class="col-sm-9">
-                  <input class="form-control input-sm" placeholder="Response">
-                </div>
-                <div class="col-sm-3">
-                  <button type="submit" class="btn btn-danger pull-right btn-block btn-sm">Send</button>
-                </div>
-              </div>
-            </form>
+            
           </div>
           <!-- /.post -->
 
           <!-- Post -->
           <div class="post">
-            <div class="user-block">
-              <img class="img-circle img-bordered-sm" src="dist/img/user6-128x128.jpg" alt="User Image">
-                  <span class="username">
-                    <a href="#">Adam Jones</a>
-                    <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                  </span>
-              <span class="description">Posted 5 photos - 5 days ago</span>
-            </div>
             <!-- /.user-block -->
             <div class="row margin-bottom">
               <div class="col-sm-6">
-                <img class="img-responsive" src="dist/img/photo1.png" alt="Photo">
+                <!-- <img class="img-responsive" src="dist/img/photo1.png" alt="Photo"> -->
+                @if($type==1||$type==2)
+                <img class="img-responsive" src="{{ asset('image/person-manager/picture/'.$image_url) }}"style="height:40%;" ></a>
+                @elseif($type==3)
+                <img class="img-responsive" src="{{ asset('image/person-employee/picture/'.$image_url) }}" ></a>
+                @endif
               </div>
               <!-- /.col -->
-              <div class="col-sm-6">
+              <div class="col-sm-5">
+                  
                 <div class="row">
-                  <div class="col-sm-6">
-                    <img class="img-responsive" src="dist/img/photo2.png" alt="Photo">
-                    <br>
-                    <img class="img-responsive" src="dist/img/photo3.jpg" alt="Photo">
-                  </div>
-                  <!-- /.col -->
-                  <div class="col-sm-6">
-                    <img class="img-responsive" src="dist/img/photo4.jpg" alt="Photo">
-                    <br>
-                    <img class="img-responsive" src="dist/img/photo1.png" alt="Photo">
-                  </div>
-                  <!-- /.col -->
+                <h3>ข้อมูลส่วนตัว</h3>
+                  <hr style="margin-top:5px;margin-bottom:5px;">
                 </div>
-                <!-- /.row -->
+                <div class="row">
+                  <b >ชื่อ-ขนามสกุล : </b>{{$name}} 
+                  <hr style="margin-top:5px;margin-bottom:5px;">
+                </div>
+
+                <div class="row">
+                  <b  style="margin-top:-10px;">ชื่อ-ขนามสกุล : </b>{{$name}} 
+                  <hr style="margin-top:5px;margin-bottom:5px;">
+                </div>
+
+                <div class="row">
+                  <b  style="margin-top:-10px;">เลขประจำตัวประชาชน : </b>{{$person_id}} 
+                  <hr style="margin-top:5px;margin-bottom:5px;">
+                </div>
+
+                <div class="row">
+                  <b  style="margin-top:-10px;">เพศ : </b>{{$gender}} 
+                  <hr style="margin-top:5px;margin-bottom:5px;">
+                </div>
+
+                <div class="row">
+                  <b  style="margin-top:-10px;">วัน/เดือน/ปีเกิด : </b>{{$birthday}} 
+                  <hr style="margin-top:5px;margin-bottom:5px;">
+                </div>
+
+                <div class="row">
+                  <b  style="margin-top:-10px;">อีเมล์ : </b>{{$email}} 
+                  <hr style="margin-top:5px;margin-bottom:5px;">
+                </div>
+
+                <div class="row">
+                  <b  style="margin-top:-10px;">เบอร์โทร : </b>{{$phone}} 
+                  <hr style="margin-top:5px;margin-bottom:5px;">
+                </div>
+
+                <div class="row">
+                  <b  style="margin-top:-10px;">ที่อยู่ : </b>{{$address}} 
+                  <hr style="margin-top:5px;margin-bottom:5px;">
+                </div><br>
+                <div class="row text-center">
+                <a href="#settings" class="btn btn-warning "data-toggle="tab"><i class="fa fa-edit"></i> แก้ไขโปรไฟล์</a>
+                </div>
+
+
               </div>
+              <!-- /.col -->
+              
               <!-- /.col -->
             </div>
             <!-- /.row -->
-
-            <ul class="list-inline">
-              <li><a href="#" class="link-black text-sm"><i class="fa fa-share margin-r-5"></i> Share</a></li>
-              <li><a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
-              </li>
-              <li class="pull-right">
-                <a href="#" class="link-black text-sm"><i class="fa fa-comments-o margin-r-5"></i> Comments
-                  (5)</a></li>
-            </ul>
-
-            <input class="form-control input-sm" type="text" placeholder="Type a comment">
           </div>
           <!-- /.post -->
         </div>
@@ -237,29 +204,19 @@
             <!-- timeline time label -->
             <li class="time-label">
                   <span class="bg-red">
-                    10 Feb. 2014
+                    ข้อมูลร้านที่สังกัด
                   </span>
             </li>
             <!-- /.timeline-label -->
             <!-- timeline item -->
             <li>
-              <i class="fa fa-envelope bg-blue"></i>
+              <i class="fa fa-home bg-blue"></i>
 
               <div class="timeline-item">
                 <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-
-                <div class="timeline-body">
-                  Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                  weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                  jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                  quora plaxo ideeli hulu weebly balihoo...
-                </div>
-                <div class="timeline-footer">
-                  <a class="btn btn-primary btn-xs">Read more</a>
-                  <a class="btn btn-danger btn-xs">Delete</a>
-                </div>
+                  <h3 class="timeline-header no-border"><a href="#">สาขาที่สังกัด</a>
+                  {{$store_branch_name}}
+                </h3>
               </div>
             </li>
             <!-- END timeline item -->
@@ -270,53 +227,216 @@
               <div class="timeline-item">
                 <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
 
-                <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request
+                <h3 class="timeline-header no-border"><a href="#">ตำแหน่ง</a>
+                      @if($type==1)
+                          แอดมิน
+                      @elseif($type==2)
+                          ผู้จัดการร้าน
+                      @elseif($type==3)
+                          พนักงาน
+                      @endif
                 </h3>
               </div>
             </li>
             <!-- END timeline item -->
             <!-- timeline item -->
             <li>
-              <i class="fa fa-comments bg-yellow"></i>
+              <i class="fa fa-clock-o bg-yellow"></i>
 
               <div class="timeline-item">
-                <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
-
-                <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                <div class="timeline-body">
-                  Take me to your leader!
-                  Switzerland is small and neutral!
-                  We are more like Germany, ambitious and misunderstood!
-                </div>
-                <div class="timeline-footer">
-                  <a class="btn btn-warning btn-flat btn-xs">View comment</a>
-                </div>
+                <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                  <h3 class="timeline-header no-border"><a href="#">เป็นสมาชิกของระบบเมื่อ</a>
+                  
+                </h3>
               </div>
             </li>
             <!-- END timeline item -->
             <!-- timeline time label -->
             <li class="time-label">
                   <span class="bg-green">
-                    3 Jan. 2014
+                    รายการสินค้าที่เคยรับซ่อม
                   </span>
             </li>
             <!-- /.timeline-label -->
             <!-- timeline item -->
             <li>
-              <i class="fa fa-camera bg-purple"></i>
+              <i class="fa fa-wrench bg-purple"></i>
 
               <div class="timeline-item">
-                <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+               
+              <div class="box-body table-responsive ">
+              <table id="example" class="table table-bordered table-striped table-hover  ">
+        <thead >
+          <tr>
+            <th>#</th>
+            <th>บิล</th>
+            <th>ผู้แจ้งซ่อม</th>
+            <th>ลูกค้า</th>
+            <th>สถานะ</th>
+            <th>รายละะเอียด</th>
+          </tr>
+        </thead>
+        
+        <tbody> <?php $j=0 ?>
+        @foreach($repairs as $repair)     
+          <tr>
+            <td>{{ $j=$j+1 }}</td>
+            <td>{{$repair->bin_number}}</td>
+            <td>{{$repair->is_name}}</td>
+            <td>
+            @if($repair->is_type==4)
+            <b style="color:blue;">ลูกค้าสมาชิก</b>
+            @elseif($repair->is_type!=4)
+            <b style="color:green;">ลูกค้าทั่วไป</b>
+            @endif
+            </td>
+            <td>
+              @if($repair->status_repair==1)
+              <b style="color:orange;">สินค้าพึ่งเข้าระบบ</b>
+              @elseif($repair->status_repair==2)
+              <b style="color:gray;">กำลังซ่อมสินค้า</b>
+              @elseif($repair->status_repair==3)
+              <b style="color:green;">ซ่อมสินค้าเสร็จแล้ว</b>
+              @elseif($repair->status_repair==4)
+              <b style="color:blue;">ลูกค้ารับสินค้าคืนแล้ว</b>
+              @elseif($repair->status_repair==5)
+              <b style="color:red;">ยกเลิกการซ่อมสินค้า</b>
+              @endif
+            </td>
+            <td class="text-center">
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-detail{{ $repair->r_id }}"><i class="fa fa-list fa-lg"></i>&nbsp; 
+            </button>
+            </td>
+            <!-- //////////////////////////////repair//////////////////////////////// -->
 
-                <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+            <div class="modal fade " id="modal-detail{{ $repair->r_id }}">
+              <div class="modal-dialog " style="width:800px;">
+                <div class="modal-content ">
+                  <div class="modal-header " >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                        <h3 class="modal-title text-center" ><b>รายละเอียด</b></h3>
+                  </div>        
+               
+                    <div class="modal-body">
 
-                <div class="timeline-body">
-                  <img src="http://placehold.it/150x100" alt="..." class="margin">
-                  <img src="http://placehold.it/150x100" alt="..." class="margin">
-                  <img src="http://placehold.it/150x100" alt="..." class="margin">
-                  <img src="http://placehold.it/150x100" alt="..." class="margin">
+                    <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          หมายเลขบิล : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          {{ $repair->bin_number }}</b>
+                        </div>
+                      </div><hr style="margin-top:5px;margin-bottom:5px;">
+
+                      <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          ชื่อลูกค้า : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          {{ $repair->is_name }}</b>
+                        </div>
+                      </div><hr style="margin-top:5px;margin-bottom:5px;">
+
+                       <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          เบอร์โทร : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          {{ $repair->is_phone }}</b>
+                        </div>
+                      </div><hr style="margin-top:5px;margin-bottom:5px;">
+
+                      <div class="row" >
+                        <div class="form-group">
+                        <b for="" class="control-label col-md-3"style="text-align:right">
+                                อุปกรณ์ที่นำมาซ่อม  </b><br>
+                                <?php $i=0 ?>
+                        @foreach($list_repairs as $list_repair)
+                              @if( $list_repair->repair_id_form_list==$repair->r_id )
+                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                {{ $i=$i+1 }} : </b>
+                                <b for="" class="control-label col-md-9" style="color:gray">
+                                {{ $list_repair->list_name }}
+                                </b>
+                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                อาการเสีย : </b>
+                                <b for="" class="control-label col-md-9" style="color:gray">
+                                {{ $list_repair->symptom }}
+                                </b>
+                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                รายละเอียด : </b>
+                                <b for="" class="control-label col-md-9" style="color:gray">
+                                {{ $list_repair->detail }}
+                                </b>
+                              @endif
+                          @endforeach
+                          
+                        </div>
+                      </div><hr style="margin-top:5px;margin-bottom:5px;">
+
+                      <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          อุปกรณ์ที่ติดมาด้วย : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          {{ $repair->equipment_follow }}</b>
+                        </div>
+                      </div><hr style="margin-top:5px;margin-bottom:5px;">
+
+                      <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          ราคาประเมิน : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          {{ $repair->status_repair }}</b>
+                        </div>
+                      </div><hr style="margin-top:5px;margin-bottom:5px;">
+
+                      <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          ราคาจริง : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          {{ $repair->status_repair }}</b>
+                        </div>
+                      </div><hr style="margin-top:5px;margin-bottom:5px;">
+
+                      <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          วันที่รับเข้าระบบ : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          {{ $repair->status_repair }}</b>
+                        </div>
+                      </div><hr style="margin-top:5px;margin-bottom:5px;">
+
+                      <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          วันที่คืนสินค้า : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          {{ $repair->status_repair }}</b>
+                        </div>
+                      </div><hr style="margin-top:5px;margin-bottom:5px;">
+
+                      
+                    </div> 
+                      <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button>
+                        <button type="submit" class="btn btn-danger">ลบข้อมูล</button> -->
+                      </div>
+                
                 </div>
+              </div>          
+            </div>
+    <!-- //////////////////////////////End repair//////////////////////////////// -->
+          </tr>
+        @endforeach
+        </tbody>
+      </table>
+
+
               </div>
             </li>
             <!-- END timeline item -->
@@ -477,8 +597,8 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12 text-right">
-          <input type="text" name="id"value="{{$profile_id}}">
+        <div class="col-sm-12 text-center">
+          <input type="hidden" name="id"value="{{$profile_id}}">
           <button type="submit" class="btn btn-success">บันทึก</button>
         </div>
     </div>

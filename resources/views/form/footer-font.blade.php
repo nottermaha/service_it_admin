@@ -1,7 +1,7 @@
 <div class="main-footer bg-gradient-4 clearfix">
     <div class="container clearfix">
         <div class="col-md-3 pad25R">
-            <div class="header">About us</div>
+            <div class="header">About us </div>
             <p class="about-us">
                 sollicitudin eu erat. Pellentesque ornare mi vitae sem consequat ac bibendum neque adipiscing.
             </p>
@@ -31,48 +31,10 @@
             </div>
         </div>
         <div class="col-md-4">
-            <h3 class="header">Recent posts</h3>
+            <h3 class="header">ข่าวใหม่</h3>
             <div class="posts-list">
                 <ul>
-                    <li>
-                        <div class="post-image">
-                            <a href="assets/image-resources/stock-images/img-10.jpg" class="prettyphoto" rel="prettyPhoto[pp_gal]" title="Blog post title">
-                                <img class="img-responsive" src="assets/image-resources/stock-images/img-10.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="post-body">
-                            <a class="post-title" href="blog-single.html" title="">
-                                <h3>When our power of choice is untrammelled prevents</h3>
-                            </a>
-                            by <a href="#">Hector Tomales</a> on 16.04.2015
-                        </div>
-                    </li>
-                    <li>
-                        <div class="post-image">
-                            <a href="assets/image-resources/stock-images/img-11.jpg" class="prettyphoto" rel="prettyPhoto[pp_gal]" title="Blog post title">
-                                <img class="img-responsive" src="assets/image-resources/stock-images/img-11.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="post-body">
-                            <a class="post-title" href="blog-single.html" title="">
-                                <h3>And when nothing prevents our being able</h3>
-                            </a>
-                            by <a href="#">Hector Tomales</a> on 16.04.2015
-                        </div>
-                    </li>
-                    <li>
-                        <div class="post-image">
-                            <a href="assets/image-resources/stock-images/img-12.jpg" class="prettyphoto" rel="prettyPhoto[pp_gal]" title="Blog post title">
-                                <img class="img-responsive" src="assets/image-resources/stock-images/img-12.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="post-body">
-                            <a class="post-title" href="blog-single.html" title="">
-                                <h3>When our power of choice is untrammelled</h3>
-                            </a>
-                            by <a href="#">Hector Tomales</a> on 16.04.2015
-                        </div>
-                    </li>
+
                 </ul>
             </div>
         </div>
@@ -154,7 +116,6 @@
         </div>
     </div>
 </div></div>
-
 
     <!-- FRONTEND ELEMENTS -->
 
@@ -247,5 +208,29 @@
 
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!--<link rel="stylesheet" type="text/css" href="../../assets/widgets/uniform/uniform.css">-->
+<script type="text/javascript" src="assets/widgets/uniform/uniform.js"></script>
+<script type="text/javascript" src="assets/widgets/uniform/uniform-demo.js"></script>
+
+<!-- Bootstrap Datepicker -->
+
+<!--<link rel="stylesheet" type="text/css" href="../../assets/widgets/datepicker/datepicker.css">-->
+<script type="text/javascript" src="assets/widgets/datepicker/datepicker.js"></script>
+
+<script type="text/javascript">
+    /* Datepicker bootstrap */
+
+    $(function() { "use strict";
+        $('.bootstrap-datepicker').bsdatepicker({
+
+            format: 'yyyy-mm-dd'
+
+        });
+    });
+
+</script>
+
+    
 </body>
 </html>

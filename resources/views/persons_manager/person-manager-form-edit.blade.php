@@ -140,7 +140,7 @@
                 <div class="form-group">
                     <label for="Address" class="control-label col-sm-3">ที่อยู่</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" rows="3" placeholder="ที่อยู่ ..." name="address" value="{{$address}}"></textarea>
+                            <textarea class="form-control" rows="3" placeholder="ที่อยู่ ..." name="address" value="{{$address}}">{{$address}}</textarea>
                         </div>
                 </div>
 

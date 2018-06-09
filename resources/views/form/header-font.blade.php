@@ -187,7 +187,42 @@
 <script type="text/javascript" src="assets/widgets/layerslider/layerslider.js"></script>
 <script type="text/javascript" src="assets/widgets/layerslider/layerslider-transitions.js"></script>
 <script type="text/javascript" src="assets/widgets/layerslider/layerslider-demo.js"></script>
+<!-- /////////////////////////////////////////////////////// -->
+<script src="  https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
 
+<!-- Data tables -->
+
+<!--<link rel="stylesheet" type="text/css" href="../../assets/widgets/datatable/datatable.css">-->
+<script type="text/javascript" src="assets/widgets/datatable/datatable.js"></script>
+<script type="text/javascript" src="assets/widgets/datatable/datatable-bootstrap.js"></script>
+<script type="text/javascript" src="assets/widgets/datatable/datatable-tabletools.js"></script>
+<script type="text/javascript">
+
+    /* Datatables basic */
+
+    $(document).ready(function() {
+        $('#datatable-example').dataTable();
+    });
+
+
+    /* Datatable row highlight */
+
+    $(document).ready(function() {
+        var table = $('#datatable-row-highlight').DataTable();
+
+        $('#datatable-row-highlight tbody').on( 'click', 'tr', function () {
+            $(this).toggleClass('tr-selected');
+        } );
+    });
+
+
+
+    $(document).ready(function() {
+        $('.dataTables_filter input').attr("placeholder", "Search...");
+    });
+
+</script>
+<!-- ///////////////////////////////////////////////////////// -->
 <div id="loading">
     <div class="spinner">
         <div class="bounce1"></div>
@@ -407,7 +442,7 @@
                         <label for="exampleInputEmail1">ชื่อผู้ใช้:</label>
                         <div class="input-group input-group-lg">
                             <span class="input-group-addon addon-inside bg-white font-primary">
-                                <i class="glyph-icon icon-envelope-o"></i>
+                                <i class="glyph-icon icon-user"></i>
                             </span>
                             <input type="text" class="form-control" id="exampleInputEmail1" placeholder="ชื่อผู้ใช้..." name="username" required>
                         </div>

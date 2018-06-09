@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 
 use App\Persons;
+use App\Repair;
+use App\ListRepair;
 use App\PersonsMember;
 use App\Http\Controllers\UploadController;
 use Illuminate\Http\Request;
@@ -53,6 +55,9 @@ class AuthenController extends Controller
       }
 
       public function create_register(Request $request){
+        // echo $request['name'];
+        // echo $request['birthday'];
+        // exit();
         $person = new PersonsMember;
         $person->status = true;
         $person->type = 4;
@@ -64,20 +69,32 @@ class AuthenController extends Controller
         $person->birthday = $request->birthday;
         $person->email = $request->email;
         $person->phone = $request->phone;
-        $person->image_url = $request->image_url;
+        // $person->image_url = $request->image_url;
         $person->address = $request->address;
+        if ($request->hasFile('image_url')) {        
+          $filename = str_random(10) . '.' . $request->file('image_url')
+          ->getClientOriginalName();             
+          $request->file('image_url')->move(public_path() . '/image/person-member/picture/', $filename);           
+          Image::make(public_path() . '/image/person-member/picture/' . $filename)
+          ->resize(200, 200)->save(public_path() . '/image/person-member/resize/' . $filename);     
+          $person->image_url = $filename;         
+        } 
+        else{
+          // echo '5555555555555';exit();                
+          $person->image_url = 'default.png';        
+         }
         $person->save();
-        $request->session()->flash('status_create', 'สมัครสมาชิก');
+        $request->session()->flash('status_create', 'คุณได้สมัครสมาชิกเรียบร้อย');
         
         return redirect('/font-register');
 
-        return redirect('list-part/'.$list_parts['import_parts_id']);
       }
       public function font_profile(){
         $id=session('s_id','default');
         $person_member = PersonsMember::find($id);
         // echo $person_member;exit();
         $data = [
+            'id' => $person_member['id'],
             'type' => $person_member['type'],
             'username' => $person_member['username'],
             'password' => $person_member['password'],
@@ -92,10 +109,90 @@ class AuthenController extends Controller
             'profile_id' => $person_member['id'],
             'created_at' => $person_member['created_at'],
         ];
-        // echo $data['type'];exit();
-        return view('font_pages/profile',$data);
+        $item = [
+              'persons.name as persons_name'
+              ,'persons.phone as persons_phone'
+
+              ,'repair.id as r_id'
+              ,'repair.persons_member_id as persons_member_id' //check
+              ,'repair.bin_number as bin_number'
+              ,'repair.name as name_general'
+              ,'repair.phone as phone_general'
+              ,'repair.status_repair as status_repair'
+              ,'repair.price as price'
+              ,'repair.date_in_repair as date_in_repair'
+              ,'repair.date_out_repair as date_out_repair'
+              ,'repair.after_price as after_price'
+              ,'repair.equipment_follow as equipment_follow'
+        ];
+        $repairs = Repair::where('repair.status',1)
+        ->where('repair.persons_member_id',$id)
+        ->orderBy('repair.id','desc')
+        ->leftJoin('persons', 'persons.id', '=', 'repair.persons_id')
+        ->get($item);
+        // echo $repairs;exit();
+        if($repairs!='[]'){
+              foreach($repairs as $key=>$value)
+              {
+                $items = [
+                  'list_repair.repair_id as repair_id_form_list'
+                  ,'list_repair.id as id'
+                  ,'list_repair.status_list_repair as status_list_repair'
+                  ,'list_repair.status_list_repair as status_list_repair'
+                  ,'list_repair.list_name as list_name'
+                  ,'list_repair.detail as detail'
+                  ,'list_repair.symptom as symptom'
+                  ];
+              $list_repairs = ListRepair::where('list_repair.status', 1)
+              ->leftJoin('repair', 'repair.id', '=', 'list_repair.repair_id')
+              // ->where('list_repair.repair_id',"=",$value['r_id'])
+              ->get($items);   
+              } 
+          // echo $list_repairs;exit();
+          return view('font_pages/profile',['repairs'=>$repairs,'list_repairs'=>$list_repairs], $data);
+        }
+
+        else{
+          return view('font_pages/profile',['repairs'=>$repairs], $data);
+        }
+
+        // echo $repairs;exit();
+        // return view('font_pages/profile',$data);
       }
-     
+      public function font_profile_edit(Request $request){
+         // echo $request;exit();
+      $person = PersonsMember::find($request->id);
+      // $person->store_branch_id = $request->store_branch_id;
+      $person->status = true;
+      $person->username = $request->username;
+      $person->password = $request->password;
+      $person->name = $request->name;
+      $person->person_id = $request->person_id;
+      $person->gender = $request->gender;
+      $person->birthday = $request->birthday;
+      $person->email = $request->email;
+      $person->phone = $request->phone;
+      // $person->image_url = $request->image_url;
+      $person->address = $request->address;
+      if ($request->hasFile('image_url')) {        
+        $filename = str_random(10) . '.' . $request->file('image_url')
+        ->getClientOriginalName();             
+        $request->file('image_url')->move(public_path() . '/image/person-member/picture/', $filename);           
+        Image::make(public_path() . '/image/person-member/picture/' . $filename)
+        ->resize(200, 200)->save(public_path() . '/image/person-member/resize/' . $filename);     
+        $person->image_url = $filename;         
+      } 
+      else{
+        // echo '5555555555555';exit();                
+        $person->image_url = $person['image_url'];        
+        }
+      $person->save();
+      $request->session()->flash('status_edit', 'แก้ไขข้อมูลโปรไฟล์เรียบร้อยแล้ว'); 
+
+      return redirect('font-profile');
+
+      }
+
       public function profile(){
         $id=session('s_id','default');
         $person = Persons::find($id);
@@ -118,8 +215,79 @@ class AuthenController extends Controller
             'created_at' => $profile['0']['created_at'],
             
         ];
+        $items = [
+          'persons_member.name as name_member'
+          ,'persons_member.phone as phone_member'
+          ,'persons_member.type as type_member'
+          
+          ,'repair.id as r_id'
+          ,'repair.persons_member_id as persons_member_id' //check
+          ,'repair.bin_number as bin_number'
+          ,'repair.name as name_general'
+          ,'repair.phone as phone_general'
+          ,'repair.status_repair as status_repair'
+          ,'repair.price as price'
+          ,'repair.date_in_repair as date_in_repair'
+          ,'repair.date_out_repair as date_out_repair'
+          ,'repair.after_price as after_price'
+          ,'repair.equipment_follow as equipment_follow'
 
-        return view('profile/profile',$data);
+          // ,'list_repair.status_list_repair as status_list_repair'
+          // ,'list_repair.list_name as list_name'
+          // ,'list_repair.detail as detail'
+          // ,'list_repair.symptom as symptom'
+          ];
+        $repairs = Repair::where('repair.status', 1)
+        ->where('repair.persons_id',$id)
+        ->orderBy('repair.id','desc')
+        // ->leftJoin('list_repair', 'list_repair.repair_id', '=', 'repair.id')
+        ->leftJoin('persons_member', 'persons_member.id', '=', 'repair.persons_member_id')
+        ->get($items);
+        foreach($repairs as $key=>$value)
+        {
+              if($repairs[$key]['persons_member_id']!=NULL)
+              {
+                $repairs[$key]['is_name']=$value['name_member'];
+                $repairs[$key]['is_phone']=$value['phone_member'];
+              }
+              else if($repairs[$key]['persons_member_id']==NULL)
+              {
+                $repairs[$key]['is_name']=$value['name_general'];
+                $repairs[$key]['is_phone']=$value['phone_general'];
+              }
+              if($repairs[$key]['type_member']!=NULL)
+              {
+                $repairs[$key]['is_type']=$value['type_member'];
+              }
+              else if($repairs[$key]['type_member']==NULL)
+              {
+                $repairs[$key]['is_type']='';
+              }
+              
+        }
+        if($repairs!='[]'){
+              foreach($repairs as $key=>$value)
+              {
+                $items = [
+                  'list_repair.repair_id as repair_id_form_list'
+                  ,'list_repair.id as id'
+                  ,'list_repair.status_list_repair as status_list_repair'
+                  ,'list_repair.status_list_repair as status_list_repair'
+                  ,'list_repair.list_name as list_name'
+                  ,'list_repair.detail as detail'
+                  ,'list_repair.symptom as symptom'
+                  ];
+              $list_repairs = ListRepair::where('list_repair.status', 1)
+              ->leftJoin('repair', 'repair.id', '=', 'list_repair.repair_id')
+              // ->where('repair_id',24)
+              ->get($items);   
+              }
+              return view('profile/profile',['repairs'=>$repairs,'list_repairs'=>$list_repairs], $data);
+            }
+            else{
+              return view('profile/profile',['repairs'=>$repairs], $data);
+            }
+       
       }
 
       public function get_profile($person_id){
@@ -174,7 +342,7 @@ class AuthenController extends Controller
           $person->date_in = $request->date_in;
           $person->date_out = $request->date_out;
           $type=session('s_type','default');
-          if($type==2){
+          if($type==1||$type==2){
               if ($request->hasFile('image_url')) {        
                 $filename = str_random(10) . '.' . $request->file('image_url')
                 ->getClientOriginalName();             
@@ -228,7 +396,78 @@ class AuthenController extends Controller
 
         ];
 
-        return view('profile/profile',$data);
+        $items = [
+          'persons_member.name as name_member'
+          ,'persons_member.phone as phone_member'
+          ,'persons_member.type as type_member'
+          
+          ,'repair.id as r_id'
+          ,'repair.persons_member_id as persons_member_id' //check
+          ,'repair.bin_number as bin_number'
+          ,'repair.name as name_general'
+          ,'repair.phone as phone_general'
+          ,'repair.status_repair as status_repair'
+          ,'repair.price as price'
+          ,'repair.date_in_repair as date_in_repair'
+          ,'repair.date_out_repair as date_out_repair'
+          ,'repair.after_price as after_price'
+          ,'repair.equipment_follow as equipment_follow'
+
+          // ,'list_repair.status_list_repair as status_list_repair'
+          // ,'list_repair.list_name as list_name'
+          // ,'list_repair.detail as detail'
+          // ,'list_repair.symptom as symptom'
+          ];
+        $repairs = Repair::where('repair.status', 1)
+        ->where('repair.persons_id',$id)
+        ->orderBy('repair.id','desc')
+        // ->leftJoin('list_repair', 'list_repair.repair_id', '=', 'repair.id')
+        ->leftJoin('persons_member', 'persons_member.id', '=', 'repair.persons_member_id')
+        ->get($items);
+        foreach($repairs as $key=>$value)
+        {
+              if($repairs[$key]['persons_member_id']!=NULL)
+              {
+                $repairs[$key]['is_name']=$value['name_member'];
+                $repairs[$key]['is_phone']=$value['phone_member'];
+              }
+              else if($repairs[$key]['persons_member_id']==NULL)
+              {
+                $repairs[$key]['is_name']=$value['name_general'];
+                $repairs[$key]['is_phone']=$value['phone_general'];
+              }
+              if($repairs[$key]['type_member']!=NULL)
+              {
+                $repairs[$key]['is_type']=$value['type_member'];
+              }
+              else if($repairs[$key]['type_member']==NULL)
+              {
+                $repairs[$key]['is_type']='';
+              }
+              
+        }
+        if($repairs!='[]'){
+              foreach($repairs as $key=>$value)
+              {         
+                $items = [
+                  'list_repair.repair_id as repair_id_form_list'
+                  ,'list_repair.id as id'
+                  ,'list_repair.status_list_repair as status_list_repair'
+                  ,'list_repair.status_list_repair as status_list_repair'
+                  ,'list_repair.list_name as list_name'
+                  ,'list_repair.detail as detail'
+                  ,'list_repair.symptom as symptom'
+                  ];
+              $list_repairs = ListRepair::where('list_repair.status', 1)
+              ->leftJoin('repair', 'repair.id', '=', 'list_repair.repair_id')
+              // ->where('repair_id',24)
+              ->get($items);   
+              }
+              return view('profile/profile',['repairs'=>$repairs,'list_repairs'=>$list_repairs], $data);
+            }
+            else{
+              return view('profile/profile',['repairs'=>$repairs], $data);
+            }
       }
 
       public function logout() {
