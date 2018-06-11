@@ -43,9 +43,11 @@ Route::get('/font-guarantee', function () {
 // Route::get('/font-profile', function () {
 //     return view('font_pages/profile');
 // });
-Route::get('/print', function () {
-    return view('repairs_general/print');
-});
+// Route::get('/print', function () {
+//     return view('repairs_print/print');
+// });
+Route::post('/print','RepairsGeneralController@print_repair');
+Route::post('/print2','RepairsGeneralController@print_bill');
 Route::get('/font-profile','AuthenController@font_profile');
 Route::post('/font-profile-edit','AuthenController@font_profile_edit');
 
@@ -149,6 +151,15 @@ Route::get('/profile','AuthenController@profile');
 Route::post('/profile-edit','AuthenController@edit_profile');
 
 Route::get('/report-person-member', 'PersonsMemberController@report_person_member');
+// Route::get('/report-list', function () {
+//     return view('report/report-list');
+// });
+// Route::get('/report-list', function () {
+//     return view('report/report-list');
+// });
+Route::get('/report-list', 'ReportController@get_report_list');
+Route::post('/report-detail', 'ReportController@get_report_detail');
+Route::post('/report-print', 'ReportController@get_report_print');
 
 Route::get('/dashboard', 'DashboardController@dashboard_addmin');
 Route::get('/dashboard_branch', 'DashboardController@dashboard_by_store_branch');

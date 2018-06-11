@@ -122,12 +122,12 @@
 
 <!-- //////////////////////////////modal-edit-branch//////////////////////////////// -->
       <div class="modal fade" id="modal-edit-branch{{ $store->id }}">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="width:50%;">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">บันทึกข้อมูลสาขาใหม่</h4>
+                <h4 class="modal-title">แก้ไขข้อมูลสาขา</h4>
             </div>        
           <?= Form::open(array('url' => '/store-branch/edit/'. $store->id)) ?>   
           <div class="modal-body">
@@ -143,8 +143,87 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </div> 
+            </div><br>
+          <!-- </div> <br> -->
+          <div class="row">
+                  <div class="form-group">
+                    <b for="" class="control-label col-sm-2"style="text-align:right">เบอร์โทร</b>
+                    <div class="col-sm-9">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="phone" placeholder="เบอร์โทร..." value="{{ $store->phone }}">
+                      </div>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="form-group">
+                    <b for="" class="control-label col-sm-2"style="text-align:right">อีเมล์</b>
+                    <div class="col-sm-9">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="email" placeholder="อีเมล์..." value="{{ $store->email }}">
+                      </div>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="form-group">
+                    <b for="" class="control-label col-sm-2"style="text-align:right">แผนที่</b>
+                    <div class="col-sm-9">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="map" placeholder="แผนที่..." value="{{ $store->map }}">
+                      </div>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="form-group">
+                    <b for="" class="control-label col-sm-2"style="text-align:right">ที่อยู่</b>
+                    <div class="col-sm-9">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="address" placeholder="ที่อยู่..." value="{{ $store->address }}">
+                      </div>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="form-group">
+                    <b for="" class="control-label col-sm-2"style="text-align:right">รายละเอียดเพิ่มเติม</b>
+                    <div class="col-sm-9">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="detail" placeholder="รายละเอียดเพิ่มเติม..." value="{{ $store->detail }}">
+                      </div>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="form-group">
+                    <b for="" class="control-label col-sm-2"style="text-align:right">ช่องทางการติดต่อเพิ่มเติม</b>
+                    <div class="col-sm-9">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="contact" placeholder="ช่องทางการติดต่อเพิ่มเติม..." value="{{ $store->contact }}">
+                      </div>
+                    </div>
+                  </div>
+                </div><br>
+
           <div class="modal-footer">
             <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
             <button type="submit" class="btn btn-success">บันทึก</button>
@@ -168,8 +247,8 @@
 
         <div class="modal fade" id="modal-add-branch" >
         
-            <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-dialog"style="width:50%;">
+            <div class="modal-content" >
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
@@ -189,8 +268,86 @@
                       </div>
                     </div>
                   </div>
+                </div><br>
+                <div class="row">
+                  <div class="form-group">
+                    <b for="" class="control-label col-sm-2"style="text-align:right">เบอร์โทร</b>
+                    <div class="col-sm-9">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="phone" placeholder="เบอร์โทร...">
+                      </div>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="form-group">
+                    <b for="" class="control-label col-sm-2"style="text-align:right">อีเมล์</b>
+                    <div class="col-sm-9">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="email" placeholder="อีเมล์...">
+                      </div>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="form-group">
+                    <b for="" class="control-label col-sm-2"style="text-align:right">แผนที่</b>
+                    <div class="col-sm-9">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="map" placeholder="แผนที่...">
+                      </div>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="form-group">
+                    <b for="" class="control-label col-sm-2"style="text-align:right">ที่อยู่</b>
+                    <div class="col-sm-9">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="address" placeholder="ที่อยู่...">
+                      </div>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="form-group">
+                    <b for="" class="control-label col-sm-2"style="text-align:right">รายละเอียดเพิ่มเติม</b>
+                    <div class="col-sm-9">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="detail" placeholder="รายละเอียดเพิ่มเติม...">
+                      </div>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="form-group">
+                    <b for="" class="control-label col-sm-2"style="text-align:right">ช่องทางการติดต่อเพิ่มเติม</b>
+                    <div class="col-sm-9">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="contact" placeholder="ช่องทางการติดต่อเพิ่มเติม...">
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div> 
+              </div><br> 
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
                 <button type="submit" class="btn btn-success">บันทึก</button>

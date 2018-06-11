@@ -86,10 +86,10 @@
         <thead >
           <tr>
           <th>#</th>
-            <th>รายการ</th>
-            <th>สถานะการซ่อม</th>
-            <th>แก้ไข</th>
-            <th>ลบ</th>
+            <th class="text-center">รายการ</th>
+            <th class="text-center">สถานะการซ่อม</th>
+            <th class="text-center">แก้ไข</th>
+            <th class="text-center">ลบ</th>
           </tr>
         </thead>
         
@@ -98,44 +98,44 @@
           @foreach ($list_repairs as $list_repair)
           <tr>
             <td>{{ $i=$i+1 }}</td>
-            <td>{{ $list_repair->list_name }}</td>
-            <td>
+            <td class="text-center">{{ $list_repair->list_name }}</td>
+            <td class="text-center">
             @if( $list_repair->status_color==1 )
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            <button style="width:190px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
             @elseif( $list_repair->status_color==2 )
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            <button style="width:190px;" type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
             @elseif( $list_repair->status_color==3 )
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            <button style="width:190px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
             @elseif( $list_repair->status_color==4 )
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            <button style="width:190px;" type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
             @elseif( $list_repair->status_color==5 )
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            <button style="width:190px;" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
             @elseif( $list_repair->status_color==6 )
-            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            <button style="width:190px;" type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
             @elseif( $list_repair->status_color==7 )
-            <button type="button" class="btn bg-navy color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            <button style="width:190px;" type="button" class="btn bg-navy color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
             @elseif( $list_repair->status_color==8 )
-            <button type="button" class="btn bg-teal-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            <button style="width:190px;" type="button" class="btn bg-teal-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
             @elseif( $list_repair->status_color==9 )
-            <button type="button" class="btn bg-purple-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            <button style="width:190px;" type="button" class="btn bg-purple-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
             @elseif( $list_repair->status_color==10 )
-            <button type="button" class="btn bg-orange-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            <button style="width:190px;" type="button" class="btn bg-orange-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
             @elseif( $list_repair->status_color==11 )
-            <button type="button" class="btn bg-maroon-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            <button style="width:190px;" type="button" class="btn bg-maroon-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
             @elseif( $list_repair->status_color==12 )
-            <button type="button" class="btn bg-black-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
+            <button style="width:190px;" type="button" class="btn bg-black-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
             @endif
             {{ $list_repair->name }}</td>
             </button>
             </td>
-            <td>
+            <td class="text-center">
              <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-repair{{ $list_repair->id }}">
                   <i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข
               </button>
             </td>  
             <!-- <td class="text-center"><a href="<?php echo url('/list-repair/delete') ?>/{{$list_repair->id}}" 
             class="btn btn-danger"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ</a></td> -->
-            <td>
+            <td class="text-center">
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-list-repair{{ $list_repair->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
               </button>
             </td>

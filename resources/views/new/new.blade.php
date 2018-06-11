@@ -58,6 +58,7 @@
         <thead >
           <tr>
             <th>#</th>
+            <th>รูปภาพ</th>
             <th>หัวข้อ</th>
             <th>แก้ไข</th>
             <th>ลบ</th>
@@ -69,6 +70,9 @@
           @foreach ($news as $new)
           <tr>
           <td>{{ $i=$i+1 }}</td>
+          <td>
+            <a href="{{ asset('image/new/picture/'.$new->img_url) }}"><img src="{{ asset('image/new/resize/'.$new->img_url) }}"></a> 
+          </td>
             <td>{{ $new->title }}</td>
             <td>
               <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-new{{ $new->id }}">

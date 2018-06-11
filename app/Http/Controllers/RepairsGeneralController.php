@@ -3,12 +3,71 @@
 namespace App\Http\Controllers;
 
 use App\Repair;
+use App\ListRepair;
+use App\StoreBranch;
 use App\Persons;
 use Illuminate\Http\Request;
 
 class RepairsGeneralController extends Controller
 {    
- 
+  public function print_repair(Request $request) {
+    $repairs = Repair::find($request->id);
+// echo $repairs;exit();
+    $store_branch = StoreBranch::find($request->store_branch_id);
+    $data = [
+      'id' => $repairs['id'],
+      'bin_number' => $repairs['bin_number'],
+      'name' => $repairs['name'],
+      'phone' => $repairs['phone'],
+      'after_price' => $repairs['after_price'],
+      'equipment_follow' => $repairs['equipment_follow'],
+
+      'store_name' => $store_branch['name'],
+      'store_address' => $store_branch['address'],
+      'store_phone' => $store_branch['phone'],
+    ];
+    $list_repair = ListRepair::where('status',1)
+    ->where('repair_id',$request->id)
+    ->get();
+    // echo $list_repair;exit();
+    return view('repairs_print/print',['list_repair'=>$list_repair],$data);
+  }
+
+  public function print_bill(Request $request) {
+    $repairs = Repair::find($request->id);
+// echo $repairs;exit();
+    $store_branch = StoreBranch::find($request->store_branch_id);   
+    
+    $list_repair = ListRepair::where('status',1)
+    ->where('repair_id',$request->id)
+    ->get();
+
+    $result=0;
+    foreach($list_repair as $key=>$value){
+      $result=$result+$value['price'];
+    }
+    $data = [
+      'id' => $repairs['id'],
+      'bin_number' => $repairs['bin_number'],
+      'name' => $repairs['name'],
+      'phone' => $repairs['phone'],
+      'after_price' => $repairs['after_price'],
+      'price' => $repairs['price'],
+      'symptom' => $repairs['symptom'],
+      'equipment_follow' => $repairs['equipment_follow'],
+
+      'store_name' => $store_branch['name'],
+      'store_address' => $store_branch['address'],
+      'store_phone' => $store_branch['phone'],
+
+      'count_price' => $result,
+    ];
+
+    // echo $result;exit();
+    // echo $list_repair;exit();
+    return view('repairs_print/print2',['list_repair'=>$list_repair],$data);
+  }
+  
   public function font_general() {
     $data['check']=0;
     return view('font_pages/repair', $data);
@@ -93,9 +152,10 @@ class RepairsGeneralController extends Controller
       // echo "B2".$current_day."".$current_month."".$current_year."".$repair_last_id;exit();
 
         $store_branch_id=session('s_store_branch_id','default');
+        $s_id=session('s_id','default');
         $repair = new Repair;
         $repair->store_branch_id = $store_branch_id;
-        $repair->persons_id =  12;
+        $repair->persons_id =  $s_id;
         $repair->bin_number =  "B2".$current_day."".$current_month."".$current_year."".$repair_last_id;
         $repair->name =  $request->name;
         $repair->status_repair =  1;

@@ -39,6 +39,7 @@ class ListRepairsController extends Controller
       // echo $request;exit();
         $repair = new ListRepair;
         $repair->store_branch_id = 2;
+        $repair->status_list_repair = 1;
         $repair->repair_id = $request->repair_id;
         $repair->list_name =  $request->list_name;
         $repair->detail =  $request->detail;

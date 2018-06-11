@@ -196,6 +196,8 @@
 <script type="text/javascript" src="assets/widgets/datatable/datatable.js"></script>
 <script type="text/javascript" src="assets/widgets/datatable/datatable-bootstrap.js"></script>
 <script type="text/javascript" src="assets/widgets/datatable/datatable-tabletools.js"></script>
+
+
 <script type="text/javascript">
 
     /* Datatables basic */
@@ -333,7 +335,7 @@
 <div class="top-bar bg-topbar">
     <div class="container">
         <div class="float-left">
-            <a href="#" class="btn btn-sm bg-facebook tooltip-button" data-placement="bottom" title="Follow us on Facebook">
+            <!-- <a href="#" class="btn btn-sm bg-facebook tooltip-button" data-placement="bottom" title="Follow us on Facebook">
                 <i class="glyph-icon icon-facebook"></i>
             </a>
             <a href="#" class="btn btn-sm bg-google tooltip-button" data-placement="bottom" title="Follow us on Google+">
@@ -341,25 +343,31 @@
             </a>
             <a href="#" class="btn btn-sm bg-twitter tooltip-button" data-placement="bottom" title="Follow us on Twitter">
                 <i class="glyph-icon icon-twitter"></i>
-            </a>
+            </a> -->
 
             <a href="#" class="btn btn-top btn-sm" title="Give us a call">
                 <i class="glyph-icon icon-phone"></i>
-                +1-541-754-3010
+                044-847479
             </a>
         </div>
         
         <div class="float-right user-account-btn dropdown">
             <button title="MonarchUI Admin Template" class="btn btn-sm float-left btn-alt btn-hover mrg10R btn-default">
                 <span data-toggle="modal" data-target="#modal-login">เข้าสู่ระบบ</span>
-                <i class="glyph-icon icon-arrow-right"></i>
+                <i class="glyph-icon icon-lock"></i>
+            </button>
+            
+            <button title="MonarchUI Admin Template" class="btn btn-sm float-left btn-alt btn-hover mrg10R btn-default">
+            <a href="{{ url('/font-register')  }}" title="Homepage example 1"><span>สมัครสมาชิก</span></a>
+                <i class="glyph-icon icon-user"></i>
             </button>
 
-            <a href="#" title="My Account" class="user-profile clearfix" data-toggle="dropdown" aria-expanded="false">
+
+            <!-- <a href="#" title="My Account" class="user-profile clearfix" data-toggle="dropdown" aria-expanded="false">
                 <img width="28" src="assets/image-resources/gravatar.jpg" alt="Profile image">
                 <span>Thomas Barnes</span>
                 <i class="glyph-icon icon-angle-down"></i>
-            </a>
+            </a> -->
             
 
 <ul class="header-nav collapse">
@@ -373,7 +381,7 @@
             </ul>
         </li>
             
-           <div class="dropdown-menu ">
+           <!-- <div class="dropdown-menu ">
                 <div class="box-sm">
                     <div class="login-box clearfix">
                         <div class="user-img">
@@ -417,7 +425,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         
     </div><!-- .container -->
@@ -432,7 +440,7 @@
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">ล็อกอิน</h4>
+            <h3 class="modal-title text-center"><b style="color:gray;">เข้าสู่ระบบ</b> </h3>
           </div>  
           {!!  Form::open(['url'=>'/test_login','class'=>'form','files'=>true])   !!}
                       <div id="login-form" class="content-box">
@@ -461,13 +469,14 @@
 
                         </div>
                         <div class="text-right col-md-6">
-                            <a href="#" class="switch-button" switch-target="#login-forgot" switch-parent="#login-form" title="Recover password">สมัครสมาชิก</a>
+                            <a href="{{ url('/font-register')  }}">สมัครสมาชิก</a>
+
                         </div>
                     </div>
                 </div>
                 <div class="button-pane">
-                <button type="submit" class="btn btn-block btn-primary">ล็อกอิน</button>
-                <a href="{{ url('/dashboard')  }}" class="btn btn-block btn-primary">เข้าสู่ระบบ</a>
+                <button type="submit" class="btn btn-block btn-primary">เข้าสู่ระบบ</button>
+                <!-- <a href="{{ url('/dashboard')  }}" class="btn btn-block btn-primary">เข้าสู่ระบบ</a> -->
                     <!-- <button type="submit" class="btn btn-block btn-primary">ล็อกอิน</button> -->
                 </div>
             </div>      
@@ -479,31 +488,18 @@
 
 <div class="main-header bg-header wow fadeInDown">
     <div class="container">
-    <a href="index.html" class="header-logo" title="Monarch - Create perfect presentation websites"></a><!-- .header-logo -->
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTPWe2GWn6ojcHN32JujpSVhjs2tj9sLz_XI2mAeUEgZ3UfTJ6" style="width:70px;height:70px;"alt="">
+    <!-- <a href="index.html" class="header-logo" title="Monarch - Create perfect presentation websites"></a> -->
+    <!-- .header-logo -->
     <div class="right-header-btn">
         <div id="mobile-navigation">
             <button id="nav-toggle" class="collapsed" data-toggle="collapse" data-target=".header-nav"><span></span></button>
-        </div>
-        <div class="search-btn">
-            <a href="#" class="popover-button" title="Search" data-placement="bottom" data-id="#popover-search">
-                <i class="glyph-icon icon-search"></i>
-            </a>
-            <div class="hide" id="popover-search">
-                <div class="pad5A box-md">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search terms here ...">
-                        <span class="input-group-btn">
-                            <a class="btn btn-primary" href="#">Search</a>
-                        </span>
-                    </div>
-                </div>
-            </div>
         </div>
     </div><!-- .header-logo -->
     <ul class="header-nav collapse">
         <li>
             <a href="#" title="Homepages">
-                หน้าแรก
+                <h2>หน้าแรก</h2> 
                 <i class="glyph-icon icon-angle-down"></i>
             </a>
             <ul>
@@ -578,7 +574,7 @@
             </ul>
         </li>
 
-        <li>
+        <!-- <li>
             <a href="#" title="Homepages">
             สมัครสมาชิก
                 <i class="glyph-icon icon-angle-down"></i>
@@ -586,7 +582,7 @@
             <ul>
                 <li><a href="{{ url('/font-register')  }}" title="Homepage example 1"><span>สมัครสมาชิก</span></a></li>
             </ul>
-        </li>
+        </li> -->
         <li>
             <a href="#" title="Homepages">
             ออกจากระบบ

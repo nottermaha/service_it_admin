@@ -28,7 +28,7 @@
     <section class="content">
   <!-- <form role="form" class="form-horizontal" action="/person/create" method="post"> -->
   <!-- <form role="form" class="form-horizontal" action="<?php echo url('/person-employee/edit') ?>/{{$id}}" method="post"> -->
-  {!!  Form::open(['url'=>'/person-member-edit','class'=>'form-horizontal','files'=>true])   !!}
+  {!!  Form::open(['url'=>'/person-employee-edit','class'=>'form-horizontal','files'=>true])   !!}
 <div class="row">
     <div class="col-md-12">
         <div class="box box-default">
@@ -253,8 +253,8 @@
 
     <div class="row">
         <div class="col-sm-12 text-right">
-            <input type="text" name="id"value="{{$id}}">
-            <input type="text" name="store_branch_id"value="{{$store_branch_id}}">
+            <input type="hidden" name="id"value="{{$id}}">
+            <input type="hidden" name="store_branch_id"value="{{$store_branch_id}}">
           <button type="submit" class="btn btn-success">บันทึก</button>
         </div>
     </div>

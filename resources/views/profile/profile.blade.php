@@ -327,7 +327,7 @@
                           <b for="" class="control-label col-md-9" style="color:gray">
                           {{ $repair->bin_number }}</b>
                         </div>
-                      </div><hr style="margin-top:5px;margin-bottom:5px;">
+                    </div><hr style="margin-top:5px;margin-bottom:5px;">
 
                       <div class="row" >
                         <div class="form-group">
@@ -389,7 +389,7 @@
                           <b for="" class="control-label col-md-3"style="text-align:right">
                           ราคาประเมิน : </b>
                           <b for="" class="control-label col-md-9" style="color:gray">
-                          {{ $repair->status_repair }}</b>
+                          {{ $repair->price }}</b>
                         </div>
                       </div><hr style="margin-top:5px;margin-bottom:5px;">
 
@@ -588,7 +588,7 @@
                 <div class="form-group">
                     <label for="Address" class="control-label col-sm-3">ที่อยู่</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" rows="3" placeholder="ที่อยู่ ..." name="address" value="{{$address}}"></textarea>
+                            <textarea class="form-control" rows="3" placeholder="ที่อยู่ ..." name="address" value="{{$address}}">{{$address}}</textarea>
                         </div>
                 </div>
 

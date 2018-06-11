@@ -77,29 +77,29 @@
             <td>{{ $i=$i+1 }}</td>
             <td>{{ $repair->bin_number }}</td>
             <td>{{ $repair->name }}</td>
-            <td>{{ $repair->after_price }}</td>
+            <td>{{ $repair->price }}</td>
             <td>{{ $repair->persons_id }}</td>
             <td class="text-center"><a href="{{ url('/list-repair/'.$repair->id)  }}" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp;รายการที่ซ่อม</a></a></td> 
             <!-- <td class="text-center"><a href="" class="btn btn-danger"></i>&nbsp; ปิดบิล</a></a></td>  -->
             @if($repair->status_repair==1)
             <td class="text-center">
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">สินค้าที่พึ่งเข้าระบบ
+            <button style="width:190px;" type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">สินค้าที่พึ่งเข้าระบบ
             </td>
             @elseif($repair->status_repair==2)
             <td class="text-center">
-            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">กำลังซ่อมสินค้า
+            <button style="width:190px;" type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">กำลังซ่อมสินค้า
             </td>
             @elseif($repair->status_repair==3)
             <td class="text-center">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">ซ่อมสินค้าเสร็จแล้ว
+            <button style="width:190px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">ซ่อมสินค้าเสร็จแล้ว
             </td>
             @elseif($repair->status_repair==4)
             <td class="text-center">
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">ลูกค้ารับสินค้าคืนแล้ว
+            <button style="width:190px;" type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">ลูกค้ารับสินค้าคืนแล้ว
             </td>
             @elseif($repair->status_repair==5)
             <td class="text-center">
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">ยกเลิกการซ่อม
+            <button style="width:190px;" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">ยกเลิกการซ่อม
             </td>  
             @endif
 
@@ -116,7 +116,7 @@
               </button>
             </td> -->
             <td class="text-center">
-              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-manage-repair-general{{ $repair->id }}"><i class="fa fa-pencil-square-o fa-lg"></i>&nbsp; เมนูจัดการ
+              <button type="button" class="btn btn-info " data-toggle="modal" data-target="#modal-manage-repair-general{{ $repair->id }}"><i class="fa fa-pencil-square-o fa-lg"></i>&nbsp; เมนูจัดการ
               </button>
             </td>
 
@@ -128,7 +128,7 @@
                   <div class="modal-header " >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">เมนูจัดการ</h4>
+                        <h4 class="modal-title text-center">เมนูจัดการ</h4>
                   </div>        
 
                     <div class="modal-body">
@@ -163,14 +163,24 @@
                       <div class="row" >
                         <div class="form-group">
                           <div  class="text-center">
-                          <a href="<?php echo url('/print') ?>" class="btn btn-success" style="width:300px;"><i class="fa fa-print fa-lg"></i>&nbsp;พิมพ์ใบรับซ่อม</a></a>
+                          <?= Form::open(array('url' => '/print')) ?>
+                          <!-- <a href="<?php echo url('/print') ?>" class="btn btn-success" style="width:300px;"><i class="fa fa-print fa-lg"></i>&nbsp;พิมพ์ใบรับซ่อม</a></a> -->
+                          <input type="hidden" name="store_branch_id" value="{{ $repair->store_branch_id }}">
+                          <input type="hidden" name="id" value="{{ $repair->id }}">
+                          <button type="submit"style="width:300px;" class="btn btn-success"><i class="fa fa-print fa-lg"></i>&nbsp;พิมพ์ใบรับซ่อม</button>
+                          {!! Form::close() !!}
                           </div>
                         </div>
                       </div>
                       <div class="row" >
                         <div class="form-group">
                           <div  class="text-center">
-                          <a href="" class="btn btn-success" style="width:300px;"><i class="fa fa-print fa-lg"></i>&nbsp;พิมพ์ใบเสร็จ</a></a>
+                          <?= Form::open(array('url' => '/print2')) ?>
+                          <!-- <a href="<?php echo url('/print') ?>" class="btn btn-success" style="width:300px;"><i class="fa fa-print fa-lg"></i>&nbsp;พิมพ์ใบรับซ่อม</a></a> -->
+                          <input type="hidden" name="store_branch_id" value="{{ $repair->store_branch_id }}">
+                          <input type="hidden" name="id" value="{{ $repair->id }}">
+                          <button type="submit"style="width:300px;" class="btn btn-success"><i class="fa fa-print fa-lg"></i>&nbsp;พิมพ์ใบเสร็จ</button>
+                          {!! Form::close() !!}
                           </div>
                         </div>
                       </div>
@@ -216,7 +226,7 @@
           
           </div> 
           <div class="modal-footer">
-          <input type="text" name="id" value="{{ $repair->id }}">
+          <input type="hidden" name="id" value="{{ $repair->id }}">
             <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
             <button type="submit" class="btn btn-success">บันทึก</button>
           </div>

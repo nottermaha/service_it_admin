@@ -72,7 +72,7 @@
           @foreach ($repairs as $repair)
           <tr>
             <td>{{ $i=$i+1 }}</td>
-            <td>B03152018</td>
+            <td>{{ $repair->bin_number }}</td>
             <td>{{ $repair->name }}</td>
             <!-- <td class="text-center">{{ $repair->status_name }}</td> -->
             <td><a href="{{ url('/list-repair/'.$repair->id)  }}" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp; รายการย่อย</a></a></td>     

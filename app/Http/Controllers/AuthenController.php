@@ -113,6 +113,11 @@ class AuthenController extends Controller
               'persons.name as persons_name'
               ,'persons.phone as persons_phone'
 
+              ,'persons_member.name as persons_member_name'
+              ,'persons_member.phone as persons_member_phone'
+
+              ,'store_branch.name as store_branch_name'
+
               ,'repair.id as r_id'
               ,'repair.persons_member_id as persons_member_id' //check
               ,'repair.bin_number as bin_number'
@@ -128,12 +133,14 @@ class AuthenController extends Controller
         $repairs = Repair::where('repair.status',1)
         ->where('repair.persons_member_id',$id)
         ->orderBy('repair.id','desc')
+        ->leftJoin('persons_member', 'persons_member.id', '=', 'repair.persons_member_id')
         ->leftJoin('persons', 'persons.id', '=', 'repair.persons_id')
+        ->leftJoin('store_branch', 'store_branch.id', '=', 'repair.store_branch_id')
         ->get($item);
         // echo $repairs;exit();
         if($repairs!='[]'){
-              foreach($repairs as $key=>$value)
-              {
+              // foreach($repairs as $key=>$value)
+              // {
                 $items = [
                   'list_repair.repair_id as repair_id_form_list'
                   ,'list_repair.id as id'
@@ -144,10 +151,10 @@ class AuthenController extends Controller
                   ,'list_repair.symptom as symptom'
                   ];
               $list_repairs = ListRepair::where('list_repair.status', 1)
-              ->leftJoin('repair', 'repair.id', '=', 'list_repair.repair_id')
+              // ->leftJoin('repair', 'repair.id', '=', 'list_repair.repair_id')
               // ->where('list_repair.repair_id',"=",$value['r_id'])
               ->get($items);   
-              } 
+              // } 
           // echo $list_repairs;exit();
           return view('font_pages/profile',['repairs'=>$repairs,'list_repairs'=>$list_repairs], $data);
         }

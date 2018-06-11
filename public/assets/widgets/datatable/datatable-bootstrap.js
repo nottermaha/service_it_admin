@@ -5,8 +5,8 @@ $.extend( true, $.fn.dataTable.defaults, {
     "t"+
     "<'row'<'col-sm-6'i><'col-sm-6'p>>",
     "oLanguage": {
-        "sLengthMenu": "_MENU_ records per page",
-        "sSearch": ""
+        "sLengthMenu": "_MENU_ รายการ ต่อ หน้า",
+        "sSearch": "ค้นหา"
     }
 } );
 

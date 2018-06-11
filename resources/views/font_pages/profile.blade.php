@@ -8,13 +8,13 @@
 
             <div class="panel-content image-box">
                 <div class="ribbon">
-                    <div class="bg-primary">Ribbon</div>
+                    <div class="bg-primary">รูปโปรไฟล์</div>
                 </div>
                 <div class="image-content font-white">
 
                     <div class="meta-box meta-box-bottom">
                         <!-- <img src="assets/image-resources/gravatar.jpg" alt="" class="meta-image img-bordered img-circle"> -->
-                        <a href="{{ asset('image/person-member/picture/'.$image_url) }}"><img src="{{ asset('image/person-member/resize/'.$image_url) }}" style="height:100px;width:100px;border-radius: 50%;"></a> 
+                        <a href="{{ asset('image/person-member/picture/'.$image_url) }}"><img src="{{ asset('image/person-member/resize/'.$image_url) }}" style="height:150px;width:150px;border-radius: 50%;"></a> 
                         <h3 class="meta-heading">{{$name}}</h3>
                         <h4 class="meta-subheading">Ultimate backend programmer</h4>
                     </div>
@@ -24,44 +24,9 @@
 
             </div>
             <div class="panel-content pad15A bg-white radius-bottom-all-4">
-
-                <div class="clear profile-box">
-                    <ul class="nav nav-pills nav-justified">
-                        <li>
-                            <a href="#" class="btn btn-sm bg-google">
-                                <span class="glyph-icon icon-separator">
-                                    <i class="glyph-icon icon-google-plus"></i>
-                                </span>
-                                <span class="button-content">
-                                    Google+
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="btn btn-sm bg-facebook">
-                                <span class="glyph-icon icon-separator">
-                                    <i class="glyph-icon icon-facebook"></i>
-                                </span>
-                                <span class="button-content">
-                                    Facebook
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="btn btn-sm bg-twitter">
-                                <span class="glyph-icon icon-separator">
-                                    <i class="glyph-icon icon-twitter"></i>
-                                </span>
-                                <span class="button-content">
-                                    Twitter
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="mrg15T mrg15B"></div>
+                
                 <blockquote class="font-gray">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                    <p>Lorem ipsum dolor.</p>
                     <small>
                         Programmer at
                         <cite title="Monarch">Monarch</cite>
@@ -111,7 +76,7 @@
     </div>
     <div class="content-box mrg15B">
         <h3 class="content-box-header clearfix">
-            Recent activity
+            ทามไลน์ของคุณ
             <div class="font-size-11 float-right">
                 <a href="#" title="">
                     <i class="glyph-icon mrg5R opacity-hover icon-plus"></i>
@@ -359,7 +324,7 @@
             <div class="tab-pane fade pad0A" id="tab-example-2">
                 <div class="content-box pad25A">
                 <h3 class="title-hero">
-                        บันทึกข้อมูลการซ่อมสินค้าของท่าน
+                       <h3>บันทึกข้อมูลการซ่อมสินค้าของท่าน</h3> 
                     </h3>
                     <div class="example-box-wrapper">
 
@@ -371,6 +336,7 @@
                         <th>วันที่ซ่อม</th>
                         <th>ช่างซ่อม</th>
                         <th>สถานะ</th>
+                        <th>สาขาที่ซ่อม</th>
                         <th>เพิ่มเติม</th>
                     </tr>
                     </thead>
@@ -382,15 +348,16 @@
                         <th>วันที่ซ่อม</th>
                         <th>ช่างซ่อม</th>
                         <th>สถานะ</th>
+                        <th>สาขาที่ซ่อม</th>
                         <th>เพิ่มเติม</th>
                     </tr>
                     </tfoot>
 
                     <tbody>
-                    <?php $i=0; ?>
+                    <?php $j=0 ?>
                         @foreach($repairs as $repair)
                         <tr>
-                            <td>{{$i=$i+1}}</td>
+                        <td>{{ $j=$j+1 }}</td>
                             <td>{{ $repair->bin_number }}</td>
                             <td>{{ $repair->date_in_repair }}</td>
                             <td>{{ $repair->persons_name }}</td>
@@ -407,34 +374,155 @@
                                 <b style="color:red;">ยกเลิกการซ่อมสินค้า</b>
                                 @endif
                             </td>
+                            <td>{{ $repair->store_branch_name }}</td>
                             <td>
                             <button title="MonarchUI Admin Template" class="btn btn-sm btn-alt btn-hover mrg10R btn-purple">
-                                <span data-toggle="modal" data-target="#modal-detail">เพิ่มเติม</span>
+                                <span data-toggle="modal" data-target="#modal-detail{{$repair->r_id}}">เพิ่มเติม</span>
                                 <i class="glyph-icon icon-bars"></i>
                             </button>
                             </td>
          <!-- //////////////////////////////modal-login//////////////////////////////// -->
 
-    <div class="modal fade " id="modal-detail">
-        <div class="modal-dialog ">
+    <div class="modal fade " id="modal-detail{{$repair->r_id}}">
+        <div class="modal-dialog " style="width:50%;">
         <div class="modal-content ">
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">ล็อกอิน</h4>
+            <h4 class="modal-title">รายละเอียดการซ่อมสินค้า</h4>
           </div>  
                 <div id="login-form" class="content-box">
                 <div class="content-box-wrapper pad20A">
 
-                    <div class="form-group">
-                        gre
+                   <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          หมายเลขบิล : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          {{ $repair->bin_number }}</b>
+                        </div>
                     </div>
 
-                </div>
-                <div class="button-pane">
-                <button type="submit" class="btn btn-block btn-primary">ล็อกอิน</button>
+                    <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          ชื่อลูกค้า : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          {{ $repair->persons_member_name }}</b>
+                        </div>
+                    </div>
+
+                    <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          เบอร์โทร : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          {{ $repair->persons_member_phone }}</b>
+                        </div>
+                    </div>
+
+                    <div class="row" >
+                        <div class="form-group">
+                        <b for="" class="control-label col-md-3"style="text-align:right">
+                                อุปกรณ์ที่นำมาซ่อม  </b><br>
+                                <?php $i=0 ?>
+                        @foreach($list_repairs as $list_repair)
+                              @if( $repair->r_id==$list_repair->repair_id_form_list )
+                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                {{ $i=$i+1 }} : </b>
+                                <b for="" class="control-label col-md-9" style="color:gray">
+                                {{ $list_repair->list_name }}
+                                </b>
+                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                อาการเสีย : </b>
+                                <b for="" class="control-label col-md-9" style="color:gray">
+                                {{ $list_repair->symptom }}
+                                </b>
+                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                รายละเอียด : </b>
+                                <b for="" class="control-label col-md-9" style="color:gray">
+                                {{ $list_repair->detail }}
+                                </b>
+                              @endif
+                          @endforeach
+                          
+                        </div>
+                      </div>
+
+                    <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          อุปกรณ์ที่ติดมาด้วย : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          </b>
+                        </div>
+                    </div>
+
+                    <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          ราคาประเมิน : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          </b>
+                        </div>
+                    </div>
+
+                    <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          ราคาประเมิน : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          </b>
+                        </div>
+                    </div>
+
+                    <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          ราคาจริง : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          </b>
+                        </div>
+                    </div>
+
+                    <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          วันที่รับเข้าระบบ : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          </b>
+                        </div>
+                    </div>
+
+                    <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          วันที่คืนสินค้า : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          </b>
+                        </div>
+                    </div>
+
+                    <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          หมายเลขบิล : </b>
+                          <b for="" class="control-label col-md-9" style="color:gray">
+                          </b>
+                        </div>
+                    </div>
+
+
+
+
+
+
 
                 </div>
+                <!-- <div class="button-pane"> -->
+                <!-- <button type="submit" class="btn btn-block btn-primary">ล็อกอิน</button> -->
+
+                <!-- </div> -->
             </div>      
 
         </div>

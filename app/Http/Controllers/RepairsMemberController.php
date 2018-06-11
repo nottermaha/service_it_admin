@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class RepairsMemberController extends Controller
 {    
     public function get_repair() {
+      $s_store_branch_id=session('s_store_branch_id','default');
       $items = [// select data show in table
         'persons_member.*'
         , 'persons_member.name'
@@ -24,7 +25,7 @@ class RepairsMemberController extends Controller
     ];
       $repairs = Repair::
       leftJoin('persons_member', 'persons_member.id', '=', 'repair.persons_member_id')
-      ->where('store_branch_id',2)
+      ->where('store_branch_id',$s_store_branch_id)
       ->where('persons_member_id', '!=',NULL)
       ->where('repair.status', 1)
       ->orderBy('repair.id', 'desc')
@@ -47,11 +48,24 @@ class RepairsMemberController extends Controller
     }
     public function create(Request $request)
     { 
+      $s_store_branch_id=session('s_store_branch_id','default');
+      $s_id=session('s_id','default');
+      $current_day=(date('d'));
+      $current_month=(date('m'));
+      $current_year=(date('y'));
+      $repairs = Repair::
+      orderBy('id','desc')
+      ->limit(1)
+      ->get();
+      // echo $repairs['0']['id']+1;exit();
+      $repair_last_id =$repairs['0']['id']+1;
       // echo $request;exit();
         $repair = new Repair;
-        $repair->store_branch_id = 2;
+        $repair->store_branch_id = $s_store_branch_id;
         $repair->persons_member_id = $request->member_id;
-        $repair->persons_id =  12;
+        $repair->persons_id = $s_id;
+        $repair->bin_number =  "B2".$current_day."".$current_month."".$current_year."".$repair_last_id;
+        $repair->status_repair =  1;
         $repair->date_in_repair =  $request->date_in_repair;
         $repair->price =  $request->price;
         $repair->equipment_follow =  $request->equipment_follow;

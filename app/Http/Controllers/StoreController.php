@@ -35,6 +35,14 @@ class StoreController extends Controller
         $store = new StoreBranch;
         $store->store_id = '1';
         $store->name = $request->name;
+        $store->phone = $request->phone;
+        $store->email = $request->email;
+        // $store->image_url = $request->image_url;
+        $store->map = $request->map;
+        $store->address = $request->address;
+        // $store->account_number = $request->account_number;
+        $store->detail = $request->detail;
+        $store->contact = $request->contact;
         $store->status = true;
         $store->save();
         $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
@@ -47,6 +55,14 @@ class StoreController extends Controller
       $store = StoreBranch::find($request->id);
       $store->store_id = '1';
       $store->name = $request->name;
+      $store->phone = $request->phone;
+      $store->email = $request->email;
+      // $store->image_url = $request->image_url;
+      $store->map = $request->map;
+      $store->address = $request->address;
+      // $store->account_number = $request->account_number;
+      $store->detail = $request->detail;
+      $store->contact = $request->contact;
       $store->save();
       $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
 

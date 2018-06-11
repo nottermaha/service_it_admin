@@ -210,7 +210,7 @@
                                         <span class="add-on input-group-addon">
                                             <i class="glyph-icon icon-calendar"></i>
                                         </span>
-                                        <input type="date" class="bootstrap-datepicker form-control" value="02/16/12" data-date-format="mm/dd/yy" name="birthday">
+                                        <input type="text" class="bootstrap-datepicker form-control" value="02/16/12" data-date-format="mm/dd/yy" name="birthday">
                                     </div>
                                 </div>
                             </div><br>

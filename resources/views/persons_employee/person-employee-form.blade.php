@@ -254,8 +254,8 @@
 
     <div class="row">
         <div class="col-sm-12 text-right">
-        <input type="text" name="check" value="1">
-        <input type="text" name="store_branch_id" value="{{$store_branch_id}}">
+        <input type="hidden" name="check" value="1">
+        <input type="hidden" name="store_branch_id" value="{{$store_branch_id}}">
           <button type="submit" class="btn btn-success">บันทึก</button>
         </div>
     </div>

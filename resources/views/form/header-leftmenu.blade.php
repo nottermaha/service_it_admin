@@ -212,7 +212,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="{{ url('/report-person-member')  }}"><i class="fa fa-circle-o"></i> สถานะการแจ้งซ่อม</a></li>
+            <li class="active"><a href="{{ url('/report-list')  }}"><i class="fa fa-circle-o"></i>รายการออกรายงาน</a></li>
           </ul>
         </li> 
 
