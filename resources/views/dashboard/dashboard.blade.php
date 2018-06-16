@@ -19,7 +19,8 @@
   <!-- Morris chart -->
   <!-- jvectormap -->
   <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
-
+<!-- /////////////////////////////////////////////////////// -->
+<script src="  https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
 </head>
 <!--End css header-leftmenu -->
 
@@ -239,9 +240,17 @@
           </div>
           <!-- /.box -->
 <!-- ///////////////////////////////////////////////////////////////// -->
-
-
     </section>
+    @if (session()->has('status_login_ok'))     
+     <script>swal({ title: "<?php echo session()->get('status_login_ok'); ?>",        
+                     text: "ยินดีต้อนรับ",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+    @endif
+
 @include('form/footer')
 
 <!-- js header-leftmenu -->

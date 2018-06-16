@@ -20,6 +20,33 @@ class StoreController extends Controller
       // return response()->json($stores);
     }
 
+    public function get_store_branch_to_font_contact() {
+      $store = Store::where('id',1)->get();
+      $data = [
+        'store_name' =>$store['0']['name'],
+      ];
+      $store_branchs = StoreBranch::
+      orderBy('id','asc')
+      ->get();
+
+      return view('font_pages/contact', ['store_branchs' => $store_branchs],$data); 
+    }
+
+    public function get_font_contact_by_id(Request $request) {
+
+      $store_branchs = StoreBranch::find($request->id);
+      $data =[
+        'name' => $store_branchs['name'],
+        'phone' => $store_branchs['phone'],
+        'email' => $store_branchs['email'],
+        'map' => $store_branchs['map'],
+        'address' => $store_branchs['address'],
+        'detail' => $store_branchs['detail'],
+        'contact' => $store_branchs['contact'],
+      ];
+      return view('font_pages/contact-detail', $data); 
+    }
+    
     private function get_status_name($stores)
     {
        $i=0;

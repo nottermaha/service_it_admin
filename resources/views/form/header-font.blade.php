@@ -11,6 +11,12 @@
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+<!-- //////////////////nav-bar notter/////////////////////// -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- //////////////////////////////////////////// -->
 <!-- Favicons -->
 
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/icons/apple-touch-icon-144-precomposed.png">
@@ -346,8 +352,8 @@
             </a> -->
 
             <a href="#" class="btn btn-top btn-sm" title="Give us a call">
-                <i class="glyph-icon icon-phone"></i>
-                044-847479
+              <h2>  <i class="glyph-icon icon-home"></i>
+               Mac Service</h2>
             </a>
         </div>
         
@@ -432,7 +438,6 @@
 </div><!-- .top-bar -->
 
        <!-- //////////////////////////////modal-login//////////////////////////////// -->
-
         <div class="modal fade " id="modal-login">
         
         <div class="modal-dialog ">
@@ -445,7 +450,27 @@
           {!!  Form::open(['url'=>'/test_login','class'=>'form','files'=>true])   !!}
                       <div id="login-form" class="content-box">
                 <div class="content-box-wrapper pad20A">
-
+                @if (session()->has('status_login_fail'))
+                    <!-- ///check fail is show modal/// -->
+                        <script type="text/javascript">
+                            $(window).on('load',function(){
+                                $('#modal-login').modal('show');
+                            });
+                        </script>
+                    <!-- ///end//// -->
+                    <!-- ///message fail/// -->
+                        <div class="alert alert-danger">
+                            <div class="bg-red alert-icon">
+                                <i class="glyph-icon icon-times"></i>
+                            </div>
+                            <div class="alert-content">
+                                <h4 class="alert-title"><h3> การเข้าสู่ระบบล้มเหลว</h3></h4>
+                                <p>กรุณาตรวจสอบชื่อผู้ใช้ และ รหัสผ่าน ให้ถูกต้อง</p>
+                            </div>
+                        </div>
+                    <!-- ///end//// -->
+                    @endif
+                    <br>
                     <div class="form-group">
                         <label for="exampleInputEmail1">ชื่อผู้ใช้:</label>
                         <div class="input-group input-group-lg">
@@ -485,6 +510,45 @@
       </div>          
     </div>
     <!-- //////////////////////////////End modal-login//////////////////////////////// -->
+
+<!-- ///////////////////////////////////////////////////////// -->
+
+<!-- <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Page 1-1</a></li>
+            <li><a href="#">Page 1-2</a></li>
+            <li><a href="#">Page 1-3</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Page 2</a></li>
+        <li><a href="#">Page 3</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
+
+
+
+
+<!-- /////////////////////////////////////////////////////////////// -->
 
 <div class="main-header bg-header wow fadeInDown">
     <div class="container">
@@ -599,3 +663,4 @@
     </ul><!-- .header-nav -->
 </div><!-- .container -->
 </div><!-- .main-header -->
+

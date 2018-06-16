@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class StoreBranch extends Model
 {
-    protected $table = 'Store_branch';
+    protected $table = 'store_branch';
     public $timestamps = false;
 }

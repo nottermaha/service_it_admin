@@ -366,5 +366,13 @@
     <div class="hero-overlay bg-black opacity-60"></div>
     <div class="hero-pattern pattern-bg-1"></div>
 </div>
-
+@if (session()->has('status_login_ok'))     
+     <script>swal({ title: "<?php echo session()->get('status_login_ok'); ?>",        
+                     text: "ยินดีต้อนรับ",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+@endif
 @include('form/footer-font')

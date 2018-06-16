@@ -5,7 +5,7 @@
 <div class="hero-box hero-box-smaller full-bg-13 font-inverse" data-top-bottom="background-position: 50% 0px;" data-bottom-top="background-position: 50% -600px;">
     <div class="container">
         <h1 class="hero-heading wow fadeInDown" data-wow-duration="0.6s">กระดานสนทนา</h1>
-        <p class="hero-text wow bounceInUp" data-wow-duration="0.9s" data-wow-delay="0.2s">Monarch comes with example pages for single blog posts.</p>
+        <!-- <p class="hero-text wow bounceInUp" data-wow-duration="0.9s" data-wow-delay="0.2s">Monarch comes with example pages for single blog posts.</p> -->
     </div>
     <div class="hero-overlay bg-black"></div>
 </div>
@@ -91,7 +91,7 @@
     <!-- //////////////////////////////End modal-add-question-post//////////////////////////////// -->
                 <ul class="comments-list">
                 @foreach ($question_posts as $question_post)
-                    <li class="panel">
+                    <li class="panel" style="background-color:#DCDCDC;"> 
                         <div class="panel-body">
                             <div class="comment-image">
                                 <img class="img-rounded lazy img-responsive" src="" data-original="assets/image-resources/people/testimonial1.jpg" alt="">
@@ -126,166 +126,7 @@
                         </div>
                     </li>
                     @endforeach
-                    <!-- <li class="panel">
-                        <div class="panel-body">
-                            <div class="comment-image">
-                                <img class="img-rounded lazy img-responsive" src="" data-original="../../assets/image-resources/people/testimonial1.jpg" alt="">
-                            </div>
-                            <div class="comment-wrapper">
-                                <div class="comment-header clearfix">
-                                    <div class="float-left">
-                                        <div class="comment-author">
-                                            <b>Thomas Edison</b> says:
-                                        </div>
-                                        <div class="comment-date">
-                                            <i class="glyph-icon icon-clock-o"></i>
-                                            21 December 2014
-                                        </div>
-                                    </div>
-                                    <a href="#" title="Reply" class="btn btn-xs btn-primary">
-                                        Reply
-                                    </a>
-                                </div>
-                                <div class="comment-body">
-                                    <p>The languages only differ in their grammar, their pronunciation and their most common words. Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="panel">
-                        <div class="panel-body">
-                            <div class="comment-image">
-                                <img class="img-rounded lazy img-responsive" src="" data-original="../../assets/image-resources/people/testimonial1.jpg" alt="">
-                            </div>
-                            <div class="comment-wrapper">
-                                <div class="comment-header clearfix">
-                                    <div class="float-left">
-                                        <div class="comment-author">
-                                            <b>Thomas Edison</b> says:
-                                        </div>
-                                        <div class="comment-date">
-                                            <i class="glyph-icon icon-clock-o"></i>
-                                            21 December 2014
-                                        </div>
-                                    </div>
-                                    <a href="#" title="Reply" class="btn btn-xs btn-primary">
-                                        Reply
-                                    </a>
-                                </div>
-                                <div class="comment-body">
-                                    <p>The languages only differ in their grammar, their pronunciation and their most common words. Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <ul>
-                            <li class="panel">
-                                <div class="panel-body">
-                                    <div class="comment-image">
-                                        <img class="img-rounded lazy img-responsive" src="" data-original="../../assets/image-resources/people/testimonial1.jpg" alt="">
-                                    </div>
-                                    <div class="comment-wrapper">
-                                        <div class="comment-header clearfix">
-                                            <div class="float-left">
-                                                <div class="comment-author">
-                                                    <b>Thomas Edison</b> says:
-                                                </div>
-                                                <div class="comment-date">
-                                                    <i class="glyph-icon icon-clock-o"></i>
-                                                    21 December 2014
-                                                </div>
-                                            </div>
-                                            <a href="#" title="Reply" class="btn btn-xs btn-primary">
-                                                Reply
-                                            </a>
-                                        </div>
-                                        <div class="comment-body">
-                                            <p>The languages only differ in their grammar, their pronunciation and their most common words. Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <ul>
-                                    <li class="panel">
-                                        <div class="panel-body">
-                                            <div class="comment-image">
-                                                <img class="img-rounded lazy img-responsive" src="" data-original="../../assets/image-resources/people/testimonial1.jpg" alt="">
-                                            </div>
-                                            <div class="comment-wrapper">
-                                                <div class="comment-header clearfix">
-                                                    <div class="float-left">
-                                                        <div class="comment-author">
-                                                            <b>Thomas Edison</b> says:
-                                                        </div>
-                                                        <div class="comment-date">
-                                                            <i class="glyph-icon icon-clock-o"></i>
-                                                            21 December 2014
-                                                        </div>
-                                                    </div>
-                                                    <a href="#" title="Reply" class="btn btn-xs btn-primary">
-                                                        Reply
-                                                    </a>
-                                                </div>
-                                                <div class="comment-body">
-                                                    <p>The languages only differ in their grammar, their pronunciation and their most common words. Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="panel">
-                        <div class="panel-body">
-                            <div class="comment-image">
-                                <img class="img-rounded lazy img-responsive" src="" data-original="../../assets/image-resources/people/testimonial1.jpg" alt="">
-                            </div>
-                            <div class="comment-wrapper">
-                                <div class="comment-header clearfix">
-                                    <div class="float-left">
-                                        <div class="comment-author">
-                                            <b>Thomas Edison</b> says:
-                                        </div>
-                                        <div class="comment-date">
-                                            <i class="glyph-icon icon-clock-o"></i>
-                                            21 December 2014
-                                        </div>
-                                    </div>
-                                    <a href="#" title="Reply" class="btn btn-xs btn-primary">
-                                        Reply
-                                    </a>
-                                </div>
-                                <div class="comment-body">
-                                    <p>The languages only differ in their grammar, their pronunciation and their most common words. Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="panel">
-                        <div class="panel-body">
-                            <div class="comment-image">
-                                <img class="img-rounded lazy img-responsive" src="" data-original="../../assets/image-resources/people/testimonial1.jpg" alt="">
-                            </div>
-                            <div class="comment-wrapper">
-                                <div class="comment-header clearfix">
-                                    <div class="float-left">
-                                        <div class="comment-author">
-                                            <b>Thomas Edison</b> says:
-                                        </div>
-                                        <div class="comment-date">
-                                            <i class="glyph-icon icon-clock-o"></i>
-                                            21 December 2014
-                                        </div>
-                                    </div>
-                                    <a href="#" title="Reply" class="btn btn-xs btn-primary">
-                                        Reply
-                                    </a>
-                                </div>
-                                <div class="comment-body">
-                                    <p>The languages only differ in their grammar, their pronunciation and their most common words. Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </li> -->
+
                 </ul>
             </div>
 

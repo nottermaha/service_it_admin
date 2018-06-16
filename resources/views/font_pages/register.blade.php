@@ -142,7 +142,7 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-user " ></i></span>
-                                        <input type="text" class="form-control" placeholder="ชื่อผู้ใช้..." name="username">
+                                        <input type="text" class="form-control" placeholder="ชื่อผู้ใช้..." name="username" required>
                                     </div>
                                 </div>
                             </div><br>
@@ -151,7 +151,7 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-lock " ></i></span>
-                                        <input type="text" class="form-control" placeholder="รหัสผ่าน..." name="password">
+                                        <input type="text" class="form-control" placeholder="รหัสผ่าน..." name="password" required>
                                     </div>
                                 </div>
                             </div><br>
@@ -160,7 +160,7 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-lock "></i></span>
-                                        <input type="text" class="form-control" placeholder="รหัสผ่านอีกครั้ง.." name="password">
+                                        <input type="text" class="form-control" placeholder="รหัสผ่านอีกครั้ง.." name="password" required>
                                     </div>
                                 </div>
                             </div>
@@ -173,7 +173,7 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="ชื่อ-นามสกุล..." name="name">
+                                        <input type="text" class="form-control" placeholder="ชื่อ-นามสกุล..." name="name" required>
                                     </div>
                                 </div>
                             </div><br>
@@ -210,7 +210,7 @@
                                         <span class="add-on input-group-addon">
                                             <i class="glyph-icon icon-calendar"></i>
                                         </span>
-                                        <input type="text" class="bootstrap-datepicker form-control" value="02/16/12" data-date-format="mm/dd/yy" name="birthday">
+                                        <input type="text" class="bootstrap-datepicker form-control"  data-date-format="mm/dd/yy" name="birthday" required>
                                     </div>
                                 </div>
                             </div><br>
@@ -219,7 +219,7 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-envelope " ></i></span>
-                                        <input type="text" class="form-control" placeholder="อีเมล์.." name="email">
+                                        <input type="text" class="form-control" placeholder="อีเมล์.." name="email" required>
                                     </div>
                                 </div>
                             </div><br>
@@ -228,7 +228,7 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-phone " ></i></span>
-                                        <input type="text" class="form-control" placeholder="เบอร์โทร.." name="phone">
+                                        <input type="text" class="form-control" placeholder="เบอร์โทร.." name="phone" required>
                                     </div>
                                 </div>
                             </div><br>

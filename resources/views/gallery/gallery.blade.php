@@ -319,8 +319,8 @@
     </div>
     <!-- //////////////////////////////test_logout//////////////////////////////// -->
 
-    @if (session()->has('status_create'))     
-     <script>swal({ title: "<?php echo session()->get('status_create'); ?>",        
+    @if (session()->has('status_login_ok'))     
+     <script>swal({ title: "<?php echo session()->get('status_login_ok'); ?>",        
                      text: "ผลการทํางาน",         
                      timer: 2500,         
                      type: 'success',  

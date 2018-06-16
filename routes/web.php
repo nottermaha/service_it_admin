@@ -24,10 +24,13 @@ Route::get('/font-board-answer', function () {
 Route::get('/font-contact', function () {
     return view('font_pages/contact');
 });
-Route::get('/', 'IndexController@index');
+Route::get('/', 'StoreController@index');
+
+Route::get('/font-contact', 'StoreController@get_store_branch_to_font_contact');
+Route::post('/font-contact-detail', 'StoreController@get_font_contact_by_id');
 
 Route::get('/font-new', 'FontNewController@news');
-Route::resource('news', 'FontNewController');
+
 // Route::resource('/font-new', 'FontNewController@news');
 Route::post('/font-new-detail', 'FontNewController@new_by_id');
 
@@ -40,12 +43,6 @@ Route::get('/font-guarantee', function () {
     return view('font_pages/guarantee');
 });
 
-// Route::get('/font-profile', function () {
-//     return view('font_pages/profile');
-// });
-// Route::get('/print', function () {
-//     return view('repairs_print/print');
-// });
 Route::post('/print','RepairsGeneralController@print_repair');
 Route::post('/print2','RepairsGeneralController@print_bill');
 Route::get('/font-profile','AuthenController@font_profile');
@@ -151,19 +148,13 @@ Route::get('/profile','AuthenController@profile');
 Route::post('/profile-edit','AuthenController@edit_profile');
 
 Route::get('/report-person-member', 'PersonsMemberController@report_person_member');
-// Route::get('/report-list', function () {
-//     return view('report/report-list');
-// });
-// Route::get('/report-list', function () {
-//     return view('report/report-list');
-// });
 Route::get('/report-list', 'ReportController@get_report_list');
 Route::post('/report-detail', 'ReportController@get_report_detail');
 Route::post('/report-print', 'ReportController@get_report_print');
 
 Route::get('/dashboard', 'DashboardController@dashboard_addmin');
 Route::get('/dashboard_branch', 'DashboardController@dashboard_by_store_branch');
-Route::get('/test', 'DashboardController@get_hour');
+
 // Route::get('store-form',function(){
 //     return view('stores/store-form');
 // });

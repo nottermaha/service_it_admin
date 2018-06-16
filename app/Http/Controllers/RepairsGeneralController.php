@@ -73,7 +73,7 @@ class RepairsGeneralController extends Controller
     return view('font_pages/repair', $data);
   }
   public function font_general_search(Request $request) {
-        // echo $request;exit();
+        
         $items = [
           'repair.id as r_id'
           ,'repair.bin_number as bin_number'
@@ -82,7 +82,10 @@ class RepairsGeneralController extends Controller
           ,'repair.phone as phone'
           ,'repair.after_price as after_price'
           ,'repair.equipment_follow as equipment_follow'
+          ,'repair.date_in_repair as date_in'
+
           ,'persons.name as persons_name'
+
           ,'list_repair.list_name as list_repair_name'
           ,'list_repair.status_list_repair as status_list_repair'
       ];
@@ -93,8 +96,14 @@ class RepairsGeneralController extends Controller
         ->leftJoin('list_repair', 'list_repair.repair_id', '=', 'repair.id')
         ->get($items);
         // echo $repairs;exit();
-
+        foreach($repairs as $key=>$value){
+          $repairs[$key]['date_in_repair_day']=date("d", strtotime($value['date_in']));
+          $repairs[$key]['date_in_repair_month']=date("m", strtotime($value['date_in']));
+          $repairs[$key]['date_in_repair_year']=date("y", strtotime($value['date_in']));
+         
+        }
         if(count($repairs)!=0){
+          
         $data = [
           'id' => $repairs['0']['id'],
           'bin_number' => $repairs['0']['bin_number'],
@@ -104,14 +113,21 @@ class RepairsGeneralController extends Controller
           'after_price' => $repairs['0']['after_price'],
           'equipment_follow' => $repairs['0']['equipment_follow'],
           'persons_name' => $repairs['0']['persons_name'],
+          'date_in_repair' => $repairs['0']['date_in_repair'],
 
           'check' => 1,
         ];
-        // echo $data['id'];exit();
+
+        echo $repairs;exit();
         return view('font_pages/repair',['repairs'=>$repairs], $data);
       }
       else{
-        $data['check']=0;
+        if($request['chk_num_bill']==1){
+          $data['check']=2;
+        }
+        else{
+         $data['check']=0;
+        }
         return view('font_pages/repair', $data);
       }
  

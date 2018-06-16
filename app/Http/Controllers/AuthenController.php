@@ -23,6 +23,7 @@ class AuthenController extends Controller
 
         // echo $result['0']['name'];exit();
         if($result!='[]'){
+          ////////login admin manager employee/////////
           // echo 'rrr';exit();
           session(['s_name'=>$result['0']['name']]);
           session(['s_id'=>$result['0']['id'] ]); 
@@ -31,10 +32,11 @@ class AuthenController extends Controller
           // session(['key2'=>$result['0']['store_branch_id'] ]); 
           // if (session()->has('key2')) { 
           //   $data=session('key2','default'); 
-                    
           // } 
+          $request->session()->flash('status_login_ok', 'การเข้าสู่ระบบเสร็จสิ้น'); 
           return redirect('dashboard');
         }
+        ///////login member////////
         else if($result=='[]'){
           $result2 = PersonsMember::where('status',1)
           ->where('username',$request->username)
@@ -43,12 +45,15 @@ class AuthenController extends Controller
               if($result2!='[]'){
                 session(['s_name'=>$result2['0']['name']]);
                 session(['s_id'=>$result2['0']['id'] ]); 
-                session(['s_type'=>$result2['0']['type'] ]); 
+                session(['s_type'=>$result2['0']['type'] ]);
+                $request->session()->flash('status_login_ok', 'การเข้าสู่ระบบเสร็จสิ้น'); 
               return redirect('/');
               }
-              // else{
-              //   return redirect('/');
-              // }
+              else{
+                ///////ligin fail///////
+                $request->session()->flash('status_login_fail', 'fail');
+                return redirect('/');
+              }
         }
        
         // return view('gallery/gallery', ['gallerys' => $gallerys]);
