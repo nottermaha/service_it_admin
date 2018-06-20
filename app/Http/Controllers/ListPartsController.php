@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 
 class ListPartsController extends Controller
 {    
-  public function get_list_parts_by_id($id) {
+  public function get_list_parts_by_id(Request $request) {
     // echo $id;exit();
     $list_parts = ListPart::where('status', 1)
-    ->where('import_parts_id',$id)
+    ->where('import_parts_id',$request->id)
     ->get();
 
-    $import_parts_id['import_parts_id']=$id;
+    $import_parts_id['import_parts_id']=$request->id;
     // echo $import_parts_id['import_parts_id'];exit();
     return view('list_part/list-part', ['list_parts' => $list_parts],$import_parts_id);
   }

@@ -49,11 +49,11 @@
                       <label for="Name" class="col-sm-2"></label>
                           <b for="Name" class="col-sm-1" style="padding-top:8;">เลือกร้าน</b>
                           <div class="col-sm-6">
-                              <select  class="form-control select2" style="width: 100%;" name="store_branch_id" required >
-                              <option selected="selected" required><b> เลือกร้านที่ต้องการดูข้อมูล</b></option>
+                              <select required class="form-control select2" style="width: 100%;" name="store_branch_id" >
+                              <option value="" ><b> เลือกร้านที่ต้องการดูข้อมูล</b></option>
                               <!-- <option disabled="disabled">California (disabled)</option> -->
                               @foreach ($store_branch as $value)
-                              <option value="{{ $value->id }}" required>{{ $value->name }}</option>
+                              <option value="{{ $value->id }}" >{{ $value->name }}</option>
                               @endforeach
                               </select>
                           </div>
@@ -102,7 +102,8 @@
             <th>#</th>
             <th>รูปภาพ</th>
             <th class="text-center">ชื่อ-สกุล</th>
-            <th class="text-center">สถานะ</th>
+            <th style="text-align:center">เบอร์โทร</th>
+            <th style="text-align:center">เพศ</th>
             <th class="text-center">แก้ไข</th>
             <th class="text-center">ลบ</th>
           </tr>
@@ -119,7 +120,14 @@
 
             </td>
             <td>{{ $person->name }}</td>
-            <td class="text-center">{{ $person->status_name }}</td>
+            <td class="text-center">{{ $person->phone }}</td>
+            <td class="text-center">
+            @if($person->gender==1)  
+            ชาย
+            @elseif($person->gender==2)  
+            หญิง
+            @endif
+            </td>
             <!-- <td class="text-center">
               <a href="{{ url('/person-employee-form-edit/'.$person->id)  }}" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a>
             </td>    -->

@@ -24,7 +24,7 @@ Route::get('/font-board-answer', function () {
 Route::get('/font-contact', function () {
     return view('font_pages/contact');
 });
-Route::get('/', 'StoreController@index');
+Route::get('/', 'IndexController@index');
 
 Route::get('/font-contact', 'StoreController@get_store_branch_to_font_contact');
 Route::post('/font-contact-detail', 'StoreController@get_font_contact_by_id');
@@ -116,7 +116,7 @@ Route::post('/import_part/create','ImportPartsController@create');
 Route::post('/import_part/edit/{id}','ImportPartsController@edit');
 Route::post('/import_part/delete/{id}','ImportPartsController@delete');
 
-Route::get('/list-part/{id}', 'ListPartsController@get_list_parts_by_id');
+Route::post('/list-part', 'ListPartsController@get_list_parts_by_id');
 Route::post('/list-part/create', 'ListPartsController@create');
 Route::post('/list-part/edit/{id}', 'ListPartsController@edit');
 Route::post('/list-part/delete/{id}', 'ListPartsController@delete');
@@ -130,6 +130,11 @@ Route::get('/gallery','GallerysController@get');
 Route::post('/gallery/create','GallerysController@create');
 Route::post('/gallery/edit/{id}','GallerysController@edit');
 Route::post('/gallery/delete/{id}','GallerysController@delete');
+
+Route::get('/guarantee','GuaranteeController@get');
+Route::post('/guarantee/create','GuaranteeController@create');
+Route::post('/guarantee/edit/{id}','GuaranteeController@edit');
+Route::post('/guarantee/delete/{id}','GuaranteeController@delete');
 
 Route::get('/questtion-post','BoardPostsController@get_question_post');
 Route::post('/questtion-post/create','BoardPostsController@create_question_post');

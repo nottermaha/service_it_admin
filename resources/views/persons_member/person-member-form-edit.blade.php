@@ -24,28 +24,18 @@
 <!--End css header-leftmenu -->
 
  @include('form/header-leftmenu')
-
+ <section class="content-header">
+            <h1 style="background-color:#DCDCDC;padding-top:10px;padding-bottom:10px;padding-left:10px;">
+              บุคคล /
+              <small><a>แก้ไขข้อมูลสมาชิก</a> </small>
+            </h1>
+          </section> 
+      <br>
     <section class="content">
   <!-- <form role="form" class="form-horizontal" action="/person/create" method="post"> -->
   <!-- <form role="form" class="form-horizontal" action="<?php echo url('/person-member/edit') ?>/{{$id}}" method="post"> -->
   {!!  Form::open(['url'=>'/person-member-edit','class'=>'form-horizontal','files'=>true])   !!}
-<div class="row">
-    <div class="col-md-12">
-        <div class="box box-default">
-            <div class="box-body">
-            {{ csrf_field() }}
 
-                <div class="form-group">
-                    <label for="Name" class="control-label col-sm-3">ร้านที่สังกัด</label>
-                    <div class="col-sm-6">
-                       
-                    </div>
-                </div>
-            
-            </div>
-        </div>
-    </div>
-</div>
 <div class="row">
     <div class="col-md-6">
         <div class="box box-primary">
@@ -72,12 +62,12 @@
                     <label for="Gender" class="control-label col-sm-3">เพศ</label>
                         <div class="col-sm-2">
                             <label>
-                                <input type="radio" name="gender" class="flat-red2" checked value="1">
+                                <input type="radio" name="gender" class="flat-red2" @if($gender == '1')checked @endif value="1">
                             </label>&nbsp;&nbsp;ชาย  
                         </div>
                         <div class="col-sm-2">
                             <label>
-                                <input type="radio" name="gender" class="flat-red2" value="2">
+                                <input type="radio" name="gender" class="flat-red2" @if($gender == '2')checked @endif value="2">
                             </label>&nbsp;&nbsp;หญิง
                         </div>
                 </div>

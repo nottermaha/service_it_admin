@@ -58,7 +58,8 @@
             <th>#</th>
             <th>รูปภาพ</th>
             <th style="text-align:center">ชื่อ-สกุล</th>
-            <th style="text-align:center">สถานะ</th>
+            <th style="text-align:center">เบอร์โทร</th>
+            <th style="text-align:center">เพศ</th>
             <th style="text-align:center">แก้ไข</th>
             <th style="text-align:center">ลบ</th>
           </tr>
@@ -75,7 +76,14 @@
 
             </td>
             <td >{{ $person->name }}</td>
-            <td class="text-center">{{ $person->status_name }}</td>
+            <td class="text-center">{{ $person->phone }}</td>
+            <td class="text-center">
+            @if($person->gender==1)  
+            ชาย
+            @elseif($person->gender==2)  
+            หญิง
+            @endif
+            </td>
             <!-- <td><a href="{{ url('/person-member-form-edit/'.$person->id)  }}" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a>
             </td>    -->
             <td style="text-align:center">

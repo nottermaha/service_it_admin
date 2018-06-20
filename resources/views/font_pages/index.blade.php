@@ -12,7 +12,7 @@
     @foreach ($gallerys as $gallery)
         <div>
             <!-- <img src="assets/image-resources/slides-bg/slide-1.jpg" class="img-full" alt="Example alternate text"> -->
-          <img src="{{ asset('image/gallery/picture/'.$gallery->img_url) }}" width="100%" height="450px;">
+          <img src="{{ asset('image/gallery/picture/'.$gallery->img_url) }}" style="width:100%;height:400px;">
           <!-- </a>  -->
         </div>
     @endforeach

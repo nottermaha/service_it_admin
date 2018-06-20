@@ -153,7 +153,7 @@
                       <div class="row" >
                         <div class="form-group">
                           <div  class="text-center">
-                          <a href="" class="btn btn-danger" style="width:300px;">&nbsp; ปิดบิล</a></a>
+                          <a href="" class="btn btn-danger" style="width:300px;"><i class="fa fa-power-off fa-lg"></i>&nbsp; ปิดบิล</a></a>
                           </div>
                         </div>
                       </div>
@@ -297,7 +297,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-phone fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="phone" placeholder="เบอร์โทร..." value="{{ $repair->phone }}">
                       </div>
@@ -311,7 +311,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-calendar fa-lg"></i>
                         </div>
                           <input type="date" class="form-control pull-right" id="Name" name="date_in_repair" placeholder="วันที่ซ่อม..." value="{{ $repair->date_in_repair }}">
                       </div>
@@ -325,7 +325,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-money fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="price" placeholder="ราคาประเมิน..." value="{{ $repair->price }}">
                       </div>
@@ -335,11 +335,11 @@
 
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
-                    <b for="" class="control-label col-md-3"style="text-align:right">ราคา</b>
+                    <b for="" class="control-label col-md-3"style="text-align:right">ราคาจริง</b>
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-money fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="after_price" placeholder="ราคา..." value="{{ $repair->after_price }}">
                       </div>
@@ -353,7 +353,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-calendar fa-lg"></i>
                         </div>
                           <input type="date" class="form-control pull-right" id="Name" name="date_out_repair" placeholder="วันที่รับคืน..." value="{{ $repair->date_out_repair }}">
                       </div>
@@ -367,7 +367,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-star fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="guarantee" placeholder="ประกันหลังซ่อม..." value="{{ $repair->guarantee }}">
                       </div>
@@ -429,7 +429,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-phone fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="phone" placeholder="เบอร์โทร...">
                       </div>
@@ -443,7 +443,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-calendar fa-lg"></i>
                         </div>
                           <input type="date" class="form-control pull-right" id="Name" name="date_in_repair" placeholder="วันที่ซ่อม...">
                       </div>
@@ -456,7 +456,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-money fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="price" placeholder="ราคาประเมิน...">
                       </div>

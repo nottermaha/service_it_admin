@@ -118,7 +118,7 @@ class RepairsGeneralController extends Controller
           'check' => 1,
         ];
 
-        echo $repairs;exit();
+        // echo $repairs;exit();
         return view('font_pages/repair',['repairs'=>$repairs], $data);
       }
       else{

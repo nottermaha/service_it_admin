@@ -12,17 +12,18 @@
 <div class="container features-tour-box">
    <div class="row">
         <h4 class="text-center"><I>กรุณากรอก "เลขบิล" ที่ท่านต้องการตรวจสอบ</I></h4><br>
-        <div class="col-md-3">
-            <h3 style="text-align:right;">เลขบิล</h3>
+        <div class="col-md-3 col-xs-3">
+            <p style="text-align:right;font-size:25px;">เลขบิล</p> 
+            <!-- <h3 style="text-align:right;">เลขบิล</h3> -->
         </div>
         <?= Form::open(array('url' => '/font-repair-general-search')) ?>
-        <div class="col-md-6">
+        <div class="col-md-6 col-xs-6">
             <div class="input-group input-group-lg">
                 <!-- <span class="input-group-addon">@</span> -->
                 <input type="text" class="form-control" placeholder="B0103062212..." name="bin_number" required>
             </div>
         </div>
-        <div class="col-md-1">
+        <div class="col-md-1 col-xs-1">
             <input type="hidden" name="chk_num_bill" value="1">
             <button type="submit" class="btn btn-success btn-lg">ตรวจสอบ</button>
         </div>
@@ -55,7 +56,7 @@
         </h3>
     <div class="row">
                 <div class="example-box-wrapper" style="background-color:#DCDCDC;"><br>
-                <a class=text-center><b><h2>สถานะงานซ่อม</h2></b></a>
+                    <a class=text-center><b><h2>สถานะงานซ่อม</h2></b></a>
                     <form class="form-horizontal bordered-row">
 
                         <div class="form-group">

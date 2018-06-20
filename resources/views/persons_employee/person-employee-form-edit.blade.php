@@ -24,6 +24,13 @@
 <!--End css header-leftmenu -->
 
 @include('form/header-leftmenu')
+<section class="content-header">
+            <h1 style="background-color:#DCDCDC;padding-top:10px;padding-bottom:10px;padding-left:10px;">
+              บุคคล /
+              <small><a>แก้ไขข้อมูลพนักงาน</a> </small>
+            </h1>
+          </section> 
+      <br>
 
     <section class="content">
   <!-- <form role="form" class="form-horizontal" action="/person/create" method="post"> -->
@@ -73,12 +80,12 @@
                     <label for="Gender" class="control-label col-sm-3">เพศ</label>
                         <div class="col-sm-2">
                             <label>
-                                <input type="radio" name="gender" class="flat-red2" checked value="1">
+                                <input type="radio" name="gender" class="flat-red2" @if($gender == '1')checked @endif value="1">
                             </label>&nbsp;&nbsp;ชาย  
                         </div>
                         <div class="col-sm-2">
                             <label>
-                                <input type="radio" name="gender" class="flat-red2" value="2">
+                                <input type="radio" name="gender" class="flat-red2"@if($gender == '2')checked @endif value="2">
                             </label>&nbsp;&nbsp;หญิง
                         </div>
                 </div>
@@ -273,6 +280,17 @@
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 <!-- End js header-leftmenu -->
+
+<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="plugins/iCheck/all.css">
+
 
 <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- date-range-picker -->

@@ -58,12 +58,12 @@
         <thead >
           <tr>
             <th>#</th>
-            <th>รายการ</th>
-            <th>เพิ่มเมื่อ</th>
-            <th>แก้ไขล่าสุด</th>
-            <th>รายการอะไหล่</th>
-            <th>แก้ไข</th>
-            <th>ลบ</th>
+            <th class="text-center">รายการ</th>
+            <th class="text-center">เพิ่มเมื่อ</th>
+            <th class="text-center">แก้ไขล่าสุด</th>
+            <th class="text-center">รายการอะไหล่</th>
+            <th class="text-center">แก้ไข</th>
+            <th class="text-center">ลบ</th>
           </tr>
         </thead>
         
@@ -72,17 +72,21 @@
           @foreach ($Import_parts as $Import_part)
           <tr>
             <td>{{ $i=$i+1 }}</td>
-            <td>{{ $Import_part->lot_name }}</td>
-            <td>{{ $Import_part->created_at }}</td>
-            <td>{{ $Import_part->updated_at }}</td>
-            <td><a href="{{ url('/list-part/'.$Import_part->id)  }}" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp;รายการอะไหล่</a></td> 
-            <td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-import-part{{ $Import_part->id }}">
+            <td class="text-center">{{ $Import_part->lot_name }}</td>
+            <td class="text-center"{{ $Import_part->created_at }}</td>
+            <td class="text-center">{{ $Import_part->updated_at }}</td>
+            <td class="text-center">
+            <?= Form::open(array('url' => '/list-part')) ?>
+            <input type="hidden" name="id" value="{{$Import_part->id}}">
+            <button type="submit" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp;รายการอะไหล่</button>
+            {!! Form::close() !!}
+            </td> 
+            <td class="text-center">
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-import-part{{ $Import_part->id }}">
                 <i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข
             </button>
             </td>
-            <!-- <td class="text-center"><a href="<?php echo url('/import_part/delete') ?>/{{$Import_part->id}}" 
-            class="btn btn-danger">ลบ</a></td>  -->
-            <td>
+            <td class="text-center">
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-import-part{{ $Import_part->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
             </button>
           </td>
@@ -124,7 +128,7 @@
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>
+            <h4 class="modal-title">แก้ไขข้อมูลล็อต</h4>
           </div>        
           <?= Form::open(array('url' => '/import_part/edit/'.$Import_part->id)) ?>
           <div class="modal-body">
@@ -135,7 +139,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-dropbox fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="lot_name" placeholder="ชื่อล็อต..." value="{{ $Import_part->lot_name }}">
                       </div>
@@ -183,7 +187,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-dropbox fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="lot_name" placeholder="ชื่อล็อต...">
                       </div>

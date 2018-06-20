@@ -58,10 +58,10 @@
         <thead >
           <tr>
             <th>#</th>
-            <th>รูปภาพ</th>
-            <th>หัวข้อ</th>
-            <th>แก้ไข</th>
-            <th>ลบ</th>
+            <th class="text-center">รูปภาพ</th>
+            <th class="text-center">หัวข้อ</th>
+            <th class="text-center">แก้ไข</th>
+            <th class="text-center">ลบ</th>
           </tr>
         </thead>
         
@@ -70,23 +70,23 @@
           @foreach ($news as $new)
           <tr>
           <td>{{ $i=$i+1 }}</td>
-          <td>
+          <td class="text-center">
             <a href="{{ asset('image/new/picture/'.$new->img_url) }}"><img src="{{ asset('image/new/resize/'.$new->img_url) }}"></a> 
           </td>
-            <td>{{ $new->title }}</td>
-            <td>
+            <td class="text-center">{{ $new->title }}</td>
+            <td class="text-center">
               <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-new{{ $new->id }}">
               <i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข
               </button>
            </td>
-            <td>
+            <td class="text-center">
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-new{{ $new->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
               </button>
             </td>
             <!-- //////////////////////////////modal-delete-new//////////////////////////////// -->
 
             <div class="modal fade " id="modal-delete-new{{ $new->id }}">
-              <div class="modal-dialog ">
+              <div class="modal-dialog" >
                 <div class="modal-content ">
                   <div class="modal-header " >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -114,8 +114,8 @@
 
         <div class="modal fade " id="modal-edit-new{{ $new->id }}">
         
-        <div class="modal-dialog ">
-        <div class="modal-content ">
+        <div class="modal-dialog "style="width:50%;">
+        <div class="modal-content " >
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
@@ -127,7 +127,7 @@
             
           <div class="row" >
               <div class="form-group">
-                  <b for="" class="control-label col-md-3"style="text-align:right"></b>
+                  <b for="" class="control-label col-md-5"style="text-align:right"></b>
                     <img src="{{ asset('image/new/resize/'.$new->img_url) }}">
               </div>  
           </div>  
@@ -196,7 +196,7 @@
 
         <div class="modal fade " id="modal-add-new">
         
-        <div class="modal-dialog ">
+        <div class="modal-dialog " style="width:50%;">
         <div class="modal-content ">
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">

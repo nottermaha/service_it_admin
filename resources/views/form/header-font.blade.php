@@ -350,14 +350,11 @@
             <a href="#" class="btn btn-sm bg-twitter tooltip-button" data-placement="bottom" title="Follow us on Twitter">
                 <i class="glyph-icon icon-twitter"></i>
             </a> -->
-
-            <a href="#" class="btn btn-top btn-sm" title="Give us a call">
-              <h2>  <i class="glyph-icon icon-home"></i>
-               Mac Service</h2>
-            </a>
-        </div>
-        
-        <div class="float-right user-account-btn dropdown">
+            <?php 
+            $s_type='' ; $s_type=session('s_type','default');
+            $s_name='' ; $s_name=session('s_name','default'); 
+            ?>
+        @if ((session()->has('s_type'))=='' ) 
             <button title="MonarchUI Admin Template" class="btn btn-sm float-left btn-alt btn-hover mrg10R btn-default">
                 <span data-toggle="modal" data-target="#modal-login">เข้าสู่ระบบ</span>
                 <i class="glyph-icon icon-lock"></i>
@@ -367,71 +364,65 @@
             <a href="{{ url('/font-register')  }}" title="Homepage example 1"><span>สมัครสมาชิก</span></a>
                 <i class="glyph-icon icon-user"></i>
             </button>
-
-
-            <!-- <a href="#" title="My Account" class="user-profile clearfix" data-toggle="dropdown" aria-expanded="false">
-                <img width="28" src="assets/image-resources/gravatar.jpg" alt="Profile image">
-                <span>Thomas Barnes</span>
-                <i class="glyph-icon icon-angle-down"></i>
-            </a> -->
-            
-
-<ul class="header-nav collapse">
-        <li>
-            <a href="#" title="Homepages">
-                หน้าแรก
-                <i class="glyph-icon icon-angle-down"></i>
+        @elseif ((session()->has('s_type'))==4 )
+    
+            <div id="header-nav-left">
+                <!-- <div class="user-account-btn dropdown"> -->
+                    <a href="#" title="My Account" class="user-profile clearfix" data-toggle="dropdown">
+                        <img width="28" src="assets/image-resources/gravatar.jpg" alt="Profile image">
+                        <span><?php echo $s_name; ?></span>
+                        <i class="glyph-icon icon-angle-down"></i>
+                    </a>
+                    <div class="dropdown-menu float-left">
+                        <div class="box-sm">
+                            <div class="login-box clearfix">
+                                <div class="user-img">
+                                    <a href="#" title="" class="change-img">Change photo</a>
+                                    <img src="assets/image-resources/gravatar.jpg" alt="">
+                                </div>
+                                <div class="user-info">
+                                    <span>
+                                        <?php echo $s_name; ?>
+                                        <i>UX/UI developer</i>
+                                    </span>
+                                    <a href="#" title="Edit profile">Edit profile</a>
+                                    <a href="#" title="View notifications">View notifications</a>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                            <ul class="reset-ul mrg5B">
+                                <li>
+                                    <a href="{{ url('/font-profile') }}">
+                                        <i class="glyph-icon float-right icon-caret-right"></i>
+                                        โปรไฟล์
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="pad5A button-pane button-pane-alt text-center">
+                                <!-- <a href="#" class="btn display-block font-normal btn-danger">
+                                    <i class="glyph-icon icon-power-off"></i>
+                                    ออกจากระบบ
+                                </a> -->
+                                <?= Form::open(array('url' => '/logout')) ?>
+                                    <button type="submit" class="btn display-block font-normal btn-danger" style="width:312px;"><i class="glyph-icon icon-power-off"></i>&nbsp; ออกจากระบบ</button>
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                    </div>
+                <!-- </div> -->
+            </div>
+            <!-- #header-nav-left -->
+        @endif 
+        </div>
+                
+        <div class="float-right user-account-btn dropdown">
+            <a href="#" class="btn btn-top btn-sm" title="Give us a call">
+              <h2>  <i class="glyph-icon icon-home"></i>
+               Mac Service</h2>
             </a>
-            <ul>
-                <li><a href="{{ url('/')  }}" title="Homepage example 1"><span>หน้าแรก</span></a></li>
-            </ul>
-        </li>
             
-           <!-- <div class="dropdown-menu ">
-                <div class="box-sm">
-                    <div class="login-box clearfix">
-                        <div class="user-img">
-                            <a href="#" title="" class="change-img">Change photo</a>
-                            <img src="assets/image-resources/gravatar.jpg" alt="">
-                        </div>
-                        <div class="user-info">
-                         <span>
-                            Thomas Barnes
-                            <i>UX/UI developer</i>
-                        </span>
-                            <a href="#" title="">Edit profile</a>
-                            <a href="#" title="">View notifications</a>
-                        </div>
-                    </div>
-                    <div class="divider"></div>
-                    <ul class="reset-ul mrg5B">
-                        <li>
-                            <a href="#">
-                                View login page example
-                                <i class="glyph-icon float-right icon-caret-right"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                View lockscreen example
-                                <i class="glyph-icon float-right icon-caret-right"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                View account details
-                                <i class="glyph-icon float-right icon-caret-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="pad5A button-pane button-pane-alt text-center">
-                        <a href="#" class="btn display-block font-normal btn-danger">
-                            <i class="glyph-icon icon-power-off"></i>
-                            Logout
-                        </a>
-                    </div>
-                </div>
-            </div> -->
+<ul class="header-nav collapse">
+
         </div>
         
     </div><!-- .container -->
@@ -562,8 +553,8 @@
     </div><!-- .header-logo -->
     <ul class="header-nav collapse">
         <li>
-            <a href="#" title="Homepages">
-                <h2>หน้าแรก</h2> 
+            <a href="#" title="Homepages" style="font-size:20px;">
+                หน้าแรก 
                 <i class="glyph-icon icon-angle-down"></i>
             </a>
             <ul>
@@ -571,7 +562,7 @@
             </ul>
         </li>
         <li>
-            <a href="#" title="Homepages">
+            <a href="#" title="Homepages" style="font-size:20px;">
             ซ่อมสินค้า
                 <i class="glyph-icon icon-angle-down"></i>
             </a>
@@ -580,7 +571,7 @@
             </ul>
         </li>
         <li>
-            <a href="#" title="Homepages">
+            <a href="#" title="Homepages" style="font-size:20px;">
             ฟีดข่าว
                 <i class="glyph-icon icon-angle-down"></i>
             </a>
@@ -589,7 +580,7 @@
             </ul>
         </li>
         <li>
-            <a href="#" title="Homepages">
+            <a href="#" title="Homepages" style="font-size:20px;">
             โปรโมชั่น
                 <i class="glyph-icon icon-angle-down"></i>
             </a>
@@ -599,7 +590,7 @@
         </li>
 
         <li>
-            <a href="#" title="Homepages">
+            <a href="#" title="Homepages" style="font-size:20px;">
             เกี่ยวกับเรา
                 <i class="glyph-icon icon-angle-down"></i>
             </a>
@@ -609,7 +600,7 @@
         </li>
 
         <li>
-            <a href="#" title="Homepages">
+            <a href="#" title="Homepages"style="font-size:20px;">
             การรับประกัน
                 <i class="glyph-icon icon-angle-down"></i>
             </a>
@@ -619,7 +610,7 @@
         </li>
 
                 <li>
-            <a href="#" title="Homepages">
+            <a href="#" title="Homepages" style="font-size:20px;">
             กระทู้ถามตอบ
                 <i class="glyph-icon icon-angle-down"></i>
             </a>
@@ -629,10 +620,10 @@
         </li>
 
         <li>
-            <a href="#" title="Homepages">
-            โปรไฟล์
+            <a href="#" title="Homepages" style="font-size:20px;">
+            <!-- โปรไฟล์
                 <i class="glyph-icon icon-angle-down"></i>
-            </a>
+            </a> -->
             <ul>
                 <li><a href="{{ url('/font-profile')  }}" title="Homepage example 1"><span>โปรไฟล์</span></a></li>
             </ul>
@@ -649,14 +640,14 @@
         </li> -->
         <li>
             <a href="#" title="Homepages">
-            ออกจากระบบ
-                <i class="glyph-icon icon-angle-down"></i>
+            <!-- ออกจากระบบ
+                <i class="glyph-icon icon-angle-down"></i> -->
             </a>
             <ul>
                 <!-- <li><a href="{{ url('/logout')  }}" title="Homepage example 1"><span>ออกจากระบบ</span></a></li> -->
                 <?= Form::open(array('url' => '/logout')) ?>
                 <button type="submit" class="btn"><i class="fa  fa-plus-circle fa-lg"></i>&nbsp; ออกจากระบบ</button>
-            {!! Form::close() !!}
+                {!! Form::close() !!}
             </ul>
         </li>
 

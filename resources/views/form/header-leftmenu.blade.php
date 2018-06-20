@@ -201,6 +201,7 @@
             <li class="active"><a href="{{ url('/setting-status-repair')  }}"><i class="fa fa-circle-o"></i> สถานะการแจ้งซ่อม</a></li>
             <li class="active"><a href="{{ url('/gallery')  }}"><i class="fa fa-circle-o"></i>สไลด์ภาพ</a></li>
             <li class="active"><a href="{{ url('/news')  }}"><i class="fa fa-circle-o"></i>ข่าวสาร</a></li>
+            <li class="active"><a href="{{ url('/guarantee')  }}"><i class="fa fa-circle-o"></i>รับประกัน</a></li>
             <li class="active"><a href="{{ url('/maha')  }}"><i class="fa fa-circle-o"></i>maha</a></li>
           </ul>
         </li>

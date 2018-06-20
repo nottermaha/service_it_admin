@@ -78,11 +78,11 @@
                       <label for="Name" class="col-sm-2"></label>
                           <b for="Name" class="col-sm-1" style="padding-top:8;">เลือกร้าน</b>
                           <div class="col-sm-6">
-                              <select  class="form-control select2" style="width: 100%;" name="store_branch_id" required >
-                              <option selected="selected" required><b> เลือกร้านที่ต้องการดูข้อมูล</b></option>
+                              <select  required class="form-control select2" style="width: 100%;" name="store_branch_id"  >
+                              <option value="" ><b> เลือกร้านที่ต้องการดูข้อมูล</b></option>
                               <!-- <option disabled="disabled">California (disabled)</option> -->
                               @foreach ($store_branch as $value)
-                              <option value="{{ $value->id }}" required>{{ $value->name }}</option>
+                              <option value="{{ $value->id }}" >{{ $value->name }}</option>
                               @endforeach
                               </select>
                           </div>
@@ -134,7 +134,8 @@
             <th>#</th>
             <th>รูปภาพ</th>
             <th style="text-align:center">ชื่อ-สกุล</th>
-            <th style="text-align:center">สถานะ</th>
+            <th style="text-align:center">เบอร์โทร</th>
+            <th style="text-align:center">เพศ</th>
             <th style="text-align:center">แก้ไข</th>
             <th style="text-align:center">ลบ</th>
           </tr>
@@ -152,19 +153,23 @@
 
             </td>
             <td style="text-align:center">{{ $person->name }}</td>
-            <td class="text-center">{{ $person->status_name }}</td>
+            <td class="text-center">{{ $person->phone }}</td>
+            <td class="text-center">
+            @if($person->gender==1)  
+            ชาย
+            @elseif($person->gender==2)  
+            หญิง
+            @endif
+            </td>
 
             <!-- <td style="text-align:center"><a href="{{ url('/person-manager-form-edit/'.$person->id)  }}" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a></td>    -->
-            <td>
+            <td  class="text-center">
               <div class="row">
-                  <div class="col-xs-12 text-right">
                       <?= Form::open(array('url' => '/person-manager-form-edit')) ?>
                       <input type="hidden" name="id" value="{{ $person->id }}">
-                      <div style="padding-left:130px;">
                           <button type="submit" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</button>
-                      </div>
                       {!! Form::close() !!}
-                      </div> 
+
               </div>
             </td>
       

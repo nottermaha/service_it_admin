@@ -92,10 +92,10 @@
         <thead >
           <tr>
             <th>#</th>
-            <th>ชื่อสถานะ</th>
-            <th>สี</th>
-            <th>แก้ไข</th>
-            <th>ลบ</th>
+            <th class="text-center">ชื่อสถานะ</th>
+            <th class="text-center">สี</th>
+            <th class="text-center">แก้ไข</th>
+            <th class="text-center">ลบ</th>
           </tr>
         </thead>
         
@@ -104,8 +104,8 @@
           @foreach ($setting_status_repairs as $setting_status_repair)
           <tr>
           <td>{{ $i=$i+1 }}</td>
-            <td>{{ $setting_status_repair->name }}</td>
-            <td>
+            <td class="text-center">{{ $setting_status_repair->name }}</td>
+            <td class="text-center">
             @if($setting_status_repair->status_color==1) 
             <div class="bg-light-blue-active color-palette"><span>น้ำเงิน</span>
             @elseif($setting_status_repair->status_color==2)
@@ -132,14 +132,14 @@
             <div class="bg-black-active color-palette"><span>ดำ</span></div>
             @endif
             </td>
-            <td>
+            <td class="text-center">
               <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-setting-status-repair{{ $setting_status_repair->id }}">
               <i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข
               </button>
            </td>
              <!-- <td class="text-center"><a href="<?php echo url('/setting-status-repair/delete') ?>/{{$setting_status_repair->id}}" 
             class="btn btn-danger">ลบ</a></td>  -->
-            <td>
+            <td class="text-center">
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-setting-status-repair{{ $setting_status_repair->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
               </button>
             </td>
@@ -191,7 +191,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="name" placeholder="ชื่อสถานะ..." value="{{ $setting_status_repair->name }}">
                       </div>
@@ -207,7 +207,8 @@
                     <div class="row">
                       <div class="col-md-5" >
                             <label>
-                                <input type="radio" name="status_color" id=""class="flat-red2"  value="1">
+                                <input type="radio" name="status_color" id=""class="flat-red2"  value="1"
+                                @if($setting_status_repair->status_color==1) checked @endif >
                             </label>น้ำเงิน
                             <div class="bg-light-blue-active color-palette"><span>น้ำเงิน</span>
                             </div> 
@@ -215,7 +216,8 @@
                             <div class="col-md-2"></div>
                       <div class="col-md-5" style="">
                             <label>
-                                <input type="radio" name="status_color" class="flat-red2"  value="2">
+                                <input type="radio" name="status_color" class="flat-red2"  value="2" 
+                                @if($setting_status_repair->status_color==2) checked @endif>
                             </label>ฟ้า
                             <div class="bg-aqua-active color-palette"><span>ฟ้า</span></div> 
                       </div>
@@ -224,14 +226,16 @@
                      <div class="row">
                       <div class="col-md-5" >
                             <label>
-                                <input type="radio" name="status_color" class="flat-red2"  value="3">
+                                <input type="radio" name="status_color" class="flat-red2"  value="3" 
+                                @if($setting_status_repair->status_color==3) checked @endif>
                             </label>เขียว
                             <div class="bg-green-active color-palette"><span>เขียว</span></div>
                       </div>
                             <div class="col-md-2"></div>
                       <div class="col-md-5" style="">
                             <label>
-                                <input type="radio" name="status_color" class="flat-red2"  value="4">
+                                <input type="radio" name="status_color" class="flat-red2"  value="4" 
+                                @if($setting_status_repair->status_color==4) checked @endif>
                             </label>เหลือง
                             <div class="bg-yellow-active color-palette"><span>เหลือง</span></div>
                       </div>
@@ -240,14 +244,16 @@
                     <div class="row">
                       <div class="col-md-5" >
                             <label>
-                                <input type="radio" name="status_color" class="flat-red2"  value="5">
+                                <input type="radio" name="status_color" class="flat-red2"  value="5" 
+                                @if($setting_status_repair->status_color==5) checked @endif>
                             </label>แดง
                             <div class="bg-red-active color-palette"><span>แดง</span></div>
                       </div>
                             <div class="col-md-2"></div>
                       <div class="col-md-5" style="">
                             <label>
-                                <input type="radio" name="status_color" class="flat-red2"  value="6">
+                                <input type="radio" name="status_color" class="flat-red2"  value="6" 
+                                @if($setting_status_repair->status_color==6) checked @endif>
                             </label>เทา
                             <div class="bg-gray-active color-palette"><span>เทา</span></div>
                       </div>
@@ -256,14 +262,16 @@
                     <div class="row">
                       <div class="col-md-5" >
                             <label>
-                                <input type="radio" name="status_color" class="flat-red2"  value="7">
+                                <input type="radio" name="status_color" class="flat-red2"  value="7"
+                                @if($setting_status_repair->status_color==7) checked @endif>
                             </label>น้ำเงินเข้ม
                             <div class="bg-navy color-palette"><span>น้ำเงินเข้ม</span></div>
                       </div>
                             <div class="col-md-2"></div>
                       <div class="col-md-5" style="">
                             <label>
-                                <input type="radio" name="status_color" class="flat-red2"  value="8">
+                                <input type="radio" name="status_color" class="flat-red2"  value="8"
+                                @if($setting_status_repair->status_color==8) checked @endif>
                             </label>ฟ้าอ่อน
                             <div class="bg-teal-active color-palette"><span>ฟ้าอ่อน</span></div>
                       </div>
@@ -272,14 +280,16 @@
                     <div class="row">
                       <div class="col-md-5" >
                             <label>
-                                <input type="radio" name="status_color" class="flat-red2"  value="9">
+                                <input type="radio" name="status_color" class="flat-red2"  value="9"
+                                @if($setting_status_repair->status_color==9) checked @endif>
                             </label>ม่วง
                             <div class="bg-purple-active color-palette"><span>ม่วง</span></div>
                       </div>
                             <div class="col-md-2"></div>
                       <div class="col-md-5" style="">
                             <label>
-                                <input type="radio" name="status_color" class="flat-red2"  value="10">
+                                <input type="radio" name="status_color" class="flat-red2"  value="10"
+                                @if($setting_status_repair->status_color==10) checked @endif>
                             </label>ส้ม
                             <div class="bg-orange-active color-palette"><span>ส้ม</span></div>
                       </div>
@@ -288,14 +298,16 @@
                     <div class="row">
                       <div class="col-md-5" >
                             <label>
-                                <input type="radio" name="status_color" class="flat-red2"  value="11">
+                                <input type="radio" name="status_color" class="flat-red2"  value="11"
+                                @if($setting_status_repair->status_color==11) checked @endif>
                             </label>ชมพู
                             <div class="bg-maroon-active color-palette"><span>ชมพู</span></div>
                       </div>
                             <div class="col-md-2"></div>
                       <div class="col-md-5" style="">
                             <label>
-                                <input type="radio" name="status_color" class="flat-red2"  value="12">
+                                <input type="radio" name="status_color" class="flat-red2"  value="12"
+                                @if($setting_status_repair->status_color==12) checked @endif>
                             </label>ดำ
                             <div class="bg-black-active color-palette"><span>ดำ</span></div>
                       </div>
@@ -345,7 +357,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="name" placeholder="ชื่อสถานะ..." >
                       </div>
