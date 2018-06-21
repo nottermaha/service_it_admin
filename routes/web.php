@@ -105,7 +105,7 @@ Route::post('/repair-general/edit/{id}', 'RepairsGeneralController@edit');
 Route::post('/repair-general-status', 'RepairsGeneralController@status_repair');
 Route::post('/repair-general/delete/{id}', 'RepairsGeneralController@delete');
 
-Route::get('/list-repair/{id}', 'ListRepairsController@get_list_repair_by_id');
+Route::post('/list-repair', 'ListRepairsController@get_list_repair_by_id');
 Route::post('/list-repair/create', 'ListRepairsController@create');
 Route::post('/list-repair/edit/{id}', 'ListRepairsController@edit');
 Route::post('/list-repair-status/edit/{id}', 'ListRepairsController@edit_status');
@@ -117,8 +117,8 @@ Route::post('/import_part/edit/{id}','ImportPartsController@edit');
 Route::post('/import_part/delete/{id}','ImportPartsController@delete');
 
 Route::post('/list-part', 'ListPartsController@get_list_parts_by_id');
-Route::post('/list-part/create', 'ListPartsController@create');
-Route::post('/list-part/edit/{id}', 'ListPartsController@edit');
+Route::post('/list-part-create', 'ListPartsController@create');
+Route::post('/list-part-edit', 'ListPartsController@edit');
 Route::post('/list-part/delete/{id}', 'ListPartsController@delete');
 
 Route::get('/setting-status-repair','SettingStatusController@get');

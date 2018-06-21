@@ -193,7 +193,7 @@ class RepairsGeneralController extends Controller
         $repair->price =  $request->price;
         $repair->after_price =  $request->after_price;
         $repair->date_out_repair =  $request->date_out_repair;
-        $repair->guarantee =  $request->guarantee;
+        // $repair->guarantee =  $request->guarantee;
         $repair->status = true;
         $repair->save();
         $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 

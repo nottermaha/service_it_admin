@@ -79,7 +79,13 @@
             <td>{{ $repair->name }}</td>
             <td>{{ $repair->price }}</td>
             <td>{{ $repair->persons_id }}</td>
-            <td class="text-center"><a href="{{ url('/list-repair/'.$repair->id)  }}" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp;รายการที่ซ่อม</a></a></td> 
+            <td class="text-center">
+            <!-- <a href="{{ url('/list-repair/'.$repair->id)  }}" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp;รายการที่ซ่อม</a></a> -->
+            <?= Form::open(array('url' => '/list-repair' )) ?>
+            <input type="text" name="id" value="{{ $repair->id }}">
+            <button type="submit" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp;รายการที่ซ่อม</button>
+          {!! Form::close() !!}
+          </td> 
             <!-- <td class="text-center"><a href="" class="btn btn-danger"></i>&nbsp; ปิดบิล</a></a></td>  -->
             @if($repair->status_repair==1)
             <td class="text-center">
@@ -272,7 +278,7 @@
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">บันทึกข้อมูลแจ้งซ่อมใหม่</h4>
+            <h4 class="modal-title">แก้ไขข้อมูลแจ้งซ่อมใหม่</h4>
           </div>        
           <?= Form::open(array('url' => '/repair-general/edit/'. $repair->id)) ?>
           <div class="modal-body">
@@ -356,20 +362,6 @@
                             <i class="fa fa-calendar fa-lg"></i>
                         </div>
                           <input type="date" class="form-control pull-right" id="Name" name="date_out_repair" placeholder="วันที่รับคืน..." value="{{ $repair->date_out_repair }}">
-                      </div>
-                    </div>
-              </div>
-            </div>
-
-            <div class="row" style="padding-top:20px;">
-              <div class="form-group">
-                    <b for="" class="control-label col-md-3"style="text-align:right">ประกันหลังซ่อม</b>
-                    <div class="col-md-8">
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-star fa-lg"></i>
-                        </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="guarantee" placeholder="ประกันหลังซ่อม..." value="{{ $repair->guarantee }}">
                       </div>
                     </div>
               </div>

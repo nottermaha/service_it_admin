@@ -138,7 +138,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-image fa-lg"></i>
                         </div>
                           <input type="file" class="form-control pull-right" id="Name" name="img_url" placeholder="ชื่อสถานะ..." value="{{ $new->img_url }}">
                       </div>
@@ -151,7 +151,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="title" placeholder="หัวข้อ..." value="{{ $new->title }}">
                       </div>
@@ -213,7 +213,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-image fa-lg"></i>
                         </div>
                           <input type="file" class="form-control pull-right" id="Name" name="img_url" placeholder="ชื่อสถานะ..." >
                       </div>
@@ -226,7 +226,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="title" placeholder="หัวข้อ..." >
                       </div>

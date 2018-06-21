@@ -29,7 +29,7 @@ class GallerysController extends Controller
         $gallerys->store_branch_id = 2;
         // $gallerys->image = $image;
         // if ($request->file('img_url')->isValid()) {
-        if ($request->hasFile('img_url')) {      
+        if ($request->hasFile('img_url')) {     
           // echo $request;exit();       
           $filename = str_random(10) . '.' . $request->file('img_url')
           ->getClientOriginalName();             
@@ -63,6 +63,7 @@ class GallerysController extends Controller
           ->resize(200, 200)->save(public_path() . '/image/gallery/resize/' . $filename);     
           $gallerys->img_url = $filename;         
         } 
+
         else{               
           $gallerys->img_url=$gallerys['img_url'];        
          }  

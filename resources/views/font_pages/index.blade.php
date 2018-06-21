@@ -29,22 +29,22 @@
         <div class="col-md-4">
             <div class="icon-box icon-box-offset-large bg-default content-box icon-boxed">
                 <i class="icon-large glyph-icon bg-white border-default btn-border icon-linecons-clock wow bounceInDown" data-wow-delay="1s"></i>
-                <h3 class="text-transform-upr icon-title wow fadeInUp">Easy to customize</h3>
-                <p class="icon-content wow fadeInUp">Our UI kit comes packed with over 130 components including Bootstrap, jQuery widgets, charts, HTML elements and others.</p>
+                <h3 class="text-transform-upr icon-title wow fadeInUp"><h3 style="color:gray;">บริการรวดเร็ว</h3></h3>
+                <p class="icon-content wow fadeInUp">บริการกระชับฉับไว ด้วยระบบที่มีความทันสมัย</p>
             </div>
         </div>
         <div class="col-md-4">
             <div class="icon-box icon-box-offset-large bg-default content-box icon-boxed">
                 <i class="icon-large glyph-icon bg-white border-default btn-border icon-linecons-beaker wow bounceInDown" data-wow-delay="1.5s"></i>
-                <h3 class="text-transform-upr icon-title wow fadeInUp">Based on Bootstrap 3.3</h3>
-                <p class="icon-content wow fadeInUp">Easily create your own or choose the right layout, color and theme for each project you develop with the AgileUI Framework.</p>
+                <h3 class="text-transform-upr icon-title wow fadeInUp"><h3 style="color:gray;">ทีมช่างคุณภาพ</h3></h3>
+                <p class="icon-content wow fadeInUp">ทีมช่างคุณภาพที่มีประสบการณ์ซ่อมมาหลายปี ที่เชี่ยวชาญทั้งระบบ ios และ andriod </p>
             </div>
         </div>
         <div class="col-md-4">
             <div class="icon-box icon-box-offset-large bg-default content-box icon-boxed">
                 <i class="icon-large glyph-icon bg-white border-default btn-border icon-linecons-camera wow bounceInDown" data-wow-delay="2s"></i>
-                <h3 class="text-transform-upr icon-title wow fadeInUp">Extensive documentation</h3>
-                <p class="icon-content wow fadeInUp">AUI has a comprehensive support section featuring guides and documentations has a comprehensive support section.</p>
+                <h3 class="text-transform-upr icon-title wow fadeInUp"><h3 style="color:gray;">ตรวจสอบสถานะได้ทุกที่</h3></h3>
+                <p class="icon-content wow fadeInUp">ระบบของเราจะออนไลน์ พร้อมที่จะให้ทุกท่านตรวจสอบสถานะการซ่อมของท่านได้ทุกที่ ทุกเวลา </p>
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@
     }
 
 </style>
-<div class="hero-box hero-box-smaller bg-black font-inverse">
+<!-- <div class="hero-box hero-box-smaller bg-black font-inverse">
     <div class="container">
         <div class="owl-slider-5 inverse slider-wrapper">
             <div>
@@ -122,13 +122,13 @@
         </div>
     </div>
     <div class="hero-pattern pattern-bg-2"></div>
-</div>
+</div> -->
 
 <div class="cta-box-btn bg-yellow">
     <div class="container">
         <a href="#" class="btn btn-success" title="">
-            Join our team
-            <span>It takes less than 5 minutes to get everything set up.</span>
+                ร้าน Macservice
+            <!-- <span>It takes less than 5 minutes to get everything set up.</span> -->
         </a>
     </div>
 </div>
@@ -138,10 +138,10 @@
 
         <div class="col-md-6">
             <div class="icon-box icon-box-left mrg25B">
-                <i class="icon-alt glyph-icon icon-linecons-params wow bounceIn" data-wow-duration="0.8s"></i>
+                <i class="glyph-icon tooltip-button demo-icon icon-home wow bounceIn" data-wow-duration="0.8s"></i>
                 <div class="icon-wrapper">
-                    <h4 class="icon-title wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.1s">Easy to customize</h4>
-                    <p class="icon-content wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.2s">Our UI kit comes packed with over 130 components including Bootstrap, jQuery widgets, charts, HTML elements and others.</p>
+                    <h4 class="icon-title wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.1s">สาขาของเรา</h4>
+                    <p class="icon-content wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.2s">ร้านของเรามีหลายสาขา เชิญท่านใช้บริการสาขาที่ใกล้บ้านท่านได้ ดูรายละเอียดเพิ่มเติมได้ที่ปุ่ม "รายละเอียด" ด้านล่างได้เลยค่ะ...</p>
                     <a class="read-more wow fadeInUp" data-wow-delay="1.2s" href="#" title="Learn more about customizing AUI">Learn more</a>
                 </div>
             </div>
@@ -149,8 +149,8 @@
             <div class="icon-box icon-box-left mrg25T">
                 <i class="icon-alt glyph-icon icon-linecons-beaker wow bounceIn" data-wow-duration="0.8s" data-wow-delay="0.3s"></i>
                 <div class="icon-wrapper">
-                    <h4 class="icon-title wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.4s">Based on Bootstrap 3.3</h4>
-                    <p class="icon-content wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.5s">Easily create your own or choose the right layout, color and theme for each project you develop with the AgileUI Framework.</p>
+                    <h4 class="icon-title wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.4s">โปรโมชั่นสุดพิเศษ !!</h4>
+                    <p class="icon-content wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.5s">โปรโมชั่นสุดพิเศษจากทางร้าน เพื่อเอาใจลูกค้าทุกท่าน ดูรายละเอียดเพิ่มเติม...</p>
                     <a class="read-more wow fadeInUp" data-wow-delay="1.4s" href="#" title="Learn more about AUI widgets &amp; plugins">Learn more</a>
                 </div>
             </div>
@@ -159,8 +159,8 @@
             <div class="icon-box icon-box-left mrg25B">
                 <i class="icon-alt glyph-icon icon-linecons-mobile wow bounceIn" data-wow-duration="0.8s" data-wow-delay="0.6s"></i>
                 <div class="icon-wrapper">
-                    <h4 class="icon-title wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.7s">Responsive &amp; Mobile Layouts</h4>
-                    <p class="icon-content wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.8s">AUI and its themes were designed using the latest responsive design techniques themes were designed using the latest.</p>
+                    <h4 class="icon-title wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.7s">ข่าวสาร </h4>
+                    <p class="icon-content wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.8s">ข่าวสารใหม่ อัพเดตทันสถานะการณ์ ข้อมูลสินค้าใหม่ อุปกรณ์เครื่องมือซ่อมที่ทันสมัย ข้อมูลปัญหาเครื่องเสีย เปิดไม่ติด อื่่นๆ...</p>
                     <a class="read-more wow fadeInUp" data-wow-delay="1.6s" href="#" title="Learn more about AUI responsive design techiques">Learn more</a>
                 </div>
             </div>
@@ -168,8 +168,8 @@
             <div class="icon-box icon-box-left mrg25T">
                 <i class="icon-alt glyph-icon icon-linecons-graduation-cap wow bounceIn" data-wow-duration="0.8s" data-wow-delay="0.9s"></i>
                 <div class="icon-wrapper">
-                    <h4 class="icon-title wow bounceIn" data-wow-duration="0.6s" data-wow-delay="1s">Extensive documentation</h4>
-                    <p class="icon-content wow bounceIn" data-wow-duration="0.6s" data-wow-delay="1.1s">AUI has a comprehensive support section featuring guides and documentations has a comprehensive support section.</p>
+                    <h4 class="icon-title wow bounceIn" data-wow-duration="0.6s" data-wow-delay="1s">การรับประกันหลังซ่อม</h4>
+                    <p class="icon-content wow bounceIn" data-wow-duration="0.6s" data-wow-delay="1.1s">สินค้าที่ท่านนำมาซ่อมกับทางร้านของเรา ไม่ว่าจะสาขาไหนท่านจะได้รับการประกันหลังซ่อม ดูราลละเอียดเพิ่มเติม...</p>
                     <a class="read-more wow fadeInUp" data-wow-delay="1.8s" href="#" title="Learn more about AUI extensive documentation">Learn more</a>
                 </div>
             </div>
@@ -179,7 +179,7 @@
     <div class="hero-pattern pattern-bg-2"></div>
 </div>
 
-<div class="container large-padding">
+<!-- <div class="container large-padding">
     <div class="feature-box small-padding clearfix">
         <div class="feature-img">
             <div class="iphone-wrapper">
@@ -233,7 +233,7 @@
             </ul>
         </div>
     </div>
-</div>
+</div> -->
 
 <div class="hero-box poly-bg-3 hero-box-smaller overflow-hidden font-inverse">
     <div class="wow fadeInUp col-md-5">
@@ -244,6 +244,7 @@
     <div class="col-md-7">
         <div class="owl-carousel-5 slider-wrapper carousel-wrapper">
 
+            @foreach($news as $new)
             <div class="pad15A">
                 <div class="thumbnail-box">
                     <a class="thumb-link" href="#" title=""></a>
@@ -258,107 +259,17 @@
                         </div>
                     </div>
                     <div class="thumb-overlay bg-primary"></div>
-                    <img src="assets/image-resources/stock-images/img-1.jpg" alt="">
+                    <!-- <img src="assets/image-resources/stock-images/img-1.jpg" alt=""> -->
+                    <img src="{{ asset('image/new/picture/'.$new->img_url) }}" style="height:230px;">
+                    
                 </div>
+                <?= Form::open(array('url' => '/font-new-detail')) ?>
+                    <input type="hidden" name="id" value="{{ $new->id }}">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-list-ul"></i>&nbsp; ดูรายละเอียด</button>
+                    {!! Form::close() !!}
             </div>
-            <div class="pad15A">
-                <div class="thumbnail-box">
-                    <a class="thumb-link" href="#" title=""></a>
-                    <div class="thumb-content">
-                        <div class="center-vertical">
-                            <div class="center-content">
-                                <h3 class="thumb-heading wow rollIn">
-                                    Beautiful garden
-                                    <small>12 March 2015</small>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="thumb-overlay bg-black"></div>
-                    <img src="assets/image-resources/stock-images/img-2.jpg" alt="">
-                </div>
-            </div>
-            <div class="pad15A">
-                <div class="thumbnail-box">
-                    <a class="thumb-link" href="#" title=""></a>
-                    <div class="thumb-content">
-                        <div class="center-vertical">
-                            <div class="center-content">
-                                <h3 class="thumb-heading wow fadeInDown">
-                                    Sunrays flowers
-                                    <small>12 March 2015</small>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="thumb-overlay bg-primary"></div>
-                    <img src="assets/image-resources/stock-images/img-3.jpg" alt="">
-                </div>
-            </div>
-            <div class="pad15A">
-                <div class="thumbnail-box">
-                    <a class="thumb-link" href="#" title=""></a>
-                    <div class="thumb-content">
-                        <div class="center-vertical">
-                            <div class="center-content">
-                                <h3 class="thumb-heading wow flipInX">
-                                    Seeing a DJs work
-                                    <small>12 March 2015</small>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="thumb-overlay bg-blue"></div>
-                    <img src="assets/image-resources/stock-images/img-4.jpg" alt="">
-                </div>
-            </div>
-            <div class="pad15A">
-                <div class="thumbnail-box">
-                    <div class="thumb-content">
-                        <div class="center-vertical">
-                            <div class="center-content">
-                                <div class="thumb-btn wow bounceInDown">
-                                    <a href="#" class="btn btn-md btn-round btn-success" title=""><i class="glyph-icon icon-check"></i></a>
-                                    <a href="#" class="btn btn-md btn-round btn-danger" title=""><i class="glyph-icon icon-remove"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="thumb-overlay bg-primary"></div>
-                    <img src="assets/image-resources/stock-images/img-5.jpg" alt="">
-                </div>
-            </div>
-            <div class="pad15A">
-                <div class="thumbnail-box">
-                    <div class="thumb-content">
-                        <div class="center-vertical">
-                            <div class="center-content">
-                                <div class="thumb-btn wow zoomIn">
-                                    <a href="#" class="btn btn-lg btn-round btn-success" title=""><i class="glyph-icon icon-check"></i></a>
-                                    <a href="#" class="btn btn-lg btn-round btn-danger" title=""><i class="glyph-icon icon-remove"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="thumb-overlay bg-gray"></div>
-                    <img src="assets/image-resources/stock-images/img-6.jpg" alt="">
-                </div>
-            </div>
-            <div class="pad15A">
-                <div class="thumbnail-box">
-                    <div class="thumb-content">
-                        <div class="center-vertical">
-                            <div class="center-content">
-                                <div class="thumb-btn wow rotateIn">
-                                    <a href="#" class="btn btn-lg btn-round btn-primary" title=""><i class="glyph-icon icon-plus"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="thumb-overlay bg-black"></div>
-                    <img src="assets/image-resources/stock-images/img-7.jpg" alt="">
-                </div>
-            </div>
+            @endforeach
+            
 
         </div>
 

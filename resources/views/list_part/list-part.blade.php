@@ -58,9 +58,11 @@
         <thead >
           <tr>
             <th>#</th>
-            <th>รายการ</th>
-            <th>แก้ไข</th>
-            <th>ลบ</th>
+            <th class="text-center">รายการ</th>
+            <th class="text-center">รุ่น</th>
+            <th class="text-center">จำนวน</th>
+            <th class="text-center">แก้ไข</th>
+            <th class="text-center">ลบ</th>
           </tr>
         </thead>
         
@@ -69,14 +71,16 @@
           @foreach ($list_parts as $list_part)
           <tr>
             <td>{{ $i=$i+1 }}</td>
-            <td>{{ $list_part->name }}</td>
-            <td>
+            <td class="text-center">{{ $list_part->name }}</td>
+            <td class="text-center">{{ $list_part->generation }}</td>
+            <td class="text-center">{{ $list_part->number }}</td>
+            <td class="text-center">
               <button type="button" class="btn btn-warning" data-toggle="modal" <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-list-part{{ $list_part->id }}"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข
               </button>
             </td>  
             <!-- <td class="text-center"><a href="<?php echo url('/list-part/delete/') ?>/{{$list_part->id}}" 
             class="btn btn-danger">ลบ</a></td> -->
-            <td>
+            <td class="text-center">
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-list-part{{ $list_part->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
               </button>
           </td>
@@ -119,7 +123,7 @@
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>
           </div>        
-          <?= Form::open(array('url' => '/list-part/edit/'.$list_part->id)) ?>
+          <?= Form::open(array('url' => '/list-part-edit')) ?>
           <div class="modal-body">
             
             <div class="row" style="padding-top:20px;">
@@ -143,7 +147,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="general" placeholder="รุ่น..." value="{{ $list_part->general }}">
+                          <input type="text" class="form-control pull-right" id="Name" name="generation" placeholder="รุ่น..." value="{{ $list_part->generation }}">
                       </div>
                     </div>
               </div>
@@ -169,7 +173,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="number" placeholder="จำนวน..." value="{{ $list_part->number }}">
+                          <input type="number" class="form-control pull-right" id="Name" name="number" placeholder="จำนวน..." value="{{ $list_part->number }}">
                       </div>
                     </div>
               </div>
@@ -203,6 +207,7 @@
             
           </div> 
           <div class="modal-footer">
+          <input type="hidden" name="id"value="{{ $list_part->id }}">
           <input type="hidden" name="import_parts_id"value="{{$import_parts_id}}">
             <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
             <button type="submit" class="btn btn-success">บันทึก</button>
@@ -231,7 +236,7 @@
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>
           </div>        
-          <?= Form::open(array('url' => '/list-part/create')) ?>
+          <?= Form::open(array('url' => '/list-part-create')) ?>
           <div class="modal-body">
             
             <div class="row" style="padding-top:20px;">
@@ -255,7 +260,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="general" placeholder="รุ่น...">
+                          <input type="text" class="form-control pull-right" id="Name" name="generation" placeholder="รุ่น...">
                       </div>
                     </div>
               </div>

@@ -22,6 +22,8 @@ class FontNewController extends Controller
 
     public function news() {
       $news = News::where('status', 1)
+      // ->limit(1)
+      ->orderBy('id','desc')
       ->get();
       $images = new FooterController();
       $results = $images->get_footer_font();

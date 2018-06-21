@@ -42,16 +42,16 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="../bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
   <!-- Morris chart -->
   <!-- jvectormap -->
   <link rel="stylesheet" href="../bower_components/jvectormap/jquery-jvectormap.css">
@@ -87,6 +87,8 @@
           <tr>
           <th>#</th>
             <th class="text-center">รายการ</th>
+            <th class="text-center">ราคา</th>
+            <th class="text-center">การใช้อะไหล่</th>
             <th class="text-center">สถานะการซ่อม</th>
             <th class="text-center">แก้ไข</th>
             <th class="text-center">ลบ</th>
@@ -99,6 +101,17 @@
           <tr>
             <td>{{ $i=$i+1 }}</td>
             <td class="text-center">{{ $list_repair->list_name }}</td>
+            <td class="text-center">{{ $list_repair->price }}</td>
+            <td class="text-center"> 
+            1.เคสมือถือ iphone 5s 500บ.<br>
+            1.เคสมือถือ iphone 5s 500บ.<br>
+            1.เคสมือถือ iphone 5s 500บ.<br>
+            1.เคสมือถือ iphone 5s 500บ.<br>
+            <b>ราคาอะไหล่ทั้งหมด 2000บ.</b> <br>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-manage-part{{ $list_repair->id }}">
+                  <i class="fa fa-wrench fa-lg"></i>&nbsp; จัดการอะไหล่
+              </button>
+            </td>
             <td class="text-center">
             @if( $list_repair->status_color==1 )
             <button style="width:190px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
@@ -167,6 +180,50 @@
             </div>
     <!-- //////////////////////////////End modal-delete-list-repair//////////////////////////////// -->
 
+    <!-- //////////////////////////////modal-manage-part//////////////////////////////// -->
+
+        <div class="modal fade " id="modal-manage-part{{ $list_repair->id }}">
+        
+        <div class="modal-dialog ">
+        <div class="modal-content ">
+          <div class="modal-header " >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">จัดการอะไหล่</h4>
+          </div>        
+          <?= Form::open(array('url' => '/list-repair-status/edit/'.$list_repair->id )) ?>
+          <div class="modal-body">
+
+            <div class="row" >
+              <div class="form-group">
+                    <b for="" class="control-label col-md-2"style="text-align:right">รายการอะไหล่</b>
+                    <div class="col-md-8">               
+                        <select class="form-control select2" style="width: 100%;" name="status_list_repair">
+                        <option value ="">เลือกอะไหล่ที่ต้องการ</option>
+                        <!-- <option disabled="disabled">California (disabled)</option> -->
+                        @foreach ($list_parts as $list_part)
+                        <option value="{{ $list_part->id }}">{{ $list_part->name }}</option>
+                        @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                    <button type="submit" class="btn btn-success">บันทึก</button>
+                    </div>
+              </div>
+            </div>
+          
+          </div> 
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
+            <button type="submit" class="btn btn-success">บันทึก</button>
+          </div>
+          {!! Form::close() !!}
+        </div>
+      </div>          
+    </div>
+    <!-- //////////////////////////////End modal-manage-part//////////////////////////////// -->
+
+
 <!-- //////////////////////////////modal-edit-list-repair//////////////////////////////// -->
 
         <div class="modal fade " id="modal-edit-status-repair{{ $list_repair->id }}">
@@ -186,7 +243,7 @@
                     <b for="" class="control-label col-md-3"style="text-align:right">สถานะการซ่อม</b>
                     <div class="col-md-8">               
                         <select class="form-control select2" style="width: 100%;" name="status_list_repair">
-                        <option selected="selected">สถานะที่เคยเลือก [ {{ $list_repair->name }} ]</option>
+                        <option selected="selected">สถานะที่เลือก [ {{ $list_repair->name }} ]</option>
                         <!-- <option disabled="disabled">California (disabled)</option> -->
                         @foreach ($setting_status_repairs as $setting_status_repair)
                         <option value="{{ $setting_status_repair->id }}">{{ $setting_status_repair->name }}</option>
@@ -230,7 +287,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="list_name" placeholder="รายการที่ซ่อม..." value="{{ $list_repair->list_name }}">
                       </div>
@@ -243,7 +300,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="detail" placeholder="รายละเอียดเพิ่มเติม..." value="{{ $list_repair->detail }}">
                       </div>
@@ -256,7 +313,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="symptom" placeholder="อาการเบื้องต้น..." value="{{ $list_repair->symptom }}">
                       </div>
@@ -268,7 +325,7 @@
                     <b for="" class="control-label col-md-3"style="text-align:right">สถานะการซ่อม</b>
                     <div class="col-md-8">               
                         <select class="form-control select2" style="width: 100%;" name="status_list_repair">
-                        <option selected="selected">สถานะที่เคยเลือก [ {{ $list_repair->name }} ]</option>
+                        <option selected="selected">สถานะที่เลือก [ {{ $list_repair->name }} ]</option>
                         <!-- <option disabled="disabled">California (disabled)</option> -->
                         @foreach ($setting_status_repairs as $setting_status_repair)
                         <option value="{{ $setting_status_repair->id }}">{{ $setting_status_repair->name }}</option>
@@ -283,10 +340,24 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-money fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="price" placeholder="อาการเบื้องต้น..." value="{{ $list_repair->price }}">
                       </div>
+                    </div>
+              </div>
+            </div>
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">ประกันหลังซ่อม</b>
+                    <div class="col-md-8">               
+                        <select class="form-control select2" style="width: 100%;" name="guarantee_id">
+                        <option selected="selected">การรับประกันที่เลือก [ {{ $list_repair->guarantee_name }} ]</option>
+                        <!-- <option disabled="disabled">California (disabled)</option> -->
+                        @foreach ($guarantees as $guarantee)
+                        <option value="{{ $guarantee->id }}">{{ $guarantee->name }}</option>
+                        @endforeach
+                        </select>
                     </div>
               </div>
             </div>
@@ -296,7 +367,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-image fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="image" placeholder="อาการเบื้องต้น..." value="{{ $list_repair->image }}">
                       </div>
@@ -307,6 +378,7 @@
           </div> 
           <div class="modal-footer">
           <input type="hidden" name="status_list_repair_old" value="{{ $list_repair->status_list_repair }}">
+          <input type="hidden" name="guarantee_id_old" value="{{ $list_repair->guarantee_id }}">
           <input type="hidden" name="repair_id"value="{{$repair_id}}">
             <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
             <button type="submit" class="btn btn-success">บันทึก</button>
@@ -423,21 +495,21 @@
 
 <!-- js header-leftmenu -->
 <!-- jQuery 3 -->
-<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../dist/js/adminlte.min.js"></script>
+<script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="../dist/js/demo.js"></script>
+<script src="dist/js/demo.js"></script>
 <!-- End js header-leftmenu -->
 
   <!-- DataTables -->
-  <link rel="stylesheet" href="../bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
 <!-- DataTables -->
-<script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
 <script>
   // Datatable

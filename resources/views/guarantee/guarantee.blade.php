@@ -127,11 +127,11 @@
             
             <div class="row">
               <div class="form-group">
-                    <b for="" class="control-label col-md-3"style="text-align:right">เพิ่มรายการ</b>
+                    <b for="" class="control-label col-md-3"style="text-align:right">รายการรับประกัน</b>
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="name" value="{{ $guarantee->name }}">
                       </div>
@@ -174,13 +174,13 @@
             
             <div class="row">
               <div class="form-group">
-                    <b for="" class="control-label col-md-3"style="text-align:right">เพิ่มรายการ</b>
+                    <b for="" class="control-label col-md-3"style="text-align:right">รายการรับประกัน</b>
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="name" placeholder="...">
+                          <input type="text" class="form-control pull-right" id="Name" name="name" placeholder="รายการรับประกัน...">
                       </div>
                     </div>
               </div>

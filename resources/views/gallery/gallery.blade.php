@@ -141,7 +141,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
                           <input type="file" class="form-control pull-right" id="Name" name="img_url" placeholder="รูปภาพ..." value="{{ $gallery->img_url }}">
                         </div>
@@ -189,7 +189,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
                           <input type="file" class="form-control pull-right" id="Name" name="img_url" placeholder="...">
                       </div>
