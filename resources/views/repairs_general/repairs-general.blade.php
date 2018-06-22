@@ -61,7 +61,7 @@
             <th>ชื่อ-สกุล</th>
             <th>ราคา</th>
             <th>ช่างซ่อม</th>
-            <th class="text-center">รายการที่ซ่อม</th>
+            <th class="text-center">รายการแจ้งซ่อม</th>
             <!-- <th class="text-center">ปิดบิล</th> -->
             <th class="text-center">สถานะ</th>
             <!-- <th>แก้ไข</th> -->
@@ -82,8 +82,8 @@
             <td class="text-center">
             <!-- <a href="{{ url('/list-repair/'.$repair->id)  }}" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp;รายการที่ซ่อม</a></a> -->
             <?= Form::open(array('url' => '/list-repair' )) ?>
-            <input type="text" name="id" value="{{ $repair->id }}">
-            <button type="submit" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp;รายการที่ซ่อม</button>
+            <input type="hidden" name="id" value="{{ $repair->id }}">
+            <button type="submit" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp;รายการแจ้งซ่อม</button>
           {!! Form::close() !!}
           </td> 
             <!-- <td class="text-center"><a href="" class="btn btn-danger"></i>&nbsp; ปิดบิล</a></a></td>  -->
@@ -291,9 +291,9 @@
                         <div class="input-group-addon">
                             <i class="fa fa-user fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="name" placeholder="ชื่อ-สกุล..." value="{{ $repair->name }}">
+                          <input type="text" class="form-control pull-right" id="Name" name="name" placeholder="ชื่อ-สกุล..." value="{{ $repair->name }}" required>
                       </div>
-                    </div>
+                    </div><b style="font-size:30px;color:red;" title="ข้อมูลห้ามว่าง">*</b>
               </div>
             </div>
 
@@ -305,9 +305,9 @@
                         <div class="input-group-addon">
                             <i class="fa fa-phone fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="phone" placeholder="เบอร์โทร..." value="{{ $repair->phone }}">
+                          <input type="text" class="form-control pull-right" id="Name" name="phone" placeholder="เบอร์โทร..." value="{{ $repair->phone }}" required>
                       </div>
-                    </div>
+                    </div><b style="font-size:30px;color:red;" title="ข้อมูลห้ามว่าง">*</b>
               </div>
             </div>
 
@@ -319,9 +319,9 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar fa-lg"></i>
                         </div>
-                          <input type="date" class="form-control pull-right" id="Name" name="date_in_repair" placeholder="วันที่ซ่อม..." value="{{ $repair->date_in_repair }}">
+                          <input type="date" class="form-control pull-right" id="Name" name="date_in_repair" placeholder="วันที่ซ่อม..." value="{{ $repair->date_in_repair }}" required>
                       </div>
-                    </div>
+                    </div><b style="font-size:30px;color:red;" title="ข้อมูลห้ามว่าง">*</b>
               </div>
             </div>
 
@@ -409,9 +409,9 @@
                         <div class="input-group-addon">
                             <i class="fa fa-user fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="name" placeholder="ชื่อ-สกุล...">
+                          <input type="text" class="form-control pull-right" id="Name" name="name" placeholder="ชื่อ-สกุล..." required> 
                       </div>
-                    </div>
+                    </div><b style="font-size:30px;color:red;" title="ต้องกรอกข้อมูล">*</b>
               </div>
             </div>
 
@@ -423,9 +423,9 @@
                         <div class="input-group-addon">
                             <i class="fa fa-phone fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="phone" placeholder="เบอร์โทร...">
+                          <input type="text" class="form-control pull-right" id="Name" name="phone" placeholder="เบอร์โทร..." required>
                       </div>
-                    </div>
+                    </div><b style="font-size:30px;color:red;" title="ต้องกรอกข้อมูล">*</b>
               </div>
             </div>
 
@@ -437,9 +437,9 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar fa-lg"></i>
                         </div>
-                          <input type="date" class="form-control pull-right" id="Name" name="date_in_repair" placeholder="วันที่ซ่อม...">
+                          <input type="date" class="form-control pull-right" id="Name" name="date_in_repair" placeholder="วันที่ซ่อม..." required>
                       </div>
-                    </div>
+                    </div><b style="font-size:30px;color:red;" title="ต้องกรอกข้อมูล">*</b>
               </div>
             </div>
             <div class="row" style="padding-top:20px;">

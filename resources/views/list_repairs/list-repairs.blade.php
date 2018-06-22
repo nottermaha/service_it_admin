@@ -54,13 +54,33 @@
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
   <!-- Morris chart -->
   <!-- jvectormap -->
-  <link rel="stylesheet" href="../bower_components/jvectormap/jquery-jvectormap.css">
+  <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
   <script src="  https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
 
+
+<!-- ///////////////////////js ย้ายขึ้นมาเพราะใช้ auto modal/////////////////////// -->
+<!-- js header-leftmenu -->
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- End js header-leftmenu -->
+<!-- //////////////////////////////////////////////////////////////////// -->
 </head>
 <!--End css header-leftmenu -->
 
  @include('form/header-leftmenu')
+ <section class="content-header">
+            <h1 style="background-color:#DCDCDC;padding-top:10px;padding-bottom:10px;padding-left:10px;">
+              ซ่อมอุปกรณ์ /
+              <small><a>รายการแจ้งซ่อม</a> </small>
+            </h1>
+          </section> 
+      <br>
 
     <section class="content">
 
@@ -78,7 +98,7 @@
 
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">รายการย่อยถ</h3>
+              <h3 class="box-title">รายการแจ้งซ่อม</h3>
             </div>
 
        <div class="box-body table-responsive ">
@@ -102,12 +122,15 @@
             <td>{{ $i=$i+1 }}</td>
             <td class="text-center">{{ $list_repair->list_name }}</td>
             <td class="text-center">{{ $list_repair->price }}</td>
-            <td class="text-center"> 
-            1.เคสมือถือ iphone 5s 500บ.<br>
-            1.เคสมือถือ iphone 5s 500บ.<br>
-            1.เคสมือถือ iphone 5s 500บ.<br>
-            1.เคสมือถือ iphone 5s 500บ.<br>
-            <b>ราคาอะไหล่ทั้งหมด 2000บ.</b> <br>
+            <td class="text-center">
+            <?php $k=0; $temp=0; ?>
+            @foreach($data_use_parts as $data_use_part)
+              @if( $list_repair->id==$data_use_part->list_repair_id_chk )  
+                  <a>{{ $k=$k+1 }}. {{ $data_use_part->list_parts_name }} {{ $data_use_part->pay_out }}</a> <br>
+                  <?php $temp =$temp+$data_use_part->pay_out; ?>
+              @endif      
+            @endforeach   
+            <b>ราคาอะไหล่ทั้งหมด <?php echo $temp; ?>บ.</b> <br>
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-manage-part{{ $list_repair->id }}">
                   <i class="fa fa-wrench fa-lg"></i>&nbsp; จัดการอะไหล่
               </button>
@@ -162,7 +185,8 @@
                       <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">ลบข้อมูล</h4>
                   </div>        
-                <?= Form::open(array('url' => '/list-repair/delete/'.$list_repair->id)) ?>
+                  <!-- <?= Form::open(array('url' => '/list-repair/delete/'.$list_repair->id)) ?> -->
+                <?= Form::open(array('url' => '/list-repair-delete')) ?>
                     <div class="modal-body">
                       <div class="row" >
                         <div class="form-group">
@@ -171,6 +195,8 @@
                       </div>  
                     </div> 
                       <div class="modal-footer">
+                      <input type="hidden" name="repair_id"value="{{$repair_id}}">
+                      <input type="hidden" name="id"value="{{ $list_repair->id }}">
                         <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button>
                         <button type="submit" class="btn btn-danger">ลบข้อมูล</button>
                       </div>
@@ -182,7 +208,7 @@
 
     <!-- //////////////////////////////modal-manage-part//////////////////////////////// -->
 
-        <div class="modal fade " id="modal-manage-part{{ $list_repair->id }}">
+        <div class="modal fade " id="modal-manage-part{{$list_repair->id}}">
         
         <div class="modal-dialog ">
         <div class="modal-content ">
@@ -190,32 +216,79 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">จัดการอะไหล่</h4>
-          </div>        
-          <?= Form::open(array('url' => '/list-repair-status/edit/'.$list_repair->id )) ?>
+          </div>       
           <div class="modal-body">
 
+            <div class="row">
+              <div class="form-group"> 
+              @foreach($data_use_parts as $data_use_part)
+              @if( $list_repair->id==$data_use_part->list_repair_id_chk ) 
+                <div class="row">
+                      <?= Form::open(array('url' => '/list-repair-delete-data-use-part' )) ?>
+                      <b for="" class="control-label col-md-2"style="text-align:right">อะไหล่ที่ใช้</b>
+                    <div class="col-md-8" >               
+                            
+                        <a>{{ $data_use_part->list_parts_name }}</a> <br>
+                                  
+                    </div>
+                    <div class="col-md-2">
+                      <input type="hidden" name="list_repair_id" value="{{ $list_repair->id }}">
+                      <input type="hidden" name="list_parts_id" value="{{ $data_use_part->list_parts_id_chk }}">
+                      <input type="hidden" name="repair_id"value="{{$repair_id}}">
+                      <button type="submit" class="btn btn-danger" >นำออก</button>
+                    </div>
+                </div>
+                    {!! Form::close() !!}
+              @endif      
+              @endforeach   
+              </div>
+            </div><br>
+          <?= Form::open(array('url' => '/list-repair-data-use-part' )) ?>
             <div class="row" >
               <div class="form-group">
                     <b for="" class="control-label col-md-2"style="text-align:right">รายการอะไหล่</b>
                     <div class="col-md-8">               
-                        <select class="form-control select2" style="width: 100%;" name="status_list_repair">
-                        <option value ="">เลือกอะไหล่ที่ต้องการ</option>
+                        <select required class="form-control select2" style="width: 100%;" name="list_parts_id">
+                        <option value="">เลือกอะไหล่ที่ต้องการเพิ่ม</option>
                         <!-- <option disabled="disabled">California (disabled)</option> -->
                         @foreach ($list_parts as $list_part)
-                        <option value="{{ $list_part->id }}">{{ $list_part->name }}</option>
+                        <option value="{{ $list_part->id }}">" {{ $list_part->name }} " คงเหลือ {{ $list_part->number }}</option>
                         @endforeach
                         </select>
                     </div>
                     <div class="col-md-2">
-                    <button type="submit" class="btn btn-success">บันทึก</button>
-                    </div>
+                    <input type="hidden" name="list_repair_id" value="{{ $list_repair->id }}">
+                    <input type="hidden" name="repair_id"value="{{$repair_id}}">
+                    <button type="submit" class="btn btn-success">ใช้อะไหล่</button>
+                    </div> 
+                    
               </div>
             </div>
-          
+         
           </div> 
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
-            <button type="submit" class="btn btn-success">บันทึก</button>
+          <div class="col-md-2"></div>
+            <div class="row col-md-9" >
+            <!-- ///check fail is show modal/// -->
+                    @if ($chk==0)
+                        <script type="text/javascript">
+                            $(window).on('load',function(){
+                                $('#modal-manage-part{{$status_part_null_id}}').modal('show');
+                            });
+                        </script>
+                    <!-- ///end//// -->
+                    <!-- ///message fail/// -->
+                        <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-ban"></i>อะไหล่ "{{ $status_part_null_name }}" หมด!</h4>
+                        กรุณาเพิ่มอะไหล่เข้าระบบ ก่อนที่จะใช้อะไหล่
+                      </div>
+                    <!-- ///end//// -->
+                    @endif
+              </div>
+          <!-- <input type="hidden" name="repair_id"value="{{$repair_id}}"> -->
+            <!-- <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button> -->
+            <!-- <button type="submit" class="btn btn-success">บันทึก</button> -->
           </div>
           {!! Form::close() !!}
         </div>
@@ -224,7 +297,7 @@
     <!-- //////////////////////////////End modal-manage-part//////////////////////////////// -->
 
 
-<!-- //////////////////////////////modal-edit-list-repair//////////////////////////////// -->
+<!-- //////////////////////////////modal-edit-status-list-repair//////////////////////////////// -->
 
         <div class="modal fade " id="modal-edit-status-repair{{ $list_repair->id }}">
         
@@ -235,7 +308,7 @@
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">สถานะการซ่อม</h4>
           </div>        
-          <?= Form::open(array('url' => '/list-repair-status/edit/'.$list_repair->id )) ?>
+          <?= Form::open(array('url' => '/list-repair-status-edit' )) ?>
           <div class="modal-body">
 
             <div class="row" >
@@ -259,6 +332,7 @@
           <div class="modal-footer">
           <input type="hidden" name="status_list_repair_old" value="{{ $list_repair->status_list_repair }}">
           <input type="hidden" name="repair_id"value="{{$repair_id}}">
+          <input type="hidden" name="id"value="{{ $list_repair->id }}">
             <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
             <button type="submit" class="btn btn-success">บันทึก</button>
           </div>
@@ -277,19 +351,19 @@
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">บันทึกข้อมูลรายการแจ้งซ่ออม</h4>
+            <h4 class="modal-title">แก้ไขข้อมูลรายการแจ้งซ่อม</h4>
           </div>        
-          <?= Form::open(array('url' => '/list-repair/edit/'.$list_repair->id )) ?>
+          <?= Form::open(array('url' => '/list-repair-edit' )) ?>
           <div class="modal-body">
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
-                    <b for="" class="control-label col-md-3"style="text-align:right">รายการที่ซ่อม</b>
+                    <b for="" class="control-label col-md-3"style="text-align:right">รายการแจ้งซ่อม</b>
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
                             <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="list_name" placeholder="รายการที่ซ่อม..." value="{{ $list_repair->list_name }}">
+                          <input type="text" class="form-control pull-right" id="Name" name="list_name" placeholder="รายการแจ้งซ่อม..." value="{{ $list_repair->list_name }}">
                       </div>
                     </div>
               </div>
@@ -380,6 +454,7 @@
           <input type="hidden" name="status_list_repair_old" value="{{ $list_repair->status_list_repair }}">
           <input type="hidden" name="guarantee_id_old" value="{{ $list_repair->guarantee_id }}">
           <input type="hidden" name="repair_id"value="{{$repair_id}}">
+          <input type="hidden" name="id"value="{{ $list_repair->id }}">
             <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
             <button type="submit" class="btn btn-success">บันทึก</button>
           </div>
@@ -408,9 +483,9 @@
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">บันทึกข้อมูลรายการแจ้งซ่ออม</h4>
+            <h4 class="modal-title">บันทึกข้อมูลรายการแจ้งซ่อม</h4>
           </div>        
-          <?= Form::open(array('url' => '/list-repair/create')) ?>
+          <?= Form::open(array('url' => '/list-repair-create')) ?>
           <div class="modal-body">
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
@@ -493,16 +568,6 @@
     </section>
 @include('form/footer')
 
-<!-- js header-leftmenu -->
-<!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<!-- End js header-leftmenu -->
 
   <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
@@ -520,4 +585,6 @@
   $('.select2').select2()
 
 </script>
+
+
 
