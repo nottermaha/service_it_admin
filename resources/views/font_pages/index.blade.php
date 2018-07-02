@@ -142,7 +142,7 @@
                 <div class="icon-wrapper">
                     <h4 class="icon-title wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.1s">สาขาของเรา</h4>
                     <p class="icon-content wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.2s">ร้านของเรามีหลายสาขา เชิญท่านใช้บริการสาขาที่ใกล้บ้านท่านได้ ดูรายละเอียดเพิ่มเติมได้ที่ปุ่ม "รายละเอียด" ด้านล่างได้เลยค่ะ...</p>
-                    <a class="read-more wow fadeInUp" data-wow-delay="1.2s" href="#" title="Learn more about customizing AUI">Learn more</a>
+                    <a class="read-more wow fadeInUp" data-wow-delay="1.2s" href="{{ url('/font-contact')  }}" title="Learn more about customizing AUI">ดูข้อมูลเพิ่มเติม</a>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -151,7 +151,7 @@
                 <div class="icon-wrapper">
                     <h4 class="icon-title wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.4s">โปรโมชั่นสุดพิเศษ !!</h4>
                     <p class="icon-content wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.5s">โปรโมชั่นสุดพิเศษจากทางร้าน เพื่อเอาใจลูกค้าทุกท่าน ดูรายละเอียดเพิ่มเติม...</p>
-                    <a class="read-more wow fadeInUp" data-wow-delay="1.4s" href="#" title="Learn more about AUI widgets &amp; plugins">Learn more</a>
+                    <a class="read-more wow fadeInUp" data-wow-delay="1.4s" href="#" title="Learn more about AUI widgets &amp; plugins">ดูข้อมูลเพิ่มเติม</a>
                 </div>
             </div>
         </div>
@@ -161,7 +161,7 @@
                 <div class="icon-wrapper">
                     <h4 class="icon-title wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.7s">ข่าวสาร </h4>
                     <p class="icon-content wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.8s">ข่าวสารใหม่ อัพเดตทันสถานะการณ์ ข้อมูลสินค้าใหม่ อุปกรณ์เครื่องมือซ่อมที่ทันสมัย ข้อมูลปัญหาเครื่องเสีย เปิดไม่ติด อื่่นๆ...</p>
-                    <a class="read-more wow fadeInUp" data-wow-delay="1.6s" href="#" title="Learn more about AUI responsive design techiques">Learn more</a>
+                    <a class="read-more wow fadeInUp" data-wow-delay="1.6s" href="{{ url('/font-new')  }}" title="Learn more about AUI responsive design techiques">ดูข้อมูลเพิ่มเติม</a>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -170,7 +170,7 @@
                 <div class="icon-wrapper">
                     <h4 class="icon-title wow bounceIn" data-wow-duration="0.6s" data-wow-delay="1s">การรับประกันหลังซ่อม</h4>
                     <p class="icon-content wow bounceIn" data-wow-duration="0.6s" data-wow-delay="1.1s">สินค้าที่ท่านนำมาซ่อมกับทางร้านของเรา ไม่ว่าจะสาขาไหนท่านจะได้รับการประกันหลังซ่อม ดูราลละเอียดเพิ่มเติม...</p>
-                    <a class="read-more wow fadeInUp" data-wow-delay="1.8s" href="#" title="Learn more about AUI extensive documentation">Learn more</a>
+                    <a class="read-more wow fadeInUp " data-wow-delay="1.8s" href="{{ url('/font-guarantee')  }}" title="Learn more about AUI extensive documentation">ดูข้อมูลเพิ่มเติม</a>
                 </div>
             </div>
         </div>

@@ -59,8 +59,8 @@
           <tr>
             <th>#</th>
             <th class="text-center">รายการ</th>
-            <th class="text-center">เพิ่มเมื่อ</th>
-            <th class="text-center">แก้ไขล่าสุด</th>
+            <th class="text-center">สร้างล๊อตเมื่อ</th>
+            <!-- <th class="text-center">แก้ไขล่าสุด</th> -->
             <th class="text-center">รายการอะไหล่</th>
             <th class="text-center">แก้ไข</th>
             <th class="text-center">ลบ</th>
@@ -73,8 +73,8 @@
           <tr>
             <td>{{ $i=$i+1 }}</td>
             <td class="text-center">{{ $Import_part->lot_name }}</td>
-            <td class="text-center"{{ $Import_part->created_at }}</td>
-            <td class="text-center">{{ $Import_part->updated_at }}</td>
+            <td class="text-center">{{ $Import_part->date }}</td>
+            <!-- <td class="text-center">{{ $Import_part->updated_at }}</td> -->
             <td class="text-center">
             <?= Form::open(array('url' => '/list-part')) ?>
             <input type="hidden" name="id" value="{{$Import_part->id}}">

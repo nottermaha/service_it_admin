@@ -16,7 +16,8 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-  <!-- Morris chart -->
+       <!-- Select2 -->
+<link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
   <!-- jvectormap -->
   <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
   <script src="  https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
@@ -244,12 +245,16 @@
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
+  <!-- select2 -->
+  <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
 
 <script>
   // Datatable
   $(function () {
     $('#example').DataTable()
   })
+    //Initialize Select2 Elements
+    $('.select2').select2()
 
 </script>
 

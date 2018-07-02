@@ -25,6 +25,19 @@
 <!--End css header-leftmenu -->
 <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
+<!-- ///////////////////////js ย้ายขึ้นมาเพราะใช้ auto modal/////////////////////// -->
+<!-- js header-leftmenu -->
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- End js header-leftmenu -->
+<!-- //////////////////////////////////////////////////////////////////// -->
+
  @include('form/header-leftmenu')
  <section class="content-header">
             <h1 style="background-color:#DCDCDC;padding-top:10px;padding-bottom:10px;padding-left:10px;">
@@ -121,8 +134,7 @@
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>
           </div>    
-          {!!  Form::open(['url'=>'/new/edit/'.$new->id,'class'=>'form','files'=>true])   !!}    
-          <!-- <?= Form::open(array('url' => '/new/edit/'.$new->id)) ?> -->
+          {!!  Form::open(['url'=>'/new-edit','class'=>'form','files'=>true])   !!}    
           <div class="modal-body">
             
           <div class="row" >
@@ -141,10 +153,29 @@
                             <i class="fa fa-image fa-lg"></i>
                         </div>
                           <input type="file" class="form-control pull-right" id="Name" name="img_url" placeholder="ชื่อสถานะ..." value="{{ $new->img_url }}">
+                          
                       </div>
                     </div>
               </div>
             </div>
+            @if(session()->has('status_image_fail'))  
+            @if(session()->has('status_id'))
+            <script type="text/javascript">
+                $(window).on('load',function(){
+                    $('#modal-edit-new<?php echo session()->get('status_id'); ?>').modal('show');
+                });
+            </script>
+            @endif
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right"></b>
+                    <div class="col-md-8">
+                    <b style="color:red;"> ชนิดของรูปภาพต้องเป็น jpg , png , gif เท่านั้น</b>
+                    </div>
+              </div>
+            </div>
+            @endif
+            
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">หัวข้อ</b>
@@ -175,6 +206,7 @@
           
           </div> 
           <div class="modal-footer">
+          <input type="text" name="id" value="{{ $new->id }}">
             <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
             <button type="submit" class="btn btn-success">บันทึก</button>
           </div>
@@ -286,17 +318,6 @@
      @endif 
     </section>
 @include('form/footer')
-
-<!-- js header-leftmenu -->
-<!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<!-- End js header-leftmenu -->
 
   <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">

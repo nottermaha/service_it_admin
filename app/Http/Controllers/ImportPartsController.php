@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ImportPart;
+use App\Http\Controllers\CallUseController;
 use Illuminate\Http\Request;
 
 class ImportPartsController extends Controller
@@ -11,13 +12,18 @@ class ImportPartsController extends Controller
       // echo $id;exit();
       $Import_parts = ImportPart::where('status', 1)
       ->get();
+      $date = new CallUseController();
+      $Import_parts = $date->get_date_all($Import_parts,'date','date'); //get วันที่ภาษาไทย ลูป
+
       // echo $Import_parts;exit();
       return view('import_part/import-part', ['Import_parts' => $Import_parts]);
     }
     public function create(Request $request)
     { 
       // echo $request;exit();
+        $s_store_branch_id=session('s_store_branch_id','default');
         $import_part = new ImportPart;
+        $import_part->store_branch_id = $s_store_branch_id;
         $import_part->lot_name = $request->lot_name;
         $import_part->status = true;
         $import_part->save();

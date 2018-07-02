@@ -52,6 +52,8 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+      <!-- Select2 -->
+      <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
   <!-- Morris chart -->
   <!-- jvectormap -->
   <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
@@ -131,9 +133,9 @@
               @endif      
             @endforeach   
             <b>ราคาอะไหล่ทั้งหมด <?php echo $temp; ?>บ.</b> <br>
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-manage-part{{ $list_repair->id }}">
+            <!-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-manage-part{{ $list_repair->id }}">
                   <i class="fa fa-wrench fa-lg"></i>&nbsp; จัดการอะไหล่
-              </button>
+              </button> -->
             </td>
             <td class="text-center">
             @if( $list_repair->status_color==1 )
@@ -210,7 +212,7 @@
 
         <div class="modal fade " id="modal-manage-part{{$list_repair->id}}">
         
-        <div class="modal-dialog ">
+        <div class="modal-dialog " style="width:50%;">
         <div class="modal-content ">
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -252,7 +254,10 @@
                         <option value="">เลือกอะไหล่ที่ต้องการเพิ่ม</option>
                         <!-- <option disabled="disabled">California (disabled)</option> -->
                         @foreach ($list_parts as $list_part)
-                        <option value="{{ $list_part->id }}">" {{ $list_part->name }} " คงเหลือ {{ $list_part->number }}</option>
+                        <option value="{{ $list_part->id }}">" {{ $list_part->id }} " 
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ราคา: {{ $list_part->pay_out }}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ล๊อต: {{ $list_part->import_parts_lot_name }}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;คงเหลือ: {{ $list_part->number }}</option>                      
                         @endforeach
                         </select>
                     </div>
@@ -299,7 +304,7 @@
 
 <!-- //////////////////////////////modal-edit-status-list-repair//////////////////////////////// -->
 
-        <div class="modal fade " id="modal-edit-status-repair{{ $list_repair->id }}">
+        <div class="modal fade " id="modal-edit-status-repair">
         
         <div class="modal-dialog ">
         <div class="modal-content ">
@@ -363,7 +368,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="list_name" placeholder="รายการแจ้งซ่อม..." value="{{ $list_repair->list_name }}">
+                          <input type="text" class="form-control pull-right" id="Name" name="list_name" placeholder="รายการแจ้งซ่อม..." value="{{ $list_repair->list_name }}" required>
                       </div>
                     </div>
               </div>
@@ -437,6 +442,20 @@
             </div>
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">ช่างซ่อม</b>
+                    <div class="col-md-8">               
+                        <select  class="form-control select2" style="width: 100%;" name="person_id">
+                        <option value="">ช่างที่เลือก [ {{ $list_repair->person_name }} ]</option>
+                        <!-- <option disabled="disabled">California (disabled)</option> -->
+                        @foreach ($persons as $person)
+                        <option value="{{ $person->id }}">{{ $person->name }}</option>
+                        @endforeach
+                        </select>
+                    </div>
+              </div>
+            </div>
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">รูปภาพ</b>
                     <div class="col-md-8">
                       <div class="input-group date">
@@ -453,6 +472,7 @@
           <div class="modal-footer">
           <input type="hidden" name="status_list_repair_old" value="{{ $list_repair->status_list_repair }}">
           <input type="hidden" name="guarantee_id_old" value="{{ $list_repair->guarantee_id }}">
+          <input type="hidden" name="person_id_old" value="{{ $list_repair->person_id }}">
           <input type="hidden" name="repair_id"value="{{$repair_id}}">
           <input type="hidden" name="id"value="{{ $list_repair->id }}">
             <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
@@ -493,9 +513,9 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="list_name" placeholder="รายการที่ซ่อม...">
+                          <input type="text" class="form-control pull-right" id="Name" name="list_name" placeholder="รายการที่ซ่อม..." required>
                       </div>
                     </div>
               </div>
@@ -506,7 +526,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="detail" placeholder="รายละเอียดเพิ่มเติม...">
                       </div>
@@ -519,10 +539,24 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="symptom" placeholder="อาการเบื้องต้น...">
                       </div>
+                    </div>
+              </div>
+            </div>
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">ช่างซ่อม</b>
+                    <div class="col-md-8">               
+                        <select required class="form-control select2" style="width: 100%;" name="person_id">
+                        <option value="">ช่างที่เลือก [ ยังไม่เลือกช่าง ]</option>
+                        <!-- <option disabled="disabled">California (disabled)</option> -->
+                        @foreach ($persons as $person)
+                        <option value="{{ $person->id }}">{{ $person->name }}</option>
+                        @endforeach
+                        </select>
                     </div>
               </div>
             </div>
@@ -575,6 +609,9 @@
 <!-- DataTables -->
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+  <!-- select2 -->
+  <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
 
 <script>
   // Datatable

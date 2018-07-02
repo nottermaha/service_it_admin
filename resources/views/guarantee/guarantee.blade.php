@@ -24,6 +24,7 @@
   <script src="  https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
 <!-- Optional: include a polyfill for ES6 Promises for IE11 and Android browser -->
 <!-- <script src="https://unpkg.com/promise-polyfill@7.1.0/dist/promise.min.js"></script> -->
+<script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
 </head>
 <!--End css header-leftmenu -->
 
@@ -37,6 +38,35 @@
       <br>
 
     <section class="content">
+    <div class="col-md-1"></div>
+    {!!  Form::open(['url'=>'/guarantee-edit-only','class'=>'form-horizontal','files'=>true])   !!}
+    {{ csrf_field() }}
+    <div class="col-md-10">
+        <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">บันทึกข้อมูลรายละเอียดการรับประกัน</h3>
+                    <I><h5>ข้อมูลส่วนนี้จะแสดงในหน้าใช้งานของลูกค้า ในส่วนของการรับประกัน</h5></I>
+                </div>
+            <div class="box-body">
+            <input type="hidden" name="_token" value="fHc8pJvh1Gj4zf3SYopWZGvi0VztqE9wno25Za8z">
+
+                <div class="form-group">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <textarea  class="ckeditor" cols="80" id="editor" rows="10"name="detail" value="{{ $detail }}">{{ $detail }}
+                    </textarea>  <br>                  
+                    <div class="text-right">
+                    <input type="hidden" name="id" value="{{ $id }}">
+                    <button type="submit" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp;แก้ไขข้อมูล</button>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    {!! Form::close() !!}
     
       <div class="row">
         <div class="col-xs-12 text-right">

@@ -8,6 +8,9 @@ use App\Repair;
 use App\ListRepair;
 use App\PersonsMember;
 use App\Http\Controllers\UploadController;
+
+use App\Http\Controllers\CallUseController;
+
 use Illuminate\Http\Request;
 use Image; //เรียกใช้ library จดัการรูปภาพเข้ามาใช้งาน 
 
@@ -98,22 +101,10 @@ class AuthenController extends Controller
         $id=session('s_id','default');
         $person_member = PersonsMember::find($id);
         // echo $person_member;exit();
-        $data = [
-            'id' => $person_member['id'],
-            'type' => $person_member['type'],
-            'username' => $person_member['username'],
-            'password' => $person_member['password'],
-            'name' => $person_member['name'],
-            'person_id' => $person_member['person_id'],
-            'gender' => $person_member['gender'],
-            'email' => $person_member['email'],
-            'birthday' => $person_member['birthday'],
-            'phone' => $person_member['phone'],
-            'image_url' => $person_member['image_url'],
-            'address' => $person_member['address'],
-            'profile_id' => $person_member['id'],
-            'created_at' => $person_member['created_at'],
-        ];
+        $date = new CallUseController();
+        $person_member = $date->get_date_only($person_member,'birth_day','birthday');//get วันที่ภาษาไทย แถวเดียว
+        $person_member = $date->get_date_only($person_member,'date_created','created_at');//get วันที่ภาษาไทย แถวเดียว
+        // echo $person_member;exit();
         $item = [
               'persons.name as persons_name'
               ,'persons.phone as persons_phone'
@@ -142,6 +133,10 @@ class AuthenController extends Controller
         ->leftJoin('persons', 'persons.id', '=', 'repair.persons_id')
         ->leftJoin('store_branch', 'store_branch.id', '=', 'repair.store_branch_id')
         ->get($item);
+
+        $date = new CallUseController();
+        $repairs = $date->get_date_all($repairs,'date_in','date_in_repair');
+        $repairs = $date->get_date_all($repairs,'date_out','date_out_repair');
         // echo $repairs;exit();
         if($repairs!='[]'){
               // foreach($repairs as $key=>$value)
@@ -154,11 +149,41 @@ class AuthenController extends Controller
                   ,'list_repair.list_name as list_name'
                   ,'list_repair.detail as detail'
                   ,'list_repair.symptom as symptom'
+                  ,'list_repair.price as price'
+
+                  ,'setting_status_repair.id as s_id'
+                  ,'setting_status_repair.name as status_name'
+                  ,'setting_status_repair.status_color'
+          
+                  // ,'list_repair.id as l_id'
+                  // ,'list_repair.price as price'
+          
+                  ,'persons.name as person_name'
                   ];
               $list_repairs = ListRepair::where('list_repair.status', 1)
-              // ->leftJoin('repair', 'repair.id', '=', 'list_repair.repair_id')
-              // ->where('list_repair.repair_id',"=",$value['r_id'])
-              ->get($items);   
+              ->leftJoin('persons', 'persons.id', '=', 'list_repair.person_id')
+              ->leftJoin('setting_status_repair', 'setting_status_repair.id', '=', 'list_repair.status_list_repair')
+              ->get($items); 
+              
+              $data = [
+                'id' => $person_member['id'],
+                'type' => $person_member['type'],
+                'username' => $person_member['username'],
+                'password' => $person_member['password'],
+                'name' => $person_member['name'],
+                'person_id' => $person_member['person_id'],
+                'gender' => $person_member['gender'],
+                'email' => $person_member['email'],
+                // 'birthday' => $person_member['birthday'],
+                'phone' => $person_member['phone'],
+                'image_url' => $person_member['image_url'],
+                'address' => $person_member['address'],
+                'profile_id' => $person_member['id'],
+                'created_at' => $person_member['created_at'],
+                'birthday' => $person_member['birth_day'],
+                'date_created' => $person_member['date_created'],
+
+            ];
               // } 
           // echo $list_repairs;exit();
           return view('font_pages/profile',['repairs'=>$repairs,'list_repairs'=>$list_repairs], $data);
@@ -210,6 +235,11 @@ class AuthenController extends Controller
         $person = Persons::find($id);
         $profile = $this->get_profile($person['id']);
 
+        $date = new CallUseController();
+        $profile = $date->get_date_only($profile,'created','created_at');//get วันที่ภาษาไทย แถวเดียว
+        // $date = new CallUseController();
+        $profile = $date->get_date_only($profile,'birth','birthday');//get วันที่ภาษาไทย แถวเดียว
+        // echo $profile;exit();
         $data = [
           'store_branch_name' => $profile['0']['store_branch_name'],
             'type' => $profile['0']['type'],
@@ -224,8 +254,9 @@ class AuthenController extends Controller
             'image_url' => $profile['0']['image_url'],
             'address' => $profile['0']['address'],
             'profile_id' => $profile['0']['profile_id'],
-            'created_at' => $profile['0']['created_at'],
-            
+            // 'created_at' => $profile['0']['created'],  
+            'create_date' => $profile['created'],
+            'birth_date' => $profile['birth'], 
         ];
         $items = [
           'persons_member.name as name_member'
@@ -255,6 +286,12 @@ class AuthenController extends Controller
         // ->leftJoin('list_repair', 'list_repair.repair_id', '=', 'repair.id')
         ->leftJoin('persons_member', 'persons_member.id', '=', 'repair.persons_member_id')
         ->get($items);
+        $date_in = new CallUseController();
+        $repairs = $date->get_date_all($repairs,'date_in','date_in_repair'); 
+        //////////////////get วันที่ภาษาไทย ลูป date_in_repair  pattern = ข้อมูลทั้งหมด ชื่อที่ใช้ตอน $key และ ฟิวใน db ////////////////////////////
+        $date_out = new CallUseController();
+        $repairs = $date->get_date_all($repairs,'date_out','date_out_repair'); //get วันที่ภาษาไทย ลูป date_out_repair
+            // echo $repairs;exit();
         foreach($repairs as $key=>$value)
         {
               if($repairs[$key]['persons_member_id']!=NULL)
@@ -275,7 +312,12 @@ class AuthenController extends Controller
               {
                 $repairs[$key]['is_type']='';
               }
-              
+              // $date_in = new CallUseController();
+              // $n = $date->get_date_only($value['date_in_repair'],'date_in_repair'); //get วันที่ภาษาไทย ลูป date_in_repair
+              // $date_out = new CallUseController();
+              // $m = $date->get_date_only($value['date_out_repair'],'date_out_repair'); //get วันที่ภาษาไทย ลูป date_in_repair
+              // $repairs[$key]['date_in_repair']=$n;
+              // $repairs[$key]['date_out_repair']=$m;
         }
         if($repairs!='[]'){
               foreach($repairs as $key=>$value)
@@ -389,6 +431,10 @@ class AuthenController extends Controller
           $id=session('s_id','default');
         $person = Persons::find($id);
         $profile = $this->get_profile($person['id']);
+        $date = new CallUseController();
+        $profile = $date->get_date_only($profile,'created','created_at');//get วันที่ภาษาไทย แถวเดียว
+        // $date = new CallUseController();
+        $profile = $date->get_date_only($profile,'birth','birthday');//get วันที่ภาษาไทย แถวเดียว
 
         $data = [
           'store_branch_name' => $profile['0']['store_branch_name'],
@@ -404,7 +450,9 @@ class AuthenController extends Controller
             'image_url' => $profile['0']['image_url'],
             'address' => $profile['0']['address'],
             'profile_id' => $profile['0']['profile_id'],
-            'created_at' => $profile['0']['created_at'],
+            // 'created_at' => $profile['0']['created_at'],
+            'create_date' => $profile['created'],
+            'birth_date' => $profile['birth'], 
 
         ];
 

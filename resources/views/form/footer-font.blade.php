@@ -1,6 +1,6 @@
 <div class="main-footer bg-gradient-4 clearfix">
     <div class="container clearfix">
-        <div class="col-md-3 pad25R">
+       <!-- <div class="col-md-3 pad25R">
             <div class="header">About us </div>
             <p class="about-us">
                 sollicitudin eu erat. Pellentesque ornare mi vitae sem consequat ac bibendum neque adipiscing.
@@ -101,18 +101,20 @@
                     <a href="#" title="">homepage@example.com</a>
                 </li>
             </ul>
-        </div>
+        </div> -->
     </div>
     <div class="footer-pane">
         <div class="container clearfix">
-            <div class="logo">&copy; 2014 Monarch. All Rights Reserved.</div>
+            <div class="logo">&copy;<h3> 2018 Mac ServiceIT</h3></div>
+            
             <div class="footer-nav-bottom">
-                <a href="#" title="Portfolio">Widgets</a>
+            <div class="logo">&copy;<h4>รวดเร็ว ทันใจ พร้อมให้บริการซ่อมด้วยช่างซ่อมที่มีประสบการณ์ และการรับประกันสินค้าที่ท่านนำมาซ่อม</h4> </div>
+               <!--  <a href="#" title="Portfolio">Widgets</a>
                 <a href="#" title="Layout">Layout</a>
                 <a href="#" title="Elements">Elements</a>
                 <a href="#" title="">Pricing tables</a>
-                <a href="#" title="Portfolio">Portfolio</a>
-            </div>
+                <a href="#" title="Portfolio">Portfolio</a>-->
+            </div> 
         </div>
     </div>
 </div></div>

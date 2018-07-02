@@ -139,8 +139,30 @@
                 <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">แก้ไขข้อมูลสาขา</h4>
             </div>        
-          <?= Form::open(array('url' => '/store-branch/edit/'. $store->id)) ?>   
+          {!!  Form::open(['url'=>'/store-branch/edit/'. $store->id,'class'=>'form','files'=>true])   !!}
           <div class="modal-body">
+
+          <div class="row" >
+              <div class="form-group">
+                  <b for="" class="control-label col-md-4"style="text-align:right"></b>
+                    <img src="{{ asset('image/store-branch/resize/'.$store->image_url) }}">
+              </div>  
+          </div>  
+
+            <div class="row">
+              <div class="form-group">
+                <b for="" class="control-label col-sm-2"style="text-align:right">รูปภาพ</b>
+                <div class="col-sm-9">
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                        <i class="fa fa-user fa-lg"></i>
+                    </div>
+                      <input type="file" class="form-control pull-right" id="Name" name="image_url" placeholder="ชื่อสาขา..." value="{{ $store->image_url }}">
+                  </div>
+                </div>
+              </div>
+            </div><br>
+
             <div class="row">
               <div class="form-group">
                 <b for="" class="control-label col-sm-2"style="text-align:right">ชื่อสาขา</b>
@@ -264,8 +286,22 @@
                   <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">บันทึกข้อมูลสาขาใหม่</h4>
               </div>        
-              <?= Form::open(array('url' => '/store-branch/create')) ?>
+              {!!  Form::open(['url'=>'/store-branch/create','class'=>'form','files'=>true])   !!}
               <div class="modal-body">
+
+                <div class="row">
+                  <div class="form-group">
+                    <b for="" class="control-label col-sm-2"style="text-align:right">รูปภาพ</b>
+                    <div class="col-sm-9">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="file" class="form-control pull-right" id="Name" name="image_url" placeholder="รูปภาพ..." >
+                      </div>
+                    </div>
+                  </div>
+                </div><br>
                 <div class="row">
                   <div class="form-group">
                     <b for="" class="control-label col-sm-2"style="text-align:right">ชื่อสาขา</b>

@@ -45,7 +45,7 @@
 
         <!-- <p class="text-muted text-center">Software Engineer</p> -->
 
-        <ul class="list-group list-group-unbordered">
+        <!-- <ul class="list-group list-group-unbordered">
           <li class="list-group-item">
             <b>Followers</b> <a class="pull-right">1,322</a>
           </li>
@@ -55,9 +55,9 @@
           <li class="list-group-item">
             <b>Friends</b> <a class="pull-right">13,287</a>
           </li>
-        </ul>
+        </ul> -->
 
-        <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+        <!-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> -->
       </div>
       <!-- /.box-body -->
     </div>
@@ -90,7 +90,7 @@
 
         <hr>
 
-        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+        <!-- <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
 
         <p>
           <span class="label label-danger">UI Design</span>
@@ -98,12 +98,12 @@
           <span class="label label-info">Javascript</span>
           <span class="label label-warning">PHP</span>
           <span class="label label-primary">Node.js</span>
-        </p>
+        </p> -->
 
-        <hr>
+        <!-- <hr> -->
 
-        <strong><i class="fa fa-file-text-o margin-r-5"></i>วันที่เพิ่มเข้าสู่ระบบ</strong>
-        <p>{{$created_at }}</p>
+        <strong><i class="fa fa-file-text-o margin-r-5"></i>เป็นสมาชิกของระบบเมื่อ</strong>
+        <p>{{$create_date }}</p>
       </div>
       <!-- /.box-body -->
     </div>
@@ -150,11 +150,6 @@
                 </div>
 
                 <div class="row">
-                  <b  style="margin-top:-10px;">ชื่อ-ขนามสกุล : </b>{{$name}} 
-                  <hr style="margin-top:5px;margin-bottom:5px;">
-                </div>
-
-                <div class="row">
                   <b  style="margin-top:-10px;">เลขประจำตัวประชาชน : </b>{{$person_id}} 
                   <hr style="margin-top:5px;margin-bottom:5px;">
                 </div>
@@ -165,7 +160,7 @@
                 </div>
 
                 <div class="row">
-                  <b  style="margin-top:-10px;">วัน/เดือน/ปีเกิด : </b>{{$birthday}} 
+                  <b  style="margin-top:-10px;">วัน/เดือน/ปีเกิด : </b>{{$birth_date}} 
                   <hr style="margin-top:5px;margin-bottom:5px;">
                 </div>
 
@@ -213,7 +208,7 @@
               <i class="fa fa-home bg-blue"></i>
 
               <div class="timeline-item">
-                <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                <!-- <span class="time"><i class="fa fa-clock-o"></i> 12:05</span> -->
                   <h3 class="timeline-header no-border"><a href="#">สาขาที่สังกัด</a>
                   {{$store_branch_name}}
                 </h3>
@@ -225,7 +220,7 @@
               <i class="fa fa-user bg-aqua"></i>
 
               <div class="timeline-item">
-                <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+                <!-- <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span> -->
 
                 <h3 class="timeline-header no-border"><a href="#">ตำแหน่ง</a>
                       @if($type==1)
@@ -244,8 +239,8 @@
               <i class="fa fa-clock-o bg-yellow"></i>
 
               <div class="timeline-item">
-                <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-                  <h3 class="timeline-header no-border"><a href="#">เป็นสมาชิกของระบบเมื่อ</a>
+                <!-- <span class="time"><i class="fa fa-clock-o"></i> 12:05</span> -->
+                  <h3 class="timeline-header no-border"><a href="#">เป็นสมาชิกของระบบเมื่อ</a>: {{ $create_date }}
                   
                 </h3>
               </div>
@@ -398,7 +393,7 @@
                           <b for="" class="control-label col-md-3"style="text-align:right">
                           ราคาจริง : </b>
                           <b for="" class="control-label col-md-9" style="color:gray">
-                          {{ $repair->status_repair }}</b>
+                          {{ $repair->after_price }}</b>
                         </div>
                       </div><hr style="margin-top:5px;margin-bottom:5px;">
 
@@ -407,7 +402,7 @@
                           <b for="" class="control-label col-md-3"style="text-align:right">
                           วันที่รับเข้าระบบ : </b>
                           <b for="" class="control-label col-md-9" style="color:gray">
-                          {{ $repair->status_repair }}</b>
+                          {{ $repair->date_in }}</b>
                         </div>
                       </div><hr style="margin-top:5px;margin-bottom:5px;">
 
@@ -416,7 +411,7 @@
                           <b for="" class="control-label col-md-3"style="text-align:right">
                           วันที่คืนสินค้า : </b>
                           <b for="" class="control-label col-md-9" style="color:gray">
-                          {{ $repair->status_repair }}</b>
+                          {{ $repair->date_out }}</b>
                         </div>
                       </div><hr style="margin-top:5px;margin-bottom:5px;">
 

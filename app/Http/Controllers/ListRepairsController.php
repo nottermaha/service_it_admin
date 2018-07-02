@@ -7,12 +7,15 @@ use App\ListPart;
 use App\SettingStatusRepair;
 use App\Guarantee;
 use App\DataUsePart;
+use App\Persons;
+use App\ImportPart;
 
 use Illuminate\Http\Request;
 
 class ListRepairsController extends Controller
 {    
     public function get_list_repair_by_id(Request $request) {
+      // echo $request['id'];exit();
       $s_store_branch_id=session('s_store_branch_id','default');
       $items = [// select data show in table
         'setting_status_repair.*'
@@ -20,6 +23,9 @@ class ListRepairsController extends Controller
         , 'setting_status_repair.status_color'
 
         , 'guarantee.name as guarantee_name'
+
+        ,'persons.id as person_id'//
+        ,'persons.name as person_name'//
 
         ,'list_repair.list_name'
         ,'list_repair.detail'
@@ -33,6 +39,7 @@ class ListRepairsController extends Controller
       $list_repairs = ListRepair::
       leftJoin('setting_status_repair', 'setting_status_repair.id', '=', 'list_repair.status_list_repair')
       ->leftJoin('guarantee', 'guarantee.id', '=', 'list_repair.guarantee_id')
+      ->leftJoin('persons', 'persons.id', '=', 'list_repair.person_id')//
       ->where('list_repair.status', 1)
       ->where('list_repair.repair_id',$request->id)
       ->get($items);
@@ -44,8 +51,19 @@ class ListRepairsController extends Controller
       $guarantees = Guarantee::where('status', 1)
       ->get();
 
-      $list_parts = ListPart::where('status', 1)
+      $persons = Persons::where('status', 1)
       ->get();
+
+      $items3 = [// select data show in table
+        'import_parts.lot_name as import_parts_lot_name'
+        , 'list_parts.name'
+        , 'list_parts.pay_out'
+        , 'list_parts.number'
+      ];
+      $list_parts = ListPart::where('list_parts.status', 1)
+      ->orderBy('list_parts.name','asc')
+      ->leftJoin('import_parts','import_parts.id','=','list_parts.import_parts_id')
+      ->get($items3);
 //////////////////////////////
       $items2 = [// select data show in table
         'data_use_parts.list_repair_id as list_repair_id_chk'
@@ -69,15 +87,21 @@ class ListRepairsController extends Controller
       'setting_status_repairs'=>$setting_status_repairs,
       'guarantees'=>$guarantees,
       'list_parts'=>$list_parts,
+      'persons'=>$persons,
       'data_use_parts'=>$data_use_parts],$data);
     }
     public function create(Request $request)
     { 
       // echo $request;exit();
+      $status_list_repair = SettingStatusRepair::where('status',1)
+      ->orderBy('id','asc')
+      ->limit('1')
+      ->get();
       $s_store_branch_id=session('s_store_branch_id','default');
         $repair = new ListRepair;
-        $repair->store_branch_id = 2;
-        $repair->status_list_repair = 1;
+        // $repair->store_branch_id = $s_store_branch_id;
+        $repair->person_id =  $request->person_id;
+        $repair->status_list_repair = $status_list_repair['0']['id'];
         $repair->repair_id = $request->repair_id;
         $repair->list_name =  $request->list_name;
         $repair->detail =  $request->detail;
@@ -93,6 +117,9 @@ class ListRepairsController extends Controller
           , 'setting_status_repair.status_color'
   
           , 'guarantee.name as guarantee_name'
+
+          ,'persons.id as person_id'//
+          ,'persons.name as person_name'//
   
           ,'list_repair.list_name'
           ,'list_repair.detail'
@@ -106,6 +133,7 @@ class ListRepairsController extends Controller
         $list_repairs = ListRepair::
         leftJoin('setting_status_repair', 'setting_status_repair.id', '=', 'list_repair.status_list_repair')
         ->leftJoin('guarantee', 'guarantee.id', '=', 'list_repair.guarantee_id')
+        ->leftJoin('persons', 'persons.id', '=', 'list_repair.person_id')//
         ->where('list_repair.status', 1)
         ->where('list_repair.repair_id',$request->repair_id)
         ->get($items);
@@ -115,6 +143,9 @@ class ListRepairsController extends Controller
         ->get();
   
         $guarantees = Guarantee::where('status', 1)
+        ->get();
+
+        $persons = Persons::where('status', 1)
         ->get();
   
         $list_parts = ListPart::where('status', 1)
@@ -143,6 +174,7 @@ class ListRepairsController extends Controller
         'setting_status_repairs'=>$setting_status_repairs,
         'guarantees'=>$guarantees,
         'list_parts'=>$list_parts,
+        'persons'=>$persons,
         'data_use_parts'=>$data_use_parts],$data);
     }
     public function edit(Request $request)
@@ -162,6 +194,12 @@ class ListRepairsController extends Controller
       else{
         $repair->guarantee_id = $request->guarantee_id_old;
       } 
+      if($request['person_id']>=1){
+        $repair->person_id = $request->person_id;
+      }
+      else{
+        $repair->person_id = $request->person_id_old;
+      } 
       $repair->repair_id = $request->repair_id;      
       $repair->list_name =  $request->list_name;
       $repair->detail =  $request->detail;
@@ -180,6 +218,9 @@ class ListRepairsController extends Controller
 
         , 'guarantee.name as guarantee_name'
 
+        ,'persons.id as person_id'//
+        ,'persons.name as person_name'//
+
         ,'list_repair.list_name'
         ,'list_repair.detail'
         ,'list_repair.symptom'
@@ -192,6 +233,7 @@ class ListRepairsController extends Controller
       $list_repairs = ListRepair::
       leftJoin('setting_status_repair', 'setting_status_repair.id', '=', 'list_repair.status_list_repair')
       ->leftJoin('guarantee', 'guarantee.id', '=', 'list_repair.guarantee_id')
+      ->leftJoin('persons', 'persons.id', '=', 'list_repair.person_id')//
       ->where('list_repair.status', 1)
       ->where('list_repair.repair_id',$request->repair_id)
       ->get($items);
@@ -201,6 +243,9 @@ class ListRepairsController extends Controller
       ->get();
 
       $guarantees = Guarantee::where('status', 1)
+      ->get();
+
+      $persons = Persons::where('status', 1)
       ->get();
 
       $list_parts = ListPart::where('status', 1)
@@ -229,6 +274,7 @@ class ListRepairsController extends Controller
       'setting_status_repairs'=>$setting_status_repairs,
       'guarantees'=>$guarantees,
       'list_parts'=>$list_parts,
+      'persons'=>$persons,
       'data_use_parts'=>$data_use_parts],$data);
     }
 
@@ -255,6 +301,9 @@ class ListRepairsController extends Controller
 
         , 'guarantee.name as guarantee_name'
 
+        ,'persons.id as person_id'//
+        ,'persons.name as person_name'//
+
         ,'list_repair.list_name'
         ,'list_repair.detail'
         ,'list_repair.symptom'
@@ -267,6 +316,7 @@ class ListRepairsController extends Controller
       $list_repairs = ListRepair::
       leftJoin('setting_status_repair', 'setting_status_repair.id', '=', 'list_repair.status_list_repair')
       ->leftJoin('guarantee', 'guarantee.id', '=', 'list_repair.guarantee_id')
+      ->leftJoin('persons', 'persons.id', '=', 'list_repair.person_id')//
       ->where('list_repair.status', 1)
       ->where('list_repair.repair_id',$request->repair_id)
       ->get($items);
@@ -276,6 +326,9 @@ class ListRepairsController extends Controller
       ->get();
 
       $guarantees = Guarantee::where('status', 1)
+      ->get();
+
+      $persons = Persons::where('status', 1)
       ->get();
 
       $list_parts = ListPart::where('status', 1)
@@ -304,6 +357,7 @@ class ListRepairsController extends Controller
       'setting_status_repairs'=>$setting_status_repairs,
       'guarantees'=>$guarantees,
       'list_parts'=>$list_parts,
+      'persons'=>$persons,
       'data_use_parts'=>$data_use_parts],$data);
     }
     public function delete(Request $request)
@@ -324,6 +378,9 @@ class ListRepairsController extends Controller
 
         , 'guarantee.name as guarantee_name'
 
+        ,'persons.id as person_id'//
+        ,'persons.name as person_name'//
+
         ,'list_repair.list_name'
         ,'list_repair.detail'
         ,'list_repair.symptom'
@@ -336,6 +393,7 @@ class ListRepairsController extends Controller
       $list_repairs = ListRepair::
       leftJoin('setting_status_repair', 'setting_status_repair.id', '=', 'list_repair.status_list_repair')
       ->leftJoin('guarantee', 'guarantee.id', '=', 'list_repair.guarantee_id')
+      ->leftJoin('persons', 'persons.id', '=', 'list_repair.person_id')//
       ->where('list_repair.status', 1)
       ->where('list_repair.repair_id',$request->repair_id)
       ->get($items);
@@ -345,6 +403,9 @@ class ListRepairsController extends Controller
       ->get();
 
       $guarantees = Guarantee::where('status', 1)
+      ->get();
+
+      $persons = Persons::where('status', 1)
       ->get();
 
       $list_parts = ListPart::where('status', 1)
@@ -373,12 +434,14 @@ class ListRepairsController extends Controller
       'setting_status_repairs'=>$setting_status_repairs,
       'guarantees'=>$guarantees,
       'list_parts'=>$list_parts,
+      'persons'=>$persons,
       'data_use_parts'=>$data_use_parts],$data);
     }
 
     public function create_data_use_part(Request $request)
     { 
       // echo $request;exit();
+      echo $request['list_parts_id'];exit();
         $s_store_branch_id=session('s_store_branch_id','default');
         $list_part = ListPart::find($request->list_parts_id);
         if($list_part['number']<=0){
@@ -422,6 +485,9 @@ class ListRepairsController extends Controller
           , 'setting_status_repair.status_color'
   
           , 'guarantee.name as guarantee_name'
+
+          ,'persons.id as person_id'//
+          ,'persons.name as person_name'//
   
           ,'list_repair.list_name'
           ,'list_repair.detail'
@@ -435,6 +501,7 @@ class ListRepairsController extends Controller
         $list_repairs = ListRepair::
         leftJoin('setting_status_repair', 'setting_status_repair.id', '=', 'list_repair.status_list_repair')
         ->leftJoin('guarantee', 'guarantee.id', '=', 'list_repair.guarantee_id')
+        ->leftJoin('persons', 'persons.id', '=', 'list_repair.person_id')//
         ->where('list_repair.status', 1)
         ->where('list_repair.repair_id',$request->repair_id)
         ->get($items);
@@ -444,6 +511,9 @@ class ListRepairsController extends Controller
         ->get();
   
         $guarantees = Guarantee::where('status', 1)
+        ->get();
+
+        $persons = Persons::where('status', 1)
         ->get();
   
         $list_parts = ListPart::where('status', 1)
@@ -466,6 +536,7 @@ class ListRepairsController extends Controller
         'setting_status_repairs'=>$setting_status_repairs,
         'guarantees'=>$guarantees,
         'list_parts'=>$list_parts,
+        'persons'=>$persons,
         'data_use_parts'=>$data_use_parts],$data);
     }
     
@@ -500,6 +571,9 @@ class ListRepairsController extends Controller
           , 'setting_status_repair.status_color'
   
           , 'guarantee.name as guarantee_name'
+
+          ,'persons.id as person_id'//
+          ,'persons.name as person_name'//
   
           ,'list_repair.list_name'
           ,'list_repair.detail'
@@ -513,6 +587,7 @@ class ListRepairsController extends Controller
         $list_repairs = ListRepair::
         leftJoin('setting_status_repair', 'setting_status_repair.id', '=', 'list_repair.status_list_repair')
         ->leftJoin('guarantee', 'guarantee.id', '=', 'list_repair.guarantee_id')
+        ->leftJoin('persons', 'persons.id', '=', 'list_repair.person_id')//
         ->where('list_repair.status', 1)
         ->where('list_repair.repair_id',$request->repair_id)
         ->get($items);
@@ -522,6 +597,9 @@ class ListRepairsController extends Controller
         ->get();
   
         $guarantees = Guarantee::where('status', 1)
+        ->get();
+
+        $persons = Persons::where('status', 1)
         ->get();
   
         $list_parts = ListPart::where('status', 1)
@@ -550,6 +628,7 @@ class ListRepairsController extends Controller
         'setting_status_repairs'=>$setting_status_repairs,
         'guarantees'=>$guarantees,
         'list_parts'=>$list_parts,
+        'persons'=>$persons,
         'data_use_parts'=>$data_use_parts],$data);
     }
 }

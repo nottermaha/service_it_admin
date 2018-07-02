@@ -18,9 +18,9 @@
 // });
 
 
-Route::get('/font-board-answer', function () {
-    return view('font_pages/board-answer');
-});
+// Route::get('/font-board-answer', function () {
+//     return view('font_pages/board-answer');
+// });
 Route::get('/font-contact', function () {
     return view('font_pages/contact');
 });
@@ -34,17 +34,30 @@ Route::get('/font-new', 'FontNewController@news');
 // Route::resource('/font-new', 'FontNewController@news');
 Route::post('/font-new-detail', 'FontNewController@new_by_id');
 
-Route::get('/font-board-question','BoardPostsController@get_question_post_font');
-Route::post('/questtion-post-font/create','BoardPostsController@create_question_post_font');
+Route::post('/font-board-question','FontBoardPostsController@get_question_post');
+Route::post('/questtion-post-font-create','FontBoardPostsController@create_question_post');
+Route::post('/questtion-post-font-edit','FontBoardPostsController@edit_question_post');
+Route::post('/questtion-post-font-delete','FontBoardPostsController@delete_question_post');
 
-Route::post('/font-board-answer','BoardPostsController@form_get_answer_post_font');
+Route::post('/font-board-answer','FontBoardPostsController@form_get_answer_post');
+Route::post('/font-board-answer-create','FontBoardPostsController@create_answer_post');
+Route::post('/font-board-answer-edit','FontBoardPostsController@edit_answer_post');
+Route::post('/font-board-answer-delete','FontBoardPostsController@delete_answer_post');
+Route::post('/font-board-question-for-answer-edit','FontBoardPostsController@edit_question_post_from_answer');
 
-Route::get('/font-guarantee', function () {
-    return view('font_pages/guarantee');
-});
+Route::get('/font-guarantee','GuaranteeController@get_font');
+// Route::get('/font-guarantee', function () {
+//     return view('font_pages/guarantee');
+// });
 
 Route::post('/print','RepairsGeneralController@print_repair');
 Route::post('/print2','RepairsGeneralController@print_bill');
+
+Route::post('/status-pay-member','RepairsMemberController@status_pay');
+Route::post('/status-bill-member','RepairsMemberController@status_bill');
+Route::post('/status-pay','RepairsGeneralController@status_pay');
+Route::post('/status-bill','RepairsGeneralController@status_bill');
+
 Route::get('/font-profile','AuthenController@font_profile');
 Route::post('/font-profile-edit','AuthenController@font_profile_edit');
 
@@ -62,6 +75,10 @@ Route::post('/font-register-create','AuthenController@create_register');
 // Route::get('/font-new-detail/{id}', 'FontNewController@new_by_id')->where('id', '[0-9]+');
 
 //////////////////////////////////////////End endpoint font/////////////////////////////////////////////
+
+Route::get('/persons-form-search', 'PersonsManagerController@get_persons_form_search');
+Route::post('/persons-form-search2', 'PersonsManagerController@get_persons_form_search2');
+Route::post('/persons-search', 'PersonsManagerController@search_person');
 
 Route::get('/persons-manager', 'PersonsManagerController@get_persons');
 Route::post('/persons-manager2', 'PersonsManagerController@get_persons2');
@@ -97,7 +114,15 @@ Route::post('/store-branch/delete/{id}','StoreController@delete')->where('id','[
 Route::get('/repair-member', 'RepairsMemberController@get_repair');
 Route::post('/repair-member/create', 'RepairsMemberController@create');
 Route::post('/repair-member/edit/{id}', 'RepairsMemberController@edit');
+Route::post('/repair-member-status', 'RepairsMemberController@status_repair');
 Route::post('/repair-member/delete/{id}', 'RepairsMemberController@delete');
+
+Route::get('/form-search-repair-only-bill', 'RepairsMemberController@search_repair_form');
+Route::post('/search-repair-only-bill', 'RepairsMemberController@search_repair_only_bill');
+
+// Route::get('/search-repair-only-bill', function () {
+//     return view('search_repair/search_repair');
+// });
 
 Route::get('/repair-general', 'RepairsGeneralController@get_repair');
 Route::post('/repair-general/create', 'RepairsGeneralController@create');
@@ -113,6 +138,14 @@ Route::post('/list-repair-delete', 'ListRepairsController@delete');
 
 Route::post('/list-repair-data-use-part', 'ListRepairsController@create_data_use_part');
 Route::post('/list-repair-delete-data-use-part', 'ListRepairsController@delete_data_use_part');
+
+Route::get('/list-repair-for-technician', 'ListTechnicianController@get_list_repair_for_technician');
+Route::post('/list-repair-for-technician-status-edit', 'ListTechnicianController@edit_status');
+Route::post('/list-repair-for-technician-data-use-part', 'ListTechnicianController@create_data_use_part');
+Route::post('/list-repair-for-technician-delete-data-use-part', 'ListTechnicianController@delete_data_use_part');
+
+Route::get('/pay-money','PayMoneyController@get_pay_money');
+Route::post('/search-pay-money','PayMoneyController@search_pay_money');
 
 Route::get('/import_part','ImportPartsController@get');
 Route::post('/import_part/create','ImportPartsController@create');
@@ -136,18 +169,26 @@ Route::post('/gallery/delete/{id}','GallerysController@delete');
 
 Route::get('/guarantee','GuaranteeController@get');
 Route::post('/guarantee/create','GuaranteeController@create');
+Route::post('/guarantee-edit-only','GuaranteeController@edit_only');
 Route::post('/guarantee/edit/{id}','GuaranteeController@edit');
 Route::post('/guarantee/delete/{id}','GuaranteeController@delete');
 
-Route::get('/questtion-post','BoardPostsController@get_question_post');
-Route::post('/questtion-post/create','BoardPostsController@create_question_post');
-Route::get('/answer-post-form/{id}','BoardPostsController@form_get_answer_post');
-Route::post('/answer-post/create','BoardPostsController@create_answer_post');
+Route::post('/questtion-post','BoardPostsController@get_question_post');
+Route::post('/questtion-post-create','BoardPostsController@create_question_post');
+Route::post('/questtion-post-edit','BoardPostsController@edit_question_post');
+Route::post('/questtion-post-delete','BoardPostsController@delete_question_post');
+
+Route::post('/answer-post-form','BoardPostsController@form_get_answer_post');
+Route::post('/answer-post-create','BoardPostsController@create_answer_post');
+Route::post('/answer-post-edit','BoardPostsController@edit_answer_post');
+Route::post('/answer-post-delete','BoardPostsController@delete_answer_post');
+Route::post('/questtion-post-from-answer-edit','BoardPostsController@edit_question_post_from_answer');
+//delete ใช้อันบน
 
 Route::get('/news','NewsController@get');
 Route::get('/maha','NewsController@maha');
 Route::post('/new/create','NewsController@create');
-Route::post('/new/edit/{id}','NewsController@edit');
+Route::post('/new-edit','NewsController@edit');
 Route::post('/new/delete/{id}','NewsController@delete');
 
 Route::post('/test_login','AuthenController@login');

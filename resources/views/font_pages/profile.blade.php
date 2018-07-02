@@ -16,7 +16,7 @@
                         <!-- <img src="assets/image-resources/gravatar.jpg" alt="" class="meta-image img-bordered img-circle"> -->
                         <a href="{{ asset('image/person-member/picture/'.$image_url) }}"><img src="{{ asset('image/person-member/resize/'.$image_url) }}" style="height:150px;width:150px;border-radius: 50%;"></a> 
                         <h3 class="meta-heading">{{$name}}</h3>
-                        <h4 class="meta-subheading">Ultimate backend programmer</h4>
+                        <!-- <h4 class="meta-subheading">ลูกค้าสมาชิก</h4> -->
                     </div>
 
                 </div>
@@ -26,54 +26,16 @@
             <div class="panel-content pad15A bg-white radius-bottom-all-4">
                 
                 <blockquote class="font-gray">
-                    <p>Lorem ipsum dolor.</p>
-                    <small>
+                    <p>ลูกค้าสมาชิก.</p>
+                    <!-- <small>
                         Programmer at
                         <cite title="Monarch">Monarch</cite>
-                    </small>
+                    </small> -->
                 </blockquote>
             </div>
         </div>
     </div>
-    <div class="content-box mrg15B">
-        <h3 class="content-box-header clearfix">
-            Friends online
-            <div class="font-size-11 float-right">
-                <a href="#" title="">
-                    <i class="glyph-icon mrg5R opacity-hover icon-plus"></i>
-                </a>
-                <a href="#" title="">
-                    <i class="glyph-icon opacity-hover icon-cog"></i>
-                </a>
-            </div>
-        </h3>
-        <div class="content-box-wrapper text-center clearfix">
-            <div class="status-badge mrg10A">
-                <img class="img-circle" width="40" src="assets/image-resources/people/testimonial1.jpg" alt="">
-                <div class="small-badge bg-red"></div>
-            </div>
-            <div class="status-badge mrg10A">
-                <img class="img-circle" width="40" src="assets/image-resources/people/testimonial2.jpg" alt="">
-                <div class="small-badge bg-orange"></div>
-            </div>
-            <div class="status-badge mrg10A">
-                <img class="img-circle" width="40" src="assets/image-resources/people/testimonial3.jpg" alt="">
-                <div class="small-badge bg-red"></div>
-            </div>
-            <div class="status-badge mrg10A">
-                <img class="img-circle" width="40" src="assets/image-resources/people/testimonial4.jpg" alt="">
-                <div class="small-badge bg-green"></div>
-            </div>
-            <div class="status-badge mrg10A">
-                <img class="img-circle" width="40" src="assets/image-resources/people/testimonial5.jpg" alt="">
-                <div class="small-badge bg-orange"></div>
-            </div>
-            <div class="status-badge mrg10A">
-                <img class="img-circle" width="40" src="assets/image-resources/people/testimonial6.jpg" alt="">
-                <div class="small-badge bg-red"></div>
-            </div>
-        </div>
-    </div>
+    
     <div class="content-box mrg15B">
         <h3 class="content-box-header clearfix">
             ทามไลน์ของคุณ
@@ -96,11 +58,11 @@
                         <div class="popover left">
                             <div class="arrow"></div>
                             <div class="popover-content">
-                                <div class="tl-label bs-label label-success">Meeting</div>
-                                <p class="tl-content">Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.</p>
+                                <div class="tl-label bs-label label-success">เป็นสมาชิกเมื่อ</div>
+                                <!-- <p class="tl-content">Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.</p> -->
                                 <div class="tl-time">
                                     <i class="glyph-icon icon-clock-o"></i>
-                                    a few seconds ago
+                                    {{ $date_created }}
                                 </div>
                             </div>
                         </div>
@@ -167,13 +129,13 @@
                 <a href="#tab-example-2" data-toggle="tab" class="list-group-item">
                 <i class="glyph-icon tooltip-button font-green icon-wrench" ></i>
                     <!-- <i class="glyph-icon font-primary icon-camera"></i> -->
-                    ข้อมูลการซ่อมสินค้า
+                    การซ่อมสินค้าทั้งหมด
                 </a>
             </li>
             <li class="col-md-3">
                 <a href="#tab-example-3" data-toggle="tab" class="list-group-item">
                     <i class="glyph-icon font-blue-alt font-green icon-globe"></i>
-                    FAQ Section
+                    รายการซ่อมปัจจุบัน
                 </a>
             </li>
         </ul>
@@ -443,6 +405,47 @@
                                 <b for="" class="control-label col-md-9" style="color:gray">
                                 {{ $list_repair->detail }}
                                 </b>
+                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                ราคา : </b>
+                                <b for="" class="control-label col-md-9" style="color:gray">
+                                {{ $list_repair->price }} บาท.
+                                </b>
+                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                ช่างซ่อม : </b>
+                                <b for="" class="control-label col-md-9" style="color:gray">
+                                {{ $list_repair->person_name }}
+                                </b>
+                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                สถานะ : </b>
+                                <b for="" class="control-label col-md-9" style="color:gray">
+                                @if( $list_repair->status_color==1 )
+                                    <button style="width:190px;" type="button" class="btn btn-info">
+                                    @elseif( $list_repair->status_color==2 )
+                                    <button style="width:190px;" type="button" class="btn btn-btn-blue-alt" >
+                                    @elseif( $list_repair->status_color==3 )
+                                    <button style="width:190px;" type="button" class="btn btn-success" >
+                                    @elseif( $list_repair->status_color==4 )
+                                    <button style="width:190px;" type="button" class="btn btn-yellow">
+                                    @elseif( $list_repair->status_color==5 )
+                                    <button style="width:190px;" type="button" class="btn btn-danger">
+                                    @elseif( $list_repair->status_color==6 )
+                                    <button style="width:190px;" type="button" class="btn btn-default" >
+                                    @elseif( $list_repair->status_color==7 )
+                                    <button style="width:190px;" type="button" class="btn btn-black-opacity">
+                                    @elseif( $list_repair->status_color==8 )
+                                    <button style="width:190px;" type="button" class="btn btn btn-azure" >
+                                    @elseif( $list_repair->status_color==9 )
+                                    <button style="width:190px;" type="button" class="btn btn-purple" >
+                                    @elseif( $list_repair->status_color==10 )
+                                    <button style="width:190px;" type="button" class="btn btn-warning" >
+                                    @elseif( $list_repair->status_color==11 )
+                                    <button style="width:190px;" type="button" class="btn btn-primary" >
+                                    @elseif( $list_repair->status_color==12 )
+                                    <button style="width:190px;" type="button" class="btn btn btn-black" >
+                                    @endif
+                                    {{ $list_repair->status_name }}
+                                    </button>
+                                </b>
                               @endif
                           @endforeach
                           
@@ -454,7 +457,7 @@
                           <b for="" class="control-label col-md-3"style="text-align:right">
                           อุปกรณ์ที่ติดมาด้วย : </b>
                           <b for="" class="control-label col-md-9" style="color:gray">
-                          </b>
+                          {{ $repair->equipment_follow }}</b>
                         </div>
                     </div>
 
@@ -463,25 +466,7 @@
                           <b for="" class="control-label col-md-3"style="text-align:right">
                           ราคาประเมิน : </b>
                           <b for="" class="control-label col-md-9" style="color:gray">
-                          </b>
-                        </div>
-                    </div>
-
-                    <div class="row" >
-                        <div class="form-group">
-                          <b for="" class="control-label col-md-3"style="text-align:right">
-                          ราคาประเมิน : </b>
-                          <b for="" class="control-label col-md-9" style="color:gray">
-                          </b>
-                        </div>
-                    </div>
-
-                    <div class="row" >
-                        <div class="form-group">
-                          <b for="" class="control-label col-md-3"style="text-align:right">
-                          ราคาจริง : </b>
-                          <b for="" class="control-label col-md-9" style="color:gray">
-                          </b>
+                          {{ $repair->price }}</b>
                         </div>
                     </div>
 
@@ -490,7 +475,7 @@
                           <b for="" class="control-label col-md-3"style="text-align:right">
                           วันที่รับเข้าระบบ : </b>
                           <b for="" class="control-label col-md-9" style="color:gray">
-                          </b>
+                          {{ $repair->date_in }}</b>
                         </div>
                     </div>
 
@@ -499,24 +484,9 @@
                           <b for="" class="control-label col-md-3"style="text-align:right">
                           วันที่คืนสินค้า : </b>
                           <b for="" class="control-label col-md-9" style="color:gray">
-                          </b>
+                          {{ $repair->date_out }}</b>
                         </div>
                     </div>
-
-                    <div class="row" >
-                        <div class="form-group">
-                          <b for="" class="control-label col-md-3"style="text-align:right">
-                          หมายเลขบิล : </b>
-                          <b for="" class="control-label col-md-9" style="color:gray">
-                          </b>
-                        </div>
-                    </div>
-
-
-
-
-
-
 
                 </div>
                 <!-- <div class="button-pane"> -->

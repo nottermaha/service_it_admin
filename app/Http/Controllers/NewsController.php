@@ -47,11 +47,30 @@ class NewsController extends Controller
       return redirect('/news');
   }
   public function edit(Request $request)
-  {
+  {//
+    //  echo $request['img_url'];exit();
+
     $news = News::find($request->id);
     $news->store_branch_id = 2;
-    $news->title = $request->title;
-    if ($request->hasFile('img_url')) {      
+    $news->title = $request->title;      
+  
+      // $chk_name =$request->file('img_url')
+      // ->getClientOriginalName();     
+      // // echo $chk_name;
+      // $value = substr($chk_name,-3);
+      // // echo $value;exit();
+      // if($value=='jpg' || $value=='JPG' || $value=='png' || $value=='PNG' || $value=='gif' || $value=='GIF'){
+      //   echo '';
+      // }
+      // else{
+      //   // echo '555';exit();
+      //   $request->session()->flash('status_image_fail', 'รูปเฟล');
+      //   $request->session()->flash('status_id',$request->id);
+      //   return redirect('/news');
+      // }
+
+    if ($request->hasFile('img_url')) {  
+      ////check type jpg png/////
       // echo $request;exit();       
       $filename = str_random(10) . '.' . $request->file('img_url')
       ->getClientOriginalName();             
@@ -61,12 +80,21 @@ class NewsController extends Controller
       // $img = Image::make($request->file('image')->getRealPath());
       $news->img_url = $filename;         
     } 
-    else{                
-      $news->img_url=$news['img_url'];        
+    else{
+      if($request['img_url']<=1)
+      {
+        $news->img_url=$news['img_url']; 
+      } 
+      else{
+        $request->session()->flash('status_image_fail', 'รูปเฟล');
+        $request->session()->flash('status_id',$request->id);
+        return redirect('/news');
+      }               
+             
      }
     $news->detail = $request->detail;
     $news->status = true;
-    $news->save();
+    // $news->save();
     $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
     return redirect('/news');
   }

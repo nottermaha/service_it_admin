@@ -45,12 +45,12 @@
                 @if (session()->has('s_name'))  
                 {{ $data }} 
                 @endif 
-                  <small>Member since Nov. 2012</small>
+                  <!-- <small>Member since Nov. 2012</small> -->
                 </p>
               </li>
               <!-- Menu Body -->
               <li class="user-body">
-                <div class="row">
+                <!-- <div class="row">
                   <div class="col-xs-4 text-center">
                     <a href="#">Followers</a>
                   </div>
@@ -60,19 +60,19 @@
                   <div class="col-xs-4 text-center">
                     <a href="#">Friends</a>
                   </div>
-                </div>
+                </div> -->
                 <!-- /.row -->
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="{{ url('/profile') }}" class="btn btn-default btn-flat">โปรไฟล์</a>
+                  <a href="{{ url('/profile') }}" class="btn btn-default btn-flat"><i class="fa fa-user"></i>&nbsp;โปรไฟล์</a>
                  
                 </div>
                 <div class="pull-right">
 
                   <?= Form::open(array('url' => '/logout')) ?>
-                           <button type="submit" class="btn btn-default btn-flat"><i class="fas fa-list-ul"></i>&nbsp; ออกจากระบบ</button>
+                           <button type="submit" class="btn btn-default btn-flat"><i class="fa fa-sign-out"></i>&nbsp; ออกจากระบบ</button>
                      
                   {!! Form::close() !!}
 
@@ -81,9 +81,9 @@
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-          <li>
+          <!-- <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </nav>
@@ -133,10 +133,26 @@
             <span>ซ่อมอุปกรณ์</span>
           </a>
           <ul class="treeview-menu">
+          <li><a href="{{ url('/form-search-repair-only-bill')  }}"><i class="fa fa-circle-o"></i>ค้นหารายการซ่อม</a></li>
             <li><a href="{{ url('/repair-member')  }}"><i class="fa fa-circle-o"></i> ลูกค้าสมาชิก</a></li>
             <li><a href="{{ url('/repair-general')  }}"><i class="fa fa-circle-o"></i> ลูกค้าทั่วไป</a></li>
+            <hr style="margin-top:0px;margin-bottom:0px;"><br>
+            <a style="padding-left:20px;">สำหรับช่างซ่อม</a> 
+            <li><a href="{{ url('/list-repair-for-technician')  }}"><i class="fa fa-circle-o"></i> รายการซ่อมของท่าน</a></li>
           </ul>
         </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-money"></i>
+            <span>สรุปยอดเงิน รับ-จ่าย</span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ url('/pay-money')  }}"><i class="fa fa-circle-o"></i> 
+            สรุปยอดเงิน รับ-จ่าย</a></li>
+          </ul>
+        </li>
+
 
         <li class="treeview">
           <a href="#">
@@ -144,6 +160,8 @@
             <span>บุคคล</span>
           </a>
           <ul class="treeview-menu">
+          <li><a href="{{ url('/persons-form-search')  }}"><i class="fa fa-circle-o"></i>ค้นหารายการบุคคล</a></li>
+          <hr style="margin-top:0px;margin-bottom:-17px;"><br>
             <li><a href="{{ url('/persons-manager')  }}"><i class="fa fa-circle-o"></i> ผู้จัดการร้าน</a></li>
             <li><a href="{{ url('/persons-employee')  }}"><i class="fa fa-circle-o"></i> 
             พนักงาน</a></li>
@@ -172,7 +190,12 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="{{ url('/questtion-post')  }}"><i class="fa fa-circle-o"></i> รายการกระทู้</a></li>
+            <!-- <li class="active"><a href="{{ url('/questtion-post')  }}"><i class="fa fa-circle-o"></i> รายการกระทู้</a></li> -->
+            {!!  Form::open(['url'=>'/questtion-post','class'=>'form','id'=>'myForm','files'=>true])   !!}
+            <!-- <li onclick="myForm.submit();">Click me</li> -->
+            <input type="hidden" name="chk_get" value="all">
+            <li class="active" onclick="myForm.submit();"><a ><i class="fa fa-circle-o"></i>กระทู้ถาม-ตอบ</a></li>
+              {!! Form::close() !!}
           </ul>
         </li>
 

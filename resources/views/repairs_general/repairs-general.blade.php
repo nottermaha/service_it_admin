@@ -59,8 +59,8 @@
             <th>#</th>
             <th>เลขบิล</th>
             <th>ชื่อ-สกุล</th>
-            <th>ราคา</th>
-            <th>ช่างซ่อม</th>
+            <th>ราคาประเมิน</th>
+            <th>ผู้รับงานซ่อม</th>
             <th class="text-center">รายการแจ้งซ่อม</th>
             <!-- <th class="text-center">ปิดบิล</th> -->
             <th class="text-center">สถานะ</th>
@@ -77,8 +77,8 @@
             <td>{{ $i=$i+1 }}</td>
             <td>{{ $repair->bin_number }}</td>
             <td>{{ $repair->name }}</td>
-            <td>{{ $repair->price }}</td>
-            <td>{{ $repair->persons_id }}</td>
+            <td>{{ number_format($repair->price, 2) }}</td>
+            <td>{{ $repair->persons_name }}</td>
             <td class="text-center">
             <!-- <a href="{{ url('/list-repair/'.$repair->id)  }}" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp;รายการที่ซ่อม</a></a> -->
             <?= Form::open(array('url' => '/list-repair' )) ?>
@@ -156,14 +156,6 @@
                           </div>
                         </div>
                       </div>  
-                      <div class="row" >
-                        <div class="form-group">
-                          <div  class="text-center">
-                          <a href="" class="btn btn-danger" style="width:300px;"><i class="fa fa-power-off fa-lg"></i>&nbsp; ปิดบิล</a></a>
-                          </div>
-                        </div>
-                      </div>
-                     
                      </div>
                      <br>
                       <div class="row" >
@@ -181,12 +173,42 @@
                       <div class="row" >
                         <div class="form-group">
                           <div  class="text-center">
-                          <?= Form::open(array('url' => '/print2')) ?>
-                          <!-- <a href="<?php echo url('/print') ?>" class="btn btn-success" style="width:300px;"><i class="fa fa-print fa-lg"></i>&nbsp;พิมพ์ใบรับซ่อม</a></a> -->
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-print-bill-repair-general{{ $repair->id }}" style="width:300px;"><i class="fa fa-print fa-lg"></i>&nbsp;พิมพ์ใบเสร็จ
+                            </button>
+            
+                          <!-- <?= Form::open(array('url' => '/print2')) ?>
                           <input type="hidden" name="store_branch_id" value="{{ $repair->store_branch_id }}">
                           <input type="hidden" name="id" value="{{ $repair->id }}">
                           <button type="submit"style="width:300px;" class="btn btn-success"><i class="fa fa-print fa-lg"></i>&nbsp;พิมพ์ใบเสร็จ</button>
-                          {!! Form::close() !!}
+                          {!! Form::close() !!} -->
+                          </div>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row" >
+                        <div class="form-group">
+                          <div  class="text-center">สถานะการจ่ายเงิน
+                          @if($repair->status_pay == 0)
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-status-pay-repair-general{{ $repair->id }}" style="width:300px;"><i class="fa fa-money fa-lg"></i>&nbsp;ยังไม่จ่ายเงิน
+                            </button>
+                          @elseif($repair->status_pay == 1)
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-status-pay-repair-general{{ $repair->id }}" style="width:300px;"><i class="fa fa-money fa-lg"></i>&nbsp;จ่ายเงินแล้ว
+                            </button>
+                          @endif
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" >
+                        <div class="form-group">
+                          <div  class="text-center">
+                          @if($repair->status_pay == 0)
+                            เมื่อลูกค้าจ่ายเงินแล้วเท่านั้น จึงจะสามารถ "ปิดบิล" ได้
+                            <button type="button" class="btn btn-danger disabled" data-toggle="modal" data-target="#modal-status-bill-repair-general{{ $repair->id }}" style="width:300px;"><i class="fa fa-power-off fa-lg"></i>&nbsp;ปิดบิล
+                            </button>
+                          @elseif($repair->status_pay == 1)
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-status-bill-repair-general{{ $repair->id }}" style="width:300px;" ><i class="fa fa-power-off fa-lg"></i>&nbsp;ปิดบิล
+                            </button>
+                          @endif
                           </div>
                         </div>
                       </div>
@@ -197,6 +219,116 @@
               </div>          
             </div>
     <!-- //////////////////////End modal-manage-repair-general///////////////////////// -->
+    <!-- /////////////modal-status-bill-repair-general//////////////////// -->
+
+            <div class="modal fade " id="modal-status-bill-repair-general{{ $repair->id }}">
+              <div class="modal-dialog ">
+                <div class="modal-content ">
+                  <div class="modal-header " >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">ยืนยันการปิดบิล</h4>
+                  </div>        
+                  <?= Form::open(array('url' => '/status-bill')) ?>
+                    <div class="modal-body">
+                      <div class="row" >
+                        <div class="form-group">
+                        @if($repair->status_bill==0)
+                        <b class="control-label col-md-12"style="text-align:center">กดปุ่ม "ยืนยันการปิดบิล" เพื่อยืนยันการปิดบิลงานซ่อม</b>
+                        <br> 
+                          <b for="" class="control-label col-md-12"style="text-align:left"> 
+                          โปรดตรวจสอบข้อมูลงานซ่อมของท่านก่อนทำการปิดบิล เพราะการปิดบิลคืองานซ่อมนี้ได้เสร็จสมบูรณ์ทุกกระบวนการแล้ว   และเมื่อปิดบิลจะทำให้รายการนี้หายไปจากหน้านี้ </b>
+                        @endif
+                        </div>
+                      </div>  
+                    </div> 
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button>
+                        <input type="hidden" name="store_branch_id" value="{{ $repair->store_branch_id }}">
+                          <input type="hidden" name="id" value="{{ $repair->id }}">
+                        @if($repair->status_bill==0)
+                        <button type="submit" class="btn btn-danger"><i class="fa fa-power-off fa-lg"></i>&nbsp;ยืนยันการปิดบิล</button>
+                        @endif
+                      </div>
+                {!! Form::close() !!}
+                </div>
+              </div>          
+            </div>
+            <!-- /////////////////End modal-status-bill-repair-general///////////////////////// -->
+        <!-- /////////////modal-status-pay-repair-general//////////////////// -->
+
+            <div class="modal fade " id="modal-status-pay-repair-general{{ $repair->id }}">
+              <div class="modal-dialog ">
+                <div class="modal-content ">
+                  <div class="modal-header " >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">สถานะการจ่ายเงิน</h4>
+                  </div>        
+                  <?= Form::open(array('url' => '/status-pay')) ?>
+                    <div class="modal-body">
+                      <div class="row" >
+                        <div class="form-group">
+                        @if($repair->status_pay==0)
+                          <b for="" class="control-label col-md-9"style="text-align:right">กดปุ่ม "ยืนยันการจ่ายเงิน" เพื่อยืนยันการจ่ายเงินของลูกค้า</b>
+                        @elseif($repair->status_pay==1)
+                          <b for="" class="control-label col-md-9"style="text-align:right">กดปุ่ม "ยกเลิกการจ่ายเงิน" เพื่อยกเลิกการจ่ายเงินของลูกค้า </b>
+                        @endif
+                        </div>
+                      </div>  
+                    </div> 
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button>
+                        <input type="hidden" name="store_branch_id" value="{{ $repair->store_branch_id }}">
+                          <input type="hidden" name="id" value="{{ $repair->id }}">
+                        @if($repair->status_pay==0)
+                        <button type="submit" class="btn btn-success">ยืนยันการจ่ายเงิน</button>
+                        @elseif($repair->status_pay==1)
+                        <button type="submit" class="btn btn-warning">ยกเลิกการจ่ายเงิน</button>
+                        @endif
+                      </div>
+                {!! Form::close() !!}
+                </div>
+              </div>          
+            </div>
+            <!-- /////////////////End modal-status-pay-repair-general///////////////////////// -->
+    <!-- /////////////modal-print-bill-repair-general//////////////////// -->
+
+            <div class="modal fade " id="modal-print-bill-repair-general{{ $repair->id }}">
+              <div class="modal-dialog ">
+                <div class="modal-content ">
+                  <div class="modal-header " >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">ออกใบเสร็จ</h4>
+                  </div>        
+                  <?= Form::open(array('url' => '/print2')) ?>
+                    <div class="modal-body">
+                      <div class="row" >
+                        <div class="form-group">
+                        @if($repair->status_bill==0)
+                          <b for="" class="control-label col-md-9"style="text-align:right">กดปุ่ม "ออกใบเสร็จ" เพื่อยืนยันการออกใบเสร็จ </b>
+                        @elseif($repair->status_bill==1)
+                          <b for="" class="control-label col-md-12"style="text-align:right">ท่านได้ทำการออกใบเสร็จไปแล้ว หากต้องการออกใบอีกครั้ง กดปุ่ม "ออกใบเสร็จอีกครั้ง" </b>
+                        @endif
+                        </div>
+                      </div>  
+                    </div> 
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button>
+                        <input type="hidden" name="store_branch_id" value="{{ $repair->store_branch_id }}">
+                          <input type="hidden" name="id" value="{{ $repair->id }}">
+                        @if($repair->status_bill==0)
+                        <button type="submit" class="btn btn-success">ออกใบเสร็จ</button>
+                        @elseif($repair->status_bill==1)
+                        <button type="submit" class="btn btn-warning">ออกใบเสร็จอีกครั้ง</button>
+                        @endif
+                      </div>
+                {!! Form::close() !!}
+                </div>
+              </div>          
+            </div>
+            <!-- /////////////////End modal-print-bill-repair-general///////////////////////// -->
 <!-- //////////////////////////////modal-edit-status-repair//////////////////////////////// -->
 
         <div class="modal fade " id="modal-edit-status-repair{{ $repair->id }}">
@@ -327,6 +459,20 @@
 
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">อุปกรณ์ที่นำมาด้วย</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="equipment_follow" placeholder="อุปกรณ์ที่นำมาด้วย..." value="{{ $repair->equipment_follow }}">
+                      </div>
+                    </div>
+              </div>
+            </div>
+
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">ราคาประเมิน</b>
                     <div class="col-md-8">
                       <div class="input-group date">
@@ -437,9 +583,22 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar fa-lg"></i>
                         </div>
-                          <input type="date" class="form-control pull-right" id="Name" name="date_in_repair" placeholder="วันที่ซ่อม..." required>
+                          <input type="date" class="form-control pull-right" id="Name" name="date_in_repair" placeholder="วันที่ซ่อม..." required value="{{$current_date}}">
                       </div>
                     </div><b style="font-size:30px;color:red;" title="ต้องกรอกข้อมูล">*</b>
+              </div>
+            </div>
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">อุปกรณ์ที่นำมาด้วย</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="equipment_follow" placeholder="อุปกรณ์ที่นำมาด้วย...">
+                      </div>
+                    </div>
               </div>
             </div>
             <div class="row" style="padding-top:20px;">

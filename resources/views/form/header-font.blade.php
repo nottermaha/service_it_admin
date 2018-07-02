@@ -615,7 +615,12 @@
                 <i class="glyph-icon icon-angle-down"></i>
             </a>
             <ul>
-                <li><a href="{{ url('/font-board-question')  }}" title="Homepage example 1"><span>กระทู้ถามตอบ</span></a></li>
+                <!-- <li><a href="{{ url('/font-board-question')  }}" title="Homepage example 1"><span>กระทู้ถามตอบ</span></a></li> -->
+                {!!  Form::open(['url'=>'/font-board-question','class'=>'form','id'=>'myForm','files'=>true])   !!}
+                    <!-- <li onclick="myForm.submit();">Click me</li> -->
+                    <input type="hidden" name="chk_get" value="all">
+                    <li class="active" onclick="myForm.submit();"><a ><i class="fa fa-circle-o"></i>กระทู้ถาม-ตอบ</a></li>
+                {!! Form::close() !!}
             </ul>
         </li>
 

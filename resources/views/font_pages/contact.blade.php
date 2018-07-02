@@ -30,7 +30,9 @@
     <div class="blog-box row" style="background-color:white;padding-top:25px;padding-bottom:25px;">
         <div class="post-image col-md-4">
             <a href="assets/image-resources/stock-images/img-44.jpg" class="prettyphoto" rel="prettyPhoto[pp_gal]" title="Blog post title">
-                <img class="img-responsive lazy img-rounded" src="" data-original="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTPWe2GWn6ojcHN32JujpSVhjs2tj9sLz_XI2mAeUEgZ3UfTJ6" alt="" style="height:180px;width:300px;padding-left:50px;">
+            <!-- // -->
+                <img class="img-responsive lazy img-rounded" src="" data-original="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTPWe2GWn6ojcHN32JujpSVhjs2tj9sLz_XI2mAeUEgZ3UfTJ6" alt="" style="height:170px;width:280px;padding-left:50px;">
+            <!-- // -->
             </a>
         </div>
         <div class="post-content-wrapper col-md-8">
@@ -57,7 +59,9 @@
             
             <?= Form::open(array('url' => '/font-contact-detail')) ?>
             <input type="hidden" name="id" value="{{ $store_branch->id }}">
-                <button type="submit"  class="btn  btn-default">รายละเอียด <i class="glyph-icon icon-list"></i></button>
+                <div class="text-right">
+                    <button type="submit"  class="btn ra-100 btn-blue-alt"><i class="glyph-icon icon-list"></i> รายละเอียด </button>
+                </div>
             {!! Form::close() !!}
                 
                 

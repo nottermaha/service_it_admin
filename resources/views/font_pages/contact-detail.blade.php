@@ -19,7 +19,7 @@
         <h4>{{$detail}}</h4>
         <div class="col-md-8">
         <br><br>
-        <img src="assets/image-resources/stock-images/img-7.jpg" alt="" width="600px;" height="400px;">
+        <img src="{{ asset('image/store-branch/picture/'.$image_url) }}" alt="" width="600px;" height="400px;">
         </div>
             <h1>ติดต่อเรา</h1>
             <div class="divider mrg25T mrg25B"></div>

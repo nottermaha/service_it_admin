@@ -33,45 +33,46 @@
 
 
     @foreach ($news as $new)
-<li class="col-md-3 col-sm-6 mix hover_2" data-cat="4">
-    <div class="thumbnail-box-wrapper">
-        <div class="thumbnail-box thumbnail-box-inverse">
-            <a class="thumb-link" href="#" title=""></a>
-            <div class="thumb-content">
-                <div class="center-vertical">
-                    <div class="center-content">
-                        <h3 class="thumb-heading animated bounceIn">
-                            <!-- Cookie monsters -->
-                            <small>12 March 2015</small>
-                        </h3>
+    <li class="col-md-3 col-sm-6 mix hover_2" data-cat="4">
+        <div class="thumbnail-box-wrapper" >
+            <div class="thumbnail-box thumbnail-box-inverse">
+                <a class="thumb-link" href="#" title=""></a>
+                <div class="thumb-content">
+                    <div class="center-vertical">
+                        <div class="center-content">
+                            <h3 class="thumb-heading animated bounceIn">
+                                <!-- Cookie monsters -->
+                                <!-- <small></small> -->
+                            </h3>
+                        </div>
                     </div>
                 </div>
+                <div class="thumb-overlay bg-black"></div>
+                <img src="{{ asset('image/new/resize/'.$new->img_url) }}" height="300px;">
             </div>
-            <div class="thumb-overlay bg-black"></div>
-            <img src="{{ asset('image/new/resize/'.$new->img_url) }}" height="300px;">
-        </div>
 
-        <div class="thumb-pane">
-            <h3 class="thumb-heading animated rollIn">
-                <!-- <a href="{{ url('/font-new-detail/$new->id')  }}" title=""> -->
-                <!-- <a href="<?php echo url('/font-new-detail') ?>/{{$new->id}}">
-                {{ $new->title }}
-                </a> -->
-                <a >
-                {{$new->title}}
-                </a>
-            </h3>
-            {!!str_limit($new->detail, 120)!!}<br>
-            <small>12 March 2015</small>
-            <?= Form::open(array('url' => '/font-new-detail')) ?>
-            <input type="hidden" name="id" value="{{ $new->id }}">
-            <div style="padding-left:130px;">
-                <button type="submit" class="btn btn-primary"><i class="fas fa-list-ul"></i>&nbsp; ดูรายละเอียด</button>
+            <div class="thumb-pane"style="height:220px;">
+                <h3 class="thumb-heading animated rollIn">
+                    <!-- <a href="{{ url('/font-new-detail/$new->id')  }}" title=""> -->
+                    <!-- <a href="<?php echo url('/font-new-detail') ?>/{{$new->id}}">
+                    {{ $new->title }}
+                    </a> -->
+                    <a >
+                    {{$new->title}}
+                    </a>
+                </h3>
+                {!!str_limit($new->detail, 120)!!}<br>
+                <small>{{ $new->date_in }}</small>
+                <?= Form::open(array('url' => '/font-new-detail')) ?>
+                <input type="hidden" name="id" value="{{ $new->id }}">
+                <div style="padding-left:130px;">
+                    <button type="submit" class="btn  ra-100 btn-blue-alt"><i class="fas fa-list-ul"></i>&nbsp; ดูเพิ่มเติม</button>
+                </div>
+                {!! Form::close() !!}
             </div>
-            {!! Form::close() !!}
         </div>
-    </div>
-</li>
+    </li>
+
 @endforeach
 
 </ul>

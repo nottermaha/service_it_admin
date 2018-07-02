@@ -11,11 +11,37 @@ use Illuminate\Http\Request;
 class GuaranteeController extends Controller
 {    
 
-    public function get() {
-      $guarantees = Guarantee::where('status', 1)
-      ->get();
+    public function get_font() {
+      $guarantee = Guarantee::where('status', 1)
+      ->orderBy('id','asc')
+      ->limit(1)
+      ->get();//get detail show 
+      $data =[
+          'id' => $guarantee['0']['id'],
+          'detail' => $guarantee['0']['detail'],
+      ];
 
-      return view('guarantee/guarantee', ['guarantees' => $guarantees]);
+      $guarantees = Guarantee::where('status', 1)
+      ->where('id',$guarantee['0']['id']+1)
+      ->get(); 
+
+      return view('font_pages/guarantee', ['guarantees' => $guarantees],$data);
+    }
+    public function get() {
+      $guarantee = Guarantee::where('status', 1)
+      ->orderBy('id','asc')
+      ->limit(1)
+      ->get();//get detail show 
+      $data =[
+          'id' => $guarantee['0']['id'],
+          'detail' => $guarantee['0']['detail'],
+      ];
+
+      $guarantees = Guarantee::where('status', 1)
+      ->where('id',$guarantee['0']['id']+1)
+      ->get(); 
+
+      return view('guarantee/guarantee', ['guarantees' => $guarantees],$data);
     }
 
     public function create(Request $request)
@@ -27,6 +53,18 @@ class GuaranteeController extends Controller
         $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
         return redirect('guarantee');
     }
+
+    public function edit_only(Request $request)
+    {
+      $guarantees = Guarantee::find($request->id);
+      $guarantees->detail = $request->detail;         
+      $guarantees->status = true;
+      $guarantees->save();
+      $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+      
+      return redirect('guarantee');
+    }
+
     public function edit(Request $request)
     {
       $guarantees = Guarantee::find($request->id);

@@ -6,6 +6,7 @@ use App\Store;
 use App\StoreBranch;
 
 use Illuminate\Http\Request;
+use Image; //เรียกใช้ library จดัการรูปภาพเข้ามาใช้งาน 
 
 class StoreController extends Controller
 {   
@@ -14,7 +15,7 @@ class StoreController extends Controller
       $stores = StoreBranch::
       orderBy('id','asc')
       ->get();
-      $stores = $this->get_status_name($stores);
+      // $stores = $this->get_status_name($stores);
 
       return view('stores/stores', ['stores' => $stores]); 
       // return response()->json($stores);
@@ -40,6 +41,7 @@ class StoreController extends Controller
         'phone' => $store_branchs['phone'],
         'email' => $store_branchs['email'],
         'map' => $store_branchs['map'],
+        'image_url' => $store_branchs['image_url'],
         'address' => $store_branchs['address'],
         'detail' => $store_branchs['detail'],
         'contact' => $store_branchs['contact'],
@@ -47,15 +49,15 @@ class StoreController extends Controller
       return view('font_pages/contact-detail', $data); 
     }
     
-    private function get_status_name($stores)
-    {
-       $i=0;
-      foreach ($stores as $key => $value) {
-        $stores[$key]['status_name'] = ($value['status'] == 1? 'เปิดใช้งาน' : 'ปิดใช้งาน');
-        $stores[$key]['index'] = $i=$i+1;
-      }
-      return $stores;
-    }
+    // private function get_status_name($stores)
+    // {
+    //    $i=0;
+    //   foreach ($stores as $key => $value) {
+    //     $stores[$key]['status_name'] = ($value['status'] == 1? 'เปิดใช้งาน' : 'ปิดใช้งาน');
+    //     $stores[$key]['index'] = $i=$i+1;
+    //   }
+    //   return $stores;
+    // }
 
     public function create_store_branch(Request $request)
     {
@@ -70,6 +72,19 @@ class StoreController extends Controller
         // $store->account_number = $request->account_number;
         $store->detail = $request->detail;
         $store->contact = $request->contact;
+        if ($request->hasFile('image_url')) {      
+          // echo $request;exit();       
+          $filename = str_random(10) . '.' . $request->file('image_url')
+          ->getClientOriginalName();             
+          $request->file('image_url')->move(public_path() . '/image/store-branch/picture/', $filename);   
+          Image::make(public_path() . '/image/store-branch/picture/' . $filename)
+          ->resize(200, 200)->save(public_path() . '/image/store-branch/resize/' . $filename);     
+          // $img = Image::make($request->file('image')->getRealPath());          
+          $store->image_url = $filename;         
+        } 
+        else{                
+          $store->image_url = 'default.jpg';        
+         }  
         $store->status = true;
         $store->save();
         $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
@@ -88,6 +103,19 @@ class StoreController extends Controller
       $store->map = $request->map;
       $store->address = $request->address;
       // $store->account_number = $request->account_number;
+      if ($request->hasFile('image_url')) {      
+        // echo $request;exit();       
+        $filename = str_random(10) . '.' . $request->file('image_url')
+        ->getClientOriginalName();             
+        $request->file('image_url')->move(public_path() . '/image/store-branch/picture/', $filename);            
+        Image::make(public_path() . '/image/store-branch/picture/' . $filename)
+        ->resize(200, 200)->save(public_path() . '/image/store-branch/resize/' . $filename);     
+        // $img = Image::make($request->file('image')->getRealPath());
+        $store->image_url = $filename;         
+      } 
+      else{                
+        $store->image_url=$store['image_url'];        
+       }
       $store->detail = $request->detail;
       $store->contact = $request->contact;
       $store->save();

@@ -20,15 +20,15 @@
     <!-- iCheck -->
   <link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
     <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <!-- <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"> -->
   <!-- Morris chart -->
   <!-- jvectormap -->
   <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
   <script src="  https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
 
-    <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    <!-- <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"> -->
 
-  
+  <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
 </head>
 <!--End css header-leftmenu -->
 
@@ -53,28 +53,30 @@
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">ตั้งกระทู้ใหม่</h4>
           </div>        
-          <?= Form::open(array('url' => '/questtion-post/create')) ?>
+          <?= Form::open(array('url' => '/questtion-post-create')) ?>
           <div class="modal-body">
-
+            
+            
             <div class="row" style="padding-top:20px;">
-              <div class="form-group" style="padding-left:20px;padding-right:20px;">
-                          <input type="text" class="form-control pull-right" id="Name" name="topic" placeholder="ชื่อเรื่อง...">
+              <div class="form-group" style="padding-left:20px;padding-right:20px;">หัวข้อ
+                          <input type="text" class="form-control pull-right" id="Name" name="topic" placeholder="หัวข้อ...">
               </div>
             </div>
             <div class="row" style="padding-top:20px;">
-            <div class="form-group" style="padding-left:20px;padding-right:20px;">
+            <div class="form-group" style="padding-left:20px;padding-right:20px;">รายละเอียด
                     <textarea id="compose-textarea" class="form-control" style="height: 300px" placeholder="รายละเอียด..." name="message">
-                      
                     </textarea>
               </div>
             </div>
           
           </div> 
           <div class="modal-footer">
+          <input type="hidden" name="chk_get" value="{{$chk_get}}">
             <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
             <button type="submit" class="btn btn-success">บันทึก</button>
           </div>
           {!! Form::close() !!}
+
         </div>
       </div>          
     </div>
@@ -82,7 +84,7 @@
 
           <div class="box box-solid">
             <div class="box-header with-border">
-              <h3 class="box-title">Folders</h3>
+              <!-- <h3 class="box-title">Labels</h3> -->
 
               <div class="box-tools">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -90,33 +92,20 @@
               </div>
             </div>
             <div class="box-body no-padding">
-              <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#"><i class="fa fa-inbox"></i> Inbox
-                  <span class="label label-primary pull-right">12</span></a></li>
-                <li><a href="#"><i class="fa fa-envelope-o"></i> Sent</a></li>
-                <li><a href="#"><i class="fa fa-file-text-o"></i> Drafts</a></li>
-                <li><a href="#"><i class="fa fa-filter"></i> Junk <span class="label label-warning pull-right">65</span></a>
-                </li>
-                <li><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>
-              </ul>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /. box -->
-          <div class="box box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title">Labels</h3>
+              <ul class="nav nav-pills nav-stacked"><br>
+              <?= Form::open(array('url' => '/questtion-post')) ?>
+                    </li>
+                    <input type="hidden" name="chk_get" value="all">
+                    <button type="submit" class="btn btn-warning btn-block margin-bottom"><i class="fa fa-comments fa-lg"></i>&nbsp; กระทู้ทั้งหมด</button>
+                    </li>
+              {!! Form::close() !!}
+              <?= Form::open(array('url' => '/questtion-post')) ?>
+                    </li>
+                    <input type="hidden" name="chk_get" value="only">
+                    <button type="submit" class="btn btn-primary btn-block margin-bottom"><i class="fa fa-comments fa-lg"></i>&nbsp; กระทู้ของท่าน</button>
+                    </li>
+              {!! Form::close() !!}
 
-              <div class="box-tools">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            <div class="box-body no-padding">
-              <ul class="nav nav-pills nav-stacked">
-                <li><a href="#"><i class="fa fa-circle-o text-red"></i> Important</a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> Promotions</a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-light-blue"></i> Social</a></li>
               </ul>
             </div>
             <!-- /.box-body -->
@@ -127,26 +116,13 @@
         <div class="col-md-9">
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">กระดานสนทนา</h3>
+              <h3 class="box-title">กระทู้คำถาม</h3>
 
               <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">
               <div class="mailbox-controls">
-                <!-- Check all button -->
-                
-                <!-- /.btn-group -->
-                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                <div class="pull-right">
-                  1-50/200
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                  </div>
-                  <!-- /.btn-group -->
-                </div>
-                <!-- /.pull-right -->
               </div>
               <div class="table-responsive mailbox-messages">
                 <table class="table table-hover table-striped">
@@ -164,12 +140,105 @@
                     <tr>
                     <!-- <td><input type="checkbox"></td>
                     <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td> -->
-                    <td><a href="{{ url('/answer-post-form/'.$question_post->id)  }}" ><i ></i>&nbsp;{{$question_post->topic}}</a></td> 
+                    <td><I>{{$question_post->topic}}</I></td> 
 
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - {!!str_limit($question_post->message, 70)!!}...
+                    <td class="mailbox-subject"> {!!str_limit($question_post->message, 70)!!}...
                     </td>
                     <td class="mailbox-attachment"></td>
-                    <td class="mailbox-date">5 mins ago</td>
+                    </td>
+                    <td class="mailbox-attachment"></td>
+                    <td class="mailbox-date">                    
+                    <?= Form::open(array('url' => '/answer-post-form')) ?>
+                    <input type="hidden" name="chk_get" value="{{$chk_get}}">
+                      <input type="hidden" name="id" value="{{ $question_post->id }}">
+                      <input type="hidden" name="s_id" value="{{ $question_post->persons_id }}">
+                          <button type="submit" class="btn btn-info"><i class="fa fa-eye"></i>&nbsp; ดูเพิ่มเติม</button>
+                    </td>
+                    {!! Form::close() !!}
+                    @if($question_post->persons_id == $s_id)
+                    <td>
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-question-post{{ $question_post->id }}">
+                   <i class="fa  fa-edit fa-lg"></i> &nbsp;
+                    </button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-question-post{{ $question_post->id }}">
+                   <i class="fa  fa-trash fa-lg"></i> &nbsp;
+                    </button>
+
+
+<!-- //////////////////////////////modal-delete-question-post//////////////////////////////// -->
+
+            <div class="modal fade " id="modal-delete-question-post{{ $question_post->id }}">
+              <div class="modal-dialog ">
+                <div class="modal-content ">
+                  <div class="modal-header " >
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">ลบกระทู้</h4>
+                  </div>        
+                <?= Form::open(array('url' => '/questtion-post-delete')) ?>
+                    <div class="modal-body">
+                      <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-9"style="text-align:right">กดปุ่ม "ลบข้อมูล" เพื่อยืนยันการลบกระทู้นี้ </b>
+                        </div>
+                      </div>  
+                    </div> 
+                      <div class="modal-footer">
+                      <input type="hidden" name="chk_get" value="{{$chk_get}}">
+                      <input type="hidden" name="id" value="{{$question_post->id}}">
+                        <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button>
+                        <button type="submit" class="btn btn-danger">ลบข้อมูล</button>
+                      </div>
+                {!! Form::close() !!}
+                </div>
+              </div>          
+            </div>
+    <!-- //////////////////////////////End modal-delete-question-post//////////////////////////////// -->
+        <!-- /////////////////////////modal-edit-question-post///////////////////////// -->
+
+        <div class="modal fade " id="modal-edit-question-post{{ $question_post->id }}" style="padding-left:-100px;">
+        
+        <div class="modal-dialog ">
+        <div class="modal-content ">
+          <div class="modal-header " >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">แก้ไขกระทู้ของท่าน</h4>
+          </div>        
+          <?= Form::open(array('url' => '/questtion-post-edit')) ?>
+          <div class="modal-body">
+            
+            
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group" style="padding-left:20px;padding-right:20px;">หัวข้อ
+                  <input type="text" class="form-control pull-right" id="Name" name="topic" placeholder="หัวข้อ..." value="{{$question_post->topic}}">
+              </div>
+            </div>
+            <div class="row" style="padding-top:20px;">
+            <div class="form-group" style="padding-left:20px;padding-right:20px;">รายละเอียด
+                  <textarea  class="form-control" style="height: 300px" placeholder="รายละเอียด..." name="message2{{ $question_post->id }}" value="{{$question_post->message}}">
+                    {{$question_post->message}}
+                  </textarea>
+              </div>
+            </div>
+          
+          </div> 
+          <div class="modal-footer">
+          <input type="hidden" name="chk_get" value="{{$chk_get}}">
+          <input type="hidden" name="id" value="{{$question_post->id}}">
+            <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
+            <button type="submit" class="btn btn-success">บันทึก</button>
+          </div>
+          {!! Form::close() !!}
+
+        </div>
+      </div>          
+    </div>
+    <!-- ////////////////////////End modal-edit-question-post/////////////////////////// -->
+                     
+                      {!! Form::close() !!}
+                    </td>
+                    @endif
                   </tr>
                   @endforeach
                   </tbody>
@@ -179,20 +248,7 @@
               <!-- /.mail-box-messages -->
             </div>
             <!-- /.box-body -->
-            <div class="box-footer no-padding">
-              <div class="mailbox-controls">
-                <!-- Check all button -->
-                <div class="pull-right">
-                  1-50/200
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                  </div>
-                  <!-- /.btn-group -->
-                </div>
-                <!-- /.pull-right -->
-              </div>
-            </div>
+            
           </div>
           <!-- /. box -->
         </div>
@@ -222,7 +278,7 @@
 <!-- iCheck -->
 <script src="plugins/iCheck/icheck.min.js"></script>
 <!-- Bootstrap WYSIHTML5 -->
-<script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script> -->
 
 
 
@@ -233,8 +289,7 @@
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
-<!-- Bootstrap WYSIHTML5 -->
-<script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+
 
 
 <script>
@@ -246,8 +301,17 @@
   $('.select2').select2()
 </script>
 <script>
+	CKEDITOR.replace( 'message' );
+</script>
+<script>
+	// CKEDITOR.replace( 'message2' );
+    @foreach ($question_posts as $question_post)
+      CKEDITOR.replace( 'message2{{$question_post->id}}' );
+    @endforeach
+</script>
+<!-- <script>
   $(function () {
     //Add text editor
     $("#compose-textarea").wysihtml5();
   });
-</script>
+</script> -->

@@ -154,19 +154,6 @@
             </div>
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
-                    <b for="" class="control-label col-md-3"style="text-align:right">ประเภทอะไหล่</b>
-                    <div class="col-md-8">
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-angle-double-right fa-lg"></i>
-                        </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="type_part" placeholder="ประเภทอะไหล่..." value="{{ $list_part->type_part }}">
-                      </div>
-                    </div>
-              </div>
-            </div>
-            <div class="row" style="padding-top:20px;">
-              <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">จำนวน</b>
                     <div class="col-md-8">
                       <div class="input-group date">
@@ -261,19 +248,6 @@
                             <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="generation" placeholder="รุ่น...">
-                      </div>
-                    </div>
-              </div>
-            </div>
-            <div class="row" style="padding-top:20px;">
-              <div class="form-group">
-                    <b for="" class="control-label col-md-3"style="text-align:right">ประเภทอะไหล่</b>
-                    <div class="col-md-8">
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-angle-double-right fa-lg"></i>
-                        </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="type_part" placeholder="ประเภทอะไหล่...">
                       </div>
                     </div>
               </div>

@@ -20,6 +20,7 @@
   <!-- jvectormap -->
   <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
 
+
 </head>
 <!--End css header-leftmenu -->
 

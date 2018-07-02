@@ -24,7 +24,6 @@ class ListPartsController extends Controller
       $list_parts->import_parts_id = $request->import_parts_id;
       $list_parts->name = $request->name;
       $list_parts->generation = $request->generation;
-      $list_parts->type_part = $request->type_part;
       $list_parts->number = $request->number;
       $list_parts->pay_in = $request->pay_in;
       $list_parts->pay_out = $request->pay_out;
@@ -47,7 +46,6 @@ class ListPartsController extends Controller
       $list_parts->import_parts_id = $request->import_parts_id;
       $list_parts->name = $request->name;
       $list_parts->generation = $request->generation;
-      $list_parts->type_part = $request->type_part;
       $list_parts->number = $request->number;
       $list_parts->pay_in = $request->pay_in;
       $list_parts->pay_out = $request->pay_out;

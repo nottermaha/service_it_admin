@@ -3,17 +3,143 @@
 namespace App\Http\Controllers;
 
 use App\Persons;
+use App\PersonsMember;
 use App\StoreBranch;
+
+use App\Http\Controllers\CallUseController;
+
 use Illuminate\Http\Request;
 use Image; //เรียกใช้ library จดัการรูปภาพเข้ามาใช้งาน 
 
 class PersonsManagerController extends Controller
 {    
+
+    public function get_persons_form_search() {
+      $s_type=session('s_type','default');
+      $data = [
+        'check_show'=>0,
+        'check_table'=>0,
+        'check_store'=>-1,
+        'check'=>0,
+        'type'=>$s_type,
+        ];
+        
+      // echo $data['type'];exit();
+
+      return view('search_person/search-person', $data);
+    }
+    public function get_persons_form_search2(Request $request) {
+      // echo $request['person_type_select'];exit();
+      $s_type=session('s_type','default');
+      $s_store_branch_id=session('s_store_branch_id','default');
+      if($request['person_type_select']==2){
+            $persons = Persons::where('status',1)
+            ->where('type',2)
+            ->get();
+            $store_branchs = StoreBranch::where('status',1)
+            ->get();
+            $data = [
+              'check_show'=>0,
+              'check_table'=>0,
+              'check_store'=>0,
+              'check'=>1,
+              'type'=>$s_type,
+              'type_select'=>'ผู้จัดการร้าน',
+              ];
+      }
+      elseif($request['person_type_select']==3){
+        if($s_type==1){//แอดมิน
+            $persons = Persons::where('status',1)
+            ->where('type',3)
+            ->get();
+            $store_branchs = StoreBranch::where('status',1)
+            ->get();
+            $data = [
+              'check_show'=>0,
+              'check_table'=>0,//person 0=no
+              'check_store'=>0,//จะปริ้นชื่อสาขา
+              'check'=>1,
+              'type'=>$s_type,
+              'type_select'=>'พนักงาน',
+              ];
+        }
+        elseif($s_type==2){//ผู้จัดการร้าน
+          $persons = Persons::where('status',1)
+            ->where('type',3)
+            ->where('store_branch_id',$s_store_branch_id)
+            ->get();
+            $store_branchs = StoreBranch::where('status',1)
+            ->get();//get เฉยๆ
+            $data = [
+              'check_show'=>0,
+              'check_table'=>0,
+              'check_store'=>1,//จะปริ้นแค่สาขาตัวเอง
+              'check'=>1,
+              'type'=>$s_type,
+              'type_select'=>'ผู้จัดการร้าน',
+              ];
+        }
+      }
+      elseif($request['person_type_select']==4){
+        $persons = PersonsMember::where('status',1)
+        ->where('type',4)
+        ->get();
+        $store_branchs = StoreBranch::where('status',1)
+        ->get();//get เฉยๆ
+        $data = [
+          'check_show'=>0,
+          'check_table'=>1,//person_member 1=yes
+          'check_store'=>1,
+          'check'=>1,
+          'type'=>$s_type,
+          'type_select'=>'ลูกค้าสมาชิก',
+          ];
+      }
+      // echo $data['type'];exit();
+
+      return view('search_person/search-person',['persons'=>$persons,'store_branchs'=>$store_branchs],$data);
+    }
+    public function search_person(Request $request) {
+      // echo $request;exit();
+      $s_type=session('s_type','default');
+      $s_store_branch_id=session('s_store_branch_id','default');
+      if($request['chk_table']==0){
+        $persons = Persons::find($request->person_id);
+        // echo $persons;exit();
+        $date = new CallUseController();
+        $persons = $date->get_date_only2($persons,'created','created_at');
+        $persons = $date->get_date_only2($persons,'birth','birthday');//get วันที่ภาษาไทย แถวเดียว
+
+        $data = [
+          'name'=>$persons['name'],
+          'gender'=>$persons['gender'],
+          'email'=>$persons['email'],
+          'phone'=>$persons['phone'],
+          'address'=>$persons['address'],
+          'created'=>$persons['created'],
+          'birth'=>$persons['birth'],//
+
+          'check_show'=>1,//
+          'check_table'=>0,
+          'check_store'=>-1,
+          'check'=>0,
+          'type'=>$s_type,
+          ];
+      }
+      else{
+        $persons = PersonsMember::find($request->person_id);
+        // echo $persons;exit();
+      }
+
+
+      return view('search_person/search-person',$data);
+    }
+
     public function get_persons() {
       // $persons = Persons::where('status', 1)
       // ->where('type',2)
       // ->get();
-      // $persons = $this->get_status_name($persons);
+
       $store_branch = StoreBranch::where('status', 1)->get();
       $check['check']=0;
       // echo $store_branch;exit();
@@ -28,7 +154,6 @@ class PersonsManagerController extends Controller
         ->where('type',2)
         ->where('store_branch_id',$request->store_branch_id)
         ->get();
-        // $persons = $this->get_status_name($persons);
 
         $store_branch_select = StoreBranch::find($request->store_branch_id);
         $data = [
@@ -51,14 +176,14 @@ class PersonsManagerController extends Controller
     //   return $store_branch;
     // }
 
-    private function get_status_name($persons)
-    {
-      foreach ($persons as $key => $value) {
-        $persons[$key]['status_name'] = ($value['status'] == 1? 'เปิดใช้งาน' : 'ปิดใช้งาน');
-      }
+    // private function get_status_name($persons)
+    // {
+    //   foreach ($persons as $key => $value) {
+    //     $persons[$key]['status_name'] = ($value['status'] == 1? 'เปิดใช้งาน' : 'ปิดใช้งาน');
+    //   }
 
-      return $persons;
-    }
+    //   return $persons;
+    // }
     public function form(Request $request)
     {
       $stores_branch = StoreBranch::find($request->store_branch_id);
