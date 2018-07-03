@@ -1,5 +1,20 @@
 @include('form/header-font')
-
+<script>
+	function ChkLengthPass()
+	{
+		var x = document.getElementById("password");
+		var y = x.value;
+		if(y.length<8){document.getElementById('pass').innerHTML = "รหัสผ่านไม่ควรต่ำกว่า 8 ตัว";}
+		else{document.getElementById('pass').innerHTML = "";}
+	}
+    function ChkRePass()
+	{
+		var x = document.getElementById("password");
+		var y = document.getElementById("repassword");
+		if(x.value!=y.value){document.getElementById('repass').innerHTML = "การยืนยันรหัสผ่านไม่ตรงกัน";}
+		else{document.getElementById('repass').innerHTML = "";}
+	}
+</script>
 <div id="page-content" class="col-md-10 center-margin frontend-components mrg25T">
 
 <div id="page-title">
@@ -151,8 +166,8 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-lock " ></i></span>
-                                        <input type="text" class="form-control" placeholder="รหัสผ่าน..." name="password" required>
-                                    </div>
+                                        <input type="password" class="form-control" placeholder="รหัสผ่าน..." name="password" id="password"onBlur="ChkLengthPass()" required />
+                                    </div><b id="pass" style="color:red;"></b>
                                 </div>
                             </div><br>
                             <div class="row">
@@ -160,8 +175,8 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-lock "></i></span>
-                                        <input type="text" class="form-control" placeholder="รหัสผ่านอีกครั้ง.." name="password" required>
-                                    </div>
+                                        <input type="password" class="form-control" placeholder="รหัสผ่านอีกครั้ง.." name="password" id="repassword" onBlur="ChkRePass()" required>
+                                    </div><b id="repass" style="color:red;"></b>
                                 </div>
                             </div>
                            

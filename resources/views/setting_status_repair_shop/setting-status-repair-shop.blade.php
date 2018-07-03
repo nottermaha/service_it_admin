@@ -62,7 +62,7 @@
  @include('form/header-leftmenu')
  <section class="content-header">
             <h1 style="background-color:#DCDCDC;padding-top:10px;padding-bottom:10px;padding-left:10px;">
-              สถานะรายการแจ้งซ่อม (ช่าง) /
+              สถานะรายการแจ้งซ่อม (หน้าร้าน) /
               <small><a>สถานะรายการแจ้งซ่อม</a> </small>
             </h1>
           </section> 
@@ -153,7 +153,7 @@
                       <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">ลบข้อมูล</h4>
                   </div>        
-                <?= Form::open(array('url' => '/setting-status-repair/delete/'.$setting_status_repair->id)) ?>
+                <?= Form::open(array('url' => '/setting-status-repair-shop/delete/'.$setting_status_repair->id)) ?>
                     <div class="modal-body">
                       <div class="row" >
                         <div class="form-group">
@@ -182,7 +182,7 @@
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>
           </div>        
-          <?= Form::open(array('url' => '/setting-status-repair/edit/'.$setting_status_repair->id)) ?>
+          <?= Form::open(array('url' => '/setting-status-repair-shop/edit/'.$setting_status_repair->id)) ?>
           <div class="modal-body">
             
             <div class="row" style="padding-top:20px;">
@@ -348,7 +348,7 @@
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>
           </div>        
-          <?= Form::open(array('url' => '/setting-status-repair/create')) ?>
+          <?= Form::open(array('url' => '/setting-status-repair-shop/create')) ?>
           <div class="modal-body">
             
           <div class="row" style="padding-top:20px;">

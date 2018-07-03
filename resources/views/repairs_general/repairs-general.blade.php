@@ -1,4 +1,38 @@
+<style>
 
+.button_black {background-color:black;}
+</style>
+<style>
+    .color-palette {
+      height: 35px;
+      line-height: 35px;
+      text-align: center;
+    }
+
+    .color-palette-set {
+      margin-bottom: 15px;
+    }
+
+    .color-palette span {
+      display: none;
+      font-size: 12px;
+    }
+
+    .color-palette:hover span {
+      display: block;
+    }
+
+    .color-palette-box h4 {
+      position: absolute;
+      top: 100%;
+      left: 25px;
+      margin-top: -40px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 12px;
+      display: block;
+      z-index: 7;
+    }
+  </style>
 <!-- css header-leftmenu -->
 <head>
   <meta charset="utf-8">
@@ -87,27 +121,35 @@
           {!! Form::close() !!}
           </td> 
             <!-- <td class="text-center"><a href="" class="btn btn-danger"></i>&nbsp; ปิดบิล</a></a></td>  -->
-            @if($repair->status_repair==1)
             <td class="text-center">
-            <button style="width:190px;" type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">สินค้าที่พึ่งเข้าระบบ
-            </td>
-            @elseif($repair->status_repair==2)
-            <td class="text-center">
-            <button style="width:190px;" type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">กำลังซ่อมสินค้า
-            </td>
-            @elseif($repair->status_repair==3)
-            <td class="text-center">
-            <button style="width:190px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">ซ่อมสินค้าเสร็จแล้ว
-            </td>
-            @elseif($repair->status_repair==4)
-            <td class="text-center">
-            <button style="width:190px;" type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">ลูกค้ารับสินค้าคืนแล้ว
-            </td>
-            @elseif($repair->status_repair==5)
-            <td class="text-center">
-            <button style="width:190px;" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">ยกเลิกการซ่อม
-            </td>  
+            @if( $repair->status_color==1 )
+            <button style="width:190px;" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">
+            @elseif( $repair->status_color==2 )
+            <button style="width:190px;" type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">
+            @elseif( $repair->status_color==3 )
+            <button style="width:190px;" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">
+            @elseif( $repair->status_color==4 )
+            <button style="width:190px;" type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">
+            @elseif( $repair->status_color==5 )
+            <button style="width:190px;" type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">
+            @elseif( $repair->status_color==6 )
+            <button style="width:190px;" type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">
+            @elseif( $repair->status_color==7 )
+            <button style="width:190px;" type="button" class="btn bg-navy color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">
+            @elseif( $repair->status_color==8 )
+            <button style="width:190px;" type="button" class="btn bg-teal-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">
+            @elseif( $repair->status_color==9 )
+            <button style="width:190px;" type="button" class="btn bg-purple-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">
+            @elseif( $repair->status_color==10 )
+            <button style="width:190px;" type="button" class="btn bg-orange-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">
+            @elseif( $repair->status_color==11 )
+            <button style="width:190px;" type="button" class="btn bg-maroon-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">
+            @elseif( $repair->status_color==12 )
+            <button style="width:190px;" type="button" class="btn bg-black-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">
             @endif
+            {{ $repair->status_name }}</td>
+            </button>
+            </td>
 
 
             <!-- <td>
@@ -338,25 +380,21 @@
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">สถานะการสินค้า</h4>
+            <h4 class="modal-title">สถานะการซ่อม</h4>
           </div>        
-          <?= Form::open(array('url' => '/repair-general-status')) ?>
+          <?= Form::open(array('url' => '/repair-general-status/'.$repair->id)) ?>
           <div class="modal-body">
 
             <div class="row" >
               <div class="form-group">
-                    <b for="" class="control-label col-md-3"style="text-align:right">สถานะ</b>
+                    <b for="" class="control-label col-md-3"style="text-align:right">สถานะการซ่อม</b>
                     <div class="col-md-8">               
-                        <select class="form-control select2" style="width: 100%;" name="status_repair" required>
-                        <option selected="selected">สถานะที่เคยเลือก [  ]</option>
+                        <select class="form-control select2" style="width: 100%;" name="status_repair">
+                        <option selected="selected">สถานะที่เลือก [ {{ $repair->status_name }} ]</option>
                         <!-- <option disabled="disabled">California (disabled)</option> -->
-                  
-                        <option value="1">สินค้าที่พึ่งเข้าระบบ</option>
-                        <option value="2">กำลังซ่อมสินค้า</option>
-                        <option value="3">ซ่อมสินค้าเสร็จแล้ว</option>
-                        <option value="4">ลูกค้ารับสินค้าคืนแล้ว</option>
-                        <option value="5">ยกเลิกการซ่อม</option>
-                        
+                        @foreach ($setting_status_repair_shops as $setting_status_repair_shop)
+                        <option value="{{ $setting_status_repair_shop->id }}">{{ $setting_status_repair_shop->name }}</option>
+                        @endforeach
                         </select>
                     </div>
               </div>
@@ -364,7 +402,8 @@
           
           </div> 
           <div class="modal-footer">
-          <input type="hidden" name="id" value="{{ $repair->id }}">
+          <input type="hidden" name="status_repair_old" value="{{ $repair->status_repair }}">
+
             <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
             <button type="submit" class="btn btn-success">บันทึก</button>
           </div>

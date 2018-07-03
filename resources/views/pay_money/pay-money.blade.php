@@ -82,7 +82,7 @@
                         @foreach($store_branchs as $store_branch) 
                           @if($s_store_branch_id==$store_branch->id)
                           <input hidden="text" name="store_branch_id" value="{{$s_store_branch_id}}">
-                            <input type="text" name="" class="form-control pull-right" value="{{$store_branch->name}}">
+                            <input type="text" name="" class="form-control pull-right" value="{{$store_branch->name}}" disabled>
                           @endif
                         @endforeach           
                     </div>

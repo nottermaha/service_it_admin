@@ -7,6 +7,7 @@ use App\ListRepair;
 use App\StoreBranch;
 use App\Persons;
 use App\DataPay;
+use App\SettingStatusRepairShop;
 
 use App\Http\Controllers\CallUseController;
 
@@ -263,7 +264,11 @@ class RepairsGeneralController extends Controller
       $store_branch_id=session('s_store_branch_id','default');
 
       $item=[
-        'persons.name as persons_name'
+        'setting_status_repair_shop.*'
+        , 'setting_status_repair_shop.name as status_name'
+        , 'setting_status_repair_shop.status_color'
+
+        ,'persons.name as persons_name'
 
         ,'data_pay.status_bill as status_bill'//
         ,'data_pay.status_pay as status_pay'//
@@ -289,6 +294,7 @@ class RepairsGeneralController extends Controller
       ->where('repair.status_bill',0)////////////////////////
       ->where('repair.store_branch_id',$store_branch_id)
       ->where('repair.persons_member_id',NULL)
+      ->leftJoin('setting_status_repair_shop', 'setting_status_repair_shop.id', '=', 'repair.status_repair')
       ->leftJoin('persons','persons.id','=','repair.persons_id')
       ->leftJoin('data_pay','data_pay.repair_id','=','repair.id')////
       ->orderBy('repair.id', 'desc')
@@ -297,14 +303,23 @@ class RepairsGeneralController extends Controller
       $current_date=(date('Y-m-d'));
       $data['current_date']=$current_date;
         // echo $repairs;exit();
+
+        ////////เอาไว้ select///////////
+      $setting_status_repair_shops = SettingStatusRepairShop::where('status', 1)
+      ->get();
       $person = Persons::where('status', 1)
       ->get();
 
-      return view('repairs_general/repairs-general', ['repairs' => $repairs],$data);
+      return view('repairs_general/repairs-general', ['repairs' => $repairs,'setting_status_repair_shops' => $setting_status_repair_shops],$data);
     }
 
     public function create(Request $request)
     { 
+      $status_list_repair_shop = SettingStatusRepairShop::where('status',1)
+      ->orderBy('id','asc')
+      ->limit('1')
+      ->get();
+
       $current_day=(date('d'));
       $current_month=(date('m'));
       $current_year=(date('y'));
@@ -320,6 +335,7 @@ class RepairsGeneralController extends Controller
         $s_id=session('s_id','default');
         $repair = new Repair;
         $repair->store_branch_id = $store_branch_id;
+        $repair->status_repair = $status_list_repair_shop['0']['id'];
         $repair->persons_id =  $s_id;
         $repair->status_bill =  0;
         $repair->bin_number =  "B2".$current_day."".$current_month."".$current_year."".$repair_last_id;
@@ -367,12 +383,12 @@ class RepairsGeneralController extends Controller
     {
       // echo $request['status_repair'];exit();
       $repair = Repair::find($request->id);
-      if($request->status_repair>=1){
+      if($request['status_repair']>=1){
         $repair->status_repair = $request->status_repair;
       }
       else{
-        $repair->status_repair = $repair['status_repair'];
-      }
+        $repair->status_repair = $request->status_repair_old;
+      } 
       $repair->save();
 
        return redirect('repair-general');

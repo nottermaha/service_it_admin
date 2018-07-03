@@ -25,7 +25,7 @@ header("Cache-Control: private",false);
           <tr>
             <th>#</th>
             <th >ชื่อ-สกุล</th>
-            <th >เลขประชาชน</th>
+            <!-- <th >เลขประชาชน</th> -->
             <th >เพศ</th>
             <th >อีเมล์</th>
             <th >วันเกิด</th>
@@ -45,7 +45,7 @@ header("Cache-Control: private",false);
           <tr>
             <td >{{ $i=$i+1 }}</td>
             <td >{{ $value->name }}</td>
-            <td >{{ $value->person_id }}</td>
+            <!-- <td >{{ $value->person_id }}</td> -->
             <td >{{ $value->gender }}</td>
             <td >{{ $value->email }}</td>
             <td >{{ $value->birthday }}</td>

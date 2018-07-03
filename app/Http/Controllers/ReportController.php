@@ -6,6 +6,9 @@ use App\Persons;
 use App\PersonsMember;
 use App\StoreBranch;
 use App\Repair;
+use App\ListPart;
+use App\ImportPart;
+use App\SettingStatusRepair;
 
 use Illuminate\Http\Request;
 
@@ -104,6 +107,7 @@ class ReportController extends Controller
             return view('report/re-excel',['result'=>$result],$data);
           }
     }
+    
     else{
       echo 'n';exit;
     }
@@ -115,17 +119,43 @@ class ReportController extends Controller
       $s_store_branch_id=session('s_store_branch_id','default');
       
       if($request->chk==1){
-        // if($s_type==1){
+        if($s_type==1){
+          if($request->chk_get==1 && $request->get_store_branch_id!=-1){
+              $item =[
+                'store_branch.name as store_branch_name'
+                ,'persons.name'
+                ,'persons.phone'
+                ,'persons.email'
+              ];
+              $result = Persons::where('persons.status', 1)
+            ->leftJoin('store_branch','store_branch.id','=','persons.store_branch_id')
+            ->where('persons.store_branch_id',$request->get_store_branch_id)
+            ->where('persons.type',3)
+            ->get($item);
+            $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>$result['0']['store_branch_name'],'chk_get'=>0];
+          }
+          else{
+            $result = Persons::where('status', 1)
+            ->where('type',3)
+            ->get();
+          $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>'พนักงานทั้งหมด','chk_get'=>0];
+          }
+
+        }
+        elseif($s_type==2||$s_type==3){
           $result = Persons::where('status', 1)
           ->where('type',3)
+          ->where('store_branch_id',$s_store_branch_id)
           ->get();
+          $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>'พนักงาน'];
+        }
 
           $store_branch = StoreBranch::where('status', 1)
           ->get();
           // echo $results;exit;
-          $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>'พนักงาน'];
           return view('report/report-detail',['result'=>$result,'store_branch'=>$store_branch],$data);
         }
+
       elseif($request->chk==2){
         // if($s_type==1){
           $result = PersonsMember::where('status', 1)
@@ -135,14 +165,91 @@ class ReportController extends Controller
           $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>'สมาชิก'];
           return view('report/report-detail',['result'=>$result,'store_branch'],$data);
         }
+
       elseif($request->chk==3){
-        // if($s_type==1){
-          $result = StoreBranch::where('status', 1)
-          ->get();
+          if($s_type==1){
+              if($request->chk_get==1 && $request->get_store_branch_id!=-1){
+                $result = StoreBranch::where('status', 1)
+                ->where('id',$request->get_store_branch_id)
+                ->get();
+                $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>$result['0']['name'],'chk_get'=>0];
+              }
+              else{
+                $result = StoreBranch::where('status', 1)
+              ->get();
+              $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>'ร้านทั้งหมด','chk_get'=>0];
+              }
+            
+          }
+          elseif($s_type==2||$s_type==3){
+            $result = StoreBranch::where('status', 1)
+            ->where('id',$s_store_branch_id)
+            ->get();
+            $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>'ร้าน','chk_get'=>0];
+          }
           $store_branch = StoreBranch::where('status', 1)
           ->get();
 
-          $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>'ร้าน'];
+          return view('report/report-detail',['result'=>$result,'store_branch'=>$store_branch],$data);
+       }
+
+       elseif($request->chk==4){
+        // if($s_type==1){
+          $result = Repair::where('status', 1)
+          ->get();
+
+          $store_branchs = StoreBranch::where('status', 1)
+          ->get();
+
+          $status_repairs = SettingStatusRepair::where('status', 1)
+          ->get();
+
+          $person_members = PersonsMember::where('status', 1)
+          ->get();
+
+          $current_date=date("Y-m-d");
+          $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>'งานซ่อมทั้งหมด','current_date'=>$current_date];
+
+          return view('report/report-detail',['result'=>$result,'store_branchs'=>$store_branchs,'status_repairs'=>$status_repairs,'person_members'=>$person_members],$data);
+        }
+
+       elseif($request->chk==5){
+        if($s_type==1){
+          if($request->chk_get==1 && $request->get_store_branch_id!=-1){
+            $store_branch = StoreBranch::where('status', 1)
+            ->where('id',$request->get_store_branch_id)
+            ->get();
+
+            $result = ListPart::where('list_parts.status', 1)
+          ->where('import_parts.store_branch_id',$request->get_store_branch_id)
+          ->leftJoin('import_parts', 'import_parts.id', '=', 'list_parts.import_parts_id')
+          ->get();
+            $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>$result['0']['name'],'chk_get'=>0];
+          }
+          else{
+            $result = ListPart::where('list_parts.status', 1)
+            ->leftJoin('import_parts', 'import_parts.id', '=', 'list_parts.import_parts_id')
+            ->get();
+          $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>'ร้านทั้งหมด','chk_get'=>0];
+          }
+
+        }
+        elseif($s_type==2||$s_type==3){
+          $store_branch = StoreBranch::where('status', 1)
+          ->where('id',$s_store_branch_id)
+          ->get();
+
+          $result = ListPart::where('list_parts.status', 1)
+          ->where('import_parts.store_branch_id',$s_store_branch_id)
+          ->leftJoin('import_parts', 'import_parts.id', '=', 'list_parts.import_parts_id')
+          ->get();
+          $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>$store_branch['0']['name']];
+        }
+
+          $store_branch = StoreBranch::where('status', 1)
+          ->get();
+
+          
           return view('report/report-detail',['result'=>$result,'store_branch'=>$store_branch],$data);
        }
       else{
@@ -167,6 +274,10 @@ class ReportController extends Controller
       ->get();
       $repair = $this->count_repair($results4);
 
+      $results5 = ImportPart::where('status',1)
+      ->get();
+      $parts = $this->count_parts($results5);
+
       $data =[
       'countmale_em' => $gender_employee['countmale'],
       'countfemale_em' => $gender_employee['countfemale'],
@@ -185,6 +296,10 @@ class ReportController extends Controller
       'countmember_re' => $repair['countmember'],
       'countgeneral_re' => $repair['countgeneral'],
       'countall_re' => $repair['countrepairall'],
+
+      'countlot_pa' => $parts['countpartlittle'],
+      'countall_pa' => $parts['countpartsall'],
+      'countlittle_pa' => $parts['countpartlittle'],
       ];
       // echo $data['countmale'];exit();
       
@@ -205,17 +320,39 @@ class ReportController extends Controller
           return $results;
         }
         public function countmale_employee($id) {
+          $s_type=session('s_type','default');
+          $s_store_branch_id=session('s_store_branch_id','default');
+          if($s_type==1){
           $results = Persons::where('persons.status', 1)
           ->where('persons.type', 3)
           ->where('persons.gender', 1)
           ->count();
-          return $results;
+          }
+          elseif($s_type==2||$s_type==3){
+            $results = Persons::where('persons.status', 1)
+            ->where('persons.store_branch_id', $s_store_branch_id)
+            ->where('persons.type', 3)
+            ->where('persons.gender', 1)
+            ->count();
+            }
+         return $results;
         }
         public function countfemale_employee($id) {
+          $s_type=session('s_type','default');
+          $s_store_branch_id=session('s_store_branch_id','default');
+          if($s_type==1){
           $results = Persons::where('persons.status', 1)
           ->where('persons.type', 3)
-          ->where('persons.gender', 0)
+          ->where('persons.gender', 2)
           ->count();
+          }
+          elseif($s_type==2||$s_type==3){
+            $results = Persons::where('persons.status', 1)
+            ->where('persons.store_branch_id', $s_store_branch_id)
+            ->where('persons.type', 3)
+            ->where('persons.gender', 2)
+            ->count();
+            }
           return $results;
         }
         public function countundefine_employee($id) {
@@ -299,17 +436,100 @@ class ReportController extends Controller
             return $results4;
           }
           public function count_repair_member($id) {
+          $s_type=session('s_type','default');
+          $s_store_branch_id=session('s_store_branch_id','default');
+          if($s_type==1){
             $results4 = Repair::where('repair.status', 1)
             ->where('persons_member_id','!=',NULL)
             ->count();
+          }
+          elseif($s_type==2||$s_type==3){
+            $results4 = Repair::where('repair.status', 1)
+            ->where('persons_member_id','!=',NULL)
+            ->where('store_branch_id',$s_store_branch_id)
+            ->count();
+            }
             return $results4;
           }
           public function count_repair_general($id) {
-            $results4 = Repair::where('repair.status', 1)
-            ->where('persons_member_id','=',NULL)
-            ->count();
-            return $results4;
+            $s_type=session('s_type','default');
+            $s_store_branch_id=session('s_store_branch_id','default');
+            if($s_type==1){
+              $results4 = Repair::where('repair.status', 1)
+              ->where('persons_member_id','=',NULL)
+              ->count();
+            }
+            elseif($s_type==2||$s_type==3){
+              $results4 = Repair::where('repair.status', 1)
+              ->where('persons_member_id','=',NULL)
+              ->where('store_branch_id',$s_store_branch_id)
+              ->count();
+              }
+              return $results4;
           }
+    
+          /////////////////////////////////////end/////////////////////////////////
+
+           ////////////////count member general repair/////////////////////////
+           public function count_parts($results5) {
+            foreach ($results5 as $value) {
+              $results5['countlotparts'] = $this->count_lot_parts($value['id']);
+              $results5['countpartsall'] = $this->count_list_part_all($value['id']);
+              $results5['countpartlittle'] = $this->count_list_part_little($value['id']);
+            }
+            // $results4['countrepairall']=$results4['countmember']+$results4['countgeneral'];
+ 
+            return $results5;
+          }
+
+          public function count_lot_parts($id) {
+            $s_type=session('s_type','default');
+            $s_store_branch_id=session('s_store_branch_id','default');
+            if($s_type==1){
+              $results5 = ImportPart::where('import_parts.status', 1)
+              ->count();
+            }
+            elseif($s_type==2||$s_type==3){
+              $results5 = ImportPart::where('import_parts.status', 1)
+              ->where('import_parts.store_branch_id',$s_store_branch_id)
+              ->count();
+              }
+              return $results5;
+            }
+
+          public function count_list_part_all($id) {
+          $s_type=session('s_type','default');
+          $s_store_branch_id=session('s_store_branch_id','default');
+          if($s_type==1){
+            $results5 = ListPart::where('list_parts.status', 1)
+            ->count();
+          }
+          elseif($s_type==2||$s_type==3){
+            $results5 = ListPart::where('list_parts.status', 1)
+            ->leftJoin('import_parts', 'import_parts.id', '=', 'list_parts.import_parts_id')
+            ->where('import_parts.store_branch_id',$s_store_branch_id)
+            ->count();
+            }
+            return $results5;
+          }
+
+          public function count_list_part_little($id) {
+            $s_type=session('s_type','default');
+            $s_store_branch_id=session('s_store_branch_id','default');
+            if($s_type==1){
+              $results5 = ListPart::where('list_parts.status', 1)
+              ->where('list_parts.number','<=',5)
+              ->count();
+            }
+            elseif($s_type==2||$s_type==3){
+              $results5 = ListPart::where('list_parts.status', 1)
+              ->leftJoin('import_parts', 'import_parts.id', '=', 'list_parts.import_parts_id')
+              ->where('import_parts.store_branch_id',$s_store_branch_id)
+              ->where('list_parts.number','<=',5)
+              ->count();
+              }
+              return $results5;
+            }
     
           /////////////////////////////////////end/////////////////////////////////
 }

@@ -114,7 +114,7 @@ Route::post('/store-branch/delete/{id}','StoreController@delete')->where('id','[
 Route::get('/repair-member', 'RepairsMemberController@get_repair');
 Route::post('/repair-member/create', 'RepairsMemberController@create');
 Route::post('/repair-member/edit/{id}', 'RepairsMemberController@edit');
-Route::post('/repair-member-status', 'RepairsMemberController@status_repair');
+Route::post('/repair-member-status/{id}', 'RepairsMemberController@status_repair');
 Route::post('/repair-member/delete/{id}', 'RepairsMemberController@delete');
 
 Route::get('/form-search-repair-only-bill', 'RepairsMemberController@search_repair_form');
@@ -127,7 +127,7 @@ Route::post('/search-repair-only-bill', 'RepairsMemberController@search_repair_o
 Route::get('/repair-general', 'RepairsGeneralController@get_repair');
 Route::post('/repair-general/create', 'RepairsGeneralController@create');
 Route::post('/repair-general/edit/{id}', 'RepairsGeneralController@edit');
-Route::post('/repair-general-status', 'RepairsGeneralController@status_repair');
+Route::post('/repair-general-status/{id}', 'RepairsGeneralController@status_repair');
 Route::post('/repair-general/delete/{id}', 'RepairsGeneralController@delete');
 
 Route::post('/list-repair', 'ListRepairsController@get_list_repair_by_id');
@@ -156,6 +156,11 @@ Route::post('/list-part', 'ListPartsController@get_list_parts_by_id');
 Route::post('/list-part-create', 'ListPartsController@create');
 Route::post('/list-part-edit', 'ListPartsController@edit');
 Route::post('/list-part/delete/{id}', 'ListPartsController@delete');
+
+Route::get('/setting-status-repair-shop','SettingStatusShopController@get');
+Route::post('/setting-status-repair-shop/create','SettingStatusShopController@create');
+Route::post('/setting-status-repair-shop/edit/{id}','SettingStatusShopController@edit');
+Route::post('/setting-status-repair-shop/delete/{id}','SettingStatusShopController@delete');
 
 Route::get('/setting-status-repair','SettingStatusController@get');
 Route::post('/setting-status-repair/create','SettingStatusController@create');
