@@ -10,25 +10,112 @@ use Image; //เรียกใช้ library จดัการรูปภา�
 
 class StoreController extends Controller
 {   
-  
-    public function get_store_branch() {
-      $stores = StoreBranch::
-      orderBy('id','asc')
-      ->get();
-      // $stores = $this->get_status_name($stores);
+  public function edit_store(Request $request)
+    {
+      $store = Store::find($request->id);
+      $store->name = $request->name;
+      // $store->account_number = $request->account_number;
+      if ($request->hasFile('logo')) {      
+        // echo $request;exit();       
+        $filename = str_random(10) . '.' . $request->file('logo')
+        ->getClientOriginalName();             
+        $request->file('logo')->move(public_path() . '/image/', $filename);            
+        // Image::make(public_path() . '/image/' . $filename)
+        // ->resize(200, 200)->save(public_path() . '/image/' . $filename);     
+        // $img = Image::make($request->file('image')->getRealPath());
+        $store->logo = $filename;         
+      } 
+      else{                
+        $store->logo=$store['logo'];        
+       }
+      //  exit();
+      $store->save();
+      // $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
 
-      return view('stores/stores', ['stores' => $stores]); 
+      return redirect('stores');
+    }
+  
+    public function get_store_branch_list() {
+      $s_type=session('s_type','default');
+      if($s_type==1 || $s_type==2 || $s_type==3){
+        $stores = StoreBranch::
+        orderBy('id','asc')
+        ->get();
+        // $stores = $this->get_status_name($stores);
+        $store = Store::find(1);
+        $data =[
+        'id' => $store['id'],
+        'name' => $store['name'],
+        'logo' => $store['logo'],
+        ];
+
+        return view('stores/stores-list', ['stores' => $stores],$data); 
+        // return response()->json($stores);
+      }
+      else{
+        echo "<meta http-equiv='refresh' content='0;url=blank.php'>";
+      }
+      
+    }
+
+    public function get_store_branch_detail(Request $request) {
+      $stores = StoreBranch::find($request->id);
+      // $stores = $this->get_status_name($stores);
+      // echo $stores;exit();
+      $data =[
+        'id' => $stores['id'],
+        'name' => $stores['name'],
+        'phone' => $stores['phone'],
+        'email' => $stores['email'],
+        'image_url' => $stores['image_url'],
+        'map' => $stores['map'],
+        'address' => $stores['address'],
+        'detail' => $stores['detail'],
+        'contact' => $stores['contact'],
+      ];
+      return view('stores/stores-detail',$data); 
       // return response()->json($stores);
+    }
+
+    public function get_store_branch() {
+      $s_type=session('s_type','default');
+      if($s_type==1){
+        $stores = StoreBranch::
+        orderBy('id','asc')
+        ->get();
+  
+        $store = Store::find(1);
+        $data =[
+        'id' => $store['id'],
+        'name' => $store['name'],
+        'logo' => $store['logo'],
+        ];
+        // $stores = $this->get_status_name($stores);
+  
+        return view('stores/stores', ['stores' => $stores],$data); 
+        // return response()->json($stores);
+      }
+      else{
+        echo "<meta http-equiv='refresh' content='0;url=blank.php'>";
+      }
+
     }
 
     public function get_store_branch_to_font_contact() {
       $store = Store::where('id',1)->get();
-      $data = [
-        'store_name' =>$store['0']['name'],
-      ];
+      // $data = [
+      //   'store_name' =>$store['0']['name'],
+      // ];
       $store_branchs = StoreBranch::
       orderBy('id','asc')
       ->get();
+
+      $store = Store::find(1);
+        $data =[
+        'id' => $store['id'],
+        'store_name' => $store['name'],
+        'logo' => $store['logo'],
+        ];
 
       return view('font_pages/contact', ['store_branchs' => $store_branchs],$data); 
     }

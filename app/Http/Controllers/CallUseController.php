@@ -190,8 +190,8 @@ class CallUseController extends Controller
       $hour=date("H", strtotime($value['0'][$name]));
       // echo $year;exit();
       $minute=date("i", strtotime($value['0'][$name]));
-      $second=date("s", strtotime($value['0'][$name]));
-      $results[$key][$text]=$hour.":".$minute.":".$second."น.";
+      // $second=date("s", strtotime($value['0'][$name]));
+      $results[$key][$text]=$hour.":".$minute."น.";
     // exit();
       }
     return $results;
@@ -202,8 +202,8 @@ class CallUseController extends Controller
       $hour=date("H", strtotime($results['0'][$name]));
       // echo $year;exit();
       $minute=date("i", strtotime($results['0'][$name]));
-      $second=date("s", strtotime($results['0'][$name]));
-      $results[$text]=$hour.":".$minute.":".$second."น.";
+      // $second=date("s", strtotime($results['0'][$name]));
+      $results[$text]=$hour.":".$minute."น.";
     // exit();
 
     return $results;
@@ -214,8 +214,8 @@ class CallUseController extends Controller
         $hour=date("H", strtotime($results[$name]));
         // echo $year;exit();
         $minute=date("i", strtotime($results[$name]));
-        $second=date("s", strtotime($results[$name]));
-        $results[$text]=$hour.":".$minute.":".$second."น.";
+        // $second=date("s", strtotime($results[$name]));
+        $results[$text]=$hour.":".$minute."น.";
       // exit();
       return $results;
     }

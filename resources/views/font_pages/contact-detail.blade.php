@@ -1,7 +1,7 @@
 @include('form/header-font')
 <div class="hero-box hero-box-smaller bg-gradient-5 font-inverse">
     <div class="container">
-        <h1 class="pad0A hero-heading font-size-28 wow fadeInDown" data-wow-duration="0.6s">ติดต่อเรา {{$name}}</h1>
+        <h1 class="pad0A hero-heading font-size-28 wow fadeInDown" data-wow-duration="0.6s"> {{$name}}</h1>
     </div>
     <div class="hero-overlay bg-black"></div>
 </div>
@@ -15,7 +15,7 @@
 <div id="map-marker" ></div>
 <div class="mrg25T pad25T pad25B">
     <div class="container mrg25T mrg25B row">
-    <h2>รายละเอียด</h2>
+    <h2>รายละเอียดร้าน</h2>
         <h4>{{$detail}}</h4>
         <div class="col-md-8">
         <br><br>
@@ -38,7 +38,7 @@
                     <a href="#" title="">{{$email}}</a>
                 </li>
                 <li>
-                    <i class="glyph-icon icon-envelope-o"></i>
+                    <i class="glyph-icon  icon-facebook-square"></i>
                     <a href="#" title="">{{$contact}}</a>
                 </li>
                 

@@ -230,7 +230,7 @@
                         <option value="">เลือกอะไหล่ที่ต้องการเพิ่ม</option>
                         <!-- <option disabled="disabled">California (disabled)</option> -->
                         @foreach ($list_parts as $list_part)
-                        <option value="{{ $list_part->id }}">" {{ $list_part->name }} " 
+                        <option value="{{ $list_part->id }}">" {{ $list_part->name }} {{ $list_part->generation }} " 
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ราคา: {{ $list_part->pay_out }}
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ล๊อต: {{ $list_part->import_parts_lot_name }}
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;คงเหลือ: {{ $list_part->number }}</option>                      

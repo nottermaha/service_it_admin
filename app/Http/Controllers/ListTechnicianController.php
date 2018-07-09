@@ -15,96 +15,104 @@ use Illuminate\Http\Request;
 class ListTechnicianController extends Controller
 {    
     public function get_list_repair_for_technician() {
-      $s_store_branch_id=session('s_store_branch_id','default');
-      $s_id=session('s_id','default');
-      $items = [// select data show in table
-        'setting_status_repair.*'
-        , 'setting_status_repair.name'
-        , 'setting_status_repair.status_color'
+      $s_type=session('s_type','default');
+      if($s_type==1 || $s_type==2 || $s_type==3){
+    $s_store_branch_id=session('s_store_branch_id','default');
+          $s_id=session('s_id','default');
+          $items = [// select data show in table
+            'setting_status_repair.*'
+            , 'setting_status_repair.name'
+            , 'setting_status_repair.status_color'
 
-        ,'guarantee.name as guarantee_name'
+            ,'guarantee.name as guarantee_name'
 
-        ,'persons.id as person_id'
-        ,'persons.name as person_name'
+            ,'persons.id as person_id'
+            ,'persons.name as person_name'
 
-        ,'repair.id as repair_id'//->
-        ,'repair.bin_number as bin_number'//->
-        ,'repair.persons_member_id as persons_member_id'//->
+            ,'repair.id as repair_id'//->
+            ,'repair.bin_number as bin_number'//->
+            ,'repair.persons_member_id as persons_member_id'//->
 
-        ,'list_repair.list_name'
-        ,'list_repair.detail'
-        ,'list_repair.symptom'
-        ,'list_repair.image'
-        ,'list_repair.price'
-        ,'list_repair.status_list_repair'
-        ,'list_repair.guarantee_id'
-        ,'list_repair.id'
-    ];
-      $list_repairs = ListRepair::
-      leftJoin('setting_status_repair', 'setting_status_repair.id', '=', 'list_repair.status_list_repair')
-      ->leftJoin('guarantee', 'guarantee.id', '=', 'list_repair.guarantee_id')
-      ->leftJoin('persons', 'persons.id', '=', 'list_repair.person_id')
-      ->leftJoin('repair', 'repair.id', '=', 'list_repair.repair_id')
-      ->where('list_repair.status', 1)
-      ->where('list_repair.person_id', $s_id)//->
-      ->where('repair.store_branch_id', $s_store_branch_id)//->
-      ->orderBy('repair.bin_number','desc')//->
-      // ->where('list_repair.repair_id',$request->id)
-      ->get($items);
-      // echo $list_repairs;exit();
-////////เอาไว้ select///////////
-      $setting_status_repairs = SettingStatusRepair::where('status', 1)
-      ->get();
+            ,'list_repair.list_name'
+            // ,'list_repair.detail'
+            ,'list_repair.symptom'
+            ,'list_repair.image'
+            ,'list_repair.price'
+            ,'list_repair.status_list_repair'
+            ,'list_repair.guarantee_id'
+            ,'list_repair.id'
+        ];
+          $list_repairs = ListRepair::
+          leftJoin('setting_status_repair', 'setting_status_repair.id', '=', 'list_repair.status_list_repair')
+          ->leftJoin('guarantee', 'guarantee.id', '=', 'list_repair.guarantee_id')
+          ->leftJoin('persons', 'persons.id', '=', 'list_repair.person_id')
+          ->leftJoin('repair', 'repair.id', '=', 'list_repair.repair_id')
+          ->where('list_repair.status', 1)
+          ->where('list_repair.person_id', $s_id)//->
+          ->where('repair.store_branch_id', $s_store_branch_id)//->
+          ->orderBy('repair.bin_number','desc')//->
+          // ->where('list_repair.repair_id',$request->id)
+          ->get($items);
+          // echo $list_repairs;exit();
+    ////////เอาไว้ select///////////
+          $setting_status_repairs = SettingStatusRepair::where('status', 1)
+          ->get();
 
-      $items3 = [// //->
-        'import_parts.lot_name as import_parts_lot_name'
-        , 'list_parts.id'
-        , 'list_parts.name'
-        , 'list_parts.pay_out'
-        , 'list_parts.number'
-      ];
-      $list_parts = ListPart::where('list_parts.status', 1)
-      ->orderBy('list_parts.name','asc')
-      ->leftJoin('import_parts','import_parts.id','=','list_parts.import_parts_id')
-      ->where('import_parts.store_branch_id', $s_store_branch_id)
-      ->get($items3);
-//////////////////////////////
-      $items2 = [// select data show in table
-        'data_use_parts.list_repair_id as list_repair_id_chk'
-        ,'data_use_parts.list_parts_id as list_parts_id_chk'
-        ,'list_parts.name as list_parts_name'
-        ,'list_parts.pay_out as pay_out'
-      ];
-      $data_use_parts = DataUsePart::where('data_use_parts.status', 1)
-      ->where('data_use_parts.store_branch_id', $s_store_branch_id)
-      ->leftJoin('list_parts', 'list_parts.id', '=', 'data_use_parts.list_parts_id')
-      ->get($items2);
-//  echo $data_use_parts;exit();
-      if($list_repairs!='[]'){ 
-        $data = [
-        'repair_id'=>$list_repairs['0']['repair_id'],
-        'chk'=>1,
-      ];
+          $items3 = [// //->
+            'import_parts.lot_name as import_parts_lot_name'
+            , 'list_parts.id'
+            , 'list_parts.name'
+            , 'list_parts.generation'
+            , 'list_parts.pay_out'
+            , 'list_parts.number'
+          ];
+          $list_parts = ListPart::where('list_parts.status', 1)
+          ->orderBy('list_parts.name','asc')
+          ->leftJoin('import_parts','import_parts.id','=','list_parts.import_parts_id')
+          ->where('import_parts.store_branch_id', $s_store_branch_id)
+          ->get($items3);
+    //////////////////////////////
+          $items2 = [// select data show in table
+            'data_use_parts.list_repair_id as list_repair_id_chk'
+            ,'data_use_parts.list_parts_id as list_parts_id_chk'
+            ,'list_parts.name as list_parts_name'
+            ,'list_parts.pay_out as pay_out'
+          ];
+          $data_use_parts = DataUsePart::where('data_use_parts.status', 1)
+          ->where('data_use_parts.store_branch_id', $s_store_branch_id)
+          ->leftJoin('list_parts', 'list_parts.id', '=', 'data_use_parts.list_parts_id')
+          ->get($items2);
+    //  echo $data_use_parts;exit();
+          if($list_repairs!='[]'){ 
+            $data = [
+            'repair_id'=>$list_repairs['0']['repair_id'],
+            'chk'=>1,
+          ];
 
-      // echo $setting_status_repair;exit();
-     
-      return view('list_tecnician/list-technician', 
-      ['list_repairs' => $list_repairs,
-      'setting_status_repairs'=>$setting_status_repairs,
-      'list_parts'=>$list_parts,
-      'data_use_parts'=>$data_use_parts],$data);
+          // echo $setting_status_repair;exit();
+        
+          return view('list_tecnician/list-technician', 
+          ['list_repairs' => $list_repairs,
+          'setting_status_repairs'=>$setting_status_repairs,
+          'list_parts'=>$list_parts,
+          'data_use_parts'=>$data_use_parts],$data);
+          }
+          else{
+            $data = [
+              'repair_id'=>0,
+              'chk'=>1,
+            ];
+            return view('list_tecnician/list-technician', 
+            ['list_repairs' => $list_repairs,
+            'setting_status_repairs'=>$setting_status_repairs,
+            'list_parts'=>$list_parts,
+            'data_use_parts'=>$data_use_parts],$data);
+          }
       }
       else{
-        $data = [
-          'repair_id'=>0,
-          'chk'=>1,
-        ];
-        return view('list_tecnician/list-technician', 
-        ['list_repairs' => $list_repairs,
-        'setting_status_repairs'=>$setting_status_repairs,
-        'list_parts'=>$list_parts,
-        'data_use_parts'=>$data_use_parts],$data);
+        echo "<meta http-equiv='refresh' content='0;url=blank.php'>";
       }
+      
     }
     
     public function edit_status(Request $request)
@@ -139,7 +147,7 @@ class ListTechnicianController extends Controller
         ,'repair.persons_member_id as persons_member_id'//->
 
         ,'list_repair.list_name'
-        ,'list_repair.detail'
+        // ,'list_repair.detail'
         ,'list_repair.symptom'
         ,'list_repair.image'
         ,'list_repair.price'
@@ -167,6 +175,7 @@ class ListTechnicianController extends Controller
         'import_parts.lot_name as import_parts_lot_name'
         , 'list_parts.id'
         , 'list_parts.name'
+        , 'list_parts.generation'
         , 'list_parts.pay_out'
         , 'list_parts.number'
       ];
@@ -256,7 +265,7 @@ class ListTechnicianController extends Controller
           ,'repair.persons_member_id as persons_member_id'//->
   
           ,'list_repair.list_name'
-          ,'list_repair.detail'
+          // ,'list_repair.detail'
           ,'list_repair.symptom'
           ,'list_repair.image'
           ,'list_repair.price'
@@ -284,6 +293,7 @@ class ListTechnicianController extends Controller
           'import_parts.lot_name as import_parts_lot_name'
           , 'list_parts.id'
           , 'list_parts.name'
+          , 'list_parts.generation'
           , 'list_parts.pay_out'
           , 'list_parts.number'
         ];
@@ -350,7 +360,7 @@ class ListTechnicianController extends Controller
           ,'repair.persons_member_id as persons_member_id'//->
   
           ,'list_repair.list_name'
-          ,'list_repair.detail'
+          // ,'list_repair.detail'
           ,'list_repair.symptom'
           ,'list_repair.image'
           ,'list_repair.price'
@@ -378,6 +388,7 @@ class ListTechnicianController extends Controller
           'import_parts.lot_name as import_parts_lot_name'
           , 'list_parts.id'
           , 'list_parts.name'
+          , 'list_parts.generation'
           , 'list_parts.pay_out'
           , 'list_parts.number'
         ];

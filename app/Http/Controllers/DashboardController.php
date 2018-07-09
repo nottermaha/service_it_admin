@@ -3,15 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Repair;
+use App\Store;
 use App\Persons;
 use App\PersonsMember;
 use App\StoreBranch;
+
+use App\Http\Controllers\CallUseController;
+
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {    
 
     public function dashboard_addmin() {
+      $store = Store::find(1);
+      session(['s_logo'=>$store['logo'] ]);
+      session(['s_store_name'=>$store['name'] ]);
+      $s_type=session('s_type','default');
+      if($s_type!=1){
+        echo "<meta http-equiv='refresh' content='0;url=blank.php'>";
+      }
 
       $count_repair_member['count'] = Repair::where('status', 1)
       ->where('persons_member_id','!=',NULL)
@@ -284,6 +295,9 @@ public function get_repair_day_in_month()
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
     public function dashboard_by_store_branch() {
+      $store = Store::find(1);
+      session(['s_logo'=>$store['logo'] ]);
+      session(['s_store_name'=>$store['name'] ]);
       $store_branch_id=session('s_store_branch_id','default');
       // echo $store_branch_id;exit();
       $count_repair_member['count'] = Repair::where('status', 1)
@@ -314,6 +328,9 @@ public function get_repair_day_in_month()
       ->where('type',4)
       ->limit(8)
       ->get();
+      $date = new CallUseController();
+      $person_member = $date->get_date_all($person_member,'created','created_at');
+      // echo $person_member;exit();
 
       $results = Persons::where('persons.status', 1)
       ->where('store_branch_id',$store_branch_id)

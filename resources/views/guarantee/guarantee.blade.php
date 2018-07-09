@@ -150,7 +150,7 @@
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">บันทึกข้อมูลการรับประกันใหม่</h4>
+            <h4 class="modal-title">แก้ไขข้อมูลการรับประกัน</h4>
           </div>        
           {!!  Form::open(['url'=>'/guarantee/edit/'.$guarantee->id,'class'=>'form','files'=>true])   !!}
           <div class="modal-body">

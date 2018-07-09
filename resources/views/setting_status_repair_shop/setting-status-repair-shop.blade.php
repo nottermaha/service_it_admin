@@ -84,7 +84,7 @@
 
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">รายการตั้งค่าสถานะการแจ้งซ่อม</h3>
+              <h3 class="box-title">รายการสถานะการแจ้งซ่อม<h5>สถานะลำดับที่ 1. จะเป็นสถานะเริ่มต้น</h5></h3>
             </div>
 
        <div class="box-body table-responsive ">
@@ -180,7 +180,7 @@
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>
+            <h4 class="modal-title">แก้ไขสถานะการซ่อม(หน้าร้าน)</h4>
           </div>        
           <?= Form::open(array('url' => '/setting-status-repair-shop/edit/'.$setting_status_repair->id)) ?>
           <div class="modal-body">
@@ -346,7 +346,7 @@
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>
+            <h4 class="modal-title">บันทึกข้อมูลสถานะ</h4>
           </div>        
           <?= Form::open(array('url' => '/setting-status-repair-shop/create')) ?>
           <div class="modal-body">

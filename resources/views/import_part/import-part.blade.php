@@ -141,7 +141,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-dropbox fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="lot_name" placeholder="ชื่อล็อต..." value="{{ $Import_part->lot_name }}">
+                          <input type="text" class="form-control pull-right" id="Name" name="lot_name" placeholder="ชื่อล็อต..." value="{{ $Import_part->lot_name }}" required>
                       </div>
                     </div>
               </div>
@@ -189,7 +189,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-dropbox fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="lot_name" placeholder="ชื่อล็อต...">
+                          <input type="text" class="form-control pull-right" id="Name" name="lot_name" placeholder="ชื่อล็อต..." required>
                       </div>
                     </div>
               </div>

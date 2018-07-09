@@ -12,11 +12,18 @@ class GallerysController extends Controller
 {    
       public $path = 'image/';
     public function get() {
-      // echo $id;exit();
-      $gallerys = Gallery::where('status', 1)
-      ->get();
-      // echo $gallery;exit();
-      return view('gallery/gallery', ['gallerys' => $gallerys]);
+      $s_type=session('s_type','default');
+      if($s_type==1 ){
+        // echo $id;exit();
+        $gallerys = Gallery::where('status', 1)
+        ->get();
+        // echo $gallery;exit();
+        return view('gallery/gallery', ['gallerys' => $gallerys]);
+            }
+      else{
+        echo "<meta http-equiv='refresh' content='0;url=blank.php'>";
+      }
+    
     }
     public function create(Request $request)
     {
@@ -38,16 +45,24 @@ class GallerysController extends Controller
           Image::make('image/gallery/picture/' . $filename)
           ->resize(200, 200)->save('image/gallery/resize/' . $filename);     
           // $img = Image::make($request->file('image')->getRealPath());
-          $gallerys->img_url = $filename;         
+          $gallerys->img_url = $filename;       
+          $gallerys->status = true;
+          $gallerys->save();
+          $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว');   
         } 
         else{
-          // echo '5555555555555';exit();                
-          $gallerys->img_url = 'default.jpg';        
+          // echo '5555555555555';exit(); 
+          if($request['img_url']<=1)
+          { 
+            $gallerys->img_url = 'default.jpg';         
+          }  
+          else{
+            $request->session()->flash('status_create_fail', 'ไฟล์ไม่ถูกต้อง'); 
+          }              
+                 
          }  
  
-        $gallerys->status = true;
-        $gallerys->save();
-        $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
+
         return redirect('gallery');
     }
     public function edit(Request $request)

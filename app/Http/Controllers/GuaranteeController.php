@@ -28,20 +28,27 @@ class GuaranteeController extends Controller
       return view('font_pages/guarantee', ['guarantees' => $guarantees],$data);
     }
     public function get() {
-      $guarantee = Guarantee::where('status', 1)
-      ->orderBy('id','asc')
-      ->limit(1)
-      ->get();//get detail show 
-      $data =[
-          'id' => $guarantee['0']['id'],
-          'detail' => $guarantee['0']['detail'],
-      ];
-
-      $guarantees = Guarantee::where('status', 1)
-      ->where('id',$guarantee['0']['id']+1)
-      ->get(); 
-
-      return view('guarantee/guarantee', ['guarantees' => $guarantees],$data);
+      $s_type=session('s_type','default');
+      if($s_type==1 ){
+        $guarantee = Guarantee::where('status', 1)
+        ->orderBy('id','asc')
+        ->limit(1)
+        ->get();//get detail show 
+        $data =[
+            'id' => $guarantee['0']['id'],
+            'detail' => $guarantee['0']['detail'],
+        ];
+  
+        $guarantees = Guarantee::where('status', 1)
+        ->where('id',$guarantee['0']['id']+1)
+        ->get(); 
+  
+        return view('guarantee/guarantee', ['guarantees' => $guarantees],$data);
+      }
+      else{
+        echo "<meta http-equiv='refresh' content='0;url=blank.php'>";
+      }
+      
     }
 
     public function create(Request $request)

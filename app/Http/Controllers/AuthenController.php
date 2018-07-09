@@ -37,7 +37,13 @@ class AuthenController extends Controller
           //   $data=session('key2','default'); 
           // } 
           $request->session()->flash('status_login_ok', 'การเข้าสู่ระบบเสร็จสิ้น'); 
-          return redirect('dashboard');
+          $s_type=session('s_type','default');
+          if($s_type==1){
+            return redirect('dashboard');
+          }
+          elseif($s_type==2){
+            return redirect('dashboard_branch');
+          }
         }
         ///////login member////////
         else if($result=='[]'){
@@ -63,9 +69,9 @@ class AuthenController extends Controller
       }
 
       public function create_register(Request $request){
-        // echo $request['name'];
+        // echo $request['gender'];exit();
         // echo $request['birthday'];
-        // exit();
+        exit();
         $person = new PersonsMember;
         $person->status = true;
         $person->type = 4;
@@ -91,19 +97,51 @@ class AuthenController extends Controller
           // echo '5555555555555';exit();                
           $person->image_url = 'default.png';        
          }
-        $person->save();
+        // $person->save();
         $request->session()->flash('status_create', 'คุณได้สมัครสมาชิกเรียบร้อย');
+
+        $result2 = PersonsMember::where('status',1)
+        ->where('username',$request->username)
+        ->where('password',$request->password)
+        ->get();
+            if($result2!='[]'){
+              session(['s_name'=>$result2['0']['name']]);
+              session(['s_id'=>$result2['0']['id'] ]); 
+              session(['s_type'=>$result2['0']['type'] ]);
+              $request->session()->flash('status_login_ok', 'การเข้าสู่ระบบเสร็จสิ้น'); 
+            // return redirect('/');
+            return redirect('/font-profile');
+            }
+            else{
+              ///////ligin fail///////
+              $request->session()->flash('status_login_fail', 'fail');
+              return redirect('/');
+            }
         
-        return redirect('/font-register');
+        // return redirect('/font-register');
 
       }
+      
       public function font_profile(){
+      $s_type=session('s_type','default');
+      if($s_type!=4){
+        echo "<meta http-equiv='refresh' content='0;url=blank.php'>";
+      }
         $id=session('s_id','default');
         $person_member = PersonsMember::find($id);
-        // echo $person_member;exit();
+          $count_on = Repair::where('status', 1)
+          ->where('persons_member_id',$id)
+          ->where('status_bill',0)
+          ->count();
+          $count_close = Repair::where('status', 1)
+          ->where('persons_member_id',$id)
+          ->where('status_bill',1)
+          ->count();
+        
+        // echo $count_close;exit();
         $date = new CallUseController();
-        $person_member = $date->get_date_only($person_member,'birth_day','birthday');//get วันที่ภาษาไทย แถวเดียว
-        $person_member = $date->get_date_only($person_member,'date_created','created_at');//get วันที่ภาษาไทย แถวเดียว
+        $person_member = $date->get_date_only2($person_member,'birth_day','birthday');//get วันที่ภาษาไทย แถวเดียว
+        $person_member = $date->get_date_only2($person_member,'date_created','created_at');//get วันที่ภาษาไทย แถวเดียว
         // echo $person_member;exit();
         $item = [
               'persons.name as persons_name'
@@ -120,10 +158,10 @@ class AuthenController extends Controller
               ,'repair.name as name_general'
               ,'repair.phone as phone_general'
               ,'repair.status_repair as status_repair'
-              ,'repair.price as price'
+              // ,'repair.price as price'
               ,'repair.date_in_repair as date_in_repair'
               ,'repair.date_out_repair as date_out_repair'
-              ,'repair.after_price as after_price'
+              // ,'repair.after_price as after_price'
               ,'repair.equipment_follow as equipment_follow'
         ];
         $repairs = Repair::where('repair.status',1)
@@ -147,7 +185,7 @@ class AuthenController extends Controller
                   ,'list_repair.status_list_repair as status_list_repair'
                   ,'list_repair.status_list_repair as status_list_repair'
                   ,'list_repair.list_name as list_name'
-                  ,'list_repair.detail as detail'
+                  // ,'list_repair.detail as detail'
                   ,'list_repair.symptom as symptom'
                   ,'list_repair.price as price'
 
@@ -164,7 +202,7 @@ class AuthenController extends Controller
               ->leftJoin('persons', 'persons.id', '=', 'list_repair.person_id')
               ->leftJoin('setting_status_repair', 'setting_status_repair.id', '=', 'list_repair.status_list_repair')
               ->get($items); 
-              
+
               $data = [
                 'id' => $person_member['id'],
                 'type' => $person_member['type'],
@@ -174,7 +212,7 @@ class AuthenController extends Controller
                 'person_id' => $person_member['person_id'],
                 'gender' => $person_member['gender'],
                 'email' => $person_member['email'],
-                // 'birthday' => $person_member['birthday'],
+                'birthday2' => $person_member['birthday'],
                 'phone' => $person_member['phone'],
                 'image_url' => $person_member['image_url'],
                 'address' => $person_member['address'],
@@ -182,14 +220,36 @@ class AuthenController extends Controller
                 'created_at' => $person_member['created_at'],
                 'birthday' => $person_member['birth_day'],
                 'date_created' => $person_member['date_created'],
+                'count_on' => $count_on,
+                'count_close' => $count_close,
 
             ];
+
               // } 
-          // echo $list_repairs;exit();
+          // echo $data['birthday2'];exit();
           return view('font_pages/profile',['repairs'=>$repairs,'list_repairs'=>$list_repairs], $data);
         }
 
         else{
+          $data = [
+            'id' => $person_member['id'],
+            'type' => $person_member['type'],
+            'username' => $person_member['username'],
+            'password' => $person_member['password'],
+            'name' => $person_member['name'],
+            'person_id' => $person_member['person_id'],
+            'gender' => $person_member['gender'],
+            'email' => $person_member['email'],
+            'birthday2' => $person_member['birthday'],
+            'phone' => $person_member['phone'],
+            'image_url' => $person_member['image_url'],
+            'address' => $person_member['address'],
+            'profile_id' => $person_member['id'],
+            'created_at' => $person_member['created_at'],
+            'birthday' => $person_member['birth_day'],
+            'date_created' => $person_member['date_created'],
+
+        ];
           return view('font_pages/profile',['repairs'=>$repairs], $data);
         }
 
@@ -197,7 +257,7 @@ class AuthenController extends Controller
         // return view('font_pages/profile',$data);
       }
       public function font_profile_edit(Request $request){
-         // echo $request;exit();
+        //  echo $request['gender'];exit();
       $person = PersonsMember::find($request->id);
       // $person->store_branch_id = $request->store_branch_id;
       $person->status = true;
@@ -269,10 +329,10 @@ class AuthenController extends Controller
           ,'repair.name as name_general'
           ,'repair.phone as phone_general'
           ,'repair.status_repair as status_repair'
-          ,'repair.price as price'
+          // ,'repair.price as price'
           ,'repair.date_in_repair as date_in_repair'
           ,'repair.date_out_repair as date_out_repair'
-          ,'repair.after_price as after_price'
+          // ,'repair.after_price as after_price'
           ,'repair.equipment_follow as equipment_follow'
 
           // ,'list_repair.status_list_repair as status_list_repair'
@@ -328,7 +388,7 @@ class AuthenController extends Controller
                   ,'list_repair.status_list_repair as status_list_repair'
                   ,'list_repair.status_list_repair as status_list_repair'
                   ,'list_repair.list_name as list_name'
-                  ,'list_repair.detail as detail'
+                  // ,'list_repair.detail as detail'
                   ,'list_repair.symptom as symptom'
                   ];
               $list_repairs = ListRepair::where('list_repair.status', 1)
@@ -467,10 +527,10 @@ class AuthenController extends Controller
           ,'repair.name as name_general'
           ,'repair.phone as phone_general'
           ,'repair.status_repair as status_repair'
-          ,'repair.price as price'
+          // ,'repair.price as price'
           ,'repair.date_in_repair as date_in_repair'
           ,'repair.date_out_repair as date_out_repair'
-          ,'repair.after_price as after_price'
+          // ,'repair.after_price as after_price'
           ,'repair.equipment_follow as equipment_follow'
 
           // ,'list_repair.status_list_repair as status_list_repair'
@@ -515,7 +575,7 @@ class AuthenController extends Controller
                   ,'list_repair.status_list_repair as status_list_repair'
                   ,'list_repair.status_list_repair as status_list_repair'
                   ,'list_repair.list_name as list_name'
-                  ,'list_repair.detail as detail'
+                  // ,'list_repair.detail as detail'
                   ,'list_repair.symptom as symptom'
                   ];
               $list_repairs = ListRepair::where('list_repair.status', 1)
@@ -541,6 +601,8 @@ class AuthenController extends Controller
         $request->session()->flush();  
         $request->session()->forget('s_store_branch_id');  
         $request->session()->flush();  
+        $request->session()->forget('s_logo');  
+        $request->session()->flush(); 
 
         return redirect('/');
 

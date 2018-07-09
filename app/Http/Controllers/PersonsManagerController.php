@@ -16,14 +16,19 @@ class PersonsManagerController extends Controller
 
     public function get_persons_form_search() {
       $s_type=session('s_type','default');
-      $data = [
+      if($s_type==1 || $s_type==2 || $s_type==3){
+        $data = [
         'check_show'=>0,
         'check_table'=>0,
         'check_store'=>-1,
         'check'=>0,
         'type'=>$s_type,
         ];
-        
+      }
+      else{
+        echo "<meta http-equiv='refresh' content='0;url=blank.php'>";
+      }
+
       // echo $data['type'];exit();
 
       return view('search_person/search-person', $data);
@@ -136,15 +141,22 @@ class PersonsManagerController extends Controller
     }
 
     public function get_persons() {
+      $s_type=session('s_type','default');
+      if($s_type==1 ){
+          $store_branch = StoreBranch::where('status', 1)->get();
+          $check['check']=0;
+          // echo $store_branch;exit();
+
+          return view('persons_manager/persons-manager', ['store_branch' => $store_branch],$check);
+      }
+      else{
+        echo "<meta http-equiv='refresh' content='0;url=blank.php'>";
+      }
       // $persons = Persons::where('status', 1)
       // ->where('type',2)
       // ->get();
 
-      $store_branch = StoreBranch::where('status', 1)->get();
-      $check['check']=0;
-      // echo $store_branch;exit();
-
-      return view('persons_manager/persons-manager', ['store_branch' => $store_branch],$check);
+      
     }
     public function get_persons2(Request $request) {
       $store_branch = StoreBranch::where('status', 1)->get();

@@ -1,3 +1,149 @@
+<script>
+
+    function checkName()
+	{   var y = document.getElementById("name").value;
+        if(y.length<1){document.getElementById('txt_name').innerHTML = "กรุณากรอก ชื่อร้านสาขา";}
+        else{document.getElementById('txt_name').innerHTML = "";}
+	}
+
+    function ChkEmail(){
+            var x = document.getElementById("email");
+			var y = x.value;
+            var emailFilter=/^.+@.+\..{2,3}$/;
+            // var str=document.form.text1.value;
+        if (!(emailFilter.test(y))) { 
+            document.getElementById('txt_email').innerHTML = "อีเมลล์ไม่ถูกต้อง";
+            return false;
+        }
+        else{document.getElementById('txt_email').innerHTML = "";}
+        //  return true;
+    }
+  
+    function CheckMobileNumber() {
+        var msg = 'โปรดกรอกหมายเลขโทรศัพท์ 10 หลัก ด้วยรูปแบบดังนี้ 08XXXXXXXX ไม่ต้องใส่เครื่องหมายขีด (-) วงเล็บหรือเว้นวรรค';
+        var x = document.getElementById("phone").value;
+        s = new String(x);
+
+        if ( s.length != 10)
+        {
+            document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+            //   alert(msg);
+            return false;
+        }
+
+            for (i = 0; i < s.length; i++ ) {               
+                if ( s.charCodeAt(i) < 48 || s.charCodeAt(i) > 57 ) {
+                    document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+                    //  alert(msg);
+                    return false;
+                } 
+                    if ( ((i == 0) && (s.charCodeAt(i) != 48)) || ((i == 1) && (s.charCodeAt(i) == 55)) || ((i == 1) && (s.charCodeAt(i) == 49)) || ((i == 1) && (s.charCodeAt(i) == 48) ))
+                    {
+                        document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+                        return false;
+                    }
+                    else{
+                        document.getElementById('txt_phone').innerHTML = "";
+                    }
+            }            
+            return true;
+    }
+
+        function CheckMobileNumber2() {
+        var msg = 'โปรดกรอกหมายเลขโทรศัพท์ 10 หลัก ด้วยรูปแบบดังนี้ 08XXXXXXXX ไม่ต้องใส่เครื่องหมายขีด (-) วงเล็บหรือเว้นวรรค';
+        var x = document.getElementById("phone2").value;
+        s = new String(x);
+
+        if ( s.length != 10)
+        {
+            document.getElementById('txt_phone2').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+            //   alert(msg);
+            return false;
+        }
+
+            for (i = 0; i < s.length; i++ ) {               
+                if ( s.charCodeAt(i) < 48 || s.charCodeAt(i) > 57 ) {
+                    document.getElementById('txt_phone2').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+                    //  alert(msg);
+                    return false;
+                } 
+                    if ( ((i == 0) && (s.charCodeAt(i) != 48)) || ((i == 1) && (s.charCodeAt(i) == 55)) || ((i == 1) && (s.charCodeAt(i) == 49)) || ((i == 1) && (s.charCodeAt(i) == 48) ))
+                    {
+                        document.getElementById('txt_phone2').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+                        return false;
+                    }
+                    else{
+                        document.getElementById('txt_phone2').innerHTML = "";
+                    }
+            }            
+            return true;
+    }
+    
+    //////////////onclick////////////////
+    function EditBtnChkSubmit() 
+    { 
+      
+        ////
+        var y = document.getElementById("name2").value;
+        if(y.length<1){document.getElementById('txt_name2').innerHTML = "กรุณากรอก ชื่อร้านสาขา";return false}
+        else{document.getElementById('txt_name2').innerHTML = "";}
+        ///
+       
+        var x = document.getElementById("email2").value;
+        var emailFilter=/^.+@.+\..{2,3}$/;
+            // var str=document.form.text1.value;
+        if (!(emailFilter.test(x))) { 
+            document.getElementById('txt_email2').innerHTML = "อีเมลล์ไม่ถูกต้อง";
+            return false;
+        }
+        else{document.getElementById('txt_email2').innerHTML = "";}
+        /////
+        if(!CheckMobileNumber2(phone2.value)) 
+        {
+            document.getElementById('txt_phone2').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";return false;
+        }
+        else
+        {
+            document.getElementById('txt_phone2').innerHTML = "";
+        }
+        // else{
+            ChkFormCre.submit();
+        // }
+
+    }
+
+    function BtnChkSubmitCre() 
+    { 
+      
+        ////
+        var y = document.getElementById("name").value;
+        if(y.length<1){document.getElementById('txt_name').innerHTML = "กรุณากรอก ชื่อสาขา";return false}
+        else{document.getElementById('txt_name').innerHTML = "";}
+        ///
+       
+        var x = document.getElementById("email").value;
+        var emailFilter=/^.+@.+\..{2,3}$/;
+            // var str=document.form.text1.value;
+        if (!(emailFilter.test(x))) { 
+            document.getElementById('txt_email').innerHTML = "อีเมลล์ไม่ถูกต้อง";
+            return false;
+        }
+        else{document.getElementById('txt_email').innerHTML = "";}
+        /////
+        if(!CheckMobileNumber(phone.value)) 
+        {
+            document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";return false;
+        }
+        else
+        {
+            document.getElementById('txt_phone').innerHTML = "";
+        }
+        // else{
+            ChkFormCre.submit();
+        // }
+
+    }
+</script>
 <!-- css header-leftmenu -->
 <head>
   <meta charset="utf-8">
@@ -20,21 +166,63 @@
   <!-- jvectormap -->
   <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
   <script src="  https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
-
+  <!-- <script src="https://cdn.ckeditor.com/4.9.3/standard/ckeditor.js"></script> -->
 </head>
 <!--End css header-leftmenu -->
 
  @include('form/header-leftmenu')
  <section class="content-header">
             <h1 style="background-color:#DCDCDC;padding-top:10px;padding-bottom:10px;padding-left:10px;">
-              ร้านสาขา /
-              <small><a>รายการร้านสาขา</a> </small>
+              จัดการร้าน/
+              <small><a>จัดการร้าน</a> </small>
             </h1>
           </section> 
       <br>
 
     <section class="content">
 
+<div class="col-md-1"></div>
+    {!!  Form::open(['url'=>'/store-edit','class'=>'form-horizontal','files'=>true])   !!}
+    
+    <div class="col-md-10">
+        <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">แก้ไขข้อมูลร้าน</h3>
+                    <!-- <I><h5>ข้อมูลส่วนนี้จะแสดงในหน้าใช้งานของลูกค้า ในส่วนของการรับประกัน</h5></I> -->
+                </div>
+            <div class="box-body">
+            <!-- <input type="hidden" name="_token" value="fHc8pJvh1Gj4zf3SYopWZGvi0VztqE9wno25Za8z"> -->
+{{ csrf_field() }}
+                <div class="form-group">
+                <div class="row">
+                <div class="text-center">
+                      <img src="{{ asset('image/'.$logo) }}"style="padding-bottom:20px;width:20%">
+                </div>
+                    <label for="Person_id" class="control-label col-sm-2">โลโก้ร้าน</label>
+                    <div class="col-sm-9">
+                        <input type="file" class="form-control" id="Person_id" name="logo" placeholder="..." value="{{ $logo }}">
+                    </div>
+                  </div><br>
+                  <div class="row">
+                    <label for="Person_id" class="control-label col-sm-2">ชื่อร้านสาขา</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="Person_id" name="name" placeholder="ชื่อร้านสาขา..." value="{{ $name }}" required>
+                    </div>
+                  </div><br>
+                    <div class="row">
+                      <div class="text-center">
+                        <input type="hidden" name="id" value="{{ $id }}">
+                        <button type="submit" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp;แก้ไขข้อมูล</button>
+                      </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    {!! Form::close() !!}
+    
       <div class="row">
         <div class="col-xs-12 text-right">
           <!-- <?= link_to('store-form',$title='add data',['class'=>'btn btn-primary '],['data-toggle'=>'btn btn-primary '],['data-toggle'=>'#modal-default '],$secure=null); ?> -->
@@ -51,7 +239,7 @@
 
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">รายการร้านสาขา</h3>
+              <h3 class="box-title">จัดการร้านสาขา</h3>
             </div>
 
        <div class="box-body table-responsive ">
@@ -138,10 +326,9 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">แก้ไขข้อมูลสาขา</h4>
-            </div>        
-          {!!  Form::open(['url'=>'/store-branch/edit/'. $store->id,'class'=>'form','files'=>true])   !!}
+            </div>        {!!  Form::open(['url'=>'/store-branch/edit/'. $store->id,'class'=>'form','files'=>true,'id'=>'EditChkForm'] )   !!}
           <div class="modal-body">
-
+          {{ csrf_field() }}
           <div class="row" >
               <div class="form-group">
                   <b for="" class="control-label col-md-4"style="text-align:right"></b>
@@ -155,7 +342,7 @@
                 <div class="col-sm-9">
                   <div class="input-group date">
                     <div class="input-group-addon">
-                        <i class="fa fa-user fa-lg"></i>
+                        <i class="fa fa-picture-o fa-lg"></i>
                     </div>
                       <input type="file" class="form-control pull-right" id="Name" name="image_url" placeholder="ชื่อสาขา..." value="{{ $store->image_url }}">
                   </div>
@@ -165,41 +352,41 @@
 
             <div class="row">
               <div class="form-group">
-                <b for="" class="control-label col-sm-2"style="text-align:right">ชื่อสาขา</b>
+                <b for="" class="control-label col-sm-2"style="text-align:right">ชื่อสาขา <b style="color:red;font-size:20px;">*</b></b>
                 <div class="col-sm-9">
                   <div class="input-group date">
                     <div class="input-group-addon">
-                        <i class="fa fa-user fa-lg"></i>
+                        <i class="fa fa-home fa-lg"></i>
                     </div>
-                      <input type="text" class="form-control pull-right" id="Name" name="name" placeholder="ชื่อสาขา..." value="{{ $store->name }}">
-                  </div>
+                      <input type="text" class="form-control pull-right"  name="name" placeholder="ชื่อสาขา..." value="{{ $store->name }}" id="name2" onBlur="checkName2()">
+                  </div><b  id="txt_name2" style="color:red;"></b>
                 </div>
               </div>
             </div><br>
           <!-- </div> <br> -->
           <div class="row">
                   <div class="form-group">
-                    <b for="" class="control-label col-sm-2"style="text-align:right">เบอร์โทร</b>
+                    <b for="" class="control-label col-sm-2"style="text-align:right">เบอร์โทร <b style="color:red;font-size:20px;">*</b></b>
                     <div class="col-sm-9">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-phone fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="phone" placeholder="เบอร์โทร..." value="{{ $store->phone }}">
-                      </div>
+                          <input type="text" class="form-control pull-right"  name="phone" placeholder="เบอร์โทร..." value="{{ $store->phone }}" id="phone2" onBlur="CheckMobileNumber2()">
+                      </div><b id="txt_phone2" style="color:red;"></b>
                     </div>
                   </div>
                 </div><br>
                 <div class="row">
                   <div class="form-group">
-                    <b for="" class="control-label col-sm-2"style="text-align:right">อีเมล์</b>
+                    <b for="" class="control-label col-sm-2"style="text-align:right">อีเมล์ <b style="color:red;font-size:20px;">*</b></b>
                     <div class="col-sm-9">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-envelope fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="email" placeholder="อีเมล์..." value="{{ $store->email }}">
-                      </div>
+                          <input type="text" class="form-control pull-right" name="email" placeholder="อีเมล์..." value="{{ $store->email }}" onBlur="ChkEmail2()" id="email2">
+                      </div><b  id="txt_email2" style="color:red;"></b>
                     </div>
                   </div>
                 </div><br>
@@ -209,9 +396,22 @@
                     <div class="col-sm-9">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-map fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="map" placeholder="แผนที่..." value="{{ $store->map }}">
+                      </div>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="form-group">
+                    <b for="" class="control-label col-sm-2"style="text-align:right">ช่องทางการติดต่อเฟสบุ๊ค</b>
+                    <div class="col-sm-9">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa  fa-facebook-official fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="contact" placeholder="ช่องทางการติดต่อเฟสบุ๊ค..." value="{{ $store->contact }}">
                       </div>
                     </div>
                   </div>
@@ -222,35 +422,24 @@
                     <div class="col-sm-9">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-home fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="address" placeholder="ที่อยู่..." value="{{ $store->address }}">
+                          <!-- <input type="text" class="form-control pull-right" id="Name" name="address" placeholder="ที่อยู่..." value="{{ $store->address }}"> -->
+                          <textarea class="form-control" rows="3" placeholder="ที่อยู่ ..." id="Name" name="address" value="{{ $store->address }}">{{ $store->address }}</textarea>
                       </div>
                     </div>
                   </div>
                 </div><br>
                 <div class="row">
                   <div class="form-group">
-                    <b for="" class="control-label col-sm-2"style="text-align:right">รายละเอียดเพิ่มเติม</b>
+                    <b for="" class="control-label col-sm-2"style="text-align:right">รายละเอียดร้าน</b>
                     <div class="col-sm-9">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-list fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="detail" placeholder="รายละเอียดเพิ่มเติม..." value="{{ $store->detail }}">
-                      </div>
-                    </div>
-                  </div>
-                </div><br>
-                <div class="row">
-                  <div class="form-group">
-                    <b for="" class="control-label col-sm-2"style="text-align:right">ช่องทางการติดต่อเพิ่มเติม</b>
-                    <div class="col-sm-9">
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
-                        </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="contact" placeholder="ช่องทางการติดต่อเพิ่มเติม..." value="{{ $store->contact }}">
+                          <!-- <input type="text" class="form-control pull-right" id="Name" name="detail" placeholder="รายละเอียดร้าน..." value="{{ $store->detail }}"> -->
+                          <textarea class="form-control" rows="3" id="Name" name="detail" placeholder="รายละเอียดร้าน..." value="{{ $store->detail }}">{{ $store->detail }}</textarea>
                       </div>
                     </div>
                   </div>
@@ -258,7 +447,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
-            <button type="submit" class="btn btn-success">บันทึก</button>
+            <button type="button" onClick="EditBtnChkSubmit()" class="btn btn-success">บันทึก</button>
           </div>
           {!! Form::close() !!}
         </div>
@@ -286,16 +475,16 @@
                   <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">บันทึกข้อมูลสาขาใหม่</h4>
               </div>        
-              {!!  Form::open(['url'=>'/store-branch/create','class'=>'form','files'=>true])   !!}
+              {!!  Form::open(['url'=>'/store-branch/create','class'=>'form','files'=>true,'id'=>'ChkFormCre'])   !!}
               <div class="modal-body">
-
+              {{ csrf_field() }}
                 <div class="row">
                   <div class="form-group">
                     <b for="" class="control-label col-sm-2"style="text-align:right">รูปภาพ</b>
                     <div class="col-sm-9">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-picture-o fa-lg"></i>
                         </div>
                           <input type="file" class="form-control pull-right" id="Name" name="image_url" placeholder="รูปภาพ..." >
                       </div>
@@ -304,40 +493,40 @@
                 </div><br>
                 <div class="row">
                   <div class="form-group">
-                    <b for="" class="control-label col-sm-2"style="text-align:right">ชื่อสาขา</b>
+                    <b for="" class="control-label col-sm-2"style="text-align:right">ชื่อสาขา <b style="color:red;font-size:20px;">*</b></b>
                     <div class="col-sm-9">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-home fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="name" placeholder="ชื่อสาขา...">
-                      </div>
+                          <input type="text" class="form-control pull-right"  name="name" placeholder="ชื่อสาขา..." id="name"required onBlur="checkName()">
+                      </div><b  id="txt_name" style="color:red;"></b>
                     </div>
                   </div>
                 </div><br>
                 <div class="row">
                   <div class="form-group">
-                    <b for="" class="control-label col-sm-2"style="text-align:right">เบอร์โทร</b>
+                    <b for="" class="control-label col-sm-2"style="text-align:right">เบอร์โทร <b style="color:red;font-size:20px;">*</b></b>
                     <div class="col-sm-9">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-phone fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="phone" placeholder="เบอร์โทร...">
-                      </div>
+                          <input type="text" class="form-control pull-right"  name="phone" placeholder="เบอร์โทร..." id="phone" required onBlur="CheckMobileNumber()">
+                      </div><b id="txt_phone" style="color:red;"></b>
                     </div>
                   </div>
                 </div><br>
                 <div class="row">
                   <div class="form-group">
-                    <b for="" class="control-label col-sm-2"style="text-align:right">อีเมล์</b>
+                    <b for="" class="control-label col-sm-2"style="text-align:right">อีเมล์ <b style="color:red;font-size:20px;">*</b></b>
                     <div class="col-sm-9">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-envelope fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="email" placeholder="อีเมล์...">
-                      </div>
+                          <input type="text" class="form-control pull-right"  name="email" placeholder="อีเมล์..." onBlur="ChkEmail()" id="email">
+                      </div><b  id="txt_email" style="color:red;"></b>
                     </div>
                   </div>
                 </div><br>
@@ -347,7 +536,7 @@
                     <div class="col-sm-9">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-map fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="map" placeholder="แผนที่...">
                       </div>
@@ -356,47 +545,50 @@
                 </div><br>
                 <div class="row">
                   <div class="form-group">
+                    <b for="" class="control-label col-sm-2"style="text-align:right">ช่องทางการติดต่อเฟสบุ๊ค</b>
+                    <div class="col-sm-9">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa  fa-facebook-official fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="contact" placeholder="ช่องทางการติดต่อเฟสบุ๊ค...">
+                      </div>
+                    </div>
+                  </div>
+                </div><br> 
+              
+                <div class="row">
+                  <div class="form-group">
                     <b for="" class="control-label col-sm-2"style="text-align:right">ที่อยู่</b>
                     <div class="col-sm-9">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-home fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="address" placeholder="ที่อยู่...">
+                          <!-- <input type="text" class="form-control pull-right" id="Name" name="address" placeholder="ที่อยู่..."> -->
+                          <textarea class="form-control" rows="3" placeholder="ที่อยู่ ..." id="Name" name="address" ></textarea>
+                      </div>
                       </div>
                     </div>
                   </div>
                 </div><br>
                 <div class="row">
                   <div class="form-group">
-                    <b for="" class="control-label col-sm-2"style="text-align:right">รายละเอียดเพิ่มเติม</b>
+                    <b for="" class="control-label col-sm-2"style="text-align:right">รายละเอียดร้าน</b>
                     <div class="col-sm-9">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-list fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="detail" placeholder="รายละเอียดเพิ่มเติม...">
+                        <textarea class="form-control" rows="3" id="Name" name="detail" placeholder="รายละเอียดร้าน..."></textarea>
+                          <!-- <input type="text" class="form-control pull-right" id="Name" name="detail" placeholder="รายละเอียดร้าน..."> -->
                       </div>
                     </div>
                   </div>
                 </div><br>
-                <div class="row">
-                  <div class="form-group">
-                    <b for="" class="control-label col-sm-2"style="text-align:right">ช่องทางการติดต่อเพิ่มเติม</b>
-                    <div class="col-sm-9">
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
-                        </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="contact" placeholder="ช่องทางการติดต่อเพิ่มเติม...">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div><br> 
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
-                <button type="submit" class="btn btn-success">บันทึก</button>
+                <button  type="button" onClick="BtnChkSubmitCre()" class="btn btn-success">บันทึก</button>
               </div>
               {!! Form::close() !!}
             </div>

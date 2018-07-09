@@ -110,6 +110,49 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box box-default">
+                  <!-- <div class="box-header with-border">
+                      <h3 class="box-title">บันทึกข้อมูลการเข้าสู่ระบบ</h3>
+                  </div> -->
+          <div class="box-body">
+
+          <div class="box-body table-responsive ">
+              <table id="" class="table table-bordered table-striped table-hover  ">
+        <thead >
+          <tr>
+            <th class="text-center">การแสดง</th>
+            <th class="text-center">ราคารวมอะไหล่ทั้งหมด</th>
+            <th class="text-center">ราคารวมการซ่อมทั้งหมด</th>
+
+          </tr>
+        </thead>
+        
+        <tbody>
+          <tr>
+            <td class="text-center">
+            รายการทั้งหมด {{$count_repair}} รายการ
+            </td>
+            <td class="text-center">
+            ราคา {{ $count_pay_out_part }} บ.
+            </td>
+
+            <td class="text-center">
+            ราคา {{ $count_list_repair_price }} บ.
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+      </div>
+                
+                
+          </div>
+        </div>
+      </div>
+    </div>
+
       <div class="row">
         <div class="col-xs-12">
 
@@ -160,10 +203,13 @@
               @endif
           </td>
           <td>{{ $repair->persons_name }}</td>
-          <td>{{ $repair->date_in }}</td>
+          <td>{{ $repair->date_in }} 
           <td>
-          
+
           ราคาประเมิน {{ number_format($repair->price, 2) }} <br>
+          <input type="button" class="btn btn-info" name="answer" value="ดูรายละเอียด" onclick="showDiv{{$repair->id}}()" />
+          <div id="welcomeDiv{{$repair->id}}"  style="display:none;" class="answer_list" >
+          
           รายการที่ซ่อม<br>
           <!-- ///เช็ค รายการซ่อม กับเทเบิลซ่อม// -->
           @foreach ($list_repairs as $list_repair)
@@ -172,7 +218,7 @@
             
             ราคาที่รับจากลูกค้า {{ number_format($list_repair->price, 2) }}บ.
             <?php $num_price =$num_price+$list_repair->price; ?>
-            </b>  <br> ราคาอะไหล่ที่ใช้
+            </b>  <br> อะไหล่ที่ใช้
             <!-- ///เช็ค การใช้อะไหล่ กับรายการซ่อม// -->
                 @foreach($data_use_parts as $data_use_part)
                 
@@ -187,18 +233,19 @@
             
           @endforeach
           ราคารวมที่รับจากลูกค้า {{ number_format($num_price, 2) }}บ. <br>
-          ยอดรวมต้นทุน  {{ $num_part }}บ. <br>
+          ยอดรวมอะไหล่  {{ $num_part }}บ. <br>
           <?php $temp_num =$num_price-$num_part; ?><?php $num_price = 0;$num_part =0; ?>
-          @if( $temp_num>=0 )
+          <!-- @if( $temp_num>=0 )
           <b style="color:green;">กำไร {{ number_format($temp_num, 2) }}บ.</b> 
           @elseif( $temp_num<0 )
           <b style="color:red;">ขาดทุน {{ number_format($temp_num, 2) }}บ.</b> 
-          @endif
+          @endif -->
           <br>
 
           </td>
 
           </tr>
+          </div>
          @endforeach
       @endif
 
@@ -252,4 +299,18 @@
   autoclose: true
   })
 </script>
+@if($chk == 1)
+  @foreach ($repairs as $repair)
+    <script>
+        function showDiv{{$repair->id}}() { 
+          var x = document.getElementById("welcomeDiv{{$repair->id}}");
+      if (x.style.display === "none") {
+          x.style.display = "block";
+      } else {
+          x.style.display = "none";
+      }   
 
+    }
+    </script>
+  @endforeach
+@endif

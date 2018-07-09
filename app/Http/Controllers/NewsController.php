@@ -8,16 +8,20 @@ use Image; //เรียกใช้ library จดัการรูปภา�
 
 class NewsController extends Controller
 {    
-  public function maha() {
-    // echo $news;exit();
-    return view('new/maha');
-  }
-  public function get() {
-    $news = News::where('status', 1)
-    ->get();
 
-    // echo $news;exit();
-    return view('new/new', ['news' => $news]);
+  public function get() {
+    $s_type=session('s_type','default');
+    if($s_type==1 ){
+      $news = News::where('status', 1)
+      ->get();
+  
+      // echo $news;exit();
+      return view('new/new', ['news' => $news]);
+    }
+    else{
+      echo "<meta http-equiv='refresh' content='0;url=blank.php'>";
+    }
+
   }
   public function create(Request $request)
   { 

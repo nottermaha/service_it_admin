@@ -132,7 +132,7 @@
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>
+            <h4 class="modal-title">แก้ไขข้อมูลข่าวสาร</h4>
           </div>    
           {!!  Form::open(['url'=>'/new-edit','class'=>'form','files'=>true])   !!}    
           <div class="modal-body">
@@ -206,7 +206,7 @@
           
           </div> 
           <div class="modal-footer">
-          <input type="text" name="id" value="{{ $new->id }}">
+          <input type="hidden" name="id" value="{{ $new->id }}">
             <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
             <button type="submit" class="btn btn-success">บันทึก</button>
           </div>

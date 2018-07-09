@@ -11,7 +11,11 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b><i class="fa fa-apple fa-lg"></i> Mac Service</b></span>
+      <span class="logo-lg"><b>   
+    <?php $s_logo=session('s_logo','default'); ?>
+    <?php $s_store_name=session('s_store_name','default'); ?>
+    <!-- <img src="{{ asset('image/'.$s_logo) }}" style="width:30px;height:30px;"alt=""> -->
+    {{$s_store_name}}</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -26,7 +30,7 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
               <span class="hidden-xs">
               <?php $data='' ;
                     $data=session('s_name','default');
@@ -39,7 +43,7 @@
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <!-- <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"> -->
 
                 <p> 
                 @if (session()->has('s_name'))  
@@ -95,24 +99,25 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="image/default.png" class="img-circle" alt="User Image">
+          <!-- <img src="image/default.png" class="img-circle" alt="User Image"> -->
           
         </div>
         <div class="pull-left info">
           <p> 
-            @if (session()->has('s_name'))  
+            <!-- @if (session()->has('s_name'))  
                   {{ $data }} 
-            @endif 
+            @endif  -->
           </p>
-          <a href="#"><i class="fa fa-circle text-success"></i> ออนไลน์</a>
+          <!-- <a href="#"><i class="fa fa-circle text-success"></i> ออนไลน์</a><br><br> -->
         </div>
       </div>
-      
+      <?php $s_type=session('s_type','default'); ?>
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">เมนูจัดการ</li>
 
+        @if($s_type==1 || $s_type==2)
         <li class="active treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>กระดานบอร์ด</span>
@@ -121,11 +126,15 @@
             </span>
           </a>
           <ul class="treeview-menu">
+          @if($s_type==1)
             <li ><a href="{{ url('/dashboard')  }}"><i class="fa fa-circle-o"></i> กระดานบอร์ด(แอดมิน)</a></li>
+          @elseif($s_type==2)
             <li ><a href="{{ url('/dashboard_branch')  }}"><i class="fa fa-circle-o"></i> กระดานบอร์ด(ผู้จัดการร้าน)</a></li>
+          @endif
             <!-- <li class="active"><a href="{{ url('/test')  }}"><i class="fa fa-circle-o"></i> test</a></li> -->
           </ul>
         </li>
+        @endif
 
         <li class="treeview">
           <a href="#">
@@ -162,11 +171,15 @@
           <ul class="treeview-menu">
           <li><a href="{{ url('/persons-form-search')  }}"><i class="fa fa-circle-o"></i>ค้นหารายการบุคคล</a></li>
           <hr style="margin-top:0px;margin-bottom:-17px;"><br>
+          @if($s_type==1)
             <li><a href="{{ url('/persons-manager')  }}"><i class="fa fa-circle-o"></i> ผู้จัดการร้าน</a></li>
             <li><a href="{{ url('/persons-employee')  }}"><i class="fa fa-circle-o"></i> 
             พนักงาน</a></li>
+          @endif
+          @if($s_type==1 || $s_type==2 || $s_type==3)
             <li><a href="{{ url('/persons-member')  }}"><i class="fa fa-circle-o"></i> 
             สมาชิก</a></li>
+          @endif
           </ul>
         </li>
 
@@ -178,7 +191,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
+          @if($s_type==1)
             <li class="active"><a href="{{ url('/stores')  }}"><i class="fa fa-circle-o"></i> จัดการร้าน</a></li>
+          @endif
+            <li class="active"><a href="{{ url('/stores-list')  }}"><i class="fa fa-circle-o"></i>สาขาทั้งหมด</a></li>
           </ul>
         </li>
 
@@ -194,7 +210,10 @@
             {!!  Form::open(['url'=>'/questtion-post','class'=>'form','id'=>'myForm','files'=>true])   !!}
             <!-- <li onclick="myForm.submit();">Click me</li> -->
             <input type="hidden" name="chk_get" value="all">
-            <li class="active" onclick="myForm.submit();"><a ><i class="fa fa-circle-o"></i>กระทู้ถาม-ตอบ</a></li>
+            <div style="padding-top:5px;padding-bottom:5px;padding-left:15px;">
+              <li class="active" onclick="myForm.submit();"><a >
+              <i class="fa fa-circle-o"></i>&nbsp;&nbsp;   กระทู้ถาม-ตอบ</a></li>
+            </div>
               {!! Form::close() !!}
           </ul>
         </li>
@@ -210,9 +229,8 @@
             <li class="active"><a href="{{ url('/import_part')  }}"><i class="fa fa-circle-o"></i> นำเข้าอะไหล่</a></li>
           </ul>
         </li>
-        <?php $data='' ;
-     $data=session('key','default');
-     $data3=session('key2','default');  ?>
+        
+        @if($s_type==1)
         <li class="treeview" >
         <a href="#">
             <i class="fa fa-wrench"></i> <span>ตั้งค่า</span>
@@ -226,9 +244,10 @@
             <li class="active"><a href="{{ url('/gallery')  }}"><i class="fa fa-circle-o"></i>สไลด์ภาพ</a></li>
             <li class="active"><a href="{{ url('/news')  }}"><i class="fa fa-circle-o"></i>ข่าวสาร</a></li>
             <li class="active"><a href="{{ url('/guarantee')  }}"><i class="fa fa-circle-o"></i>รับประกัน</a></li>
-            <li class="active"><a href="{{ url('/maha')  }}"><i class="fa fa-circle-o"></i>maha</a></li>
           </ul>
         </li>
+        @endif
+        
             <li class="treeview" >
         <a href="#">
             <i class="fa fa-list"></i> <span>ออกรายงาน</span>

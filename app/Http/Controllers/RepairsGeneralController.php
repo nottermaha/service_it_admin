@@ -151,8 +151,8 @@ class RepairsGeneralController extends Controller
       ,'repair.name as name'
       ,'repair.status_repair as status_repair'
       ,'repair.phone as phone'
-      ,'repair.price as price'
-      ,'repair.after_price as after_price'
+      // ,'repair.price as price'
+      // ,'repair.after_price as after_price'
       ,'repair.equipment_follow as equipment_follow'
       ,'repair.date_in_repair as date_in_repair'
       ,'repair.date_out_repair as date_out_repair'
@@ -167,7 +167,7 @@ class RepairsGeneralController extends Controller
       ,'list_repair.id as list_repair_id'
       ,'list_repair.list_name as list_repair_name'
       ,'list_repair.symptom as symptom'
-      ,'list_repair.detail as detail'
+      // ,'list_repair.detail as detail'
       ,'list_repair.status_list_repair as status_list_repair'
   ];
 
@@ -261,56 +261,64 @@ class RepairsGeneralController extends Controller
 }
 
     public function get_repair() {
-      $store_branch_id=session('s_store_branch_id','default');
+      $s_type=session('s_type','default');
+      if($s_type==1 || $s_type==2 || $s_type==3){
+        $store_branch_id=session('s_store_branch_id','default');
 
-      $item=[
-        'setting_status_repair_shop.*'
-        , 'setting_status_repair_shop.name as status_name'
-        , 'setting_status_repair_shop.status_color'
+        $item=[
+          'setting_status_repair_shop.*'
+          , 'setting_status_repair_shop.name as status_name'
+          , 'setting_status_repair_shop.status_color'
 
-        ,'persons.name as persons_name'
+          ,'persons.name as persons_name'
 
-        ,'data_pay.status_bill as status_bill'//
-        ,'data_pay.status_pay as status_pay'//
+          ,'data_pay.status_bill as status_bill'//
+          ,'data_pay.status_pay as status_pay'//
 
-        ,'repair.id as id'
-        ,'repair.store_branch_id as store_branch_id'
-        ,'repair.persons_member_id as persons_member_id'
-        ,'repair.persons_id as persons_id'
-        ,'repair.status_bill as status_bill'
-        ,'repair.bin_number as bin_number'
-        ,'repair.name as name'
-        ,'repair.status_repair as status_repair'
-        ,'repair.phone as phone'
-        ,'repair.price as price'
-        ,'repair.date_in_repair as date_in_repair'
-        ,'repair.date_out_repair as date_out_repair'
-        ,'repair.after_price as after_price'
-        ,'repair.equipment_follow as equipment_follow'
-        ,'repair.guarantee as guarantee'
+          ,'repair.id as id'
+          ,'repair.store_branch_id as store_branch_id'
+          ,'repair.persons_member_id as persons_member_id'
+          ,'repair.persons_id as persons_id'
+          ,'repair.status_bill as status_bill'
+          ,'repair.bin_number as bin_number'
+          ,'repair.name as name'
+          ,'repair.status_repair as status_repair'
+          ,'repair.phone as phone'
+          // ,'repair.price as price'
+          ,'repair.date_in_repair as date_in_repair'
+          ,'repair.date_out_repair as date_out_repair'
+          // ,'repair.after_price as after_price'
+          ,'repair.equipment_follow as equipment_follow'
+          ,'repair.guarantee as guarantee'
 
-      ];
-      $repairs = Repair::where('repair.status', 1)
-      ->where('repair.status_bill',0)////////////////////////
-      ->where('repair.store_branch_id',$store_branch_id)
-      ->where('repair.persons_member_id',NULL)
-      ->leftJoin('setting_status_repair_shop', 'setting_status_repair_shop.id', '=', 'repair.status_repair')
-      ->leftJoin('persons','persons.id','=','repair.persons_id')
-      ->leftJoin('data_pay','data_pay.repair_id','=','repair.id')////
-      ->orderBy('repair.id', 'desc')
-      // ->where('persons_id',14)
-      ->get($item);
-      $current_date=(date('Y-m-d'));
-      $data['current_date']=$current_date;
-        // echo $repairs;exit();
+        ];
+        $repairs = Repair::where('repair.status', 1)
+        ->where('repair.status_bill',0)////////////////////////
+        ->where('repair.store_branch_id',$store_branch_id)
+        ->where('repair.persons_member_id',NULL)
+        ->leftJoin('setting_status_repair_shop', 'setting_status_repair_shop.id', '=', 'repair.status_repair')
+        ->leftJoin('persons','persons.id','=','repair.persons_id')
+        ->leftJoin('data_pay','data_pay.repair_id','=','repair.id')////
+        ->orderBy('repair.id', 'desc')
+        // ->where('persons_id',14)
+        ->get($item);
+        $current_date=(date('Y-m-d'));
+        $data['current_date']=$current_date;
+          // echo $repairs;exit();
 
-        ////////เอาไว้ select///////////
-      $setting_status_repair_shops = SettingStatusRepairShop::where('status', 1)
-      ->get();
-      $person = Persons::where('status', 1)
-      ->get();
+          ////////เอาไว้ select///////////
+        $setting_status_repair_shops = SettingStatusRepairShop::where('status', 1)
+        ->get();
+        $person = Persons::where('status', 1)
+        ->get();
 
-      return view('repairs_general/repairs-general', ['repairs' => $repairs,'setting_status_repair_shops' => $setting_status_repair_shops],$data);
+        return view('repairs_general/repairs-general', ['repairs' => $repairs,'setting_status_repair_shops' => $setting_status_repair_shops],$data);
+        
+      }
+      else{
+        echo "<meta http-equiv='refresh' content='0;url=blank.php'>";
+      }
+      
     }
 
     public function create(Request $request)
@@ -343,8 +351,8 @@ class RepairsGeneralController extends Controller
         $repair->status_repair =  1;
         $repair->phone =  $request->phone;
         $repair->date_in_repair =  $request->date_in_repair;
-        $repair->price =  $request->price;
-        $repair->equipment_follow =  $request->equipment_follow;
+        // $repair->price =  $request->price;
+        // $repair->equipment_follow =  $request->equipment_follow;
         $repair->status = true;
         $repair->save();
         $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
@@ -369,7 +377,7 @@ class RepairsGeneralController extends Controller
         $repair->phone =  $request->phone;
         $repair->date_in_repair =  $request->date_in_repair;
         $repair->price =  $request->price;
-        $repair->after_price =  $request->after_price;
+        // $repair->after_price =  $request->after_price;
         $repair->date_out_repair =  $request->date_out_repair;
         $repair->equipment_follow =  $request->equipment_follow;
         // $repair->guarantee =  $request->guarantee;

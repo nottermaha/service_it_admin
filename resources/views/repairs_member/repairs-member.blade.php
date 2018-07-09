@@ -1,4 +1,26 @@
+<script>
 
+    function checkName()
+	{   var y = document.getElementById("name").value;
+        if(y.length<1){document.getElementById('txt_name').innerHTML = "กรุณากรอก ชื่อ-นามสกุล";}
+        else{document.getElementById('txt_name').innerHTML = "";}
+	}
+
+    //////////////onclick////////////////
+    function BtnChkSubmit() 
+    { 
+        ////
+        var y = document.getElementById("name").value;
+        if(y.length<1){document.getElementById('txt_name').innerHTML = "กรุณากรอก ชื่อ-นามสกุล";return false}
+        else{document.getElementById('txt_name').innerHTML = "";}
+
+        // else{
+            ChkForm.submit();
+        // }
+
+    }
+
+</script>
 <!-- css header-leftmenu -->
 <head>
   <meta charset="utf-8">
@@ -36,14 +58,63 @@
 
     <section class="content">
 
-      <div class="row">
+    <div class="col-md-3"></div>
+    {!!  Form::open(['url'=>'/repair-member/create','id'=>'ChkForm'])   !!}
+    {{ csrf_field() }}
+      <div class="col-md-6">
+        <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">เปิดบิลใหม่</h3>
+                </div>
+            <div class="box-body">
+
+                <div class="row">
+              <div class="form-group">
+                <b for="" class="control-label col-md-3"style="text-align:right">ชื่อ-นามสกุล</b>
+                <div class="col-md-8">
+                    <select required class="form-control select2" style="width: 100%;" name="member_id">
+                      <option value="">เลือกสมาชิก</option>
+                      <!-- <option disabled="disabled">California (disabled)</option> -->
+                    @foreach($members as $value)
+                    <option value="{{ $value->id }}">{{ $value->name }}</option>
+                    @endforeach
+                    </select>
+                </div><b style="font-size:30px;color:red;" title="ต้องกรอกข้อมูล">*</b>
+              </div>
+            </div>
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">วันที่ซ่อม</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user fa-lg"></i>
+                        </div>
+                          <input type="date" class="form-control pull-right" id="Name" name="date_in_repair" placeholder="วันที่ซ่อม..." value="{{$current_date}}"> 
+                      </div>
+                    </div><b style="font-size:30px;color:red;" title="ต้องกรอกข้อมูล">*</b>
+              </div>
+            </div>
+          <div class="row">
+            <div class="text-center">
+              <!-- <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button> -->
+              <button type="submit" class="btn btn-success">บันทึก</button>
+            </div>
+          </div>
+
+            </div>
+        </div> 
+      </div>
+    {!! Form::close() !!}
+
+      <!-- <div class="row">
         <div class="col-xs-12 text-right">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-repair">
                 <i class="fa  fa-plus-circle fa-lg"></i> &nbsp; เพิ่มข้อมูล
             </button>
         </div> 
       </div>
-      <br>
+      <br> -->
 
       <div class="row">
         <div class="col-xs-12">
@@ -60,7 +131,7 @@
           <th>#</th>
             <th>เลขบิล</th>
             <th>ชื่อ-สกุล</th>
-            <th>ราคา</th>
+            <!-- <th>ราคา</th> -->
             <th>ผู้รับงานซ่อม</th>
             <th class="text-center">รายการแจ้งซ่อม</th>
             <th class="text-center">สถานะ</th>
@@ -75,12 +146,13 @@
           <td>{{ $i=$i+1 }}</td>
             <td>{{ $repair->bin_number }}</td>
             <td>{{ $repair->member_name }}</td>
-            <td>{{ number_format($repair->price, 2) }}</td>
+            <!-- <td>{{ number_format($repair->price, 2) }}</td> -->
             <td>{{ $repair->persons_name }}</td>
             <td class="text-center">
             <!-- <a href="{{ url('/list-repair/'.$repair->id)  }}" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp;รายการที่ซ่อม</a></a> -->
             <?= Form::open(array('url' => '/list-repair' )) ?>
             <input type="hidden" name="id" value="{{ $repair->id }}">
+            <input type="hidden" name="back" value="member">
             <button type="submit" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp;รายการแจ้งซ่อม</button>
           {!! Form::close() !!}
           </td> 
@@ -488,7 +560,7 @@
               </div>
             </div>
 
-            <div class="row" style="padding-top:20px;">
+            <!-- <div class="row" style="padding-top:20px;">
               <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">ราคาประเมิน</b>
                     <div class="col-md-8">
@@ -500,9 +572,9 @@
                       </div>
                     </div>
               </div>
-            </div>
+            </div> -->
 
-            <div class="row" style="padding-top:20px;">
+            <!-- <div class="row" style="padding-top:20px;">
               <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">ราคา</b>
                     <div class="col-md-8">
@@ -514,7 +586,7 @@
                       </div>
                     </div>
               </div>
-            </div>
+            </div> -->
 
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
@@ -553,7 +625,7 @@
 
         <!-- //////////////////////////////modal-add-repair//////////////////////////////// -->
 
-        <div class="modal fade " id="modal-add-repair">
+        <!-- <div class="modal fade " id="modal-add-repair">
         
         <div class="modal-dialog ">
         <div class="modal-content ">
@@ -570,7 +642,6 @@
                 <div class="col-md-8">
                     <select required class="form-control select2" style="width: 100%;" name="member_id">
                       <option value="">เลือกสมาชิก</option>
-                      <!-- <option disabled="disabled">California (disabled)</option> -->
                     @foreach($members as $value)
                     <option value="{{ $value->id }}">{{ $value->name }}</option>
                     @endforeach
@@ -626,7 +697,7 @@
           {!! Form::close() !!}
         </div>
       </div>          
-    </div>
+    </div> -->
     <!-- //////////////////////////////End modal-add-repair//////////////////////////////// -->
     
     @if (session()->has('status_create'))     

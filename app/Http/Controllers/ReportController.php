@@ -258,52 +258,60 @@ class ReportController extends Controller
       
     }
     public function get_report_list() {
-      $results = Persons::where('status', 1)
-      ->get();
-      $gender_employee = $this->count_gender_employee($results);
+      $s_type=session('s_type','default');
+      if($s_type==1 || $s_type==2 || $s_type==3){
+          $results = Persons::where('status', 1)
+          ->get();
+          $gender_employee = $this->count_gender_employee($results);
 
-      $results2 = PersonsMember::where('persons_member.status', 1)
-      ->get();
-      // echo $results2;exit();
-      $gender_member = $this->count_gender_member($results2);
+          $results2 = PersonsMember::where('persons_member.status', 1)
+          ->get();
+          // echo $results2;exit();
+          $gender_member = $this->count_gender_member($results2);
 
-      $results3 = StoreBranch::all();
-      $store_branch = $this->count_store_branch($results3);
+          $results3 = StoreBranch::all();
+          $store_branch = $this->count_store_branch($results3);
 
-      $results4 = Repair::where('status',1)
-      ->get();
-      $repair = $this->count_repair($results4);
+          $results4 = Repair::where('status',1)
+          ->get();
+          $repair = $this->count_repair($results4);
 
-      $results5 = ImportPart::where('status',1)
-      ->get();
-      $parts = $this->count_parts($results5);
+          $results5 = ImportPart::where('status',1)
+          ->get();
+          $parts = $this->count_parts($results5);
 
-      $data =[
-      'countmale_em' => $gender_employee['countmale'],
-      'countfemale_em' => $gender_employee['countfemale'],
-      'countundefine_em' => $gender_employee['countundefine'],
-      'countgernderall_em' => $gender_employee['countgernderall'],
+          $data =[
+          'countmale_em' => $gender_employee['countmale'],
+          'countfemale_em' => $gender_employee['countfemale'],
+          'countundefine_em' => $gender_employee['countundefine'],
+          'countgernderall_em' => $gender_employee['countgernderall'],
 
-      'countmale_me' => $gender_member['countmale'],
-      'countfemale_me' => $gender_member['countfemale'],
-      'countundefine_me' => $gender_member['countundefine'],
-      'countgernderall_me' => $gender_member['countgernderall'],
+          'countmale_me' => $gender_member['countmale'],
+          'countfemale_me' => $gender_member['countfemale'],
+          'countundefine_me' => $gender_member['countundefine'],
+          'countgernderall_me' => $gender_member['countgernderall'],
 
-      'countopen_st' => $store_branch['countopen'],
-      'countclose_st' => $store_branch['countclose'],
-      'countall_st' => $store_branch['countstoreall'],
+          'countopen_st' => $store_branch['countopen'],
+          'countclose_st' => $store_branch['countclose'],
+          'countall_st' => $store_branch['countstoreall'],
 
-      'countmember_re' => $repair['countmember'],
-      'countgeneral_re' => $repair['countgeneral'],
-      'countall_re' => $repair['countrepairall'],
+          'countmember_re' => $repair['countmember'],
+          'countgeneral_re' => $repair['countgeneral'],
+          'countall_re' => $repair['countrepairall'],
 
-      'countlot_pa' => $parts['countpartlittle'],
-      'countall_pa' => $parts['countpartsall'],
-      'countlittle_pa' => $parts['countpartlittle'],
-      ];
-      // echo $data['countmale'];exit();
-      
-      return view('report/report-list',$data);
+          'countlot_pa' => $parts['countpartlittle'],
+          'countall_pa' => $parts['countpartsall'],
+          'countlittle_pa' => $parts['countpartlittle'],
+          ];
+          // echo $data['countmale'];exit();
+          
+          return view('report/report-list',$data);
+      }
+      else{
+        echo "<meta http-equiv='refresh' content='0;url=blank.php'>";
+      }
+
+     
     }
 
         ////////////////count gender male female undifind employee/////////////////////////

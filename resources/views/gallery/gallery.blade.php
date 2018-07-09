@@ -30,7 +30,7 @@
  @include('form/header-leftmenu')
  <section class="content-header">
             <h1 style="background-color:#DCDCDC;padding-top:10px;padding-bottom:10px;padding-left:10px;">
-              ไสลด์ภาพ /
+              สไลด์ภาพ /
               <small><a>รายการสไลด์ภาพ</a> </small>
             </h1>
           </section> 
@@ -52,7 +52,7 @@
 
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">รายการรูปภาพ</h3>
+              <h3 class="box-title">รายการสไลด์ภาพ</h3>
             </div>
 
        <div class="box-body table-responsive ">
@@ -74,6 +74,7 @@
           <td class="text-center">
             <a href="{{ asset('image/gallery/picture/'.$gallery->img_url) }}"><img src="{{ asset('image/gallery/resize/'.$gallery->img_url) }}" style="width:400px;height:250px;"></a> 
           </td>
+
           <td class="text-center"> 
             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-gallery{{ $gallery->id }}"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข
             </button>
@@ -122,7 +123,7 @@
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>
+            <h4 class="modal-title">แก้ไขข้อมูลรูปภาพ</h4>
           </div>        
           <!-- <?= Form::open(array('url' => '/gallery/edit/'.$gallery->id)) ?> -->
           {!!  Form::open(['url'=>'/gallery/edit/'.$gallery->id,'class'=>'form','files'=>true])   !!}
@@ -177,7 +178,7 @@
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>
+            <h4 class="modal-title">บันทึกข้อมูลรูปภาพ</h4>
           </div>        
           <!-- <?= Form::open(array('url' => '/gallery/create')) ?> -->
           {!!  Form::open(['url'=>'/gallery/create','class'=>'form','files'=>true])   !!}
@@ -208,11 +209,17 @@
     </div>
     <!-- //////////////////////////////End modal-add-import-part//////////////////////////////// -->
 
-    
-
     @if (session()->has('status_create'))     
      <script>swal({ title: "<?php echo session()->get('status_create'); ?>",        
                      text: "ผลการทํางาน",         
+                     timer: 3500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+    @elseif (session()->has('status_create_fail'))     
+     <script>swal({ title: "<?php echo session()->get('status_create_fail'); ?>",        
+                     text: "กรุณากรอกเป็นไฟล์รูปภาพ jpg,png,gif",         
                      timer: 2500,         
                      type: 'success',  
                      position: 'top-end',       
@@ -250,12 +257,17 @@
 <script src="dist/js/demo.js"></script>
 <!-- End js header-leftmenu -->
 
+
+
+
+
   <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
 <!-- DataTables -->
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
 
 <script>
   // Datatable

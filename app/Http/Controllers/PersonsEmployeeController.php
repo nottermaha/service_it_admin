@@ -10,11 +10,18 @@ use Image; //เรียกใช้ library จดัการรูปภา�
 class PersonsEmployeeController extends Controller
 {    
     public function get_persons() {
+      $s_type=session('s_type','default');
+      if($s_type==1 ){
+        $store_branch = StoreBranch::where('status', 1)->get();
+        $check['check']=0;
 
-      $store_branch = StoreBranch::where('status', 1)->get();
-      $check['check']=0;
+        return view('persons_employee/persons-employee',  ['store_branch' => $store_branch],$check);
+      }
+      else{
+        echo "<meta http-equiv='refresh' content='0;url=blank.php'>";
+      }
 
-      return view('persons_employee/persons-employee',  ['store_branch' => $store_branch],$check);
+
     }
 
     public function get_persons2(Request $request) {

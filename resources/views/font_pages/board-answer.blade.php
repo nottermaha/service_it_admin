@@ -89,6 +89,7 @@
                 <div class="blog-box blog-box-single blog-box-alt row">
                 <a class="post-title" href="blog-single.html" title="">
                     <h3>ชื่อเรื่อง :{{$question_posts_topic}}</h3>
+                    
                 </a>
                 @if($person_type==1 || $person_type==2)
                 <img class="img-circle" style="border-radius:50%;height:70px;width:70px;" src="{{ asset('image/person-manager/resize/'.$person_image_url) }}" alt="">
@@ -103,6 +104,16 @@
                         <span class="float-left">
                             <i class="glyph-icon icon-user"></i>
                             <a href="#" title="">{{ $person_name }}</a>
+                            <b style="color:gray;">สถานะ :</b>
+                                    @if($person_type==1)
+                                    <b style="color:orange;">แอดมิน</b>
+                                    @elseif($person_type==2)
+                                    <b style="color:back;">ผู้จัดการร้าน</b>
+                                    @elseif($person_type==3)
+                                    <b style="color:blue;">พนักงาน</b>
+                                    @elseif($person_type==4)
+                                    <b style="color:green;">สมาชิก</b>
+                                    @endif
                         </span>
                         <span class="float-left">
                             <i class="glyph-icon icon-clock-o"></i>
@@ -184,7 +195,8 @@
                     </div>
                     <div class="divider"></div>
                     <div class="post-content">
-                    {!! $question_posts_message !!}
+                    
+                    <h3>รายละเอียด</h3>{!! $question_posts_message !!}
 
                     @if($s_id_from_question == $s_id)
               <div class="box-tools pull-right">
@@ -288,10 +300,27 @@
                                         <p>{!! $ansewr_post->answer_message !!}.</p>
                                     </div>
                                     <div class="testimonial-author-wrapper">
-                                        <img class="img-circle" src="assets/image-resources/people/testimonial3.jpg" alt="">
+                            <!-- <img class="img-circle" src="assets/image-resources/people/testimonial3.jpg" alt=""> -->
+                            @if($ansewr_post->is_type==1 || $ansewr_post->is_type==2)
+                            <img class="img-circle img-sm" src="{{ asset('image/person-manager/resize/'.$ansewr_post->is_image_url) }}" alt="">
+                            @elseif($ansewr_post->is_type==3)
+                            <img class="img-circle img-sm" src="{{ asset('image/person-employee/resize/'.$ansewr_post->is_image_url) }}" alt="">
+                            @elseif($ansewr_post->is_type==4)
+                            <img class="img-circle img-sm" src="{{ asset('image/person-member/resize/'.$ansewr_post->is_image_url) }}" alt="">
+                            @endif
                                         <div class="testimonial-author">
                                             <b>{{  $ansewr_post->is_name }}</b>
-                                            <span>Manager, ACME Inc.</span>
+                                            
+                                                @if($ansewr_post->is_type==1)
+                                                <b style="color:orange;">แอดมิน</b>
+                                                @elseif($ansewr_post->is_type==2)
+                                                <b style="color:back;">ผู้จัดการร้าน</b>
+                                                @elseif($ansewr_post->is_type==3)
+                                                <b style="color:blue;">พนักงาน</b>
+                                                @elseif($ansewr_post->is_type==4)
+                                                <b style="color:green;">สมาชิก</b>
+                                                @endif
+                                            <span>แก้ไขล่าสุด : {{ $ansewr_post->updated_answer }}</span>
 
                                             @if($s_id==$ansewr_post->is_s_id) 
                                             <div class="box-tools pull-right">

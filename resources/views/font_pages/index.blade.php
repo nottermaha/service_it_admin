@@ -149,9 +149,9 @@
             <div class="icon-box icon-box-left mrg25T">
                 <i class="icon-alt glyph-icon icon-linecons-beaker wow bounceIn" data-wow-duration="0.8s" data-wow-delay="0.3s"></i>
                 <div class="icon-wrapper">
-                    <h4 class="icon-title wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.4s">โปรโมชั่นสุดพิเศษ !!</h4>
-                    <p class="icon-content wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.5s">โปรโมชั่นสุดพิเศษจากทางร้าน เพื่อเอาใจลูกค้าทุกท่าน ดูรายละเอียดเพิ่มเติม...</p>
-                    <a class="read-more wow fadeInUp" data-wow-delay="1.4s" href="#" title="Learn more about AUI widgets &amp; plugins">ดูข้อมูลเพิ่มเติม</a>
+                    <h4 class="icon-title wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.4s">ตรวจสอบการแจ้งซ่อมสินค้า !!</h4>
+                    <p class="icon-content wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.5s">ท่านสามารถตรวจสอบการแจ้งซ่อมของท่านได้ง่ายๆ...</p>
+                    <a class="read-more wow fadeInUp" data-wow-delay="1.4s" href="{{ url('/font-repair')  }}" title="Learn more about AUI widgets &amp; plugins">ดูข้อมูลเพิ่มเติม</a>
                 </div>
             </div>
         </div>
@@ -251,10 +251,10 @@
                     <div class="thumb-content">
                         <div class="center-vertical">
                             <div class="center-content">
-                                <h3 class="thumb-heading wow bounceIn">
+                                <!-- <h3 class="thumb-heading wow bounceIn">
                                     Railroad bridge
                                     <small>12 March 2015</small>
-                                </h3>
+                                </h3> -->
                             </div>
                         </div>
                     </div>

@@ -155,7 +155,12 @@
                 </div>
 
                 <div class="row">
-                  <b  style="margin-top:-10px;">เพศ : </b>{{$gender}} 
+                  <b  style="margin-top:-10px;">เพศ : </b>
+                  @if($gender==1)
+                  ชาย
+                  @else($gender)
+                  หญิง
+                  @endif
                   <hr style="margin-top:5px;margin-bottom:5px;">
                 </div>
 

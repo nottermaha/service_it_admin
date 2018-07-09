@@ -9,13 +9,20 @@ use Image; //เรียกใช้ library จดัการรูปภา�
 class PersonsMemberController extends Controller
 {    
     public function get_persons() {
-      $persons = PersonsMember::where('status', 1)
-      // ->where('type',4)
-      // ->where('store_branch_id',2)
-      ->get();
-      $persons = $this->get_status_name($persons);
+      $s_type=session('s_type','default');
+      if($s_type==1 || $s_type==2 || $s_type==3){
+        $persons = PersonsMember::where('status', 1)
+        // ->where('type',4)
+        // ->where('store_branch_id',2)
+        ->get();
+        $persons = $this->get_status_name($persons);
 
-      return view('persons_member/persons-member', ['persons' => $persons]);
+        return view('persons_member/persons-member', ['persons' => $persons]);
+      }
+      else{
+        echo "<meta http-equiv='refresh' content='0;url=blank.php'>";
+      }
+      
     }
     public function report_person_member() {
       $persons = PersonsMember::where('status', 1)

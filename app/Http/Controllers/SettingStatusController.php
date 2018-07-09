@@ -8,11 +8,18 @@ use Illuminate\Http\Request;
 class SettingStatusController extends Controller
 {    
     public function get() {
-      // echo $id;exit();
-      $setting_status_repairs = SettingStatusRepair::where('status', 1)
-      ->get();
-      // echo $setting_status_repair;exit();
-      return view('setting_status_repair/setting-status-repair', ['setting_status_repairs' => $setting_status_repairs]);
+      $s_type=session('s_type','default');
+      if($s_type==1 ){
+          // echo $id;exit();
+          $setting_status_repairs = SettingStatusRepair::where('status', 1)
+          ->get();
+          // echo $setting_status_repair;exit();
+          return view('setting_status_repair/setting-status-repair', ['setting_status_repairs' => $setting_status_repairs]);
+      }
+      else{
+        echo "<meta http-equiv='refresh' content='0;url=blank.php'>";
+      }
+
     }
     public function create(Request $request)
     { 

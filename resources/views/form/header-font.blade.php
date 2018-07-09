@@ -354,7 +354,7 @@
             $s_type='' ; $s_type=session('s_type','default');
             $s_name='' ; $s_name=session('s_name','default'); 
             ?>
-        @if ((session()->has('s_type'))=='' ) 
+        @if($s_type!='4' ) 
             <button title="MonarchUI Admin Template" class="btn btn-sm float-left btn-alt btn-hover mrg10R btn-default">
                 <span data-toggle="modal" data-target="#modal-login">เข้าสู่ระบบ</span>
                 <i class="glyph-icon icon-lock"></i>
@@ -364,7 +364,7 @@
             <a href="{{ url('/font-register')  }}" title="Homepage example 1"><span>สมัครสมาชิก</span></a>
                 <i class="glyph-icon icon-user"></i>
             </button>
-        @elseif ((session()->has('s_type'))==4 )
+        @elseif($s_type=='4' )
     
             <div id="header-nav-left">
                 <!-- <div class="user-account-btn dropdown"> -->
@@ -380,14 +380,14 @@
                                     <a href="#" title="" class="change-img">Change photo</a>
                                     <img src="assets/image-resources/gravatar.jpg" alt="">
                                 </div>
-                                <div class="user-info">
+                                <!-- <div class="user-info">
                                     <span>
                                         <?php echo $s_name; ?>
                                         <i>UX/UI developer</i>
                                     </span>
                                     <a href="#" title="Edit profile">Edit profile</a>
                                     <a href="#" title="View notifications">View notifications</a>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="divider"></div>
                             <ul class="reset-ul mrg5B">
@@ -543,7 +543,8 @@
 
 <div class="main-header bg-header wow fadeInDown">
     <div class="container">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTPWe2GWn6ojcHN32JujpSVhjs2tj9sLz_XI2mAeUEgZ3UfTJ6" style="width:70px;height:70px;"alt="">
+    <?php $s_logo=session('s_logo','default'); ?>
+    <img src="{{ asset('image/'.$s_logo) }}" style="width:70px;height:70px;"alt="">
     <!-- <a href="index.html" class="header-logo" title="Monarch - Create perfect presentation websites"></a> -->
     <!-- .header-logo -->
     <div class="right-header-btn">
@@ -579,7 +580,7 @@
                 <li><a href="{{ url('/font-new')  }}" title="Homepage example 1"><span>ฟีดข่าว</span></a></li>
             </ul>
         </li>
-        <li>
+        <!-- <li>
             <a href="#" title="Homepages" style="font-size:20px;">
             โปรโมชั่น
                 <i class="glyph-icon icon-angle-down"></i>
@@ -587,7 +588,7 @@
             <ul>
                 <li><a href="" title="Homepage example 1"><span>โปรโมชั่น</span></a></li>
             </ul>
-        </li>
+        </li> -->
 
         <li>
             <a href="#" title="Homepages" style="font-size:20px;">

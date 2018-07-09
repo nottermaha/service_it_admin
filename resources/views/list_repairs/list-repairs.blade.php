@@ -86,18 +86,98 @@
 
     <section class="content">
 
-      <div class="row">
+     <div class="col-md-3"></div>
+    {!!  Form::open(['url'=>'/list-repair-create'])   !!}
+    {{ csrf_field() }}
+      <div class="col-md-6">
+        <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">เพิ่มรายการแจ้งซ่อมใหม่</h3>
+                </div>
+            <div class="box-body">
+           
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">รายการที่ซ่อม</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-angle-double-right fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="list_name" placeholder="รายการที่ซ่อม..." required>
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <!-- <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">รายละเอียดเพิ่มเติม</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-angle-double-right fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="detail" placeholder="รายละเอียดเพิ่มเติม...">
+                      </div>
+                    </div>
+              </div>
+            </div> -->
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">อาการเบื้องต้น</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-angle-double-right fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="symptom" placeholder="อาการเบื้องต้น...">
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">ช่างซ่อม</b>
+                    <div class="col-md-8">               
+                        <select required class="form-control select2" style="width: 100%;" name="person_id">
+                        <option value="">ช่างที่เลือก [ ยังไม่เลือกช่าง ]</option>
+                        @foreach ($persons as $person)
+                        <option value="{{ $person->id }}">{{ $person->name }}</option>
+                        @endforeach
+                        </select>
+                    </div>
+              </div>
+            </div>
+            <br>
+          <div class="row">
+            <div class="text-center">
+              <!-- <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button> -->
+              <input type="hidden" name="repair_id"value="{{$repair_id}}">
+              <button type="submit" class="btn btn-success">บันทึก</button>
+            </div>
+          </div>
+
+            </div>
+        </div> 
+      </div>
+    {!! Form::close() !!}
+
+      <!-- <div class="row">
         <div class="col-xs-12 text-right">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-add-repair">
                    <i class="fa  fa-plus-circle fa-lg"></i> &nbsp; เพิ่มข้อมูล
             </button>
         </div> 
       </div>
-      <br>
-
+      <br> -->
+      
       <div class="row">
         <div class="col-xs-12">
-
+            @if($back=='general')
+            <a href="{{ url('/repair-general')  }}" class="btn btn-warning"><i class="fa fa-reply"></i>ย้อนกลับ</a>
+            @elseif($back=='member')
+            <a href="{{ url('/repair-member')  }}" class="btn btn-warning"><i class="fa fa-reply"></i>ย้อนกลับ</a>
+            @endif
       <div class="box">
             <div class="box-header">
               <h3 class="box-title">รายการแจ้งซ่อม</h3>
@@ -110,6 +190,7 @@
           <th>#</th>
             <th class="text-center">รายการ</th>
             <th class="text-center">ราคา</th>
+            <th class="text-center">ราคาประเมิน</th>
             <th class="text-center">การใช้อะไหล่</th>
             <th class="text-center">สถานะการซ่อม</th>
             <th class="text-center">แก้ไข</th>
@@ -123,7 +204,8 @@
           <tr>
             <td>{{ $i=$i+1 }}</td>
             <td class="text-center">{{ $list_repair->list_name }}</td>
-            <td class="text-center">{{ $list_repair->price }}</td>
+            <td class="text-center">{{ number_format($list_repair->price, 2) }}</td>
+            <td class="text-center">{{ number_format($list_repair->price_before, 2) }}</td>
             <td class="text-center">
             <?php $k=0; $temp=0; ?>
             @foreach($data_use_parts as $data_use_part)
@@ -358,7 +440,7 @@
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">แก้ไขข้อมูลรายการแจ้งซ่อม</h4>
           </div>        
-          <?= Form::open(array('url' => '/list-repair-edit' )) ?>
+          {!!  Form::open(['url'=>'list-repair-edit','class'=>'form-horizontal','files'=>true])   !!}
           <div class="modal-body">
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
@@ -373,7 +455,7 @@
                     </div>
               </div>
             </div>
-            <div class="row" style="padding-top:20px;">
+            <!-- <div class="row" style="padding-top:20px;">
               <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">รายละเอียดเพิ่มเติม</b>
                     <div class="col-md-8">
@@ -385,7 +467,7 @@
                       </div>
                     </div>
               </div>
-            </div>
+            </div> -->
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">อาการเบื้องต้น</b>
@@ -421,7 +503,20 @@
                         <div class="input-group-addon">
                             <i class="fa fa-money fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="price" placeholder="อาการเบื้องต้น..." value="{{ $list_repair->price }}">
+                          <input type="text" class="form-control pull-right" id="Name" name="price" placeholder="ราคา..." value="{{ $list_repair->price }}">
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">ราคาประเมิน</b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-money fa-lg"></i>
+                        </div>
+                          <input type="text" class="form-control pull-right" id="Name" name="price_before" placeholder="ราคาประเมิน..." value="{{ $list_repair->price_before }}">
                       </div>
                     </div>
               </div>
@@ -462,12 +557,19 @@
                         <div class="input-group-addon">
                             <i class="fa fa-image fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="image" placeholder="อาการเบื้องต้น..." value="{{ $list_repair->image }}">
+                          <input type="file" class="form-control pull-right" id="Name" name="image" placeholder="รูปภาพ..." value="{{ $list_repair->image }}">
                       </div>
                     </div>
               </div>
             </div>
-          
+<br>
+          <div class="row"> 
+            <div class="text-center">
+            @if($list_repair->image=="default.jpg") ยังไม่มีรูปภาพ @endif <br>
+            <a href="{{ asset('image/list-repair/picture/'.$list_repair->image) }}"><img src="{{ asset('image/list-repair/resize/'.$list_repair->image) }}" style="width:400px;height:250px;"></a> 
+            </div>
+          </div>
+
           </div> 
           <div class="modal-footer">
           <input type="hidden" name="status_list_repair_old" value="{{ $list_repair->status_list_repair }}">
@@ -496,7 +598,7 @@
 
         <!-- //////////////////////////////modal-add-repair//////////////////////////////// -->
 
-        <div class="modal fade " id="modal-add-repair">
+        <!-- <div class="modal fade " id="modal-add-repair">
         
         <div class="modal-dialog ">
         <div class="modal-content ">
@@ -552,7 +654,6 @@
                     <div class="col-md-8">               
                         <select required class="form-control select2" style="width: 100%;" name="person_id">
                         <option value="">ช่างที่เลือก [ ยังไม่เลือกช่าง ]</option>
-                        <!-- <option disabled="disabled">California (disabled)</option> -->
                         @foreach ($persons as $person)
                         <option value="{{ $person->id }}">{{ $person->name }}</option>
                         @endforeach
@@ -570,7 +671,7 @@
           {!! Form::close() !!}
         </div>
       </div>          
-    </div>
+    </div> -->
     <!-- //////////////////////////////End modal-add-repair//////////////////////////////// -->
 
      @if (session()->has('status_create'))     

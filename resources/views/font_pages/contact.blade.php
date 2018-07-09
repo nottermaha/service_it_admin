@@ -31,7 +31,7 @@
         <div class="post-image col-md-4">
             <a href="assets/image-resources/stock-images/img-44.jpg" class="prettyphoto" rel="prettyPhoto[pp_gal]" title="Blog post title">
             <!-- // -->
-                <img class="img-responsive lazy img-rounded" src="" data-original="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTPWe2GWn6ojcHN32JujpSVhjs2tj9sLz_XI2mAeUEgZ3UfTJ6" alt="" style="height:170px;width:280px;padding-left:50px;">
+                <img class="img-responsive lazy img-rounded" src="" data-original="{{ asset('image/'.$logo) }}" alt="" style="height:170px;width:280px;padding-left:50px;">
             <!-- // -->
             </a>
         </div>

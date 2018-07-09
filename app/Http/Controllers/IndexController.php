@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Gallery;
 use App\News;
+use App\Store;
 
 use Illuminate\Http\Request;
 
@@ -17,7 +18,8 @@ class IndexController extends Controller
       ->orderBy('id','desc')
       ->limit(10)
       ->get();
-
+      $store = Store::find(1);
+      session(['s_logo'=>$store['logo'] ]);
       return view('font_pages/index', ['gallerys' => $gallerys,'news' => $news]);
     }
 

@@ -1,4 +1,157 @@
+
 @include('form/header-font')
+<script>
+	function checkText()
+	{   var y = document.getElementById("username").value;
+		var elem = document.getElementById('username').value;
+		if(!elem.match(/^([a-z0-9\_])+$/i))
+		{
+            document.getElementById('txt_username').innerHTML = "กรุณากรอกชื่อผู้ใช้เป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";
+		}
+        else if(y.length<4){document.getElementById('txt_username').innerHTML = "ชื่อผู้ใช้ไม่ควรต่ำกว่า 4 ตัว";}
+        else{document.getElementById('txt_username').innerHTML = "";}
+	}
+    function checkName()
+	{   var y = document.getElementById("name").value;
+        if(y.length<1){document.getElementById('txt_name').innerHTML = "กรุณากรอก ชื่อ-นามสกุล";}
+        else{document.getElementById('txt_name').innerHTML = "";}
+	}
+	function ChkLengthPass()
+	{   var y = document.getElementById("password").value;
+		var elem = document.getElementById("password").value;
+        if(!elem.match(/^([a-z0-9\_])+$/i))
+		{
+            document.getElementById('pass').innerHTML = "กรุณากรอกรหัสผ่านเแชป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";
+		}
+		else if(y.length<8){document.getElementById('pass').innerHTML = "รหัสผ่านไม่ควรต่ำกว่า 8 ตัว";}
+		else{document.getElementById('pass').innerHTML = "";}
+	}
+    function ChkRePass()
+	{
+		var x = document.getElementById("password");
+		var y = document.getElementById("repassword");
+		if(x.value!=y.value){document.getElementById('repass').innerHTML = "การยืนยันรหัสผ่านไม่ตรงกัน";}
+		else{document.getElementById('repass').innerHTML = "";}
+	}
+    function ChkEmail(){
+            var x = document.getElementById("email");
+			var y = x.value;
+            var emailFilter=/^.+@.+\..{2,3}$/;
+            // var str=document.form.text1.value;
+        if (!(emailFilter.test(y))) { 
+            document.getElementById('txt_email').innerHTML = "อีเมลล์ไม่ถูกต้อง";
+            return false;
+        }
+        else{document.getElementById('txt_email').innerHTML = "";}
+        //  return true;
+    }
+  
+    function CheckMobileNumber() {
+        var msg = 'โปรดกรอกหมายเลขโทรศัพท์ 10 หลัก ด้วยรูปแบบดังนี้ 08XXXXXXXX ไม่ต้องใส่เครื่องหมายขีด (-) วงเล็บหรือเว้นวรรค';
+        var x = document.getElementById("phone").value;
+        s = new String(x);
+
+        if ( s.length != 10)
+        {
+            document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+            //   alert(msg);
+            return false;
+        }
+
+            for (i = 0; i < s.length; i++ ) {               
+                if ( s.charCodeAt(i) < 48 || s.charCodeAt(i) > 57 ) {
+                    document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+                    //  alert(msg);
+                    return false;
+                } 
+                    if ( ((i == 0) && (s.charCodeAt(i) != 48)) || ((i == 1) && (s.charCodeAt(i) == 55)) || ((i == 1) && (s.charCodeAt(i) == 49)) || ((i == 1) && (s.charCodeAt(i) == 48)) )
+                    {
+                        document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+                        return false;
+                    }
+                    else{
+                        document.getElementById('txt_phone').innerHTML = "";
+                    }
+            }            
+            return true;
+    }
+
+    function checkIDD() 
+    { 
+        var id = document.getElementById("person_id").value;
+        if(id.length != 13) return false; 
+        for(i=0, sum=0; i < 12; i++) 
+        sum += parseFloat(id.charAt(i))*(13-i); if((11-sum%11)%10!=parseFloat(id.charAt(12))) 
+        return false; return true;
+    }
+    function checkID() 
+    { 
+        if(!checkIDD(person_id.value)) 
+        {
+            document.getElementById('txt_person_id').innerHTML = "เลขประจำตัวประชาชนของท่านไม่ถูกต้อง";
+        }
+        else
+        {
+            document.getElementById('txt_person_id').innerHTML = "";
+        } 
+    }
+    //////////////onclick////////////////
+    function BtnChkSubmit() 
+    { 
+        var y = document.getElementById("username").value;
+		var elem = document.getElementById('username').value;
+        var str = "กรุณาตรวจสอบข้อมูลให้ถูกต้องก่อนทำการสมัครสมาชิก";
+		if(!elem.match(/^([a-z0-9\_])+$/i))
+		{
+            document.getElementById('txt_username').innerHTML = "กรุณากรอกชื่อผู้ใช้เป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";return false;
+		}
+        else if(y.length<4){document.getElementById('txt_username').innerHTML = "ชื่อผู้ใช้ไม่ควรต่ำกว่า 4 ตัว";return false;}
+        else{document.getElementById('txt_username').innerHTML = "";}
+        ////
+        var y = document.getElementById("name").value;
+        if(y.length<1){document.getElementById('txt_name').innerHTML = "กรุณากรอก ชื่อ-นามสกุล";return false}
+        else{document.getElementById('txt_name').innerHTML = "";}
+        ///
+        var y = document.getElementById("password").value;
+		var elem = document.getElementById("password").value;
+        if(!elem.match(/^([a-z0-9\_])+$/i))
+		{
+            document.getElementById('pass').innerHTML = "กรุณากรอกรหัสผ่านเแชป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";return false;
+		}
+		else if(y.length<8){document.getElementById('pass').innerHTML = "รหัสผ่านไม่ควรต่ำกว่า 8 ตัว";return false;}
+		else{document.getElementById('pass').innerHTML = "";}
+        ////
+        var x = document.getElementById("password");
+		var y = document.getElementById("repassword");
+		if(x.value!=y.value){document.getElementById('repass').innerHTML = "การยืนยันรหัสผ่านไม่ตรงกัน";return false;}
+		else{document.getElementById('repass').innerHTML = "";}
+        /////
+        var x = document.getElementById("email").value;
+        var emailFilter=/^.+@.+\..{2,3}$/;
+            // var str=document.form.text1.value;
+        if (!(emailFilter.test(x))) { 
+            document.getElementById('txt_email').innerHTML = "อีเมลล์ไม่ถูกต้อง";
+            return false;
+        }
+        else{document.getElementById('txt_email').innerHTML = "";}
+        /////
+        
+        if(!CheckMobileNumber(phone.value)) 
+        {
+            document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";return false;
+        }
+        else
+        {
+            document.getElementById('txt_phone').innerHTML = "";
+        }
+        // else{
+            ChkForm.submit();
+        // }
+
+    }
+
+</script>
+
 <div id="page-content" class="col-md-10 center-margin frontend-components mrg25T">
 <div class="row mailbox-wrapper">
 <div class="col-md-3">
@@ -70,17 +223,17 @@
                 </div>
                 <div class="tl-row">
                     <div class="tl-item">
-                        <div class="tl-icon bg-blue">
-                            <i class="glyph-icon icon-line-chart"></i>
+                        <div class="tl-icon bg-green">
+                            <i class="glyph-icon icon-list"></i>
                         </div>
                         <div class="popover left">
                             <div class="arrow"></div>
                             <div class="popover-content">
-                                <div class="tl-label bs-label label-danger">Audio</div>
-                                <p class="tl-content">Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.</p>
+                                <div class="tl-label bs-label label-danger">รายการซ่อมที่ปิดบิลแล้ว</div>
+                                <!-- <p class="tl-content">จำนวน {{$count_on }} รายการ</p> -->
                                 <div class="tl-time">
-                                    <i class="glyph-icon icon-clock-o"></i>
-                                    a few seconds ago
+                                    <i class="glyph-icon icon-check"></i>
+                                    จำนวน {{$count_on }} รายการ
                                 </div>
                             </div>
                         </div>
@@ -88,17 +241,17 @@
                 </div>
                 <div class="tl-row">
                     <div class="tl-item">
-                        <div class="tl-icon bg-blue">
-                            <i class="glyph-icon icon-cab"></i>
+                        <div class="tl-icon bg-red">
+                            <i class="glyph-icon icon-list"></i>
                         </div>
                         <div class="popover left">
                             <div class="arrow"></div>
                             <div class="popover-content">
-                                <div class="tl-label bs-label label-warning">Video</div>
-                                <p class="tl-content">Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.</p>
+                                <div class="tl-label bs-label label-warning">รายการซ่อมที่ยังไม่ปิดบิล</div>
+                                <!-- <p class="tl-content">จำนวน {{ $count_close }} รายการ</p> -->
                                 <div class="tl-time">
-                                    <i class="glyph-icon icon-clock-o"></i>
-                                    a few seconds ago
+                                    <i class="glyph-icon icon-close"></i>
+                                    จำนวน {{ $count_close }} รายการ
                                 </div>
                             </div>
                         </div>
@@ -132,12 +285,12 @@
                     การซ่อมสินค้าทั้งหมด
                 </a>
             </li>
-            <li class="col-md-3">
+            <!-- <li class="col-md-3">
                 <a href="#tab-example-3" data-toggle="tab" class="list-group-item">
                     <i class="glyph-icon font-blue-alt font-green icon-globe"></i>
                     รายการซ่อมปัจจุบัน
                 </a>
-            </li>
+            </li> -->
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade " id="tab-example-1">
@@ -147,7 +300,7 @@
                 <div class="row">
 
                     <div class="content-box">
-                    {!!  Form::open(['url'=>'/font-profile-edit','class'=>'form-horizontal','files'=>true])   !!}
+                    {!!  Form::open(['url'=>'/font-profile-edit','class'=>'form-horizontal','files'=>true,'id'=>'ChkForm'])   !!}
                     <div class="form-horizontal pad15L pad15R bordered-row">
 
                         <div class="form-group">
@@ -157,8 +310,8 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-user " ></i></span>
-                                        <input type="text" class="form-control" placeholder="ชื่อผู้ใช้..." name="username" value="{{$username}}">
-                                    </div>
+                                        <input type="text" class="form-control" placeholder="ชื่อผู้ใช้..." name="username" id="username"required onBlur="checkText()" value="{{$username}}" >
+                                    </div><b id="txt_username" style="color:red;"></b>
                                 </div>
                             </div><br>
                             <div class="row">
@@ -166,8 +319,8 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-lock " ></i></span>
-                                        <input type="text" class="form-control" placeholder="รหัสผ่าน..." name="password" value="{{$password}}">
-                                    </div>
+                                        <input type="password" class="form-control" placeholder="รหัสผ่าน..." name="password" id="password"onBlur="ChkLengthPass()" required value="{{$password}}">
+                                    </div><b id="pass" style="color:red;"></b>
                                 </div>
                             </div><br>
                             <div class="row">
@@ -175,8 +328,8 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-lock "></i></span>
-                                        <input type="text" class="form-control" placeholder="รหัสผ่านอีกครั้ง.." name="password" value="{{$password}}">
-                                    </div>
+                                        <input type="password" class="form-control" placeholder="รหัสผ่านอีกครั้ง.." name="password" id="repassword" onBlur="ChkRePass()" required >
+                                    </div><b id="repass" style="color:red;"></b>
                                 </div>
                             </div>
                            
@@ -188,8 +341,8 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="ชื่อ-นามสกุล..." name="name" value="{{$name}}">
-                                    </div>
+                                        <input type="text" class="form-control" placeholder="ชื่อ-นามสกุล..." name="name" id="name" onBlur="checkName()"required value="{{$name}}">
+                                    </div><b id="txt_name" style="color:red;"></b>
                                 </div>
                             </div><br>
                             <div class="row">
@@ -197,19 +350,19 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" placeholder="เลขประจำตัวประชาชน..." name="person_id" value="{{$person_id}}">
-                                    </div>
+                                        <input type="text" class="form-control" placeholder="เลขประจำตัวประชาชน..." name="person_id" id="person_id" onBlur="checkID()" value="{{$person_id}}">
+                                    </div><b id="txt_person_id" style="color:red;"></b>
                                 </div>
                             </div><br>
                             <div class="row">
                                 <label class="col-sm-3 control-label">เพศ</label>
                                 <div class="col-sm-8">
                                     <label style="padding-right:30px;">
-                                        <input type="radio" id="inlineRadio110" name="gender" class="custom-radio" checked value="1" value="{{$gender}}">
+                                        <input type="radio" id="inlineRadio110" name="gender" class="custom-radio" @if($gender==1) checked @endif value="1" value="{{$gender}}">
                                         ชาย
                                     </label>
                                     <label>
-                                        <input type="radio" id="inlineRadio110" name="gender" class="custom-radio" value"2" value="{{$gender}}">
+                                        <input type="radio" id="inlineRadio110" name="gender" class="custom-radio" @if($gender==2) checked @endif value"2" value="{{$gender}}">
                                         หญิง
                                     </label>
                                 </div>
@@ -225,7 +378,7 @@
                                         <span class="add-on input-group-addon">
                                             <i class="glyph-icon icon-calendar"></i>
                                         </span>
-                                        <input type="date" class="bootstrap-datepicker form-control" value="02/16/12" data-date-format="mm/dd/yy" name="birthday" value="{{$birthday}}">
+                                        <input type="date" class="bootstrap-datepicker form-control" name="birthday" value="{{$birthday2}}">
                                     </div>
                                 </div>
                             </div><br>
@@ -234,8 +387,17 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-envelope " ></i></span>
-                                        <input type="text" class="form-control" placeholder="อีเมล์.." name="email" value="{{$email}}">
-                                    </div>
+                                        <input type="text" class="form-control" placeholder="อีเมล์.." name="email" onBlur="ChkEmail()" id="email"  required value="{{$email}}">
+                                    </div><b id="txt_email" style="color:red;"></b>
+                                </div>
+                            </div><br>
+                            <div class="row">
+                                <label class="col-sm-3 control-label">อีเมล์</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-envelope " ></i></span>
+                                        <input type="text" class="form-control" placeholder="อีเมล์.." name="email" onBlur="ChkEmail()" id="email"  required value="{{$email}}">
+                                    </div><b id="txt_email" style="color:red;"></b>
                                 </div>
                             </div><br>
                             <div class="row">
@@ -243,8 +405,8 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-phone " ></i></span>
-                                        <input type="text" class="form-control" placeholder="เบอร์โทร.." name="phone" value="{{$phone}}">
-                                    </div>
+                                        <input type="text" class="form-control" placeholder="เบอร์โทร.." name="phone" id="phone"    required onBlur="CheckMobileNumber()"  value="{{$phone}}">
+                                    </div><b id="txt_phone" style="color:red;"></b>
                                 </div>
                             </div><br>
                             <div class="row">
@@ -264,14 +426,13 @@
                                         <!-- <input type="text" class="form-control" placeholder="ที่อยู่.."> -->
                                           <textarea  id="" class="form-control" placeholder="ที่อยู่..." name="address" value="{{$address}}">{{$address}}</textarea>
 
-
                                     </div>
                                 </div>
                             </div><br>
                             <div class="row">
                                 <div class="col-sm-12 text-center">
                                 <input type="hidden" name="id" value="{{$id}}">
-                                <button type="submit" class="btn btn-warning">แก้ไขโปรไฟล์</button>
+                                <button type="button" onClick="BtnChkSubmit()" class="btn btn-warning">แก้ไขโปรไฟล์</button>
                                 </div>
                             </div><br><br>
 
@@ -320,7 +481,14 @@
                         @foreach($repairs as $repair)
                         <tr>
                         <td>{{ $j=$j+1 }}</td>
-                            <td>{{ $repair->bin_number }}</td>
+                            <td>{{ $repair->bin_number }} 
+                            <br>
+                            @if($repair->status_bill==0)
+                            <b style="color:red;">ยังไม่ปิดบิล</b>
+                            @elseif($repair->status_bill==1)
+                            <b style="color:green;">ปิดบิลแล้ว</b>
+                            @endif
+                            </td>
                             <td>{{ $repair->date_in_repair }}</td>
                             <td>{{ $repair->persons_name }}</td>
                             <td>
@@ -751,7 +919,12 @@
                                 </div>
 
                                  <div class="row">
-                                 <h4 style="color:gray"><b  style="margin-top:-10px;">เพศ : </b>{{$gender}}</h4>  
+                                 <h4 style="color:gray"><b  style="margin-top:-10px;">เพศ : </b>
+                                 @if($gender==1)
+                                ชาย
+                                @else($gender)
+                                หญิง
+                                @endif</h4>  
                                 <hr style="margin-top:5px;margin-bottom:5px;">
                                 </div>
 
@@ -785,6 +958,15 @@
 </div>
 </div>
 </div>
+@if (session()->has('status_create'))     
+     <script>swal({ title: "<?php echo session()->get('status_create'); ?>",        
+                     text: "ผลการทํางาน",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+@endif 
 @if (session()->has('status_edit'))     
      <script>swal({ title: "<?php echo session()->get('status_edit'); ?>",        
                      text: "ผลการทํางาน",         

@@ -9,14 +9,22 @@ use Illuminate\Http\Request;
 class ImportPartsController extends Controller
 {    
     public function get() {
-      // echo $id;exit();
-      $Import_parts = ImportPart::where('status', 1)
-      ->get();
-      $date = new CallUseController();
-      $Import_parts = $date->get_date_all($Import_parts,'date','date'); //get วันที่ภาษาไทย ลูป
+      $s_type=session('s_type','default');
+      $s_store_branch_id=session('s_store_branch_id','default');
+      if($s_type==1 || $s_type==2 || $s_type==3){
+        // echo $id;exit();
+        $Import_parts = ImportPart::where('status', 1)
+        ->where('store_branch_id',$s_store_branch_id)
+        ->get();
+        $date = new CallUseController();
+        $Import_parts = $date->get_date_all($Import_parts,'date','date'); //get วันที่ภาษาไทย ลูป
 
-      // echo $Import_parts;exit();
-      return view('import_part/import-part', ['Import_parts' => $Import_parts]);
+        // echo $Import_parts;exit();
+        return view('import_part/import-part', ['Import_parts' => $Import_parts]);
+      }
+      else{
+        echo "<meta http-equiv='refresh' content='0;url=blank.php'>";
+      }
     }
     public function create(Request $request)
     { 

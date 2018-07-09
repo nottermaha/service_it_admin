@@ -59,12 +59,12 @@
             
             <div class="row" style="padding-top:20px;">
               <div class="form-group" style="padding-left:20px;padding-right:20px;">หัวข้อ
-                          <input type="text" class="form-control pull-right" id="Name" name="topic" placeholder="หัวข้อ...">
+                          <input type="text" class="form-control pull-right" id="Name" name="topic" placeholder="หัวข้อ..." required>
               </div>
             </div>
             <div class="row" style="padding-top:20px;">
             <div class="form-group" style="padding-left:20px;padding-right:20px;">รายละเอียด
-                    <textarea id="compose-textarea" class="form-control" style="height: 300px" placeholder="รายละเอียด..." name="message">
+                    <textarea id="compose-textarea" class="form-control" style="height: 300px" placeholder="รายละเอียด..." name="message" >
                     </textarea>
               </div>
             </div>
@@ -140,9 +140,26 @@
                     <tr>
                     <!-- <td><input type="checkbox"></td>
                     <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td> -->
-                    <td><I>{{$question_post->topic}}</I></td> 
-
-                    <td class="mailbox-subject"> {!!str_limit($question_post->message, 70)!!}...
+                    <td>
+                    {{ $question_post->is_name }} <br><b style="color:gray;">สถานะ :</b>  
+                    @if($question_post->is_type==1)
+                    <b style="color:orange;">แอดมิน</b>
+                    @elseif($question_post->is_type==2)
+                    <b style="color:back;">ผู้จัดการร้าน</b>
+                    @elseif($question_post->is_type==3)
+                    <b style="color:blue;">พนักงาน</b>
+                    @elseif($question_post->is_type==4)
+                    <b style="color:green;">สมาชิก</b>
+                    @endif
+                    </td> 
+                    <td class="mailbox-subject"><I><b>เรื่อง :{{$question_post->topic}} </b></I><br>
+                    
+                    {!!str_limit($question_post->message, 70)!!}...
+                    <br>
+                    <div class="text-right">
+                      <p style="color:gray;font-size:14px;" >ตั้งกระทู้เมื่อ :{{$question_post->created}} </p>
+                    </div>
+                    
                     </td>
                     <td class="mailbox-attachment"></td>
                     </td>
@@ -152,7 +169,7 @@
                     <input type="hidden" name="chk_get" value="{{$chk_get}}">
                       <input type="hidden" name="id" value="{{ $question_post->id }}">
                       <input type="hidden" name="s_id" value="{{ $question_post->persons_id }}">
-                          <button type="submit" class="btn btn-info"><i class="fa fa-eye"></i>&nbsp; ดูเพิ่มเติม</button>
+                          <button type="submit" class="btn btn-info"><i class="fa fa-eye"></i>&nbsp; แสดงความคิดเห็น</button>
                     </td>
                     {!! Form::close() !!}
                     @if($question_post->persons_id == $s_id)
@@ -211,7 +228,7 @@
             
             <div class="row" style="padding-top:20px;">
               <div class="form-group" style="padding-left:20px;padding-right:20px;">หัวข้อ
-                  <input type="text" class="form-control pull-right" id="Name" name="topic" placeholder="หัวข้อ..." value="{{$question_post->topic}}">
+                  <input type="text" class="form-control pull-right" id="Name" name="topic" placeholder="หัวข้อ..." value="{{$question_post->topic}}" required>
               </div>
             </div>
             <div class="row" style="padding-top:20px;">

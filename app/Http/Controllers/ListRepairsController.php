@@ -11,6 +11,7 @@ use App\Persons;
 use App\ImportPart;
 
 use Illuminate\Http\Request;
+use Image; //เรียกใช้ library จดัการรูปภาพเข้ามาใช้งาน
 
 class ListRepairsController extends Controller
 {    
@@ -28,12 +29,14 @@ class ListRepairsController extends Controller
         ,'persons.name as person_name'//
 
         ,'list_repair.list_name'
-        ,'list_repair.detail'
+        // ,'list_repair.detail'
         ,'list_repair.symptom'
         ,'list_repair.image'
         ,'list_repair.price'
+        ,'list_repair.price_before'
         ,'list_repair.status_list_repair'
         ,'list_repair.guarantee_id'
+        ,'list_repair.image'
         ,'list_repair.id'
     ];
       $list_repairs = ListRepair::
@@ -43,7 +46,7 @@ class ListRepairsController extends Controller
       ->where('list_repair.status', 1)
       ->where('list_repair.repair_id',$request->id)
       ->get($items);
-
+// echo $list_repairs;exit();
 ////////เอาไว้ select///////////
       $setting_status_repairs = SettingStatusRepair::where('status', 1)
       ->get();
@@ -52,6 +55,7 @@ class ListRepairsController extends Controller
       ->get();
 
       $persons = Persons::where('status', 1)
+      ->where('store_branch_id',$s_store_branch_id)
       ->get();
 
       $items3 = [// select data show in table
@@ -79,6 +83,7 @@ class ListRepairsController extends Controller
       $data = [
         'repair_id'=>$request->id,
         'chk'=>1,
+        'back'=>$request->back,
       ];
 
       // echo $setting_status_repair;exit();
@@ -104,8 +109,9 @@ class ListRepairsController extends Controller
         $repair->status_list_repair = $status_list_repair['0']['id'];
         $repair->repair_id = $request->repair_id;
         $repair->list_name =  $request->list_name;
-        $repair->detail =  $request->detail;
-        $repair->symptom =  $request->symptom;
+        // $repair->detail =  $request->detail;
+        $repair->symptom =  $request->symptom;               
+        $repair->image = 'default.jpg';        
         $repair->status = true;
         $repair->save();
         $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
@@ -122,7 +128,7 @@ class ListRepairsController extends Controller
           ,'persons.name as person_name'//
   
           ,'list_repair.list_name'
-          ,'list_repair.detail'
+          // ,'list_repair.detail'
           ,'list_repair.symptom'
           ,'list_repair.image'
           ,'list_repair.price'
@@ -166,6 +172,7 @@ class ListRepairsController extends Controller
         $data = [
           'repair_id'=>$request->repair_id,
           'chk'=>1,
+          'back'=>$request->back,
         ];
   
         // echo $setting_status_repair;exit();
@@ -202,10 +209,24 @@ class ListRepairsController extends Controller
       } 
       $repair->repair_id = $request->repair_id;      
       $repair->list_name =  $request->list_name;
-      $repair->detail =  $request->detail;
+      // $repair->detail =  $request->detail;
       $repair->symptom =  $request->symptom;
       $repair->price =  $request->price;
-      $repair->image =  $request->image;
+      $repair->price_before =  $request->price_before;
+
+      if ($request->hasFile('image')) {        
+        $filename = str_random(10) . '.' . $request->file('image')
+        ->getClientOriginalName();             
+        $request->file('image')->move(public_path() . '/image/list-repair/picture/', $filename);           
+        Image::make(public_path() . '/image/list-repair/picture/' . $filename)
+        ->resize(200, 200)->save(public_path() . '/image/list-repair/resize/' . $filename);     
+        $repair->image = $filename;         
+      } 
+      else{
+        // echo '5555555555555';exit();                
+        $repair->image =$repair['image'];
+       }
+
       $repair->status = true;
       $repair->save();
       $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
@@ -222,7 +243,7 @@ class ListRepairsController extends Controller
         ,'persons.name as person_name'//
 
         ,'list_repair.list_name'
-        ,'list_repair.detail'
+        // ,'list_repair.detail'
         ,'list_repair.symptom'
         ,'list_repair.image'
         ,'list_repair.price'
@@ -266,6 +287,7 @@ class ListRepairsController extends Controller
       $data = [
         'repair_id'=>$request->repair_id,
         'chk'=>1,
+        'back'=>$request->back,
       ];
 
       // echo $setting_status_repair;exit();
@@ -305,7 +327,7 @@ class ListRepairsController extends Controller
         ,'persons.name as person_name'//
 
         ,'list_repair.list_name'
-        ,'list_repair.detail'
+        // ,'list_repair.detail'
         ,'list_repair.symptom'
         ,'list_repair.image'
         ,'list_repair.price'
@@ -349,6 +371,7 @@ class ListRepairsController extends Controller
       $data = [
         'repair_id'=>$request->repair_id,
         'chk'=>1,
+        'back'=>$request->back,
       ];
 
       // echo $setting_status_repair;exit();
@@ -382,7 +405,7 @@ class ListRepairsController extends Controller
         ,'persons.name as person_name'//
 
         ,'list_repair.list_name'
-        ,'list_repair.detail'
+        // ,'list_repair.detail'
         ,'list_repair.symptom'
         ,'list_repair.image'
         ,'list_repair.price'
@@ -426,6 +449,7 @@ class ListRepairsController extends Controller
       $data = [
         'repair_id'=>$request->repair_id,
         'chk'=>1,
+        'back'=>$request->back,
       ];
 
       // echo $setting_status_repair;exit();
@@ -490,7 +514,7 @@ class ListRepairsController extends Controller
           ,'persons.name as person_name'//
   
           ,'list_repair.list_name'
-          ,'list_repair.detail'
+          // ,'list_repair.detail'
           ,'list_repair.symptom'
           ,'list_repair.image'
           ,'list_repair.price'
@@ -576,7 +600,7 @@ class ListRepairsController extends Controller
           ,'persons.name as person_name'//
   
           ,'list_repair.list_name'
-          ,'list_repair.detail'
+          // ,'list_repair.detail'
           ,'list_repair.symptom'
           ,'list_repair.image'
           ,'list_repair.price'

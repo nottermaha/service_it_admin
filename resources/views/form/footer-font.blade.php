@@ -226,9 +226,20 @@
     $(function() { "use strict";
         $('.bootstrap-datepicker').bsdatepicker({
 
-            format: 'yyyy-mm-dd'
+            format: 'dd-mm-yyyy'
 
         });
+    });
+
+</script>
+
+<script type="text/javascript" src="assets/widgets/input-mask/inputmask.js"></script>
+
+<script type="text/javascript">
+    /* Input masks */
+
+    $(function() { "use strict";
+        $(".input-mask").inputmask();
     });
 
 </script>

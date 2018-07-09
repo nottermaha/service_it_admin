@@ -105,7 +105,11 @@ Route::post('/person-member/create', 'PersonsMemberController@create');
 Route::post('/person-member-edit', 'PersonsMemberController@edit')->where('id', '[0-9]+');
 Route::post('/person-member/delete/{id}' ,'PersonsMemberController@delete')->where('id', '[0-9]+');
 
+Route::get('/stores-list', 'StoreController@get_store_branch_list');
+Route::post('/stores-detail', 'StoreController@get_store_branch_detail');
+
 Route::get('/stores', 'StoreController@get_store_branch');
+Route::post('/store-edit', 'StoreController@edit_store');
 Route::post('/store-branch/create', 'StoreController@create_store_branch');
 Route::get('/store-branch-form-edit/{id}', 'StoreController@form_edit')->where('id', '[0-9]+');
 Route::post('/store-branch/edit/{id}','StoreController@edit_store_branch')->where('id','[0-9]+');
@@ -191,7 +195,6 @@ Route::post('/questtion-post-from-answer-edit','BoardPostsController@edit_questi
 //delete ใช้อันบน
 
 Route::get('/news','NewsController@get');
-Route::get('/maha','NewsController@maha');
 Route::post('/new/create','NewsController@create');
 Route::post('/new-edit','NewsController@edit');
 Route::post('/new/delete/{id}','NewsController@delete');

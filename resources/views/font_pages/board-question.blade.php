@@ -75,10 +75,12 @@
                             </div>
                         </div>          
                 <br>
-
-                <button type="button" class="btn btn-primary margin-bottom" data-toggle="modal" data-target="#modal-add-question-post">
-                                <i class="fa fa-plus-circle fa-lg"></i> &nbsp; ตั้งกระทู้
-                </button><br>
+            <div class="text-right">
+                <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#modal-add-question-post">
+                    <i class="fa fa-plus-circle fa-lg"></i> &nbsp; ตั้งกระทู้
+                </button><br><br>
+            </div>
+                
 
         <div class="modal fade " id="modal-add-question-post" style="padding-left:-100px;">
         
@@ -141,13 +143,25 @@
                                 <div class="comment-header clearfix">
                                     <div class="float-left">
                                         <div class="comment-author">
-                                            <h2><b>ชื่อเรื่อง : {{$question_post->topic}}</b></h2> <br>
-                                            <b>Thomas Edison</b> says:
+                                            <h2><b>ชื่อเรื่อง : {{$question_post->topic}}</b></h2> 
+                                           <b> {{ $question_post->is_name }} </b>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <b style="color:gray;">สถานะ :</b>  
+                                                @if($question_post->is_type==1)
+                                                <b style="color:orange;">แอดมิน</b>
+                                                @elseif($question_post->is_type==2)
+                                                <b style="color:back;">ผู้จัดการร้าน</b>
+                                                @elseif($question_post->is_type==3)
+                                                <b style="color:blue;">พนักงาน</b>
+                                                @elseif($question_post->is_type==4)
+                                                <b style="color:green;">สมาชิก</b>
+                                                @endif
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                ตั้งกระทู้เมื่อ : {{$question_post->created}}
                                         </div>
-                                        <div class="comment-date">
+                                        <!-- <div class="comment-date">
                                             <i class="glyph-icon icon-clock-o"></i>
                                             21 December 2014
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <!-- <a href="{{ url('/font-board-answer')  }}" title="Reply" class="btn btn-xs btn-primary">
                                         ตอบกลับ
@@ -158,7 +172,7 @@
                       <input type="hidden" name="id" value="{{ $question_post->id }}">
                       <input type="hidden" name="s_id" value="{{ $question_post->persons_member_id }}">
                                     <div style="padding-left:130px;">
-                                        <button type="submit" class="btn btn-xs btn-primary"><i class="fas fa-list-ul"></i>&nbsp; ตอบกลับ</button>
+                                        <button type="submit" class="btn btn-xs btn-primary"><i class="fas fa-list-ul"></i>&nbsp; แสดงความคิดเห็น</button>
                                     </div>
                                     {!! Form::close() !!}
 
@@ -256,6 +270,11 @@
                         </div>
                     </li>
                     @endforeach
+            <div class="text-right">
+                <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#modal-add-question-post">
+                    <i class="fa fa-plus-circle fa-lg"></i> &nbsp; ตั้งกระทู้
+                </button><br><br>
+            </div>
 
                 </ul>
             </div>

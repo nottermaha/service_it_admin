@@ -134,7 +134,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="name" placeholder="ชื่ออะไหล่..." value="{{ $list_part->name }}">
+                          <input type="text" class="form-control pull-right" id="Name" name="name" placeholder="ชื่ออะไหล่..." value="{{ $list_part->name }}" required>
                       </div>
                     </div>
               </div>
@@ -160,7 +160,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
-                          <input type="number" class="form-control pull-right" id="Name" name="number" placeholder="จำนวน..." value="{{ $list_part->number }}">
+                          <input type="number" class="form-control pull-right" id="Name" name="number" placeholder="จำนวน..." value="{{ $list_part->number }}" required>
                       </div>
                     </div>
               </div>
@@ -173,7 +173,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-money fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="pay_in" placeholder="ราคาต้นทุนต่อชิ้น..." value="{{ $list_part->pay_in }}">
+                          <input type="number" class="form-control pull-right" id="Name" name="pay_in" placeholder="ราคาต้นทุนต่อชิ้น..." value="{{ $list_part->pay_in }}" required>
                       </div>
                     </div>
               </div>
@@ -186,8 +186,8 @@
                         <div class="input-group-addon">
                             <i class="fa fa-money fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="pay_out" placeholder="ราคาขายต่อชิ้น..." value="{{ $list_part->pay_out }}">
-                      </div>
+                          <input type="number" class="form-control pull-right" id="Name" name="pay_out" placeholder="ราคาขายต่อชิ้น..." value="{{ $list_part->pay_out }}" required>
+                      </div>ราคาขายต่อชิ้นจะนำไปใช้ในการคิดราคาต้นทุน(ราคาอะไหล่)
                     </div>
               </div>
             </div>
@@ -234,7 +234,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="name" placeholder="ชื่ออะไหล่...">
+                          <input type="text" class="form-control pull-right" id="Name" name="name" placeholder="ชื่ออะไหล่..." required>
                       </div>
                     </div>
               </div>
@@ -247,7 +247,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="generation" placeholder="รุ่น...">
+                          <input type="text" class="form-control pull-right" id="Name" name="generation" placeholder="รุ่น..." >
                       </div>
                     </div>
               </div>
@@ -260,7 +260,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="number" placeholder="จำนวน...">
+                          <input type="number" class="form-control pull-right" id="Name" name="number" placeholder="จำนวน..." required>
                       </div>
                     </div>
               </div>
@@ -273,7 +273,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-money fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="pay_in" placeholder="ราคาต้นทุนต่อชิ้น...">
+                          <input type="number" class="form-control pull-right" id="Name" name="pay_in" placeholder="ราคาต้นทุนต่อชิ้น..." required>
                       </div>
                     </div>
               </div>
@@ -286,8 +286,8 @@
                         <div class="input-group-addon">
                             <i class="fa fa-money fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="pay_out" placeholder="ราคาขายต่อชิ้น...">
-                      </div>
+                          <input type="number" class="form-control pull-right" id="Name" name="pay_out" placeholder="ราคาขายต่อชิ้น..." required>
+                      </div>ราคาขายต่อชิ้นจะนำไปใช้ในการคิดราคาต้นทุน(ราคาอะไหล่)
                     </div>
               </div>
             </div>

@@ -41,8 +41,8 @@
         <input type="hidden" name="chk_get" value="{{$chk_get}}">
               <button type="submit" class="btn btn-warning margin-bottom"><i class="fa fa-reply fa-lg"></i>&nbsp; ย้อนกลับ
         </button>
-        <button type="button" class="btn btn-primary margin-bottom" data-toggle="modal" data-target="#modal-add-answer-post">
-                   <i class="fa fa-plus-circle fa-lg"></i> &nbsp; ตอบกระทู้
+        <button type="button" class="btn btn-info margin-bottom" data-toggle="modal" data-target="#modal-add-answer-post">
+                   <i class="fa fa-comments-o fa-lg"></i> &nbsp; ตอบกระทู้
           </button>
         {!! Form::close() !!}
           <!-- <a href="{{ url('questtion-post') }}" class="btn btn-warning margin-bottom">
@@ -179,7 +179,7 @@
             
             <div class="row" style="padding-top:20px;">
               <div class="form-group" style="padding-left:20px;padding-right:20px;">หัวข้อ
-                  <input type="text" class="form-control pull-right" id="Name" name="topic" placeholder="หัวข้อ..." value="{{ $question_posts_topic }}">
+                  <input type="text" class="form-control pull-right" id="Name" name="topic" placeholder="หัวข้อ..." value="{{ $question_posts_topic }}" required>
               </div>
             </div>
             <div class="row" style="padding-top:20px;">
@@ -217,7 +217,16 @@
                 @elseif($person_type==4)
                 <img class="img-circle img-sm" src="{{ asset('image/person-member/resize/'.$person_image_url) }}" alt="">
                 @endif
-                &nbsp;&nbsp;&nbsp;{{ $person_name }}
+                &nbsp;&nbsp;&nbsp;{{ $person_name }} <b style="color:gray;">สถานะ :</b>
+                        @if($person_type==1)
+                        <b style="color:orange;">แอดมิน</b>
+                        @elseif($person_type==2)
+                        <b style="color:back;">ผู้จัดการร้าน</b>
+                        @elseif($person_type==3)
+                        <b style="color:blue;">พนักงาน</b>
+                        @elseif($person_type==4)
+                        <b style="color:green;">สมาชิก</b>
+                        @endif
                 </h4>
                 </h5>ตั้งกระทู้เมื่อ
                   <span class="mailbox-read-time ">{{ $created }} {{ $time_created }}</span></h5>
@@ -230,6 +239,7 @@
               </div>
               <!-- /.mailbox-controls -->
               <div class="mailbox-read-message">
+              <h3>รายละเอียด</h3><br>
                 {!! $question_posts_message !!}  
               </div>
               <!-- /.mailbox-read-message -->
@@ -260,7 +270,16 @@
                 <div class="comment-text">
                       <span class="username">
                         <!-- Maria Gonzales -->
-                        {{$ansewr_post->is_name}}
+                        {{$ansewr_post->is_name}} <b style="color:gray;">สถานะ :</b>
+                            @if($ansewr_post->is_type==1)
+                            <b style="color:orange;">แอดมิน</b>
+                            @elseif($ansewr_post->is_type==2)
+                            <b style="color:back;">ผู้จัดการร้าน</b>
+                            @elseif($ansewr_post->is_type==3)
+                            <b style="color:blue;">พนักงาน</b>
+                            @elseif($ansewr_post->is_type==4)
+                            <b style="color:green;">สมาชิก</b>
+                            @endif
                         <span class="text-muted pull-right">แก้ไขล่าสุด {{ $ansewr_post->updated_answer }} {{ $ansewr_post->time_updated_answer }}</span>
                       </span><!-- /.username -->
                   <!-- It is a long established fact that a reader will be distracted
@@ -345,6 +364,7 @@
         </div>
       </div>          
     </div>
+
     <!-- ////////////////////////modal-edit-answer-post/////////////////////////// -->
 
 
@@ -363,7 +383,12 @@
         </div>
         <!-- /.col -->
       </div>
-      <!-- /.row -->
+      <!-- /.row -->    
+      <div class="text-right">
+        <button type="button" class="btn btn-info margin-bottom" data-toggle="modal" data-target="#modal-add-answer-post">
+              <i class="fa  fa-comments-o fa-lg"></i> &nbsp; ตอบกระทู้
+        </button>
+      </div>
     </section>
     <!-- /.content -->
     

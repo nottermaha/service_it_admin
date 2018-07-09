@@ -1,3 +1,154 @@
+<script>
+	function checkText()
+	{   var y = document.getElementById("username").value;
+		var elem = document.getElementById('username').value;
+		if(!elem.match(/^([a-z0-9\_])+$/i))
+		{
+            document.getElementById('txt_username').innerHTML = "กรุณากรอกชื่อผู้ใช้เป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";
+		}
+        else if(y.length<4){document.getElementById('txt_username').innerHTML = "ชื่อผู้ใช้ไม่ควรต่ำกว่า 4 ตัว";}
+        else{document.getElementById('txt_username').innerHTML = "";}
+	}
+    function checkName()
+	{   var y = document.getElementById("name").value;
+        if(y.length<1){document.getElementById('txt_name').innerHTML = "กรุณากรอก ชื่อ-นามสกุล";}
+        else{document.getElementById('txt_name').innerHTML = "";}
+	}
+	function ChkLengthPass()
+	{   var y = document.getElementById("password").value;
+		var elem = document.getElementById("password").value;
+        if(!elem.match(/^([a-z0-9\_])+$/i))
+		{
+            document.getElementById('pass').innerHTML = "กรุณากรอกรหัสผ่านเแชป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";
+		}
+		else if(y.length<8){document.getElementById('pass').innerHTML = "รหัสผ่านไม่ควรต่ำกว่า 8 ตัว";}
+		else{document.getElementById('pass').innerHTML = "";}
+	}
+    function ChkRePass()
+	{
+		var x = document.getElementById("password");
+		var y = document.getElementById("repassword");
+		if(x.value!=y.value){document.getElementById('repass').innerHTML = "การยืนยันรหัสผ่านไม่ตรงกัน";}
+		else{document.getElementById('repass').innerHTML = "";}
+	}
+    function ChkEmail(){
+            var x = document.getElementById("email");
+			var y = x.value;
+            var emailFilter=/^.+@.+\..{2,3}$/;
+            // var str=document.form.text1.value;
+        if (!(emailFilter.test(y))) { 
+            document.getElementById('txt_email').innerHTML = "อีเมลล์ไม่ถูกต้อง";
+            return false;
+        }
+        else{document.getElementById('txt_email').innerHTML = "";}
+        //  return true;
+    }
+  
+    function CheckMobileNumber() {
+        var msg = 'โปรดกรอกหมายเลขโทรศัพท์ 10 หลัก ด้วยรูปแบบดังนี้ 08XXXXXXXX ไม่ต้องใส่เครื่องหมายขีด (-) วงเล็บหรือเว้นวรรค';
+        var x = document.getElementById("phone").value;
+        s = new String(x);
+
+        if ( s.length != 10)
+        {
+            document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+            //   alert(msg);
+            return false;
+        }
+
+            for (i = 0; i < s.length; i++ ) {               
+                if ( s.charCodeAt(i) < 48 || s.charCodeAt(i) > 57 ) {
+                    document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+                    //  alert(msg);
+                    return false;
+                } 
+                    if ( ((i == 0) && (s.charCodeAt(i) != 48)) || ((i == 1) && (s.charCodeAt(i) == 55)) || ((i == 1) && (s.charCodeAt(i) == 49)) || ((i == 1) && (s.charCodeAt(i) == 48) ))
+                    {
+                        document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+                        return false;
+                    }
+                    else{
+                        document.getElementById('txt_phone').innerHTML = "";
+                    }
+            }            
+            return true;
+    }
+
+    function checkIDD() 
+    { 
+        var id = document.getElementById("person_id").value;
+        if(id.length != 13) return false; 
+        for(i=0, sum=0; i < 12; i++) 
+        sum += parseFloat(id.charAt(i))*(13-i); if((11-sum%11)%10!=parseFloat(id.charAt(12))) 
+        return false; return true;
+    }
+    function checkID() 
+    { 
+        if(!checkIDD(person_id.value)) 
+        {
+            document.getElementById('txt_person_id').innerHTML = "เลขประจำตัวประชาชนของท่านไม่ถูกต้อง";
+        }
+        else
+        {
+            document.getElementById('txt_person_id').innerHTML = "";
+        } 
+    }
+    //////////////onclick////////////////
+    function BtnChkSubmit() 
+    { 
+        var y = document.getElementById("username").value;
+		var elem = document.getElementById('username').value;
+        var str = "กรุณาตรวจสอบข้อมูลให้ถูกต้องก่อนทำการสมัครสมาชิก";
+		if(!elem.match(/^([a-z0-9\_])+$/i))
+		{
+            document.getElementById('txt_username').innerHTML = "กรุณากรอกชื่อผู้ใช้เป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";return false;
+		}
+        else if(y.length<4){document.getElementById('txt_username').innerHTML = "ชื่อผู้ใช้ไม่ควรต่ำกว่า 4 ตัว";return false;}
+        else{document.getElementById('txt_username').innerHTML = "";}
+        ////
+        var y = document.getElementById("name").value;
+        if(y.length<1){document.getElementById('txt_name').innerHTML = "กรุณากรอก ชื่อ-นามสกุล";return false}
+        else{document.getElementById('txt_name').innerHTML = "";}
+        ///
+        var y = document.getElementById("password").value;
+		var elem = document.getElementById("password").value;
+        if(!elem.match(/^([a-z0-9\_])+$/i))
+		{
+            document.getElementById('pass').innerHTML = "กรุณากรอกรหัสผ่านเแชป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";return false;
+		}
+		else if(y.length<8){document.getElementById('pass').innerHTML = "รหัสผ่านไม่ควรต่ำกว่า 8 ตัว";return false;}
+		else{document.getElementById('pass').innerHTML = "";}
+        ////
+        var x = document.getElementById("password");
+		var y = document.getElementById("repassword");
+		if(x.value!=y.value){document.getElementById('repass').innerHTML = "การยืนยันรหัสผ่านไม่ตรงกัน";return false;}
+		else{document.getElementById('repass').innerHTML = "";}
+        /////
+        var x = document.getElementById("email").value;
+        var emailFilter=/^.+@.+\..{2,3}$/;
+            // var str=document.form.text1.value;
+        if (!(emailFilter.test(x))) { 
+            document.getElementById('txt_email').innerHTML = "อีเมลล์ไม่ถูกต้อง";
+            return false;
+        }
+        else{document.getElementById('txt_email').innerHTML = "";}
+        /////
+        
+        if(!CheckMobileNumber(phone.value)) 
+        {
+            document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";return false;
+        }
+        else
+        {
+            document.getElementById('txt_phone').innerHTML = "";
+        }
+        // else{
+            ChkForm.submit();
+        // }
+
+    }
+
+</script>
 <!-- css header-leftmenu -->
 <head>
   <meta charset="utf-8">
@@ -36,7 +187,7 @@
     <section class="content">
   <!-- <form role="form" class="form-horizontal" action="/person/create" method="post"> -->
   <!-- <form role="form" class="form-horizontal" action="<?php echo url('/person-manager/create') ?>" method="post"> -->
-  {!!  Form::open(['url'=>'/person-manager-create','class'=>'form-horizontal','files'=>true])   !!}
+  {!!  Form::open(['url'=>'/person-manager-create','class'=>'form-horizontal','files'=>true,'id'=>'ChkForm'])   !!}
 <div class="row">
     <div class="col-md-12">
         <div class="box box-default">
@@ -66,17 +217,17 @@
             <div class="box-body">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="Name" class="control-label col-sm-3">ชื่อ-นามสกุล</label>
+                    <label for="Name" class="control-label col-sm-3">ชื่อ-นามสกุล <b style="color:red;font-size:20px;">*</b></label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="Name" name="name" placeholder="ชื่อ-นามสกุล...">
-                    </div>
+                        <input type="text" class="form-control"  name="name" placeholder="ชื่อ-นามสกุล..." id="name"required onBlur="checkName()">
+                    </div><b  id="txt_name" style="color:red;"></b>
                 </div>
 
                 <div class="form-group">
                     <label for="Person_id" class="control-label col-sm-3">เลขประจำตัวประชาชน</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="Person_id" name="person_id" placeholder="เลขประจำตัวประชาชน...">
-                        </div>
+                            <input type="text" class="form-control"  name="person_id" placeholder="เลขประจำตัวประชาชน..." id="person_id" onBlur="checkID()">
+                        </div><b  id="txt_person_id" style="color:red;"></b>
                 </div>
 
                 <div class="form-group">
@@ -106,26 +257,26 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="Birthday" class="control-label col-sm-3">อีเมล์</label>
+                    <label for="Birthday" class="control-label col-sm-3">อีเมล์ <b style="color:red;font-size:20px;">*</b></label>
                         <div class="col-sm-9">
                             <div class="input-group date">
                                 <div class="input-group-addon">
                                     <i class="fa fa-envelope fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="Email" name="email" placeholder="อีเมล์...">
-                            </div>
+                                <input type="text" class="form-control pull-right"  name="email" placeholder="อีเมล์..." onBlur="ChkEmail()" id="email">
+                            </div><b  id="txt_email" style="color:red;"></b>
                         </div> 
                 </div>
 
                 <div class="form-group">
-                    <label for="Birthday" class="control-label col-sm-3">เบอร์โทร</label>
+                    <label for="Birthday" class="control-label col-sm-3">เบอร์โทร <b style="color:red;font-size:20px;">*</b></label>
                         <div class="col-sm-9">
                             <div class="input-group date">
                                 <div class="input-group-addon">
                                     <i class="fa fa-phone fa-lg"></i>
                                 </div>
-                                    <input type="text" class="form-control pull-right" id="Phone" name="phone" placeholder="เบอร์โทร...">
-                            </div>
+                                    <input type="text" class="form-control pull-right"  name="phone" placeholder="เบอร์โทร..." id="phone" required onBlur="CheckMobileNumber()">             
+                            </div><b id="txt_phone" style="color:red;"></b>
                         </div> 
                 </div> 
 
@@ -142,7 +293,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="Address" class="control-label col-sm-3">ที่อยู่</label>
+                    <label for="Address" class="control-label col-sm-3">ที่อยู่ </label>
                         <div class="col-sm-9">
                             <textarea class="form-control" rows="3" placeholder="ที่อยู่ ..." name="address"></textarea>
                         </div>
@@ -161,38 +312,38 @@
             {{ csrf_field() }}
 
                 <div class="form-group">
-                    <label for="Birthday" class="control-label col-sm-3">ชื่อผู้ใช้</label>
+                    <label for="Birthday" class="control-label col-sm-3">ชื่อผู้ใช้ <b style="color:red;font-size:20px;">*</b></label>
                         <div class="col-sm-9">
                             <div class="input-group date">
                                 <div class="input-group-addon">
                                     <i class="fa fa-user fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="Username" name="username" placeholder="ชื่อผู้ใช้..." >
-                            </div>
+                                <input type="text" class="form-control pull-right" name="username" placeholder="ชื่อผู้ใช้..." id="username"required onBlur="checkText()">
+                            </div><b  id="txt_username" style="color:red;"></b>
                         </div> 
                 </div>
 
                 <div class="form-group">
-                    <label for="Birthday" class="control-label col-sm-3">รหัสผ่าน</label>
+                    <label for="Birthday" class="control-label col-sm-3">รหัสผ่าน <b style="color:red;font-size:20px;">*</b></label>
                         <div class="col-sm-9">
                             <div class="input-group date">
                                 <div class="input-group-addon">
                                     <i class="fa fa-lock fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="Password" name="password" placeholder="รหัสผ่าน..." >
-                            </div>
+                                <input type="password" class="form-control pull-right" name="password" placeholder="รหัสผ่าน..." id="password"onBlur="ChkLengthPass()" required>
+                            </div><b  id="pass" style="color:red;"></b>
                         </div>  
                 </div>
 
                 <div class="form-group">
-                    <label for="Birthday" class="control-label col-sm-3">รหัสผ่านอีกครั้ง</label>
+                    <label for="Birthday" class="control-label col-sm-3">รหัสผ่านอีกครั้ง <b style="color:red;font-size:20px;">*</b></label>
                         <div class="col-sm-9">
                             <div class="input-group date">
                                 <div class="input-group-addon">
                                     <i class="fa fa-lock fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="Password" name="password" placeholder="ป้อนรหัสผ่านเดิม...">
-                            </div>
+                                <input type="password" class="form-control pull-right" name="password" placeholder="ป้อนรหัสผ่านเดิม..." id="repassword" onBlur="ChkRePass()" required>
+                            </div><b id="repass" style="color:red;"></b>
                         </div>  
                 </div>
             
@@ -262,9 +413,9 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12 text-right">
+        <div class="col-sm-12 text-center">
             <input type="hidden" name="store_branch_id" value="{{$store_branch_id}}">
-          <button type="submit" class="btn btn-success">บันทึก</button>
+          <button type="button" onClick="BtnChkSubmit()" class="btn btn-success btn-lg">บันทึก</button>
         </div>
     </div>
   </form>

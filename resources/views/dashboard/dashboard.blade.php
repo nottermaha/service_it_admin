@@ -26,9 +26,18 @@
 
  @include('form/header-leftmenu')
       <section class="content-header">
+            <?php 
+            $s_type='' ; $s_type=session('s_type','default');
+            $s_name='' ; $s_name=session('s_name','default'); 
+            ?>
             <h1 style="background-color:#DCDCDC;padding-top:10px;padding-bottom:10px;padding-left:10px;">
               กระดานบอร์ด /
-              <small><a>บอร์ดแอดมิน</a> </small>
+              <small><a>
+              @if($s_type=='1' )
+              บอร์ดแอดมิน
+              @elseif($s_type=='2' )
+              บอร์ดผู้จัดการร้าน
+              @endif</a> </small>
             </h1>
           </section> 
       <br>
@@ -76,7 +85,7 @@
 
               <p>ผู้จัดการร้านทั้งหมด {{$count_manager}}</p>
               <p>พนักงานทั้งหมด {{$count_employee}}</p>
-              <p>สมาชิกทั้งหมด {{$count_member}}</p>
+              <p>ลูกค้าสมาชิกทั้งหมด {{$count_member}}</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
@@ -143,10 +152,11 @@
                   <ul class="users-list clearfix">
                   @foreach($person_member as $value)
                     <li>
-                      <img src="dist/img/user1-128x128.jpg" alt="User Image">
+                    <a href="{{ asset('image/person-member/picture/'.$value->image_url) }}"><img src="{{ asset('image/person-member/resize/'.$value->image_url) }}" style="height:100px;width:100px;border-radius: 50%;"></a>
+                      <!-- <img src="dist/img/user1-128x128.jpg" alt="User Image"> -->
                       <!-- <a href="{{ asset('image/person-member/picture/'.$value->image_url) }}"><img src="{{ asset('image/person-member/resize/'.$value->image_url) }}" ></a> -->
                       <a class="users-list-name" href="#">{{$value->name}}</a>
-                      <span class="users-list-date">Today</span>
+                      <span class="users-list-date">{{ $value->created}}</span>
                     </li>
                     @endforeach
                     <!-- <li>
@@ -189,7 +199,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer text-center">
-                  <a href="javascript:void(0)" class="uppercase">View All Users</a>
+                  <a href="{{ url('/persons-member')  }}" class="uppercase">ดูเพิ่มเติม</a>
                 </div>
                 <!-- /.box-footer -->
               </div>
