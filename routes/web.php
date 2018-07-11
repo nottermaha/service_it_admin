@@ -159,7 +159,7 @@ Route::post('/import_part/delete/{id}','ImportPartsController@delete');
 Route::post('/list-part', 'ListPartsController@get_list_parts_by_id');
 Route::post('/list-part-create', 'ListPartsController@create');
 Route::post('/list-part-edit', 'ListPartsController@edit');
-Route::post('/list-part/delete/{id}', 'ListPartsController@delete');
+Route::post('/list-part-delete', 'ListPartsController@delete');
 
 Route::get('/setting-status-repair-shop','SettingStatusShopController@get');
 Route::post('/setting-status-repair-shop/create','SettingStatusShopController@create');

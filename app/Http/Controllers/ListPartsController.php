@@ -9,8 +9,7 @@ class ListPartsController extends Controller
 {    
   public function get_list_parts_by_id(Request $request) {
     // echo $id;exit();
-    $list_parts = ListPart::where('status', 1)
-    ->where('import_parts_id',$request->id)
+    $list_parts = ListPart::where('import_parts_id',$request->id)
     ->get();
     // echo $list_parts;exit();
     $import_parts_id['import_parts_id']=$request->id;
@@ -31,8 +30,7 @@ class ListPartsController extends Controller
       $list_parts->save();
       $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
 
-      $list_parts = ListPart::where('status', 1)
-      ->where('import_parts_id',$request->import_parts_id)
+      $list_parts = ListPart::where('import_parts_id',$request->import_parts_id)
       ->get();
 
       $import_parts_id['import_parts_id']=$request->import_parts_id;
@@ -53,22 +51,32 @@ class ListPartsController extends Controller
       $list_parts->save();
       $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว');
 
-      $list_parts = ListPart::where('status', 1)
-      ->where('import_parts_id',$request->import_parts_id)
+      $list_parts = ListPart::where('import_parts_id',$request->import_parts_id)
       ->get();
 
       $import_parts_id['import_parts_id']=$request->import_parts_id;
 
     return view('list_part/list-part', ['list_parts' => $list_parts],$import_parts_id);
   }
-  public function delete($id)
+  public function delete(Request $request)
   {
-    $list_parts = ListPart::find($id);
-    $list_parts->status = 0;
+    $list_parts = ListPart::find($request->id);
+    // $list_parts->status = 0;
+    if($list_parts->status==1){
+      $list_parts->status = 0;
+    }
+    elseif($list_parts->status==0){
+      $list_parts->status = 1;
+    }
     $list_parts->save();
     $list_parts2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว'); 
 
-    return redirect('list-part/'.$list_parts['import_parts_id']);
+    $list_parts = ListPart::where('import_parts_id',$request->import_parts_id)
+      ->get();
+
+      $import_parts_id['import_parts_id']=$request->import_parts_id;
+
+      return view('list_part/list-part', ['list_parts' => $list_parts],$import_parts_id);
   }
 
    

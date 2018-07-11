@@ -55,7 +55,8 @@
   <!-- jvectormap -->
   <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
   <script src="  https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
-
+       <!-- Select2 -->
+       <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
 </head>
 <!--End css header-leftmenu -->
 
@@ -73,17 +74,31 @@
 <div class="container">
    <div class="row">
         <h4 class="text-center" style="margin-left:-50px;"><I>กรุณากรอก "เลขบิล" ที่ท่านต้องการค้นหา</I></h4><br>
+
+
+        <?= Form::open(array('url' => '/search-repair-only-bill')) ?>        
         <div class="col-md-2 col-xs-3">
-            <p style="text-align:right;font-size:25px;">เลขบิล</p> 
-            <!-- <h3 style="text-align:right;">เลขบิล</h3> -->
+            <p style="text-align:right;font-size:20px;">เลขบิล</p> 
+            <!-- <select   class="form-control select2 input-lg" style="width: 100%;" name="check_type_search">     
+            <option value="bill" ><b>หมายเลขบิล</b></option>    
+            <option value="name" ><b>ชื่อ-นามสกุล(ลูกค้า)</b></option>          
+            </select> -->
         </div>
-        <?= Form::open(array('url' => '/search-repair-only-bill')) ?>
         <div class="col-md-7 col-xs-7">
-              <input class="form-control input-lg" type="text" placeholder="B0103062212..." name="bin_number" required>
+              <!-- <input class="form-control input-lg" type="text" placeholder="B0103062212..." name="bin_number" required> -->
+              <!-- <select  required class="form-control select2" style="width: 100%;" name="bin_number" > -->
+              <select  required class="form-control select2 lg" style="width: 100%;" name="id_repair" >
+                    <option value="" ><b>เลือกประเภทบุคคล</b></option>
+                    <!-- <option disabled="disabled">California (disabled)</option> -->
+                    @foreach($repair_gets as $repair_get)
+                    <option value="{{ $repair_get->id }}" >{{ $repair_get->bin_number }} คุณ {{ $repair_get->is_name }}</option>
+                    @endforeach
+              </select>
+                        
         </div>
         <div class="col-md-1 col-xs-1">
             <input type="hidden" name="chk_num_bill" value="1">
-            <button type="submit" class="btn btn-success btn-lg">ค้นหา</button>
+            <button type="submit" class="btn btn-success ">ค้นหา</button>
         </div>
         {!! Form::close() !!}
     </div><br><br>
@@ -158,23 +173,18 @@
                                 อุปกรณ์ที่นำมาซ่อม  </b><br>
                                 <?php $i=0; ?>
                             @foreach($repairs as $repair)
+                              @foreach($status_lists as $value)
+                                @if($value->l_id==$repair->list_repair_id)
                                 <b for="" class="control-label col-md-3"style="text-align:right">
                                 {{ $i=$i+1 }} </b>
                                 <b for="" class="control-label col-md-9" style="color:gray">
-                                {{$repair->list_repair_name}}
+                                {{$value->list_repair_name}}.
                                 </b>
                                 <b for="" class="control-label col-md-3"style="text-align:right">
                                 อาการเสีย: </b>
                                 <b for="" class="control-label col-md-9" style="color:gray">
-                                {{$repair->symptom}}
-                                </b>
-                                <b for="" class="control-label col-md-3"style="text-align:right">
-                                รายละเอียด : </b>
-                                <b for="" class="control-label col-md-9" style="color:gray">
-                                {{$repair->detail}}
-                                </b>                                
-                                @foreach($status_lists as $value)
-                                  @if($value->l_id==$repair->list_repair_id)
+                                {{$value->symptom}}.
+                                </b>                                              
                                 <b for="" class="control-label col-md-3"style="text-align:right">
                                 ราคา : </b>
                                 <b for="" class="control-label col-md-9" style="color:gray">
@@ -183,7 +193,7 @@
                                 <b for="" class="control-label col-md-3"style="text-align:right">
                                 ช่างซ่อม : </b>
                                 <b for="" class="control-label col-md-9" style="color:gray">
-                                {{$value->person_name}}
+                                {{$value->person_name}}.
                                 </b>
                                 <b for="" class="control-label col-md-3"style="text-align:right">
                                 สถานะการซ่อม : </b>
@@ -214,7 +224,7 @@
                                     @elseif( $value->status_color==12 )
                                     <button style="width:190px;" type="button" class="btn bg-black-active color-palette" >
                                     @endif
-                                    {{ $value->name }}
+                                    {{ $value->name }}.
                                     </button>
                                     </b>
                                     @endif
@@ -318,6 +328,14 @@
 <!-- DataTables -->
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+  <!-- select2 -->
+  <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+
+<script>
+    //Initialize Select2 Elements
+    $('.select2').select2()
+</script>
 
 <script>
 

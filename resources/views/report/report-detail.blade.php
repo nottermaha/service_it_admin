@@ -44,11 +44,17 @@
                       <h3 class="box-title">บันทึกข้อมูลการเข้าสู่ระบบ</h3>
                   </div> -->
           <div class="box-body">
+          <?php $s_type='' ;$s_type=session('s_type','default');?>
+          <?php $s_store_branch_id='' ;$s_store_branch_id=session('s_store_branch_id','default');?>
+          @if($s_type == 1)
+            1. ออกรายงานการซ่อมตาม สาขา หรือ เลือกทั้งหมด และสถานะการซ่อม หรือ จะเลือกสถานะทั้งหมด <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม(หน้าร้าน) </U> ช่องวันที่คือช่วงเวลา จากวันไหน ถึงวันไหน
+          @else
+            1. ออกรายงานการซ่อมสาขาที่ท่านสังกัด และสถานะการซ่อม หรือ จะเลือกสถานะทั้งหมด <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม(หน้าร้าน) </U> ช่องวันที่คือช่วงเวลา จากวันไหน ถึงวันไหน
+          @endif
                 <div class="row">
                   <div class="col-md-3">
-                      <br>
-                      
-                      <?= Form::open(array('url' => '/search-pay-money')) ?>
+                      <br>  
+                      <?= Form::open(array('url' => '/report-print')) ?>
                       {{ csrf_field() }}
                       <div class="input-group date">
                           <div class="input-group-addon">
@@ -69,110 +75,138 @@
 
                     <div class="col-md-3">
                       <br>
-                        <select  required class="form-control select2" style="width: 100%;" name="store_branch_id">      
-                        <option value="" ><b>เลือกสาขา</b></option>  
-                          <!-- <option disabled="disabled"></option> -->
-                          <option value="-1" ><b>เลือกทั้งหมด</b></option> 
-                          @foreach($store_branchs as $store_branch)
-                              <option value="{{ $store_branch->id }}" >{{ $store_branch->name }}</option>
-                          @endforeach
+                        <select  required class="form-control select2" style="width: 100%;" name="store_branch_id">
+
+                        @if($s_type == 1)
+                          <option value="" ><b>เลือกสาขา</b></option>  
+                            <!-- <option disabled="disabled"></option> -->
+                            <option value="-1" ><b>เลือกทั้งหมด</b></option> 
+                            @foreach($store_branchs as $store_branch)
+                                <option value="{{ $store_branch->id }}" >{{ $store_branch->name }}</option>
+                            @endforeach
+                        @else
+                          <option value="" ><b>เลือกสาขา</b></option>  
+                            <!-- <option disabled="disabled"></option> -->
+                            @foreach($store_branchs as $store_branch)
+                              @if($s_store_branch_id == $store_branch->id)
+                                <option value="{{ $store_branch->id }}" >{{ $store_branch->name }}</option>
+                              @endif
+                            @endforeach
+                        @endif
                         </select>              
                     </div>
                     
                     <div class="col-md-2">
                       <br>
-                        <select  required class="form-control select2" style="width: 100%;" name="status_bill">      
+                        <select  required class="form-control select2" style="width: 100%;" name="status_repair_id">      
                         <option value="" ><b>เลือกสถานะ</b></option>  
                           <!-- <option disabled="disabled"></option> -->
-                          <option value="" ><b>เลือกทั้งหมด</b></option> 
-                          @foreach($status_repairs as $status_repair)
-                              <option value="{{ $status_repair->id }}" >{{ $status_repair->name }}</option>
-                          @endforeach
+                          
+                            <option value="-1" ><b>เลือกทั้งหมด</b></option> 
+                            @foreach($status_repairs as $status_repair)
+                                <option value="{{ $status_repair->id }}" >{{ $status_repair->name }}</option>
+                            @endforeach
                         </select>             
                     </div>
 
                     <div class="col-md-1 col-xs-1" style="margin-top:17px;">
-                    <div class="row">
+                    <!-- <div class="row">
                       <button type="submit" class="btn btn-warning ">ดูตัวอย่าง</button></div>
                     </div>
-                    <div class="row" >
+                    <div class="row" > -->
+                      <input type="hidden" name="chk" value="{{$chk}}">
+                      <input type="hidden" name="chk_print" value="1">
                       <button type="submit" class="btn btn-success "><i class="fa fa-download"></i>&nbsp; Excel</button></div>
                     </div>
                       {!! Form::close() !!}
                 
 <!-- /////////////////////row///////////////////////// -->
-<div class="row">
-<div class="col-md-3">
-                      <br>
-                      
-                      <?= Form::open(array('url' => '/search-pay-money')) ?>
-                      {{ csrf_field() }}
-                      <div class="input-group date">
-                          <div class="input-group-addon">
-                              <i class="fa fa-calendar fa-lg"></i>
-                          </div>
-                          <input type="date" class="form-control pull-right" id="" name="chk_date_in" placeholder="จากวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
-                      </div>            
-                    </div>
-                    <div class="col-md-3">
-                      <br>
-                      <div class="input-group date">
-                          <div class="input-group-addon">
-                              <i class="fa fa-calendar fa-lg"></i>
-                          </div>
-                          <input type="date" class="form-control pull-right" id="" name="chk_date_out" placeholder="ถึงวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
-                      </div>              
-                    </div>
+<br>
+          @if($s_type == 1)
+              2. ออกรายงานการซ่อมของลูกค้าสมาชิก โดยสามารถเลือกตามสาขา หรือ เลือกทั้งหมด และ เลือกสถานะการซ่อม หรือเลือกทั้งหมดได้ <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม(หน้าร้าน) </U> เลือกสมาชิกคนที่่ต้องการได้ ช่องวันที่คือช่วงเวลา จากวันไหน ถึงวันไหน
+          @else
+              2. ออกรายงานการซ่อมของลูกค้าสมาชิก โดยสามารถเลือกสาขาที่ท่านสังกัด และ เลือกสถานะการซ่อม หรือเลือกทั้งหมดได้ <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม(หน้าร้าน) </U> เลือกสมาชิกคนที่่ต้องการได้ ช่องวันที่คือช่วงเวลา จากวันไหน ถึงวันไหน
+          @endif
+
+<div class="row">      
+
+                  <?= Form::open(array('url' => '/report-print')) ?>
+                  {{ csrf_field() }}
 
                     <div class="col-md-3">
                       <br>
                         <select  required class="form-control select2" style="width: 100%;" name="store_branch_id">      
-                        <option value="" ><b>เลือกสาขา</b></option>  
-                          <!-- <option disabled="disabled"></option> -->
-                          <option value="-1" ><b>เลือกทั้งหมด</b></option> 
-                          @foreach($store_branchs as $store_branch)
-                              <option value="{{ $store_branch->id }}" >{{ $store_branch->name }}</option>
-                          @endforeach
+                        @if($s_type == 1)
+                          <option value="" ><b>เลือกสาขา</b></option>  
+                            <!-- <option disabled="disabled"></option> -->
+                            <option value="-1" ><b>เลือกทั้งหมด</b></option> 
+                            @foreach($store_branchs as $store_branch)
+                                <option value="{{ $store_branch->id }}" >{{ $store_branch->name }}</option>
+                            @endforeach
+                        @else
+                          <option value="" ><b>เลือกสาขา</b></option>  
+                            <!-- <option disabled="disabled"></option> -->
+                            @foreach($store_branchs as $store_branch)
+                              @if($s_store_branch_id == $store_branch->id)
+                                <option value="{{ $store_branch->id }}" >{{ $store_branch->name }}</option>
+                              @endif
+                            @endforeach
+                        @endif
                         </select>              
-                    </div>
-                    
-                    <div class="col-md-3">
-                      <br>
-                        <select  required class="form-control select2" style="width: 100%;" name="status_bill">      
-                        <option value="" ><b>เลือกสถานะ</b></option>  
-                          <!-- <option disabled="disabled"></option> -->
-                          <option value="" ><b>เลือกทั้งหมด</b></option> 
-                          @foreach($status_repairs as $status_repair)
-                              <option value="{{ $status_repair->id }}" >{{ $status_repair->name }}</option>
-                          @endforeach
-                        </select>             
                     </div>
 
                     <div class="col-md-3">
                       <br>
-                        <select  required class="form-control select2" style="width: 100%;" name="status_bill">      
+                        <select  required class="form-control select2" style="width: 100%;" name="person_member_id">      
                         <option value="" ><b>เลือกลูกค้าสมาชิก</b></option>  
                           <!-- <option disabled="disabled"></option> -->
-                          <option value="" ><b>เลือกทั้งหมด</b></option> 
+                          <option value="-1" ><b>เลือกทั้งหมด</b></option> 
                           @foreach($person_members as $person_member)
                               <option value="{{ $person_member->id }}" >{{ $person_member->name }}</option>
                           @endforeach
                         </select>             
                     </div>
 
-                    <div class="col-md-6 col-xs-6" style="margin-top:17px;">
-                      <input type="hidden" name="chk_table" value="">
-                      <button type="submit" class="btn btn-warning ">ดูตัวอย่าง</button>
+                     <div class="col-md-2" style="margin-right:40px;">
+                      <!-- <br> -->  จาก:
+                      <div class="input-group date">
+                          <div class="input-group-addon">
+                              <i class="fa fa-calendar fa-lg"></i>
+                          </div>
+                         <input type="date" class="form-control pull-right" id="" name="chk_date_in" placeholder="จากวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
+                      </div>            
+                    </div>
+                    <div class="col-md-2" style="margin-right:40px;">
+                      <!-- <br> -->ถึง: 
+                      <div class="input-group date">
+                          <div class="input-group-addon">
+                              <i class="fa fa-calendar fa-lg"></i>
+                          </div>
+                         <input type="date" class="form-control pull-right" id="" name="chk_date_out" placeholder="ถึงวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
+                      </div>              
+                    </div>
+
+                    <div class="col-md-1 col-xs-1" style="margin-top:17px;">
+                      <!-- <button type="submit" class="btn btn-warning ">ดูตัวอย่าง</button> -->
+                      <input type="hidden" name="chk" value="{{$chk}}">
+                      <input type="hidden" name="chk_print" value="2">
                       <button type="submit" class="btn btn-success "><i class="fa fa-download"></i>&nbsp; Excel</button>
                     </div>
                       {!! Form::close() !!}
                       </div>
  <!-- ///////////////////////////////////////////// -->
+ <br>
+          @if($s_type == 1)
+              3. ออกรายงานการซ่อมของลูกค้าทั่วไป โดยสามารถเลือกตามสาขา หรือ เลือกทั้งหมด ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน
+          @else
+              3. ออกรายงานการซ่อมของลูกค้าทั่วไป โดยสามารถเลือกสาขาที่ท่านสังกัด ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน
+          @endif
+
  <div class="row">
  <div class="col-md-3">
                       <br>
                       
-                      <?= Form::open(array('url' => '/search-pay-money')) ?>
+                      <?= Form::open(array('url' => '/report-print')) ?>
                       {{ csrf_field() }}
                       <div class="input-group date">
                           <div class="input-group-addon">
@@ -194,21 +228,193 @@
                     <div class="col-md-3">
                       <br>
                         <select  required class="form-control select2" style="width: 100%;" name="store_branch_id">      
-                        <option value="" ><b>เลือกสาขา</b></option>  
+                        @if($s_type == 1)
+                          <option value="" ><b>เลือกสาขา</b></option>  
+                            <!-- <option disabled="disabled"></option> -->
+                            <option value="-1" ><b>เลือกทั้งหมด</b></option> 
+                            @foreach($store_branchs as $store_branch)
+                                <option value="{{ $store_branch->id }}" >{{ $store_branch->name }}</option>
+                            @endforeach
+                        @else
+                          <option value="" ><b>เลือกสาขา</b></option>  
+                            <!-- <option disabled="disabled"></option> -->
+                            @foreach($store_branchs as $store_branch)
+                              @if($s_store_branch_id == $store_branch->id)
+                                <option value="{{ $store_branch->id }}" >{{ $store_branch->name }}</option>
+                              @endif
+                            @endforeach
+                        @endif
+                        </select>              
+                    </div>
+
+                    <div class="col-md-1 col-xs-1" style="margin-top:17px;">
+                    <!-- <div class="row">
+                      <button type="submit" class="btn btn-warning ">ดูตัวอย่าง</button></div>
+                    </div>
+                    <div class="row" > -->
+                    <input type="hidden" name="chk" value="{{$chk}}">
+                      <input type="hidden" name="chk_print" value="3">
+                      <button type="submit" class="btn btn-success "><i class="fa fa-download"></i>&nbsp; Excel</button></div>
+                    </div>
+                      {!! Form::close() !!}
+                      
+<!-- ////////////////////////////////////////////////////-->
+<br>
+          @if($s_type == 1)
+              4. ออกรายงานการซ่อมของช่าง โดยสามารถเลือกตามสาขา หรือ เลือกทั้งหมด และ เลือกสถานะการซ่อม หรือเลือกทั้งหมดได้ <U>สถานะเป็นส่วนของหน้ารายการซ่อมของช่าง </U> ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน    
+          @else
+              4. ออกรายงานการซ่อมของช่าง โดยสามารถเลือกช่างสาขาท่าน และ เลือกสถานะการซ่อม หรือเลือกทั้งหมดได้ <U>สถานะเป็นส่วนของหน้ารายการซ่อมของช่าง </U> ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน    
+          @endif
+   
+<div class="row">
+
+
+                    <div class="col-md-3">
+                      <br>
+                      <?= Form::open(array('url' => '/report-print')) ?>
+                        <select  required class="form-control select2" style="width: 100%;" name="store_branch_id" onchange="this.form.submit()">      
+                        @if($s_type == 1)
+                            @if($chk_get_per==1)    
+                              <option value="" ><b>{{ $chk_name }}</b></option> 
+                            @else
+                            <option value="" ><b>เลือกสาขา</b></option>  
+                            @endif
+                            @foreach($store_branchs as $store_branch)
+                                <option value="{{ $store_branch->id }}" >{{ $store_branch->name }}</option>
+                            @endforeach
+                        @else
+                          <option value="" ><b>เลือกสาขา</b></option>  
+                            <!-- <option disabled="disabled"></option> -->
+                            @foreach($store_branchs as $store_branch)
+                              @if($s_store_branch_id == $store_branch->id)
+                                <option value="{{ $store_branch->id }}" >{{ $store_branch->name }}</option>
+                              @endif
+                            @endforeach
+                        @endif
+
                           <!-- <option disabled="disabled"></option> -->
-                          <option value="-1" ><b>เลือกทั้งหมด</b></option> 
-                          @foreach($store_branchs as $store_branch)
-                              <option value="{{ $store_branch->id }}" >{{ $store_branch->name }}</option>
-                          @endforeach
+                          
+                        </select> 
+                        
+                        <input type="hidden" name="chk" value="{{$chk}}">
+                      <input type="hidden" name="chk_print" value="4">
+                      <input type="hidden" name="chk_get_person" value="1">
+                      {!! Form::close() !!}    
+                    </div>
+
+                    <script>
+                    $('[name="store_branch_id"]').change(function() {
+                      $(this).closest('form').submit();
+                    });
+                    </script>    
+
+
+          <?= Form::open(array('url' => '/report-print')) ?>                 
+                    <div class="col-md-2">
+                      <br>{{ csrf_field() }}
+                        <select  required class="form-control select2" style="width: 100%;" name="person_id" >      
+                        <option value="" ><b>เลือกช่างซ่อม</b></option>  
+                          <!-- <option disabled="disabled"></option> -->
+                          <!-- <option value="-1" ><b>เลือกทั้งหมด</b></option>  -->
+                          @if($chk_get_per==1)    
+                              @foreach($persons as $person)
+                                  <option value="{{ $person->id }}" >{{ $person->person_name }}</option>
+                            @endforeach
+                          @endif
+
+                        </select> 
+                    </div>
+
+
+                  <div class="col-md-3">
+                      <br>
+                      
+                      {{ csrf_field() }}
+                      <div class="input-group date">
+                          <div class="input-group-addon">
+                              <i class="fa fa-calendar fa-lg"></i>
+                          </div>
+                          <input type="date" class="form-control pull-right" id="" name="chk_date_in" placeholder="จากวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
+                      </div>            
+                    </div>
+                    <div class="col-md-3">
+                      <br>
+                      <div class="input-group date">
+                          <div class="input-group-addon">
+                              <i class="fa fa-calendar fa-lg"></i>
+                          </div>
+                          <input type="date" class="form-control pull-right" id="" name="chk_date_out" placeholder="ถึงวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
+                      </div>              
+                    </div>
+
+
+                    <div class="col-md-1 col-xs-1" style="margin-top:17px;">
+                    <input type="hidden" name="chk" value="{{$chk}}">
+                      <input type="hidden" name="chk_print" value="4">
+                      <!-- <button type="submit" class="btn btn-warning ">ดูตัวอย่าง</button> -->
+                      <button type="submit" class="btn btn-success "><i class="fa fa-download"></i>&nbsp; Excel</button>
+                    </div>
+                      {!! Form::close() !!}
+                      </div>
+<!-- /////////////////////////////////////// -->
+<br>
+          @if($s_type == 1)
+              5. ออกรายงานการซ่อมของอะไหล่ที่ใช้ซ่อมแต่ละรายการ โดยสามารถเลือกตามสาขา หรือ เลือกทั้งหมด และ เลือกสถานะการซ่อม หรือเลือกทั้งหมดได้ <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม </U> ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน
+          @else
+             5. ออกรายงานการซ่อมของอะไหล่ที่ใช้ซ่อมแต่ละรายการ โดยสามารถเลือกสาขาที่ท่านสังกัด และ เลือกสถานะการซ่อม หรือเลือกทั้งหมดได้ <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม </U> ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน   
+          @endif
+
+ <div class="row">
+ <div class="col-md-3">
+                      <br>
+                      
+                      <?= Form::open(array('url' => '/report-print')) ?>
+                      {{ csrf_field() }}
+                      <div class="input-group date">
+                          <div class="input-group-addon">
+                              <i class="fa fa-calendar fa-lg"></i>
+                          </div>
+                          <input type="date" class="form-control pull-right" id="" name="chk_date_in" placeholder="จากวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
+                      </div>            
+                    </div>
+                    <div class="col-md-3">
+                      <br>
+                      <div class="input-group date">
+                          <div class="input-group-addon">
+                              <i class="fa fa-calendar fa-lg"></i>
+                          </div>
+                          <input type="date" class="form-control pull-right" id="" name="chk_date_out" placeholder="ถึงวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
+                      </div>              
+                    </div>
+
+                    <div class="col-md-3">
+                      <br>
+                        <select  required class="form-control select2" style="width: 100%;" name="store_branch_id">      
+                        @if($s_type == 1)
+                          <option value="" ><b>เลือกสาขา</b></option>  
+                            <!-- <option disabled="disabled"></option> -->
+                            <option value="-1" ><b>เลือกทั้งหมด</b></option> 
+                            @foreach($store_branchs as $store_branch)
+                                <option value="{{ $store_branch->id }}" >{{ $store_branch->name }}</option>
+                            @endforeach
+                        @else
+                          <option value="" ><b>เลือกสาขา</b></option>  
+                            <!-- <option disabled="disabled"></option> -->
+                            @foreach($store_branchs as $store_branch)
+                              @if($s_store_branch_id == $store_branch->id)
+                                <option value="{{ $store_branch->id }}" >{{ $store_branch->name }}</option>
+                              @endif
+                            @endforeach
+                        @endif
                         </select>              
                     </div>
                     
                     <div class="col-md-2">
                       <br>
-                        <select  required class="form-control select2" style="width: 100%;" name="status_bill">      
+                        <select  required class="form-control select2" style="width: 100%;" name="status_repair_id">      
                         <option value="" ><b>เลือกสถานะ</b></option>  
                           <!-- <option disabled="disabled"></option> -->
-                          <option value="" ><b>เลือกทั้งหมด</b></option> 
+                          <option value="-1" ><b>เลือกทั้งหมด</b></option> 
                           @foreach($status_repairs as $status_repair)
                               <option value="{{ $status_repair->id }}" >{{ $status_repair->name }}</option>
                           @endforeach
@@ -217,87 +423,21 @@
 
                     <div class="col-md-1 col-xs-1" style="margin-top:17px;">
                     <div class="row">
-                      <button type="submit" class="btn btn-warning ">ดูตัวอย่าง</button></div>
+                      <!-- <button type="submit" class="btn btn-warning ">ดูตัวอย่าง</button></div> -->
                     </div>
                     <div class="row" >
+                    <input type="hidden" name="chk" value="{{$chk}}">
+                      <input type="hidden" name="chk_print" value="5">
                       <button type="submit" class="btn btn-success "><i class="fa fa-download"></i>&nbsp; Excel</button></div>
                     </div>
                       {!! Form::close() !!}
-                      
-<!-- ////////////////////////////////////////////////////-->
-                      
-<div class="row">
-<div class="col-md-3">
-                      <br>
-                      
-                      <?= Form::open(array('url' => '/search-pay-money')) ?>
-                      {{ csrf_field() }}
-                      <div class="input-group date">
-                          <div class="input-group-addon">
-                              <i class="fa fa-calendar fa-lg"></i>
-                          </div>
-                          <input type="date" class="form-control pull-right" id="" name="chk_date_in" placeholder="จากวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
-                      </div>            
-                    </div>
-                    <div class="col-md-3">
-                      <br>
-                      <div class="input-group date">
-                          <div class="input-group-addon">
-                              <i class="fa fa-calendar fa-lg"></i>
-                          </div>
-                          <input type="date" class="form-control pull-right" id="" name="chk_date_out" placeholder="ถึงวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
-                      </div>              
-                    </div>
-
-                    <div class="col-md-3">
-                      <br>
-                        <select  required class="form-control select2" style="width: 100%;" name="store_branch_id">      
-                        <option value="" ><b>เลือกสาขา</b></option>  
-                          <!-- <option disabled="disabled"></option> -->
-                          <option value="-1" ><b>เลือกทั้งหมด</b></option> 
-                          @foreach($store_branchs as $store_branch)
-                              <option value="{{ $store_branch->id }}" >{{ $store_branch->name }}</option>
-                          @endforeach
-                        </select>              
-                    </div>
-                    
-                    <div class="col-md-3">
-                      <br>
-                        <select  required class="form-control select2" style="width: 100%;" name="status_bill">      
-                        <option value="" ><b>เลือกสถานะ</b></option>  
-                          <!-- <option disabled="disabled"></option> -->
-                          <option value="" ><b>เลือกทั้งหมด</b></option> 
-                          @foreach($status_repairs as $status_repair)
-                              <option value="{{ $status_repair->id }}" >{{ $status_repair->name }}</option>
-                          @endforeach
-                        </select>             
-                    </div>
-
-                    <div class="col-md-3">
-                      <br>
-                        <select  required class="form-control select2" style="width: 100%;" name="status_bill">      
-                        <option value="" ><b>เลือกช่างซ่อม</b></option>  
-                          <!-- <option disabled="disabled"></option> -->
-                          <option value="" ><b>เลือกทั้งหมด</b></option> 
-                          @foreach($person_members as $person_member)
-                              <option value="{{ $person_member->id }}" >{{ $person_member->name }}</option>
-                          @endforeach
-                        </select>             
-                    </div>
-
-                    <div class="col-md-6 col-xs-6" style="margin-top:17px;">
-                      <input type="hidden" name="chk_table" value="">
-                      <button type="submit" class="btn btn-warning ">ดูตัวอย่าง</button>
-                      <button type="submit" class="btn btn-success "><i class="fa fa-download"></i>&nbsp; Excel</button>
-                    </div>
-                      {!! Form::close() !!}
-                      </div>
-
+<!--////////////////////////////////-->
 
           </div>
         </div>
       </div>
     </div>
+    
   @else
   @if($chk!=2)  
       <div class="row">
@@ -321,7 +461,8 @@
                                 พนักงาน
                                 @elseif($chk==3)
                                 ร้าน
-                                @elseif($chk==1)
+                                @elseif($chk==5)
+                                อะไหล่
                                 @endif
                                 ทั้งหมด</b> 
                             </div>
@@ -388,6 +529,7 @@
         
   @endif
 @endif
+@if($chk!=4)  
 <div class="row">
       <div class="col-xs-12 text-right">
           <?= Form::open(array('url' => '/report-print')) ?>
@@ -399,8 +541,10 @@
             {!! Form::close() !!}
       </div> 
 </div>
+@endif
       <br>
 
+@if($chk!=4)
 <div class="row">
   <div class="col-xs-12">
 
@@ -413,12 +557,18 @@
           <thead >
             <tr>
               <th class="text-center">#</th>
-              @if($chk==5)
+                  @if($chk==5)
+                  <th class="text-center">ชื่อล็อต</th>
+                  <th class="text-center">ชื่ออะไหล่</th>
+                  <th class="text-center">จำนวน</th>
+                  <th class="text-center">ราคา</th>
+                  @endif
+              <!-- @if($chk==4)
               <th class="text-center">ชื่อล็อต</th>
               <th class="text-center">ชื่ออะไหล่</th>
               <th class="text-center">จำนวน</th>
               <th class="text-center">ราคา</th>
-              @endif
+              @endif -->
                   @if($chk==3)
                   <th class="text-center">ชื่อสาขา</th>
                   <th class="text-center">เบอร์โทร</th>
@@ -434,21 +584,23 @@
         
           <tbody>
             <?php $i=0 ?>
-            @foreach ($result as $value)
-            <tr>
-              <td class="text-center">{{ $i=$i+1 }}</td>
-              @if($chk==5)
-              <td class="text-center">{{ $value->lot_name }}</td>
-              <td class="text-center">{{ $value->name }}</td>
-              <td class="text-center">{{ $value->number }}</td>
-              <td class="text-center">{{ $value->pay_out }}</td>
-              @else
-              <td class="text-center">{{ $value->name }}</td>
-              <td class="text-center">{{ $value->phone }}</td>
-              <td class="text-center">{{ $value->email }}</td>
-              @endif
-            </tr>
-            @endforeach
+            @if($chk_name!='')
+              @foreach ($result as $value)
+              <tr>
+                <td class="text-center">{{ $i=$i+1 }}</td>
+                @if($chk==5)
+                <td class="text-center">{{ $value->lot_name }}</td>
+                <td class="text-center">{{ $value->name }}</td>
+                <td class="text-center">{{ $value->number }}</td>
+                <td class="text-center">{{ $value->pay_out }}</td>
+                @else
+                <td class="text-center">{{ $value->name }}</td>
+                <td class="text-center">{{ $value->phone }}</td>
+                <td class="text-center">{{ $value->email }}</td>
+                @endif
+              </tr>
+              @endforeach
+            @endif
           </tbody>
           </table>
 
@@ -456,7 +608,7 @@
       </div>
   </div>
 </div>
-    
+@endif 
           
 </section>
      

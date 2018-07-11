@@ -145,10 +145,21 @@
                       </div> 
               </div>
             </td>
-            <td class="text-center">
+            <!-- <td class="text-center">
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-person-employee{{ $person->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
               </button>
+            </td> -->
+            @if($person->status==1)
+            <td class="text-center">
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-delete-person-employee{{ $person->id }}"><i class="fa fa-power-off fa-lg"></i>&nbsp; เปิดใช้งาน
+              </button>
             </td>
+            @elseif($person->status==0)
+            <td class="text-center">
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-person-employee{{ $person->id }}"><i class="fa fa-power-off fa-lg"></i>&nbsp; ปิดใช้งาน
+              </button>
+            </td>
+            @endif
             <!-- //////////////////////////////modal-delete-person-employee//////////////////////////////// -->
 
             <div class="modal fade " id="modal-delete-person-employee{{ $person->id }}">
@@ -157,21 +168,32 @@
                   <div class="modal-header " >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">ลบข้อมูล</h4>
+                        <h4 class="modal-title">สถานะการเปิดปิดการใช้งานบุคคล</h4>
                   </div>        
                 <?= Form::open(array('url' => '/person-employee-delete')) ?>
                     <div class="modal-body">
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-9"style="text-align:right">กดปุ่ม "ลบข้อมูล" เพื่อยืนยันการลบข้อมูล </b>
+                        @if($person->status==1)
+                          <b for="" class="control-label col-md-9"style="text-align:right">กดปุ่ม "ปิดการใช้งาน" เพื่อยืนยันการปิดการใช้งาน </b>
+                        @elseif($person->status==0)
+                        <b for="" class="control-label col-md-9"style="text-align:right">กดปุ่ม "เปิดการใช้งาน" เพื่อยืนยันการเปิดการใช้งาน </b>
+                        @endif
                         </div>
                       </div>  
                     </div> 
                       <div class="modal-footer">
-                      <input type="text" name="id" value="{{ $person->id }}">
-                      <input type="text" name="store_branch_id" value="{{ $store_branch_id}}">
+                      <input type="hidden" name="id" value="{{ $person->id }}">
+                      <input type="hidden" name="store_branch_id" value="{{ $store_branch_id}}">
                         <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button>
-                        <button type="submit" class="btn btn-danger">ลบข้อมูล</button>
+                        <!-- <button type="submit" class="btn btn-danger">ลบข้อมูล</button> -->
+                        @if($person->status==1)
+                        <button type="submit" class="btn btn-danger"><i class="fa fa-power-off fa-lg"></i>
+                        &nbsp;ปิดการใช้งาน</button>
+                        @elseif($person->status==0)
+                        <button type="submit" class="btn btn-success"><i class="fa fa-power-off fa-lg"></i>
+                        &nbsp;เปิดการใช้งาน</button>
+                        @endif
                       </div>
                 {!! Form::close() !!}
                 </div>

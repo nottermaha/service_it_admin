@@ -86,10 +86,21 @@
                 <i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข
             </button>
             </td>
-            <td class="text-center">
+            <!-- <td class="text-center">
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-import-part{{ $Import_part->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
             </button>
-          </td>
+          </td> -->
+          @if($Import_part->status==1)
+            <td class="text-center">
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-delete-import-part{{ $Import_part->id }}"><i class="fa fa-power-off fa-lg"></i>&nbsp; เปิดใช้งาน
+              </button>
+            </td>
+            @elseif($Import_part->status==0)
+            <td class="text-center">
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-import-part{{ $Import_part->id }}"><i class="fa fa-power-off fa-lg"></i>&nbsp; ปิดใช้งาน
+              </button>
+            </td>
+            @endif
 
           <!-- //////////////////////////////modal-delete-import-part//////////////////////////////// -->
 
@@ -99,19 +110,31 @@
                   <div class="modal-header " >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">ลบข้อมูล</h4>
+                        <h4 class="modal-title">สถานะการเปิดปิดการใช้งานล็อตอะไหล่</h4>
                   </div>        
                 <?= Form::open(array('url' => '/import_part/delete/'.$Import_part->id)) ?>
                     <div class="modal-body">
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-9"style="text-align:right">กดปุ่ม "ลบข้อมูล" เพื่อยืนยันการลบข้อมูล </b>
+                        @if($Import_part->status==1)
+                          <b for="" class="control-label col-md-9"style="text-align:right">กดปุ่ม "ปิดการใช้งาน" เพื่อยืนยันการปิดการใช้งาน </b>
+                        @elseif($Import_part->status==0)
+                        <b for="" class="control-label col-md-9"style="text-align:right">กดปุ่ม "เปิดการใช้งาน" เพื่อยืนยันการเปิดการใช้งาน </b>
+                        @endif
+                        <br><I style="padding-left:10px;">การ "ปิดการใช้งาน" จะทำให้ไม่สามารถใช้อะไหล่ในล็อตนี้ ( ในหน้ารายการซ่อมของท่าน(ช่าง) ) ได้</I>
                         </div>
                       </div>  
                     </div> 
                       <div class="modal-footer">
                         <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button>
-                        <button type="submit" class="btn btn-danger">ลบข้อมูล</button>
+                        <!-- <button type="submit" class="btn btn-danger">ลบข้อมูล</button> -->
+                        @if($Import_part->status==1)
+                        <button type="submit" class="btn btn-danger"><i class="fa fa-power-off fa-lg"></i>
+                        &nbsp;ปิดการใช้งาน</button>
+                        @elseif($Import_part->status==0)
+                        <button type="submit" class="btn btn-success"><i class="fa fa-power-off fa-lg"></i>
+                        &nbsp;เปิดการใช้งาน</button>
+                        @endif
                       </div>
                 {!! Form::close() !!}
                 </div>
@@ -135,7 +158,7 @@
             
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
-                    <b for="" class="control-label col-md-3"style="text-align:right">ชื่อล็อต</b>
+                    <b for="" class="control-label col-md-3"style="text-align:right">ชื่อล็อต <b style="color:red;font-size:20px;">*</b></b>
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
@@ -183,7 +206,7 @@
             
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
-                    <b for="" class="control-label col-md-3"style="text-align:right">ชื่อล็อต</b>
+                    <b for="" class="control-label col-md-3"style="text-align:right">ชื่อล็อต <b style="color:red;font-size:20px;">*</b></b>
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">

@@ -13,8 +13,7 @@ class ImportPartsController extends Controller
       $s_store_branch_id=session('s_store_branch_id','default');
       if($s_type==1 || $s_type==2 || $s_type==3){
         // echo $id;exit();
-        $Import_parts = ImportPart::where('status', 1)
-        ->where('store_branch_id',$s_store_branch_id)
+        $Import_parts = ImportPart::where('store_branch_id',$s_store_branch_id)
         ->get();
         $date = new CallUseController();
         $Import_parts = $date->get_date_all($Import_parts,'date','date'); //get วันที่ภาษาไทย ลูป
@@ -52,7 +51,13 @@ class ImportPartsController extends Controller
     public function delete($id)
     {
       $import_part = ImportPart::find($id);
-      $import_part->status = 0;
+      if($import_part->status==1){
+        $import_part->status = 0;
+      }
+      elseif($import_part->status==0){
+        $import_part->status = 1;
+      }
+      // $import_part->status = 0;
       $import_part->save();
       $import_part2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว'); 
 

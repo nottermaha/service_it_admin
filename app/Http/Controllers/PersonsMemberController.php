@@ -11,10 +11,7 @@ class PersonsMemberController extends Controller
     public function get_persons() {
       $s_type=session('s_type','default');
       if($s_type==1 || $s_type==2 || $s_type==3){
-        $persons = PersonsMember::where('status', 1)
-        // ->where('type',4)
-        // ->where('store_branch_id',2)
-        ->get();
+        $persons = PersonsMember::get();
         $persons = $this->get_status_name($persons);
 
         return view('persons_member/persons-member', ['persons' => $persons]);
@@ -133,7 +130,12 @@ class PersonsMemberController extends Controller
     public function delete($id)
     {
       $person = PersonsMember::find($id);
-      $person->status = 0;
+      if($person->status==1){
+        $person->status = 0;
+      }
+      elseif($person->status==0){
+        $person->status = 1;
+      }
       $person->save();
       $person2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว');
 

@@ -27,8 +27,7 @@ class PersonsEmployeeController extends Controller
     public function get_persons2(Request $request) {
       $store_branch = StoreBranch::where('status', 1)->get();
         if($request['store_branch_id']>=1){
-        $persons = Persons::where('status', 1)
-        ->where('type',3)
+        $persons = Persons::where('type',3)
         ->where('store_branch_id',$request->store_branch_id)
         ->get();
         // $persons = $this->get_status_name($persons);
@@ -133,8 +132,7 @@ class PersonsEmployeeController extends Controller
 
         $store_branch = StoreBranch::where('status', 1)->get();
         // echo $request['store_branch_id'];exit();
-        $persons = Persons::where('status', 1)
-        ->where('type',3)
+        $persons = Persons::where('type',3)
         ->where('store_branch_id',$request->store_branch_id)
         ->get();
         // $persons = $this->get_status_name($persons);
@@ -189,8 +187,7 @@ class PersonsEmployeeController extends Controller
         $store_branch = StoreBranch::where('status', 1)->get();
   
         // echo $request['store_branch_id'];exit();
-        $persons = Persons::where('status', 1)
-        ->where('type',3)
+        $persons = Persons::where('type',3)
         ->where('store_branch_id',$request->store_branch_id)
         ->get();
         // $persons = $this->get_status_name($persons);
@@ -208,15 +205,19 @@ class PersonsEmployeeController extends Controller
     public function delete(Request $request)
     {
       $person = Persons::find($request->id);
-      $person->status = 0;
+      if($person->status==1){
+        $person->status = 0;
+      }
+      elseif($person->status==0){
+        $person->status = 1;
+      }
       $person->save();
       $person2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว');
 
         // return redirect('persons-manager');
         $store_branch = StoreBranch::where('status', 1)->get();
         // echo $request['store_branch_id'];exit();
-        $persons = Persons::where('status', 1)
-        ->where('type',3)
+        $persons = Persons::where('type',3)
         ->where('store_branch_id',$request->store_branch_id)
         ->get();
         // $persons = $this->get_status_name($persons);

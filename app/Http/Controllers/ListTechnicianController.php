@@ -50,6 +50,7 @@ class ListTechnicianController extends Controller
           ->where('list_repair.status', 1)
           ->where('list_repair.person_id', $s_id)//->
           ->where('repair.store_branch_id', $s_store_branch_id)//->
+          ->where('repair.status_bill',0)//->
           ->orderBy('repair.bin_number','desc')//->
           // ->where('list_repair.repair_id',$request->id)
           ->get($items);
@@ -67,6 +68,7 @@ class ListTechnicianController extends Controller
             , 'list_parts.number'
           ];
           $list_parts = ListPart::where('list_parts.status', 1)
+          ->where('import_parts.status', 1)
           ->orderBy('list_parts.name','asc')
           ->leftJoin('import_parts','import_parts.id','=','list_parts.import_parts_id')
           ->where('import_parts.store_branch_id', $s_store_branch_id)
@@ -163,6 +165,7 @@ class ListTechnicianController extends Controller
       ->where('list_repair.status', 1)
       ->where('list_repair.person_id', $s_id)//->
       ->where('repair.store_branch_id', $s_store_branch_id)//->
+      ->where('repair.status_bill',0)//->
       ->orderBy('repair.bin_number','desc')//->
       // ->where('list_repair.repair_id',$request->id)
       ->get($items);
@@ -180,6 +183,7 @@ class ListTechnicianController extends Controller
         , 'list_parts.number'
       ];
       $list_parts = ListPart::where('list_parts.status', 1)
+      ->where('import_parts.status', 1)
       ->orderBy('list_parts.name','asc')
       ->leftJoin('import_parts','import_parts.id','=','list_parts.import_parts_id')
       ->where('import_parts.store_branch_id', $s_store_branch_id)
@@ -281,6 +285,7 @@ class ListTechnicianController extends Controller
         ->where('list_repair.status', 1)
         ->where('list_repair.person_id', $s_id)//->
         ->where('repair.store_branch_id', $s_store_branch_id)//->
+        ->where('repair.status_bill',0)//->
         ->orderBy('repair.bin_number','desc')//->
         // ->where('list_repair.repair_id',$request->id)
         ->get($items);
@@ -298,6 +303,7 @@ class ListTechnicianController extends Controller
           , 'list_parts.number'
         ];
         $list_parts = ListPart::where('list_parts.status', 1)
+        ->where('import_parts.status', 1)
         ->orderBy('list_parts.name','asc')
         ->leftJoin('import_parts','import_parts.id','=','list_parts.import_parts_id')
         ->where('import_parts.store_branch_id', $s_store_branch_id)
@@ -376,6 +382,7 @@ class ListTechnicianController extends Controller
         ->where('list_repair.status', 1)
         ->where('list_repair.person_id', $s_id)//->
         ->where('repair.store_branch_id', $s_store_branch_id)//->
+        ->where('repair.status_bill',0)//->
         ->orderBy('repair.bin_number','desc')//->
         // ->where('list_repair.repair_id',$request->id)
         ->get($items);
@@ -393,6 +400,7 @@ class ListTechnicianController extends Controller
           , 'list_parts.number'
         ];
         $list_parts = ListPart::where('list_parts.status', 1)
+        ->where('import_parts.status', 1)
         ->orderBy('list_parts.name','asc')
         ->leftJoin('import_parts','import_parts.id','=','list_parts.import_parts_id')
         ->where('import_parts.store_branch_id', $s_store_branch_id)

@@ -104,23 +104,19 @@
                                 อุปกรณ์ที่นำมาซ่อม  </b><br>
                                 <?php $i=0; ?>
                             @foreach($repairs as $repair)
+                              @foreach($status_lists as $value)
+                              @if($value->l_id==$repair->list_repair_id)
                                 <b for="" class="control-label col-md-3"style="text-align:right">
                                 {{ $i=$i+1 }} </b>
                                 <b for="" class="control-label col-md-9" style="color:gray">
-                                {{$repair->list_repair_name}}
+                                {{$value->list_repair_name}}.
                                 </b>
                                 <b for="" class="control-label col-md-3"style="text-align:right">
                                 อาการเสีย: </b>
                                 <b for="" class="control-label col-md-9" style="color:gray">
-                                {{$repair->symptom}}
+                                {{$value->symptom}}.
                                 </b>
-                                <b for="" class="control-label col-md-3"style="text-align:right">
-                                รายละเอียด : </b>
-                                <b for="" class="control-label col-md-9" style="color:gray">
-                                {{$repair->detail}}
-                                </b>                                
-                                @foreach($status_lists as $value)
-                                  @if($value->l_id==$repair->list_repair_id)
+                             
                                 <b for="" class="control-label col-md-3"style="text-align:right">
                                 ราคา : </b>
                                 <b for="" class="control-label col-md-9" style="color:gray">

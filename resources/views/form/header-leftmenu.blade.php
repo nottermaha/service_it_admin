@@ -147,7 +147,7 @@
             <li><a href="{{ url('/repair-general')  }}"><i class="fa fa-circle-o"></i> ลูกค้าทั่วไป</a></li>
             <hr style="margin-top:0px;margin-bottom:0px;"><br>
             <a style="padding-left:20px;">สำหรับช่างซ่อม</a> 
-            <li><a href="{{ url('/list-repair-for-technician')  }}"><i class="fa fa-circle-o"></i> รายการซ่อมของท่าน</a></li>
+            <li><a href="{{ url('/list-repair-for-technician')  }}"><i class="fa fa-circle-o"></i> รายการแจ้งซ่อมของท่าน(ช่าง)</a></li>
           </ul>
         </li>
 

@@ -44,11 +44,11 @@
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-yellow">
               <div class="widget-user-image">
-                <img class="img-circle" src="dist/img/user7-128x128.jpg" alt="User Avatar">
+                <img class="img-circle" src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/512/user-male-icon.png" alt="User Avatar">
               </div>
               <!-- /.widget-user-image -->
               <h3 class="widget-user-username">รายงานข้อมูลพนักงาน</h3>
-              <h5 class="widget-user-desc">Lead Developer</h5>
+              <!-- <h5 class="widget-user-desc">Lead Developer</h5> -->
             </div>
             <div class="box-footer no-padding">
               <ul class="nav nav-stacked">
@@ -77,11 +77,11 @@
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-yellow">
               <div class="widget-user-image">
-                <img class="img-circle" src="dist/img/user7-128x128.jpg" alt="User Avatar">
+                <img class="img-circle" src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png" alt="User Avatar">
               </div>
               <!-- /.widget-user-image -->
               <h3 class="widget-user-username">รายงานข้อมูลสมาชิก</h3>
-              <h5 class="widget-user-desc">Lead Developer</h5>
+              <!-- <h5 class="widget-user-desc">Lead Developer</h5> -->
             </div>
             <div class="box-footer no-padding">
               <ul class="nav nav-stacked">
@@ -108,11 +108,11 @@
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-yellow">
               <div class="widget-user-image">
-                <img class="img-circle" src="dist/img/user7-128x128.jpg" alt="User Avatar">
+                <img class="img-circle" src="https://png.pngtree.com/element_origin_min_pic/16/07/03/2057790adc884f5.jpg" alt="User Avatar">
               </div>
               <!-- /.widget-user-image -->
               <h3 class="widget-user-username">รายงานข้อมูลร้าน</h3>
-              <h5 class="widget-user-desc">Lead Developer</h5>
+              <!-- <h5 class="widget-user-desc">Lead Developer</h5> -->
             </div>
             <div class="box-footer no-padding">
               <ul class="nav nav-stacked">
@@ -142,11 +142,11 @@
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-blue">
               <div class="widget-user-image">
-                <img class="img-circle" src="dist/img/user7-128x128.jpg" alt="User Avatar">
+                <img class="img-circle" src="https://png.pngtree.com/element_origin_min_pic/16/11/12/4eb0e9d8dffad514c5e5a0713980689e.jpg" alt="User Avatar">
               </div>
               <!-- /.widget-user-image -->
               <h3 class="widget-user-username">รายงานข้อมูลการซ่อมสินค้า</h3>
-              <h5 class="widget-user-desc">Lead Developer</h5>
+              <!-- <h5 class="widget-user-desc">Lead Developer</h5> -->
             </div>
             <div class="box-footer no-padding">
               <ul class="nav nav-stacked">
@@ -173,11 +173,11 @@
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-yellow">
               <div class="widget-user-image">
-                <img class="img-circle" src="dist/img/user7-128x128.jpg" alt="User Avatar">
+                <img class="img-circle" src="http://download.seaicons.com/icons/paomedia/small-n-flat/1024/wrench-screwdriver-icon.png" alt="User Avatar">
               </div>
               <!-- /.widget-user-image -->
               <h3 class="widget-user-username">รายงานข้อมูลอะไหล่</h3>
-              <h5 class="widget-user-desc">Lead Developer</h5>
+              <!-- <h5 class="widget-user-desc">Lead Developer</h5> -->
             </div>
             <div class="box-footer no-padding">
               <ul class="nav nav-stacked">

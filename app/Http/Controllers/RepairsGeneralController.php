@@ -195,6 +195,9 @@ class RepairsGeneralController extends Controller
 
         ,'list_repair.id as l_id'
         ,'list_repair.price as price'
+        ,'list_repair.list_name as list_repair_name'
+        ,'list_repair.symptom as symptom'
+        ,'list_repair.image as image'
 
         ,'persons.name as person_name'
     ];

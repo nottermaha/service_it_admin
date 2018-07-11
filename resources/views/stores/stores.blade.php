@@ -303,7 +303,7 @@
                       </div>  
                     </div> 
                       <div class="modal-footer">
-                        <!-- <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button> -->
+                        <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button>
                         @if($store->status==1)
                         <button type="submit" class="btn btn-danger"><i class="fa fa-power-off fa-lg"></i>
                         &nbsp;ปิดการใช้งาน</button>

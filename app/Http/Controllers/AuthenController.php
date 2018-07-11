@@ -28,22 +28,33 @@ class AuthenController extends Controller
         if($result!='[]'){
           ////////login admin manager employee/////////
           // echo 'rrr';exit();
-          session(['s_name'=>$result['0']['name']]);
-          session(['s_id'=>$result['0']['id'] ]); 
-          session(['s_type'=>$result['0']['type'] ]); 
-          session(['s_store_branch_id'=>$result['0']['store_branch_id'] ]); 
-          // session(['key2'=>$result['0']['store_branch_id'] ]); 
-          // if (session()->has('key2')) { 
-          //   $data=session('key2','default'); 
-          // } 
-          $request->session()->flash('status_login_ok', 'การเข้าสู่ระบบเสร็จสิ้น'); 
-          $s_type=session('s_type','default');
-          if($s_type==1){
-            return redirect('dashboard');
-          }
-          elseif($s_type==2){
-            return redirect('dashboard_branch');
-          }
+            if($result['0']['status']==0)
+            {
+                  $request->session()->flash('status_login_fail', 'fail');
+                  return redirect('/');
+            }
+            else if($result['0']['status']==1)
+            {
+                  session(['s_name'=>$result['0']['name']]);
+                  session(['s_id'=>$result['0']['id'] ]); 
+                  session(['s_type'=>$result['0']['type'] ]); 
+                  session(['s_store_branch_id'=>$result['0']['store_branch_id'] ]); 
+                  // session(['key2'=>$result['0']['store_branch_id'] ]); 
+                  // if (session()->has('key2')) { 
+                  //   $data=session('key2','default'); 
+                  // } 
+                  $request->session()->flash('status_login_ok', 'การเข้าสู่ระบบเสร็จสิ้น'); 
+                  $s_type=session('s_type','default');
+                  if($s_type==1){
+                    return redirect('dashboard');
+                  }
+                  elseif($s_type==2){
+                    return redirect('dashboard_branch');
+                  }
+                  elseif($s_type==3){
+                    return redirect('profile');
+                  }
+            }
         }
         ///////login member////////
         else if($result=='[]'){
@@ -52,11 +63,19 @@ class AuthenController extends Controller
           ->where('password',$request->password)
           ->get();
               if($result2!='[]'){
-                session(['s_name'=>$result2['0']['name']]);
-                session(['s_id'=>$result2['0']['id'] ]); 
-                session(['s_type'=>$result2['0']['type'] ]);
-                $request->session()->flash('status_login_ok', 'การเข้าสู่ระบบเสร็จสิ้น'); 
-              return redirect('/');
+                  if($result2['0']['status']==0)
+                  {
+                    $request->session()->flash('status_login_fail', 'fail');
+                  return redirect('/');
+                  }
+                  elseif($result2['0']['status']==1)
+                  {
+                      session(['s_name'=>$result2['0']['name']]);
+                      session(['s_id'=>$result2['0']['id'] ]); 
+                      session(['s_type'=>$result2['0']['type'] ]);
+                      $request->session()->flash('status_login_ok', 'การเข้าสู่ระบบเสร็จสิ้น'); 
+                    return redirect('/');
+                  }
               }
               else{
                 ///////ligin fail///////
