@@ -249,7 +249,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="datepicker" name="birthday" placeholder="วัน/เดือน/ปีเกิด..." data-date-format="yyyy-mm-dd">
+                                <input type="date" class="form-control pull-right" id="" name="birthday" placeholder="วัน/เดือน/ปีเกิด..." data-date-format="yyyy-mm-dd">
                             </div>
                         </div>          
                 </div>
@@ -364,7 +364,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-user fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="Position" name="position" placeholder="ตำแหน่ง...">
+                                <input type="text" class="form-control pull-right" id="Position" name="position" placeholder="ตำแหน่ง..." value="พนักงาน" disabled>
                             </div>
                         </div> 
                 </div> 
@@ -374,7 +374,7 @@
                         <div class="col-sm-9">
                             <div class="input-group date">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-lock fa-lg"></i>
+                                    <i class="fa fa-money fa-lg"></i>
                                 </div>
                                 <input type="text" class="form-control pull-right" id="Salary" name="salary" placeholder="เงินเดือน...">
                             </div>
@@ -388,7 +388,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="datepicker2" name="date_in" placeholder="วันเข้าเป็นพนักงาน..." data-date-format="yyyy-mm-dd">
+                                <input type="date" class="form-control pull-right" id="" name="date_in" placeholder="วันเข้าเป็นพนักงาน..." data-date-format="yyyy-mm-dd">
                             </div>
                         </div>
                 </div> 
@@ -400,7 +400,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar fa-lg"></i>
                                 </div>
-                                    <input type="text" class="form-control pull-right" id="datepicker3" name="date_out" placeholder="วันออกจากงาน..." data-date-format="yyyy-mm-dd">
+                                    <input type="date" class="form-control pull-right" id="" name="date_out" placeholder="วันออกจากงาน..." data-date-format="yyyy-mm-dd">
                                 </div>
                             </div>
                         </div> 
@@ -411,10 +411,11 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12 text-right">
+        <div class="col-sm-12 text-center">
         <input type="hidden" name="check" value="1">
         <input type="hidden" name="store_branch_id" value="{{$store_branch_id}}">
-          <button type="button" onClick="BtnChkSubmit()" class="btn btn-success">บันทึก</button>
+          <button type="button" onClick="BtnChkSubmit()" class="btn btn-success btn-lg
+          ">บันทึก</button>
         </div>
     </div>
   </form>

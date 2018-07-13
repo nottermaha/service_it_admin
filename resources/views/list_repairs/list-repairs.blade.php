@@ -152,6 +152,7 @@
           <div class="row">
             <div class="text-center">
               <!-- <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button> -->
+              <input type="hidden" name="back"value="{{ $back }}">
               <input type="hidden" name="repair_id"value="{{$repair_id}}">
               <button type="submit" class="btn btn-success">บันทึก</button>
             </div>
@@ -276,11 +277,18 @@
                         <div class="form-group">
                           <b for="" class="control-label col-md-9"style="text-align:right">กดปุ่ม "ลบข้อมูล" เพื่อยืนยันการลบข้อมูล </b>
                         </div>
-                      </div>  
-                    </div> 
+                      </div>  <br>
+                      <div class="row" >
+                        <div class="col-md-1"></div>
+                          <div class="form-group">
+                            <b for="" class="control-label col-md-10 "style="color:orange;text-align:center;">การ"ลบ"จะทำให้อะไหล่ที่ถูกใช้กับรายการนี้ถูกยกเลิก</b>
+                          </div>
+                        </div>  
+                      </div> 
                       <div class="modal-footer">
                       <input type="hidden" name="repair_id"value="{{$repair_id}}">
                       <input type="hidden" name="id"value="{{ $list_repair->id }}">
+                      <input type="hidden" name="back"value="{{ $back }}">
                         <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button>
                         <button type="submit" class="btn btn-danger">ลบข้อมูล</button>
                       </div>
@@ -481,20 +489,19 @@
                     </div>
               </div>
             </div>
-            <div class="row" style="padding-top:20px;">
+            <!-- <div class="row" style="padding-top:20px;">
               <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">สถานะการซ่อม</b>
                     <div class="col-md-8">               
                         <select class="form-control select2" style="width: 100%;" name="status_list_repair">
                         <option selected="selected">สถานะที่เลือก [ {{ $list_repair->name }} ]</option>
-                        <!-- <option disabled="disabled">California (disabled)</option> -->
                         @foreach ($setting_status_repairs as $setting_status_repair)
                         <option value="{{ $setting_status_repair->id }}">{{ $setting_status_repair->name }}</option>
                         @endforeach
                         </select>
                     </div>
               </div>
-            </div>
+            </div> -->
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">ราคา</b>
@@ -503,8 +510,8 @@
                         <div class="input-group-addon">
                             <i class="fa fa-money fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="price" placeholder="ราคา..." value="{{ $list_repair->price }}">
-                      </div>
+                          <input type="number" class="form-control pull-right" id="Name" name="price" placeholder="ราคา..." value="{{ $list_repair->price }}">
+                      </div><b style="color:orange;">กรอกข้อมูลเป็นตัวเลข</b><br>
                     </div>
               </div>
             </div>
@@ -516,8 +523,8 @@
                         <div class="input-group-addon">
                             <i class="fa fa-money fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="price_before" placeholder="ราคาประเมิน..." value="{{ $list_repair->price_before }}">
-                      </div>
+                          <input type="number" class="form-control pull-right" id="Name" name="price_before" placeholder="ราคาประเมิน..." value="{{ $list_repair->price_before }}">
+                      </div><b style="color:orange;">กรอกข้อมูลเป็นตัวเลข</b><br>
                     </div>
               </div>
             </div>
@@ -577,6 +584,7 @@
           <input type="hidden" name="person_id_old" value="{{ $list_repair->person_id }}">
           <input type="hidden" name="repair_id"value="{{$repair_id}}">
           <input type="hidden" name="id"value="{{ $list_repair->id }}">
+          <input type="hidden" name="back"value="{{ $back }}">
             <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
             <button type="submit" class="btn btn-success">บันทึก</button>
           </div>
@@ -674,26 +682,26 @@
     </div> -->
     <!-- //////////////////////////////End modal-add-repair//////////////////////////////// -->
 
-     @if (session()->has('status_create'))     
-     <script>swal({ title: "<?php echo session()->get('status_create'); ?>",        
+     @if (session()->has('list_status_create'))     
+     <script>swal({ title: "<?php echo session()->get('list_status_create'); ?>",        
                      text: "ผลการทํางาน",         
                      timer: 2500,         
                      type: 'success',  
                      position: 'top-end',       
                      showConfirmButton: false     }); 
     </script>
-     @elseif (session()->has('status_edit'))     
-     <script>swal({ title: "<?php echo session()->get('status_edit'); ?>",        
+     @elseif (session()->has('list_status_edit'))     
+     <script>swal({ title: "<?php echo session()->get('list_status_edit'); ?>",        
                      text: "ผลการทํางาน",         
-                     timer: 2500,         
+                     timer: 12500,         
                      type: 'success',  
                      position: 'top-end',       
                      showConfirmButton: false     }); 
     </script>
-         @elseif (session()->has('status_delete'))     
-     <script>swal({ title: "<?php echo session()->get('status_delete'); ?>",        
+         @elseif (session()->has('list_status_delete'))     
+     <script>swal({ title: "<?php echo session()->get('list_status_delete'); ?>",        
                      text: "ผลการทํางาน",         
-                     timer: 2500,         
+                     timer: 12500,         
                      type: 'success',  
                      position: 'top-end',       
                      showConfirmButton: false     }); 

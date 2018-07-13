@@ -7,6 +7,8 @@ use App\ListRepair;
 use App\PersonsMember;
 use App\DataPay;
 use App\SettingStatusRepairShop;
+use App\DataUsePart;
+use App\ListPart;
 
 use App\Http\Controllers\CallUseController;
 
@@ -169,7 +171,7 @@ class RepairsMemberController extends Controller
       ];
 
         $repair_gets = Repair::leftJoin('persons_member', 'persons_member.id', '=', 'repair.persons_member_id')
-        // ->where('list_repair.status',1)
+        ->where('repair.status',1)
         ->get($items);  
         foreach($repair_gets as $key=>$value){
             if($repair_gets[$key]['persons_member_id']!=NULL)
@@ -297,6 +299,9 @@ class RepairsMemberController extends Controller
       $current_day=(date('d'));
       $current_month=(date('m'));
       $current_year=(date('y'));
+
+      $date_in_repair=(date('Y-m-d'));
+      // echo $date_in_repair;exit();
       $repairs = Repair::
       orderBy('id','desc')
       ->limit(1)
@@ -311,7 +316,8 @@ class RepairsMemberController extends Controller
         $repair->status_bill =  0;
         $repair->bin_number =  "B1".$current_day."".$current_month."".$current_year."".$repair_last_id;
         $repair->status_repair =  1;
-        $repair->date_in_repair =  $request->date_in_repair;
+        $repair->date_in_repair =  $date_in_repair;
+        $repair->date_out_repair =  $date_in_repair;
         // $repair->price =  $request->price;
         // $repair->equipment_follow =  $request->equipment_follow;
         $repair->status = true;
@@ -343,7 +349,7 @@ class RepairsMemberController extends Controller
       } 
       // $repair->persons_member_id = $request->member_id;
       $repair->date_in_repair =  $request->date_in_repair;
-      $repair->price =  $request->price;
+      // $repair->price =  $request->price;
       $repair->equipment_follow =  $request->equipment_follow;
       // $repair->after_price =  $request->after_price;
       $repair->date_out_repair =  $request->date_out_repair;
@@ -374,6 +380,53 @@ class RepairsMemberController extends Controller
       $store = Repair::find($id);
       $store->status = 0;
       $store->save();
+      $item = [
+        'repair.id as r_id',
+        'list_repair.id as l_id',
+      ];
+      $list_repair = ListRepair::where('list_repair.status',1)
+      ->where('repair.id',$id)
+      ->leftJoin('repair','repair.id','=','list_repair.repair_id')
+      ->get($item);//get รายการย่อย ของรายการที่จะลบ
+      foreach($list_repair as $key=>$value)
+      { 
+        $item2 = [
+          'data_use_parts.id as data_id',
+          'data_use_parts.list_parts_id as data_list_parts_id',
+        ];
+        $data_use_part = DataUsePart::where('data_use_parts.status',1)
+        ->where('data_use_parts.list_repair_id',$list_repair[$key]['l_id'])
+        ->orderBy('data_use_parts.id','asc')
+        ->leftJoin('list_parts','list_parts.id','=','data_use_parts.list_parts_id')
+        ->leftJoin('list_repair','list_repair.id','=','data_use_parts.list_repair_id')
+        ->get($item2); //get ว่ารายการย่อยของเรา ถูกใช้ใน use_data.id ไหนบ้าง
+        // echo $data_use_part;exit();
+        foreach($data_use_part as $value)
+        { 
+          //แก้ไข status=0 และ เพิ่มอะไหล+1
+          $data_use_part['data_id2']=$value['data_id'];
+          $data_use_part_edit = DataUsePart::find($data_use_part['data_id2']);
+          $data_use_part_edit->status = 0;
+          $data_use_part_edit->save();
+
+        $data_use_part['data_list_parts_id2']=$value['data_list_parts_id'];
+        $list_part_delete_number =ListPart::find($data_use_part['data_list_parts_id2']);
+        $list_part_delete_number->number = $list_part_delete_number['number']+1;
+        // echo $list_part_delete_number['number'];exit();
+        $list_part_delete_number->status = true;
+        $list_part_delete_number->save();       
+        
+        // echo $data_use_part;
+        // $question_posts[$key]['is_name']=$value['person_name'];
+      //  $data_use_part['data_list_parts_id2']=$value['data_list_parts_id'];
+      //  echo $data_use_part['data_list_parts_id2'];
+        }
+
+      }
+      // exit();
+// 
+      
+      // echo $list_repair;exit();
       $person2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว');
 
        return redirect('repair-member');

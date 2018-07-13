@@ -85,17 +85,17 @@ class ReportController extends Controller
               $store_branchs = StoreBranch::where('status',1)
               ->where('id',$s_store_branch_id)
               ->get();
-
+              // echo $store_branchs;exit;
               $result = Persons::
               leftJoin('store_branch','store_branch.id','=','persons.store_branch_id')
               ->where('persons.status', 1)
               ->orderBy('persons.store_branch_id','asc')
               ->where('persons.type',3)
-              ->where('persons.store_branch_id',$request->store_branch_id)
+              ->where('persons.store_branch_id',$s_store_branch_id)
               ->get($item);
               $data =['chk'=>$request->chk,'type_name'=>$store_branchs['0']['name'],'current_date'=>$current_date['current_date']];
 
-              // echo $persons;exit;
+              // echo $result;exit;
               return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
             }
         
@@ -107,7 +107,7 @@ class ReportController extends Controller
             ->get();
             $data =['chk'=>$request->chk];
             // echo $persons;exit;
-            return view('report/re-excel',['result'=>$result],$data);
+            return view('report/re-excel',['result'=>$result,'current_date'=>$current_date['current_date']],$data);
           }
     }
     elseif($request->chk==3){

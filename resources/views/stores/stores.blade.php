@@ -18,6 +18,8 @@
         else{document.getElementById('txt_email').innerHTML = "";}
         //  return true;
     }
+
+
   
     function CheckMobileNumber() {
         var msg = 'โปรดกรอกหมายเลขโทรศัพท์ 10 หลัก ด้วยรูปแบบดังนี้ 08XXXXXXXX ไม่ต้องใส่เครื่องหมายขีด (-) วงเล็บหรือเว้นวรรค';
@@ -49,68 +51,95 @@
             return true;
     }
 
-        function CheckMobileNumber2() {
+@foreach($stores as $store)
+    function checkName{{ $store->id }}()
+	{   var y = document.getElementById("name{{ $store->id }}").value;
+        if(y.length<1){document.getElementById('txt_name{{ $store->id }}').innerHTML = "กรุณากรอก ชื่อร้านสาขา";}
+        else{document.getElementById('txt_name{{ $store->id }}').innerHTML = "";}
+	}
+    function ChkEmail{{ $store->id }}(){
+            var x = document.getElementById("email{{ $store->id }}");
+			var y = x.value;
+            var emailFilter=/^.+@.+\..{2,3}$/;
+            // var str=document.form.text1.value;
+        if (!(emailFilter.test(y))) { 
+            document.getElementById('txt_email{{ $store->id }}').innerHTML = "อีเมลล์ไม่ถูกต้อง";
+            return false;
+        }
+        else{document.getElementById('txt_email{{ $store->id }}').innerHTML = "";}
+        //  return true;
+    }
+
+        function CheckMobileNumber{{ $store->id }}() {
         var msg = 'โปรดกรอกหมายเลขโทรศัพท์ 10 หลัก ด้วยรูปแบบดังนี้ 08XXXXXXXX ไม่ต้องใส่เครื่องหมายขีด (-) วงเล็บหรือเว้นวรรค';
-        var x = document.getElementById("phone2").value;
+        var x = document.getElementById("phone{{ $store->id }}").value;
         s = new String(x);
 
         if ( s.length != 10)
         {
-            document.getElementById('txt_phone2').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+            document.getElementById('txt_phone{{ $store->id }}').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
             //   alert(msg);
             return false;
         }
 
             for (i = 0; i < s.length; i++ ) {               
                 if ( s.charCodeAt(i) < 48 || s.charCodeAt(i) > 57 ) {
-                    document.getElementById('txt_phone2').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+                    document.getElementById('txt_phone{{ $store->id }}').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
                     //  alert(msg);
                     return false;
                 } 
                     if ( ((i == 0) && (s.charCodeAt(i) != 48)) || ((i == 1) && (s.charCodeAt(i) == 55)) || ((i == 1) && (s.charCodeAt(i) == 49)) || ((i == 1) && (s.charCodeAt(i) == 48) ))
                     {
-                        document.getElementById('txt_phone2').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+                        document.getElementById('txt_phone{{ $store->id }}').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
                         return false;
                     }
                     else{
-                        document.getElementById('txt_phone2').innerHTML = "";
+                        document.getElementById('txt_phone{{ $store->id }}').innerHTML = "";
                     }
             }            
             return true;
     }
     
     //////////////onclick////////////////
-    function EditBtnChkSubmit() 
+    function EditBtnChkSubmit{{ $store->id }}() 
     { 
       
         ////
-        var y = document.getElementById("name2").value;
-        if(y.length<1){document.getElementById('txt_name2').innerHTML = "กรุณากรอก ชื่อร้านสาขา";return false}
-        else{document.getElementById('txt_name2').innerHTML = "";}
+        var y = document.getElementById("name{{ $store->id }}").value;
+        if(y.length<1){document.getElementById('txt_name{{ $store->id }}').innerHTML = "กรุณากรอก ชื่อร้านสาขา";return false}
+        else{document.getElementById('txt_name{{ $store->id }}').innerHTML = "";}
         ///
        
-        var x = document.getElementById("email2").value;
+        var x = document.getElementById("email{{ $store->id }}").value;
         var emailFilter=/^.+@.+\..{2,3}$/;
             // var str=document.form.text1.value;
         if (!(emailFilter.test(x))) { 
-            document.getElementById('txt_email2').innerHTML = "อีเมลล์ไม่ถูกต้อง";
+            document.getElementById('txt_email{{ $store->id }}').innerHTML = "อีเมลล์ไม่ถูกต้อง";
             return false;
         }
-        else{document.getElementById('txt_email2').innerHTML = "";}
+        else{document.getElementById('txt_email{{ $store->id }}').innerHTML = "";}
         /////
-        if(!CheckMobileNumber2(phone2.value)) 
+        var x = document.getElementById("phone{{ $store->id }}").value;
+        if(!CheckMobileNumber{{ $store->id }}(x.value)) 
         {
-            document.getElementById('txt_phone2').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";return false;
+            document.getElementById('txt_phone{{ $store->id }}').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";return false;
         }
         else
         {
-            document.getElementById('txt_phone2').innerHTML = "";
+            document.getElementById('txt_phone{{ $store->id }}').innerHTML = "";
         }
         // else{
-            ChkFormCre.submit();
+          // alert('555');
+          var bb= {{ $store->id }};
+          // alert(bb);
+          // EditChkForm.''.{{$store->id}}.submit();
+          // (EditChkForm{{ $store->id }}).submit();
+          
+document.getElementById("EditChkForm{{ $store->id }}").submit();
         // }
 
     }
+@endforeach
 
     function BtnChkSubmitCre() 
     { 
@@ -260,22 +289,28 @@
           <tr>
             <td>{{ $i=$i+1 }}</td>
             <td >
-              <a href=""data-toggle="modal" data-target="#modal-show-store-branch">{{ $store->name }}</a>
+              <a href=""data-toggle="modal" data-target="#modal-show-store-branch">{{ $store->name }}@if($store->id==2)(สาขาหลัก)@endif</a>
             </td>
-            @if($store->status==1)
-            <td class="text-center">
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-delete-branch{{ $store->id }}"><i class="fa fa-power-off fa-lg"></i>&nbsp; เปิดใช้งาน
-              </button>
-            </td>
-            @elseif($store->status==0)
-            <td class="text-center">
-              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-branch{{ $store->id }}"><i class="fa fa-power-off fa-lg"></i>&nbsp; ปิดใช้งาน
-              </button>
-            </td>
+            @if($store->id!=2)
+              @if($store->status==1)
+              <td class="text-center">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-delete-branch{{ $store->id }}"><i class="fa fa-power-off fa-lg"></i>&nbsp; เปิดใช้งาน
+                </button>
+              </td>
+              @elseif($store->status==0)
+              <td class="text-center">
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-branch{{ $store->id }}"><i class="fa fa-power-off fa-lg"></i>&nbsp; ปิดใช้งาน
+                </button>
+              </td>
+              @endif
+            @else
+            <td class="text-center">สาขาหลักปิดการใช้งานไม่ได้</td>  
             @endif
-            <td class="text-center">
-              <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-branch{{ $store->id }}"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a>
-            </td> 
+            
+              <td class="text-center">
+                <a href="" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-branch{{ $store->id }}"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a>
+              </td> 
+            
             <!-- <td class="text-center">
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-branch{{ $store->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
               </button>
@@ -300,6 +335,14 @@
                         <b for="" class="control-label col-md-9"style="text-align:right">กดปุ่ม "เปิดการใช้งาน" เพื่อยืนยันการเปิดการใช้งาน </b>
                         @endif
                         </div>
+                      </div> <br>
+                      <div class="row" >
+                          <div class="col-md-1"></div>
+                          <div class="col-md-10">
+                                <div class="form-group">
+                                <b for="" style="text-align:right;color:red;">*** การ "ปิดการใช้งาน" จะทำให้ผู้จัดการร้าน และพนักงาน ที่สังกัดร้านนั้น ไม่สามารถล็อกอินเข้าสู่ระบบได้ </b>
+                                </div>
+                          </div>
                       </div>  
                     </div> 
                       <div class="modal-footer">
@@ -326,7 +369,7 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">แก้ไขข้อมูลสาขา</h4>
-            </div>        {!!  Form::open(['url'=>'/store-branch/edit/'. $store->id,'class'=>'form','files'=>true,'id'=>'EditChkForm'] )   !!}
+            </div>        {!!  Form::open(['url'=>'/store-branch/edit/'. $store->id,'class'=>'form','files'=>true,'id'=>'EditChkForm{{$store->id}}'] )   !!}
           <div class="modal-body">
           {{ csrf_field() }}
           <div class="row" >
@@ -358,8 +401,8 @@
                     <div class="input-group-addon">
                         <i class="fa fa-home fa-lg"></i>
                     </div>
-                      <input type="text" class="form-control pull-right"  name="name" placeholder="ชื่อสาขา..." value="{{ $store->name }}" id="name2" onBlur="checkName2()">
-                  </div><b  id="txt_name2" style="color:red;"></b>
+                      <input type="text" class="form-control pull-right"  name="name" placeholder="ชื่อสาขา..." value="{{ $store->name }}" id="name{{ $store->id }}" onBlur="checkName{{ $store->id }}()">
+                  </div><b  id="txt_name{{ $store->id }}" style="color:red;"></b>
                 </div>
               </div>
             </div><br>
@@ -372,8 +415,8 @@
                         <div class="input-group-addon">
                             <i class="fa fa-phone fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right"  name="phone" placeholder="เบอร์โทร..." value="{{ $store->phone }}" id="phone2" onBlur="CheckMobileNumber2()">
-                      </div><b id="txt_phone2" style="color:red;"></b>
+                          <input type="text" class="form-control pull-right"  name="phone" placeholder="เบอร์โทร..." value="{{ $store->phone }}" id="phone{{ $store->id }}" onBlur="CheckMobileNumber{{ $store->id }}()">
+                      </div><b id="txt_phone{{ $store->id }}" style="color:red;"></b>
                     </div>
                   </div>
                 </div><br>
@@ -385,8 +428,8 @@
                         <div class="input-group-addon">
                             <i class="fa fa-envelope fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" name="email" placeholder="อีเมล์..." value="{{ $store->email }}" onBlur="ChkEmail2()" id="email2">
-                      </div><b  id="txt_email2" style="color:red;"></b>
+                          <input type="text" class="form-control pull-right" name="email" placeholder="อีเมล์..." value="{{ $store->email }}" onBlur="ChkEmail{{ $store->id }}()" id="email{{ $store->id }}">
+                      </div><b  id="txt_email{{ $store->id }}" style="color:red;"></b>
                     </div>
                   </div>
                 </div><br>
@@ -432,14 +475,14 @@
                 </div><br>
                 <div class="row">
                   <div class="form-group">
-                    <b for="" class="control-label col-sm-2"style="text-align:right">รายละเอียดร้าน</b>
+                    <b for="" class="control-label col-sm-2"style="text-align:right">รายละเอียดเพิ่มเติม</b>
                     <div class="col-sm-9">
                       <div class="input-group date">
                         <div class="input-group-addon">
                             <i class="fa fa-list fa-lg"></i>
                         </div>
-                          <!-- <input type="text" class="form-control pull-right" id="Name" name="detail" placeholder="รายละเอียดร้าน..." value="{{ $store->detail }}"> -->
-                          <textarea class="form-control" rows="3" id="Name" name="detail" placeholder="รายละเอียดร้าน..." value="{{ $store->detail }}">{{ $store->detail }}</textarea>
+                          <!-- <input type="text" class="form-control pull-right" id="Name" name="detail" placeholder="รายละเอียดเพิ่มเติม..." value="{{ $store->detail }}"> -->
+                          <textarea class="form-control" rows="3" id="Name" name="detail" placeholder="รายละเอียดเพิ่มเติม..." value="{{ $store->detail }}">{{ $store->detail }}</textarea>
                       </div>
                     </div>
                   </div>
@@ -447,7 +490,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button>
-            <button type="button" onClick="EditBtnChkSubmit()" class="btn btn-success">บันทึก</button>
+            <button type="submit" onClick="EditBtnChkSubmit{{ $store->id }}()" class="btn btn-success">บันทึก</button>
           </div>
           {!! Form::close() !!}
         </div>
@@ -574,14 +617,14 @@
                 </div><br>
                 <div class="row">
                   <div class="form-group">
-                    <b for="" class="control-label col-sm-2"style="text-align:right">รายละเอียดร้าน</b>
+                    <b for="" class="control-label col-sm-2"style="text-align:right">รายละเอียดเพิ่มเติม</b>
                     <div class="col-sm-9">
                       <div class="input-group date">
                         <div class="input-group-addon">
                             <i class="fa fa-list fa-lg"></i>
                         </div>
-                        <textarea class="form-control" rows="3" id="Name" name="detail" placeholder="รายละเอียดร้าน..."></textarea>
-                          <!-- <input type="text" class="form-control pull-right" id="Name" name="detail" placeholder="รายละเอียดร้าน..."> -->
+                        <textarea class="form-control" rows="3" id="Name" name="detail" placeholder="รายละเอียดเพิ่มเติม..."></textarea>
+                          <!-- <input type="text" class="form-control pull-right" id="Name" name="detail" placeholder="รายละเอียดเพิ่มเติม..."> -->
                       </div>
                     </div>
                   </div>
@@ -614,6 +657,14 @@
     </script>
          @elseif (session()->has('status_delete'))     
      <script>swal({ title: "<?php echo session()->get('status_delete'); ?>",        
+                     text: "ผลการทํางาน",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+    @elseif (session()->has('status_store_edit'))     
+     <script>swal({ title: "<?php echo session()->get('status_store_edit'); ?>",        
                      text: "ผลการทํางาน",         
                      timer: 2500,         
                      type: 'success',  

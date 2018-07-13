@@ -132,12 +132,13 @@ class PersonsMemberController extends Controller
       $person = PersonsMember::find($id);
       if($person->status==1){
         $person->status = 0;
+        $person2=session()->flash('status_delete', 'ปิดการใช้งานสมาชิกเรียบร้อยแล้ว');
       }
       elseif($person->status==0){
         $person->status = 1;
+        $person2=session()->flash('status_delete', 'เปิดการใช้งานสมาชิกเรียบร้อยแล้ว');
       }
       $person->save();
-      $person2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว');
 
       return redirect('persons-member');
     }

@@ -283,7 +283,11 @@
                                 <option value="{{ $store_branch->id }}" >{{ $store_branch->name }}</option>
                             @endforeach
                         @else
-                          <option value="" ><b>เลือกสาขา</b></option>  
+                            @if($chk_get_per==1)    
+                              <option value="" ><b>{{ $chk_name }}</b></option> 
+                            @else
+                            <option value="" ><b>เลือกสาขา</b></option>  
+                            @endif
                             <!-- <option disabled="disabled"></option> -->
                             @foreach($store_branchs as $store_branch)
                               @if($s_store_branch_id == $store_branch->id)
@@ -440,6 +444,7 @@
     
   @else
   @if($chk!=2)  
+      @if($s_type == 1)
       <div class="row">
             <div class="col-md-12">
                 <div class="box box-default">
@@ -526,7 +531,8 @@
                 </div>
             </div>
         </div>
-        
+      @endif
+
   @endif
 @endif
 @if($chk!=4)  

@@ -27,7 +27,9 @@
   <script src="  https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
 
     <!-- <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"> -->
+<!-- Ckeditor -->
 
+<script type="text/javascript" src="assets/widgets/ckeditor/ckeditor.js"></script>
   <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
 </head>
 <!--End css header-leftmenu -->
@@ -233,9 +235,11 @@
             </div>
             <div class="row" style="padding-top:20px;">
             <div class="form-group" style="padding-left:20px;padding-right:20px;">รายละเอียด
-                  <textarea  class="form-control" style="height: 300px" placeholder="รายละเอียด..." name="message2{{ $question_post->id }}" value="{{$question_post->message}}">
+                  <!-- <textarea  class="form-control" style="height: 300px" placeholder="รายละเอียด..." name="message2{{ $question_post->id }}" value="{{$question_post->message}}">
                     {{$question_post->message}}
-                  </textarea>
+                  </textarea> -->
+                  <textarea class="ckeditor" cols="80" id="editor1" name="message2" rows="10" value="{{$question_post->message}}">{{$question_post->message}}
+                        </textarea>
               </div>
             </div>
           

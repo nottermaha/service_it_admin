@@ -16,7 +16,7 @@ class ImportPartsController extends Controller
         $Import_parts = ImportPart::where('store_branch_id',$s_store_branch_id)
         ->get();
         $date = new CallUseController();
-        $Import_parts = $date->get_date_all($Import_parts,'date','date'); //get วันที่ภาษาไทย ลูป
+        $Import_parts = $date->get_date_all($Import_parts,'date','created_at'); //get วันที่ภาษาไทย ลูป
 
         // echo $Import_parts;exit();
         return view('import_part/import-part', ['Import_parts' => $Import_parts]);
@@ -53,13 +53,14 @@ class ImportPartsController extends Controller
       $import_part = ImportPart::find($id);
       if($import_part->status==1){
         $import_part->status = 0;
+        $import_part2=session()->flash('status_delete', 'ปิดการใช้งานล็อตอะไหล่เรียบร้อยแล้ว'); 
       }
       elseif($import_part->status==0){
         $import_part->status = 1;
+        $import_part2=session()->flash('status_delete', 'เปิดการใช้งานล็อตอะไหล่เรียบร้อยแล้ว'); 
       }
       // $import_part->status = 0;
       $import_part->save();
-      $import_part2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว'); 
 
       return redirect('import_part');
     }

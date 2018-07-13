@@ -230,7 +230,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="datepicker" name="birthday" placeholder="วัน/เดือน/ปีเกิด..." data-date-format="yyyy-mm-dd" value="{{$birthday}}">
+                                <input type="date" class="form-control pull-right" id="" name="birthday" placeholder="วัน/เดือน/ปีเกิด..." data-date-format="yyyy-mm-dd" value="{{$birthday}}">
                             </div>
                         </div>          
                 </div>
@@ -328,9 +328,9 @@
             
             </div>
         </div>
-                <div class="col-sm-12 text-right">
+                <div class="col-sm-12 text-center">
                     <input type="hidden" name="id"value="{{$id}}">
-                <button type="submit" class="btn btn-success">บันทึก</button>
+                <button type="submit" class="btn btn-success btn-lg">บันทึก</button>
                 </div>
     </div>
 

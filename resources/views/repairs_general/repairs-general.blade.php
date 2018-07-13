@@ -1,4 +1,65 @@
+<script>
 
+    function checkName()
+	{   var y = document.getElementById("name").value;
+        if(y.length<1){document.getElementById('txt_name').innerHTML = "กรุณากรอก ชื่อ-นามสกุล";}
+        else{document.getElementById('txt_name').innerHTML = "";}
+	}
+
+    function CheckMobileNumber() {
+        var msg = 'โปรดกรอกหมายเลขโทรศัพท์ 10 หลัก ด้วยรูปแบบดังนี้ 08XXXXXXXX ไม่ต้องใส่เครื่องหมายขีด (-) วงเล็บหรือเว้นวรรค';
+        var x = document.getElementById("phone").value;
+        s = new String(x);
+
+        if ( s.length != 10)
+        {
+            document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+            //   alert(msg);
+            return false;
+        }
+
+            for (i = 0; i < s.length; i++ ) {               
+                if ( s.charCodeAt(i) < 48 || s.charCodeAt(i) > 57 ) {
+                    document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+                    //  alert(msg);
+                    return false;
+                } 
+                    if ( ((i == 0) && (s.charCodeAt(i) != 48)) || ((i == 1) && (s.charCodeAt(i) == 55)) || ((i == 1) && (s.charCodeAt(i) == 49)) || ((i == 1) && (s.charCodeAt(i) == 48) ))
+                    {
+                        document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+                        return false;
+                    }
+                    else{
+                        document.getElementById('txt_phone').innerHTML = "";
+                    }
+            }            
+            return true;
+    }
+
+    
+    //////////////onclick////////////////
+    function BtnChkSubmit() 
+    { 
+        ////
+        var y = document.getElementById("name").value;
+        if(y.length<1){document.getElementById('txt_name').innerHTML = "กรุณากรอก ชื่อ-นามสกุล";return false}
+        else{document.getElementById('txt_name').innerHTML = "";}
+        ///
+        if(!CheckMobileNumber(phone.value)) 
+        {
+            document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";return false;
+        }
+        else
+        {
+            document.getElementById('txt_phone').innerHTML = "";
+        }
+        // else{
+            ChkForm.submit();
+        // }
+
+    }
+
+</script>
 <style>
 
 .button_black {background-color:black;}
@@ -72,7 +133,7 @@
      <section class="content">
 
      <div class="col-md-3"></div>
-    {!!  Form::open(['url'=>'/repair-general/create'])   !!}
+    {!!  Form::open(['url'=>'/repair-general/create','id'=>'ChkForm'])   !!}
     {{ csrf_field() }}
       <div class="col-md-6">
         <div class="box box-success">
@@ -89,7 +150,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-user fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right"  name="name" placeholder="ชื่อ-สกุล..." id="name" onBlur="checkName()"required> 
+                          <input type="text" class="form-control pull-right"  name="name" placeholder="ชื่อ-สกุล..." id="name"required onBlur="checkName()"required> 
                       </div><b id="txt_name" style="color:red;"></b>
                     </div><b style="font-size:30px;color:red;" title="ต้องกรอกข้อมูล">*</b>
               </div>
@@ -117,7 +178,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar fa-lg"></i>
                         </div>
-                          <input type="date" class="form-control pull-right" id="Name" name="date_in_repair" placeholder="วันที่ซ่อม..." required value="{{$current_date}}">
+                          <input type="date" class="form-control pull-right" id="Name" name="date_in_repair" placeholder="วันที่ซ่อม..." required value="{{$current_date}}" disabled>
                       </div>
                     </div><b style="font-size:30px;color:red;" title="ต้องกรอกข้อมูล">*</b>
               </div>
@@ -126,7 +187,7 @@
           <div class="row">
             <div class="text-center">
               <!-- <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button> -->
-              <button type="button" onClick="BtnChkSubmit()" class="btn btn-success">บันทึก</button>
+              <button type="button" onClick="BtnChkSubmit()"  class="btn btn-success">บันทึก</button>
             </div>
           </div>
 
@@ -494,6 +555,11 @@
                       <div class="row" >
                         <div class="form-group">
                           <b for="" class="control-label col-md-9"style="text-align:right">กดปุ่ม "ลบข้อมูล" เพื่อยืนยันการลบข้อมูล </b>
+                          
+                          <div class="form-group">
+                            <b for="" class="control-label col-md-12 "style="color:orange;text-align:center;">การ"ลบ"จะทำให้อะไหล่ที่ถูกใช้กับบิลซ่อมนี้ถูกยกเลิก</b>
+                          </div>
+
                         </div>
                       </div>  
                     </div> 
@@ -557,7 +623,8 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar fa-lg"></i>
                         </div>
-                          <input type="date" class="form-control pull-right" id="Name" name="date_in_repair" placeholder="วันที่ซ่อม..." value="{{ $repair->date_in_repair }}" required>
+                        <input type="date" class="form-control pull-right" id="Name" name="" placeholder="วันที่ซ่อม..." value="{{ $repair->date_in_repair }}" disabled>
+                          <input type="hidden" name="date_in_repair" value="{{ $repair->date_in_repair }}">
                       </div>
                     </div><b style="font-size:30px;color:red;" title="ข้อมูลห้ามว่าง">*</b>
               </div>
@@ -569,7 +636,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="equipment_follow" placeholder="อุปกรณ์ที่นำมาด้วย..." value="{{ $repair->equipment_follow }}">
                       </div>
@@ -742,7 +809,7 @@
      @elseif (session()->has('status_edit'))     
      <script>swal({ title: "<?php echo session()->get('status_edit'); ?>",        
                      text: "ผลการทํางาน",         
-                     timer: 2500,         
+                     timer: 12500,         
                      type: 'success',  
                      position: 'top-end',       
                      showConfirmButton: false     }); 
@@ -750,7 +817,7 @@
          @elseif (session()->has('status_delete'))     
      <script>swal({ title: "<?php echo session()->get('status_delete'); ?>",        
                      text: "ผลการทํางาน",         
-                     timer: 2500,         
+                     timer: 12500,         
                      type: 'success',  
                      position: 'top-end',       
                      showConfirmButton: false     }); 

@@ -143,7 +143,6 @@
             <?php $k=0; $temp=0; ?>
             @foreach($data_use_parts as $data_use_part)
               @if( $list_repair->id==$data_use_part->list_repair_id_chk ) 
-                  { 
                   <a>{{ $k=$k+1 }}. {{ $data_use_part->list_parts_name }} {{ $data_use_part->pay_out }}</a> <br>
                   <?php $temp =$temp+$data_use_part->pay_out; ?>
               @endif      

@@ -71,6 +71,7 @@
                         <select  required class="form-control select2" style="width: 100%;" name="store_branch_id">      
                         <option value="" ><b>เลือกสาขา</b></option>  
                           <!-- <option disabled="disabled"></option> -->
+                          <option value="-1">เลือกทั้งหมด</option>
                           @foreach($store_branchs as $store_branch)
                               <option value="{{ $store_branch->id }}" >{{ $store_branch->name }}</option>
                           @endforeach
@@ -135,11 +136,11 @@
             รายการทั้งหมด {{$count_repair}} รายการ
             </td>
             <td class="text-center">
-            ราคา {{ $count_pay_out_part }} บ.
+            ราคา {{ number_format($count_pay_out_part, 2) }} บ.
             </td>
 
             <td class="text-center">
-            ราคา {{ $count_list_repair_price }} บ.
+            ราคา {{ number_format($count_list_repair_price, 2) }}บ.
             </td>
 
           </tr>
@@ -181,9 +182,11 @@
           @foreach ($repairs as $repair)
           <tr>
           <td>{{ $i=$i+1 }}</td>
-          <td>{{ $repair->bin_number }} <br>
+          <td>{{ $repair->store_branch_name }} <br>
+          {{ $repair->bin_number }} <br>
           @if($repair->status_pay == 1)
           <b style="color:green;">จ่ายเงินแล้ว</b>
+          <b style="color:gray;">วันที่จ่าย : {{ $repair->date_updated_at_pay }}</b>
           @elseif($repair->status_pay == 0)
           <b style="color:red;">ยังไม่จ่ายเงิน</b>
           @endif <br>

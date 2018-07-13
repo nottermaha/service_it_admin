@@ -7,6 +7,7 @@ use App\Persons;
 use App\Repair;
 use App\ListRepair;
 use App\PersonsMember;
+use App\Store;
 use App\Http\Controllers\UploadController;
 
 use App\Http\Controllers\CallUseController;
@@ -26,8 +27,19 @@ class AuthenController extends Controller
 
         // echo $result['0']['name'];exit();
         if($result!='[]'){
+
+          $item =[
+              'store_branch.status as store_status'
+          ];
+          $chk_store_branch = Persons::where('persons.status',1)
+          ->where('persons.id',$result['0']['id'])
+          ->leftJoin('store_branch','store_branch.id','=','persons.store_branch_id')
+          ->get($item);
           ////////login admin manager employee/////////
-          // echo 'rrr';exit();
+          if($chk_store_branch['0']['store_status'] == 0){
+            $request->session()->flash('status_login_fail', 'fail');
+            return redirect('/');
+          }
             if($result['0']['status']==0)
             {
                   $request->session()->flash('status_login_fail', 'fail');
@@ -90,7 +102,7 @@ class AuthenController extends Controller
       public function create_register(Request $request){
         // echo $request['gender'];exit();
         // echo $request['birthday'];
-        exit();
+        // exit();
         $person = new PersonsMember;
         $person->status = true;
         $person->type = 4;
@@ -116,9 +128,19 @@ class AuthenController extends Controller
           // echo '5555555555555';exit();                
           $person->image_url = 'default.png';        
          }
-        // $person->save();
+        $person->save();
         $request->session()->flash('status_create', 'คุณได้สมัครสมาชิกเรียบร้อย');
-
+        $id=session('s_id','default');
+        $person_member = PersonsMember::find($id);
+          $count_on = Repair::where('status', 1)
+          ->where('persons_member_id',$id)
+          ->where('status_bill',0)
+          ->count();
+          $count_close = Repair::where('status', 1)
+          ->where('persons_member_id',$id)
+          ->where('status_bill',1)
+          ->count();
+        
         $result2 = PersonsMember::where('status',1)
         ->where('username',$request->username)
         ->where('password',$request->password)
@@ -169,6 +191,7 @@ class AuthenController extends Controller
               ,'persons_member.name as persons_member_name'
               ,'persons_member.phone as persons_member_phone'
 
+              ,'store_branch.id as store_branch_id'
               ,'store_branch.name as store_branch_name'
 
               ,'repair.id as r_id'
@@ -310,6 +333,11 @@ class AuthenController extends Controller
       }
 
       public function profile(){
+        $store = Store::find(1);
+        session(['s_logo'=>$store['logo'] ]);
+        session(['s_store_name'=>$store['name'] ]);
+        $store_branch_id=session('s_store_branch_id','default');
+
         $id=session('s_id','default');
         $person = Persons::find($id);
         $profile = $this->get_profile($person['id']);
@@ -505,7 +533,7 @@ class AuthenController extends Controller
                   }
           }
           $person->save();
-          $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+          $request->session()->flash('status_edit', 'แก้ไขข้อมูลส่วนตัวเรียบร้อยแล้ว'); 
     
           $id=session('s_id','default');
         $person = Persons::find($id);

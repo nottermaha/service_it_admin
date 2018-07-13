@@ -88,7 +88,7 @@
               <!-- <input class="form-control input-lg" type="text" placeholder="B0103062212..." name="bin_number" required> -->
               <!-- <select  required class="form-control select2" style="width: 100%;" name="bin_number" > -->
               <select  required class="form-control select2 lg" style="width: 100%;" name="id_repair" >
-                    <option value="" ><b>เลือกประเภทบุคคล</b></option>
+                    <option value="" ><b>เลือกรายการบิล</b></option>
                     <!-- <option disabled="disabled">California (disabled)</option> -->
                     @foreach($repair_gets as $repair_get)
                     <option value="{{ $repair_get->id }}" >{{ $repair_get->bin_number }} คุณ {{ $repair_get->is_name }}</option>

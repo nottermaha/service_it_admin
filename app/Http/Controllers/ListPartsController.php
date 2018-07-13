@@ -24,11 +24,11 @@ class ListPartsController extends Controller
       $list_parts->name = $request->name;
       $list_parts->generation = $request->generation;
       $list_parts->number = $request->number;
-      $list_parts->pay_in = $request->pay_in;
+      // $list_parts->pay_in = $request->pay_in;
       $list_parts->pay_out = $request->pay_out;
       $list_parts->status = true;
       $list_parts->save();
-      $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
+      $request->session()->flash('list_status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
 
       $list_parts = ListPart::where('import_parts_id',$request->import_parts_id)
       ->get();
@@ -45,11 +45,11 @@ class ListPartsController extends Controller
       $list_parts->name = $request->name;
       $list_parts->generation = $request->generation;
       $list_parts->number = $request->number;
-      $list_parts->pay_in = $request->pay_in;
+      // $list_parts->pay_in = $request->pay_in;
       $list_parts->pay_out = $request->pay_out;
       $list_parts->status = true;
       $list_parts->save();
-      $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว');
+      $request->session()->flash('list_status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว');
 
       $list_parts = ListPart::where('import_parts_id',$request->import_parts_id)
       ->get();
@@ -64,12 +64,13 @@ class ListPartsController extends Controller
     // $list_parts->status = 0;
     if($list_parts->status==1){
       $list_parts->status = 0;
+      $list_parts2=session()->flash('list_status_delete', 'ปิดการใช้งานรายการอะไหล่เรียบร้อยแล้ว'); 
     }
     elseif($list_parts->status==0){
       $list_parts->status = 1;
+      $list_parts2=session()->flash('list_status_delete', 'เปิดการใช้งานรายการอะไหล่เรียบร้อยแล้ว');
     }
     $list_parts->save();
-    $list_parts2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว'); 
 
     $list_parts = ListPart::where('import_parts_id',$request->import_parts_id)
       ->get();

@@ -1,4 +1,4 @@
-<script>
+<script> 
 	function checkText()
 	{   var y = document.getElementById("username").value;
 		var elem = document.getElementById('username').value;
@@ -366,7 +366,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-user fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="Position" name="position" placeholder="ตำแหน่ง...">
+                                <input type="text" class="form-control pull-right" id="Position" name="position" placeholder="ตำแหน่ง..." value="ผู้จัดการร้าน" disabled>
                             </div>
                         </div> 
                 </div> 
@@ -376,7 +376,7 @@
                         <div class="col-sm-9">
                             <div class="input-group date">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-lock fa-lg"></i>
+                                    <i class="fa fa-money fa-lg"></i>
                                 </div>
                                 <input type="text" class="form-control pull-right" id="Salary" name="salary" placeholder="เงินเดือน...">
                             </div>

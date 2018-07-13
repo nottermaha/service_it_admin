@@ -354,12 +354,14 @@ class PersonsManagerController extends Controller
       $person = Persons::find($request->id);
       if($person->status==1){
         $person->status = 0;
+        $person2=session()->flash('status_delete', 'ปิดการใช้งานผู้จัดการร้านเรียบร้อยแล้ว');
       }
       elseif($person->status==0){
         $person->status = 1;
+        $person2=session()->flash('status_delete', 'เปิดการใช้งานผู้จัดการร้านเรียบร้อยแล้ว');
       }
       $person->save();
-      $person2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว');
+      // $person2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว');
 
       // return redirect('persons-manager');
       $store_branch = StoreBranch::where('status', 1)->get();

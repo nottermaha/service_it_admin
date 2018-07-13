@@ -151,7 +151,7 @@
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">แก้ไขข้อมูลล็อต</h4>
+            <h4 class="modal-title">แก้ไขข้อมูลล็อตอะไหล่</h4>
           </div>        
           <?= Form::open(array('url' => '/import_part/edit/'.$Import_part->id)) ?>
           <div class="modal-body">

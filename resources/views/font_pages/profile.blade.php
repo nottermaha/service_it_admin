@@ -229,11 +229,11 @@
                         <div class="popover left">
                             <div class="arrow"></div>
                             <div class="popover-content">
-                                <div class="tl-label bs-label label-danger">รายการซ่อมที่ปิดบิลแล้ว</div>
+                                <div class="tl-label bs-label label-success">รายการซ่อมที่ปิดบิลแล้ว</div>
                                 <!-- <p class="tl-content">จำนวน {{$count_on }} รายการ</p> -->
                                 <div class="tl-time">
                                     <i class="glyph-icon icon-check"></i>
-                                    จำนวน {{$count_on }} รายการ
+                                    จำนวน {{$count_close }} รายการ
                                 </div>
                             </div>
                         </div>
@@ -247,11 +247,11 @@
                         <div class="popover left">
                             <div class="arrow"></div>
                             <div class="popover-content">
-                                <div class="tl-label bs-label label-warning">รายการซ่อมที่ยังไม่ปิดบิล</div>
+                                <div class="tl-label bs-label label-danger">รายการซ่อมที่ยังไม่ปิดบิล</div>
                                 <!-- <p class="tl-content">จำนวน {{ $count_close }} รายการ</p> -->
                                 <div class="tl-time">
                                     <i class="glyph-icon icon-close"></i>
-                                    จำนวน {{ $count_close }} รายการ
+                                    จำนวน {{ $count_on }} รายการ
                                 </div>
                             </div>
                         </div>
@@ -481,7 +481,7 @@
                         @foreach($repairs as $repair)
                         <tr>
                         <td>{{ $j=$j+1 }}</td>
-                            <td>{{ $repair->bin_number }} 
+                            <td>{{ $repair->bin_number }}
                             <br>
                             @if($repair->status_bill==0)
                             <b style="color:red;">ยังไม่ปิดบิล</b>
@@ -489,7 +489,7 @@
                             <b style="color:green;">ปิดบิลแล้ว</b>
                             @endif
                             </td>
-                            <td>{{ $repair->date_in_repair }}</td>
+                            <td>{{ $repair->date_in }}</td>
                             <td>{{ $repair->persons_name }}</td>
                             <td>
                             @if($repair->status_repair==1)
@@ -509,7 +509,8 @@
                             <button title="MonarchUI Admin Template" class="btn btn-sm btn-alt btn-hover mrg10R btn-purple">
                                 <span data-toggle="modal" data-target="#modal-detail{{$repair->r_id}}">เพิ่มเติม</span>
                                 <i class="glyph-icon icon-bars"></i>
-                            </button>
+                            </button><br>
+
                             </td>
          <!-- //////////////////////////////modal-login//////////////////////////////// -->
 
@@ -561,18 +562,18 @@
                                 <b for="" class="control-label col-md-3"style="text-align:right">
                                 {{ $i=$i+1 }} : </b>
                                 <b for="" class="control-label col-md-9" style="color:gray">
-                                {{ $list_repair->list_name }}
+                                {{ $list_repair->list_name }}.
                                 </b>
                                 <b for="" class="control-label col-md-3"style="text-align:right">
                                 อาการเสีย : </b>
                                 <b for="" class="control-label col-md-9" style="color:gray">
                                 {{ $list_repair->symptom }}
                                 </b>
-                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                <!-- <b for="" class="control-label col-md-3"style="text-align:right">
                                 รายละเอียด : </b>
                                 <b for="" class="control-label col-md-9" style="color:gray">
-                                {{ $list_repair->detail }}
-                                </b>
+                                {{ $list_repair->detail }}.
+                                </b> -->
                                 <b for="" class="control-label col-md-3"style="text-align:right">
                                 ราคา : </b>
                                 <b for="" class="control-label col-md-9" style="color:gray">
@@ -581,7 +582,7 @@
                                 <b for="" class="control-label col-md-3"style="text-align:right">
                                 ช่างซ่อม : </b>
                                 <b for="" class="control-label col-md-9" style="color:gray">
-                                {{ $list_repair->person_name }}
+                                {{ $list_repair->person_name }}.
                                 </b>
                                 <b for="" class="control-label col-md-3"style="text-align:right">
                                 สถานะ : </b>
@@ -611,7 +612,7 @@
                                     @elseif( $list_repair->status_color==12 )
                                     <button style="width:190px;" type="button" class="btn btn btn-black" >
                                     @endif
-                                    {{ $list_repair->status_name }}
+                                    {{ $list_repair->status_name }}.
                                     </button>
                                 </b>
                               @endif
@@ -654,7 +655,36 @@
                           <b for="" class="control-label col-md-9" style="color:gray">
                           {{ $repair->date_out }}</b>
                         </div>
+                    </div><br>
+                    
+                    <div class="row" >
+                        <div class="form-group">
+                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          </b>
+                          <div class="col-md-3">
+                                <?= Form::open(array('url' => '/print')) ?>
+                                <!-- <a href="<?php echo url('/print') ?>" class="btn btn-success" style="width:300px;"><i class="fa fa-print fa-lg"></i>&nbsp;พิมพ์ใบรับซ่อม</a></a> -->
+                                <input type="hidden" name="store_branch_id" value="{{ $repair->store_branch_id }}">
+                                <input type="hidden" name="id" value="{{ $repair->r_id }}">
+                                <button type="submit"style="width:100px;" class="btn btn-success"><i class="glyph-icon  icon-print" title=".icon-print"></i>&nbsp;ใบซ่อม</button>
+                                {!! Form::close() !!}
+                          </div>
+                          @if($repair->status_bill==0)
+                          <div class="col-md-3">
+                                <?= Form::open(array('url' => '/print2')) ?>
+                                <!-- <a href="<?php echo url('/print') ?>" class="btn btn-success" style="width:300px;"><i class="fa fa-print fa-lg"></i>&nbsp;พิมพ์ใบรับซ่อม</a></a> -->
+                                <input type="hidden" name="store_branch_id" value="{{ $repair->store_branch_id }}">
+                                <input type="hidden" name="id" value="{{ $repair->r_id }}">
+                                <button type="submit"style="width:100px;" class="btn btn-success"><i class="glyph-icon icon-print" title=".icon-print"></i>&nbsp;ใบเสร็จ</button>
+                                {!! Form::close() !!}</b>
+                          </div>
+                    @endif
+
+
+                        </div>
                     </div>
+
+                        
 
                 </div>
                 <!-- <div class="button-pane"> -->

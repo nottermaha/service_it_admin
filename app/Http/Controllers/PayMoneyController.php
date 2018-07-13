@@ -58,36 +58,89 @@ class PayMoneyController extends Controller
           // ,'repair.price as price'
 
           ,'data_pay.status_pay as status_pay'
+          ,'data_pay.updated_at as updated_at_pay'
 
           ,'persons.name as persons_name'
           ,'persons_member.name as member_name'
           ,'persons_member.type as type'
+
+          ,'store_branch.name as store_branch_name'
       ];
       // echo $request['status_bill']; exit();
-      if($request['status_bill']==0 || $request['status_bill']==1){ // ปิดบิลแล้ว ยังไม่ปิด
+      if($request->store_branch_id==-1){ // ปิดบิลแล้ว ยังไม่ปิด
+        if($request['status_bill']==2){
         $repairs = Repair::where('repair.status', 1)
-        ->where('repair.status_bill',$request['status_bill'])
+        ->where('repair.date_in_repair','>=',$request['chk_date_in'])
+        ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+        ->leftJoin('persons','persons.id','=','repair.persons_id')
+        ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
+        ->leftJoin('data_pay','data_pay.repair_id','=','repair.id')
+        ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
+        ->get($items);
+        }
+        elseif($request['status_bill']==1||$request['status_bill']==0){
+          $repairs = Repair::where('repair.status', 1)
+          ->where('repair.status_bill',$request['status_bill'])
+          ->where('repair.date_in_repair','>=',$request['chk_date_in'])
+          ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+          ->leftJoin('persons','persons.id','=','repair.persons_id')
+          ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
+          ->leftJoin('data_pay','data_pay.repair_id','=','repair.id')
+          ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
+          ->get($items);
+          }
+      }
+      elseif($request->store_branch_id!=-1){ // ปิดบิลแล้ว ยังไม่ปิด
+        if($request['status_bill']==2){
+        $repairs = Repair::where('repair.status', 1)
         ->where('repair.store_branch_id',$request->store_branch_id)
         ->where('repair.date_in_repair','>=',$request['chk_date_in'])
         ->where('repair.date_in_repair','<=',$request['chk_date_out'])
         ->leftJoin('persons','persons.id','=','repair.persons_id')
         ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
         ->leftJoin('data_pay','data_pay.repair_id','=','repair.id')
+        ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
         ->get($items);
+        }
+        elseif($request['status_bill']==1||$request['status_bill']==0){
+          $repairs = Repair::where('repair.status', 1)
+          ->where('repair.status_bill',$request['status_bill'])
+          ->where('repair.store_branch_id',$request->store_branch_id)
+          ->where('repair.date_in_repair','>=',$request['chk_date_in'])
+          ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+          ->leftJoin('persons','persons.id','=','repair.persons_id')
+          ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
+          ->leftJoin('data_pay','data_pay.repair_id','=','repair.id')
+          ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
+          ->get($items);
+          }
       }
-      elseif($request['status_bill']==2){ //มันคือรายการทั้งหมด
-        $repairs = Repair::where('repair.status', 1)
-        // ->where('repair.status_bill',$request->status_bill)
-        ->where('repair.store_branch_id',$request->store_branch_id)
-        ->where('repair.date_in_repair','>=',$request['chk_date_in'])
-        ->where('repair.date_in_repair','<=',$request['chk_date_out'])
-        ->leftJoin('persons','persons.id','=','repair.persons_id')
-        ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
-        ->leftJoin('data_pay','data_pay.repair_id','=','repair.id')
-        ->get($items);
-      }
+
+      // if($request['status_bill']==0 || $request['status_bill']==1){ // ปิดบิลแล้ว ยังไม่ปิด
+      //   $repairs = Repair::where('repair.status', 1)
+      //   ->where('repair.status_bill',$request['status_bill'])
+      //   ->where('repair.store_branch_id',$request->store_branch_id)
+      //   ->where('repair.date_in_repair','>=',$request['chk_date_in'])
+      //   ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+      //   ->leftJoin('persons','persons.id','=','repair.persons_id')
+      //   ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
+      //   ->leftJoin('data_pay','data_pay.repair_id','=','repair.id')
+      //   ->get($items);
+      // }
+      // elseif($request['status_bill']==2){ //มันคือรายการทั้งหมด
+      //   $repairs = Repair::where('repair.status', 1)
+      //   // ->where('repair.status_bill',$request->status_bill)
+      //   ->where('repair.store_branch_id',$request->store_branch_id)
+      //   ->where('repair.date_in_repair','>=',$request['chk_date_in'])
+      //   ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+      //   ->leftJoin('persons','persons.id','=','repair.persons_id')
+      //   ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
+      //   ->leftJoin('data_pay','data_pay.repair_id','=','repair.id')
+      //   ->get($items);
+      // }
       $date = new CallUseController();
       $repairs = $date->get_date_all($repairs,'date_in','date_in_repair');
+      $repairs = $date->get_date_all($repairs,'date_updated_at_pay','updated_at_pay');
       foreach($repairs as $key=>$value){
         // echo $repairs;exit();
           if($repairs[$key]['persons_member_id']!=NULL)

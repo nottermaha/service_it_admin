@@ -229,7 +229,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right" id="datepicker" name="birthday" placeholder="วัน/เดือน/ปีเกิด..." data-date-format="yyyy-mm-dd">
+                                <input type="date" class="form-control pull-right" id="" name="birthday" placeholder="วัน/เดือน/ปีเกิด..." data-date-format="yyyy-mm-dd">
                             </div>
                         </div>          
                 </div>
@@ -328,8 +328,8 @@
             </div>
         </div>
             <div class="row">
-                <div class="col-sm-12 text-right">
-                <button type="button" onClick="BtnChkSubmit()" class="btn btn-success">บันทึก</button>
+                <div class="col-sm-12 text-center">
+                <button type="button" onClick="BtnChkSubmit()" class="btn btn-success btn-lg">บันทึก</button>
                 </div>
             </div>
     </div>

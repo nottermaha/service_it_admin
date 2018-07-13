@@ -226,7 +226,7 @@
     $(function() { "use strict";
         $('.bootstrap-datepicker').bsdatepicker({
 
-            format: 'dd-mm-yyyy'
+            format: 'yyyy-mm-dd'
 
         });
     });

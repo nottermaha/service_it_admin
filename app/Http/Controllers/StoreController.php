@@ -30,7 +30,7 @@ class StoreController extends Controller
        }
       //  exit();
       $store->save();
-      // $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+      $request->session()->flash('status_store_edit', 'แก้ไขข้อมูลร้านเรียบร้อยแล้ว'); 
 
       return redirect('stores');
     }
@@ -216,12 +216,14 @@ class StoreController extends Controller
       $store = StoreBranch::find($id);
       if($store['status']==1){
       $store->status = 0;
+      $store2=session()->flash('status_delete', 'ปิดการใช้งานสาขาเรียบร้อย'); 
       }
       elseif($store['status']==0){
         $store->status = 1;
+        $store2=session()->flash('status_delete', 'เปิดการใช้งานสาขาเรียบร้อย'); 
         }
       $store->save();
-      $store2=session()->flash('status_delete', 'ลบข้อมูลเรียบร้อยแล้ว'); 
+      
 
        return redirect('stores');
     }

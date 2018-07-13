@@ -59,7 +59,7 @@
                 <li><a href="#">ไม่ระบุ <span class="pull-right badge bg-green">{{ $countundefine_em }}</span></a></li>
                 <li><a href="#">ออกรายงาน <span class="pull-right ">
                 <?= Form::open(array('url' => '/report-detail')) ?>
-                <input type="text" name="chk" value="1">
+                <input type="hidden" name="chk" value="1">
                         <button type="submit" class="btn btn-default">คลิก</button>
                 {!! Form::close() !!}
                 
@@ -91,7 +91,7 @@
                 <li><a href="#">ไม่ระบุ<span class="pull-right badge bg-green">{{ $countundefine_me }}</span></a></li>
                 <li><a href="#">Followers <span class="pull-right">
                 <?= Form::open(array('url' => '/report-detail')) ?>
-                <input type="text" name="chk" value="2">
+                <input type="hidden" name="chk" value="2">
                         <button type="submit" class="btn btn-default">คลิก</button>
                 {!! Form::close() !!}
                 </span></a></li>
@@ -124,7 +124,7 @@
                 {{ $countclose_st }}</span></a></li>
                 <li><a href="#">ออกรายงาน <span class="pull-right ">
                 <?= Form::open(array('url' => '/report-detail')) ?>
-                <input type="text" name="chk" value="3">
+                <input type="hidden" name="chk" value="3">
                         <button type="submit" class="btn btn-default">คลิก</button>
                 {!! Form::close() !!}
                 </span></a></li>
@@ -156,7 +156,7 @@
                 <li><a href="#">ลูกค้าทั่วไป<span class="pull-right badge bg-green">{{ $countgeneral_re }}</span></a></li>
                 <li><a href="#">Followers <span class="pull-right ">
                 <?= Form::open(array('url' => '/report-detail')) ?>
-                <input type="text" name="chk" value="4">
+                <input type="hidden" name="chk" value="4">
                         <button type="submit" class="btn btn-default">คลิก</button>
                 {!! Form::close() !!}
                 </span></a></li>
@@ -189,7 +189,7 @@
                 {{ $countlittle_pa }}</span></a></li>
                 <li><a href="#">ออกรายงาน <span class="pull-right ">
                 <?= Form::open(array('url' => '/report-detail')) ?>
-                <input type="text" name="chk" value="5">
+                <input type="hidden" name="chk" value="5">
                         <button type="submit" class="btn btn-default">คลิก</button>
                 {!! Form::close() !!}
                 </span></a></li>

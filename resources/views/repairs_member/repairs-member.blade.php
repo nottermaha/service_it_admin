@@ -88,9 +88,9 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-calendar fa-lg"></i>
                         </div>
-                          <input type="date" class="form-control pull-right" id="Name" name="date_in_repair" placeholder="วันที่ซ่อม..." value="{{$current_date}}"> 
+                          <input type="date" class="form-control pull-right" id="Name" name="date_in_repair" placeholder="วันที่ซ่อม..." value="{{$current_date}}" disabled> 
                       </div>
                     </div><b style="font-size:30px;color:red;" title="ต้องกรอกข้อมูล">*</b>
               </div>
@@ -236,13 +236,6 @@
                           </div>
                         </div>
                       </div>  
-                      <div class="row" >
-                        <div class="form-group">
-                          <div  class="text-center">
-                          <a href="" class="btn btn-danger" style="width:300px;"><i class="fa fa-power-off fa-lg"></i>&nbsp; ปิดบิล</a></a>
-                          </div>
-                        </div>
-                      </div>
                      
                      </div>
                      <br>
@@ -476,6 +469,11 @@
                       <div class="row" >
                         <div class="form-group">
                           <b for="" class="control-label col-md-9"style="text-align:right">กดปุ่ม "ลบข้อมูล" เพื่อยืนยันการลบข้อมูล </b>
+
+                          <div class="form-group">
+                            <b for="" class="control-label col-md-12 "style="color:orange;text-align:center;">การ"ลบ"จะทำให้อะไหล่ที่ถูกใช้กับบิลซ่อมนี้ถูกยกเลิก</b>
+                          </div>
+
                         </div>
                       </div>  
                     </div> 
@@ -483,6 +481,8 @@
                         <button type="button" class="btn btn-warning " data-dismiss="modal">ยกเลิก</button>
                         <button type="submit" class="btn btn-danger">ลบข้อมูล</button>
                       </div>
+
+
                 {!! Form::close() !!}
                 </div>
               </div>          
@@ -498,7 +498,7 @@
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">บันทึกข้อมูลแจ้งซ่อมใหม่</h4>
+            <h4 class="modal-title">แก้ไขข้อมูลแจ้งซ่อมใหม่</h4>
           </div>        
           <?= Form::open(array('url' => '/repair-member/edit/'. $repair->id)) ?>
           <div class="modal-body">
@@ -526,7 +526,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-phone fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" id="Name" name="" placeholder="วันที่ซ่อม..." value="{{ $repair->member_phone }}" disabled >
+                          <input type="text" class="form-control pull-right" id="Name" name="" placeholder="เบอร์โทร..." value="{{ $repair->member_phone }}" disabled >
                       </div>
                     </div>
               </div>
@@ -540,7 +540,8 @@
                         <div class="input-group-addon">
                             <i class="fa fa-calendar fa-lg"></i>
                         </div>
-                          <input type="date" class="form-control pull-right" id="Name" name="date_in_repair" placeholder="วันที่ซ่อม..." value="{{ $repair->date_in_repair }}">
+                          <input type="date" class="form-control pull-right" id="Name" name="" placeholder="วันที่ซ่อม..." value="{{ $repair->date_in_repair }}" disabled>
+                          <input type="hidden" name="date_in_repair" value="{{ $repair->date_in_repair }}">
                       </div>
                     </div>
               </div>
@@ -552,7 +553,7 @@
                     <div class="col-md-8">
                       <div class="input-group date">
                         <div class="input-group-addon">
-                            <i class="fa fa-user fa-lg"></i>
+                            <i class="fa fa-angle-double-right fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="equipment_follow" placeholder="อุปกรณ์ที่นำมาด้วย..." value="{{ $repair->equipment_follow }}">
                       </div>

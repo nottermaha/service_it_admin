@@ -19,7 +19,7 @@
 		var elem = document.getElementById("password").value;
         if(!elem.match(/^([a-z0-9\_])+$/i))
 		{
-            document.getElementById('pass').innerHTML = "กรุณากรอกรหัสผ่านเแชป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";
+            document.getElementById('pass').innerHTML = "กรุณากรอกรหัสผ่านเป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";
 		}
 		else if(y.length<8){document.getElementById('pass').innerHTML = "รหัสผ่านไม่ควรต่ำกว่า 8 ตัว";}
 		else{document.getElementById('pass').innerHTML = "";}
@@ -114,7 +114,7 @@
 		var elem = document.getElementById("password").value;
         if(!elem.match(/^([a-z0-9\_])+$/i))
 		{
-            document.getElementById('pass').innerHTML = "กรุณากรอกรหัสผ่านเแชป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";return false;
+            document.getElementById('pass').innerHTML = "กรุณากรอกรหัสผ่านเป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";return false;
 		}
 		else if(y.length<8){document.getElementById('pass').innerHTML = "รหัสผ่านไม่ควรต่ำกว่า 8 ตัว";return false;}
 		else{document.getElementById('pass').innerHTML = "";}
@@ -378,7 +378,7 @@
                         <div class="col-sm-9">
                             <div class="input-group date">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-lock fa-lg"></i>
+                                    <i class="fa fa-money fa-lg"></i>
                                 </div>
                                 <input type="text" class="form-control pull-right" id="Salary" name="salary" placeholder="เงินเดือน..." value="{{$salary}}">
                             </div>
@@ -422,6 +422,7 @@
         </div>
     </div>
   </form>
+
 
     </section>
 @include('form/footer')

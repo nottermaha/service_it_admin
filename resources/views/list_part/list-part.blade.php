@@ -147,7 +147,7 @@
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>
+            <h4 class="modal-title">แก้ไขข้อมูลรายการอะไหล่</h4>
           </div>        
           <?= Form::open(array('url' => '/list-part-edit')) ?>
           <div class="modal-body">
@@ -191,7 +191,7 @@
                     </div>
               </div>
             </div>
-            <div class="row" style="padding-top:20px;">
+            <!-- <div class="row" style="padding-top:20px;">
               <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">ราคาต้นทุนต่อชิ้น <b style="color:red;font-size:20px;">*</b></b>
                     <div class="col-md-8">
@@ -203,7 +203,7 @@
                       </div><b style="color:orange;">กรอกข้อมูลเป็นตัวเลข</b>
                     </div>
               </div>
-            </div>
+            </div> -->
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">ราคาขายต่อชิ้น <b style="color:red;font-size:20px;">*</b></b>
@@ -213,8 +213,9 @@
                             <i class="fa fa-money fa-lg"></i>
                         </div>
                           <input type="number" class="form-control pull-right" id="Name" name="pay_out" placeholder="ราคาขายต่อชิ้น..." value="{{ $list_part->pay_out }}" required>
-                      </div><b style="color:orange;">กรอกข้อมูลเป็นตัวเลข</b><br><br>
-                      ราคาขายต่อชิ้นจะนำไปใช้ในการคิดราคาต้นทุน(ราคาอะไหล่)
+                      </div><b style="color:orange;">กรอกข้อมูลเป็นตัวเลข</b><br>
+                      <br>
+                      <!-- ราคาขายต่อชิ้นจะนำไปใช้ในการคิดราคาต้นทุน(ราคาอะไหล่) -->
                     </div>
               </div>
             </div>
@@ -248,7 +249,7 @@
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>
+            <h4 class="modal-title">บันทึกข้อมูลรายการอะไหล่ใหม่</h4>
           </div>        
           <?= Form::open(array('url' => '/list-part-create')) ?>
           <div class="modal-body">
@@ -292,7 +293,7 @@
                     </div>
               </div>
             </div>
-            <div class="row" style="padding-top:20px;">
+            <!-- <div class="row" style="padding-top:20px;">
               <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">ราคาต้นทุนต่อชิ้น <b style="color:red;font-size:20px;">*</b></b>
                     <div class="col-md-8">
@@ -304,7 +305,7 @@
                       </div><b style="color:orange;">กรอกข้อมูลเป็นตัวเลข</b>
                     </div>
               </div>
-            </div>
+            </div> -->
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">ราคาขายต่อชิ้น <b style="color:red;font-size:20px;">*</b></b>
@@ -314,7 +315,8 @@
                             <i class="fa fa-money fa-lg"></i>
                         </div>
                           <input type="number" class="form-control pull-right" id="Name" name="pay_out" placeholder="ราคาขายต่อชิ้น..." required>
-                      </div><b style="color:orange;">กรอกข้อมูลเป็นตัวเลข</b><br><br> ราคาขายต่อชิ้นจะนำไปใช้ในการคิดราคาต้นทุน(ราคาอะไหล่)
+                      </div><b style="color:orange;">กรอกข้อมูลเป็นตัวเลข</b><br>
+                      <!-- <br> ราคาขายต่อชิ้นจะนำไปใช้ในการคิดราคาต้นทุน(ราคาอะไหล่) -->
                     </div>
               </div>
             </div>
@@ -331,26 +333,26 @@
     </div>
     <!-- //////////////////////////////End modal-add-list-part//////////////////////////////// -->
 
-     @if (session()->has('status_create'))     
+     @if (session()->has('list_status_create'))     
      <script>swal({ title: "<?php echo session()->get('status_create'); ?>",        
                      text: "ผลการทํางาน",         
-                     timer: 2500,         
+                     timer: 12500,         
                      type: 'success',  
                      position: 'top-end',       
                      showConfirmButton: false     }); 
     </script>
-     @elseif (session()->has('status_edit'))     
-     <script>swal({ title: "<?php echo session()->get('status_edit'); ?>",        
+     @elseif (session()->has('list_status_edit'))     
+     <script>swal({ title: "<?php echo session()->get('list_status_edit'); ?>",        
                      text: "ผลการทํางาน",         
-                     timer: 2500,         
+                     timer: 12500,         
                      type: 'success',  
                      position: 'top-end',       
                      showConfirmButton: false     }); 
     </script>
-         @elseif (session()->has('status_delete'))     
-     <script>swal({ title: "<?php echo session()->get('status_delete'); ?>",        
+         @elseif (session()->has('list_status_delete'))     
+     <script>swal({ title: "<?php echo session()->get('list_status_delete'); ?>",        
                      text: "ผลการทํางาน",         
-                     timer: 2500,         
+                     timer: 12500,         
                      type: 'success',  
                      position: 'top-end',       
                      showConfirmButton: false     }); 

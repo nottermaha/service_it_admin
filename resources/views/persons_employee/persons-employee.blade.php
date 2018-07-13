@@ -220,7 +220,7 @@
      @elseif (session()->has('status_edit'))     
      <script>swal({ title: "<?php echo session()->get('status_edit'); ?>",        
                      text: "ผลการทํางาน",         
-                     timer: 2500,         
+                     timer: 12500,         
                      type: 'success',  
                      position: 'top-end',       
                      showConfirmButton: false     }); 
