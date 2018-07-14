@@ -98,7 +98,7 @@
             @if($s_type==4) 
             <div class="row" style="padding-top:20px;">
               <div class="form-group" style="padding-left:20px;padding-right:20px;">
-                   
+                   หัวข้อ
                           <input type="text" class="form-control pull-right" id="Name" name="topic" placeholder="ชื่อเรื่อง...">
               </div>
             </div>
@@ -106,6 +106,7 @@
                 <div class="form-group" style="padding-left:20px;padding-right:20px;">
                     <!-- <textarea id="compose-textarea" class="form-control" style="height: 300px" placeholder="รายละเอียด..." name="message">
                     </textarea> -->
+                    รายละเอียด
                     <div class="example-box-wrapper">
                         <textarea class="ckeditor" cols="80" id="editor1" name="message" rows="10">
                         </textarea>
@@ -137,7 +138,14 @@
                     <li class="panel" style="background-color:#DCDCDC;"> 
                         <div class="panel-body">
                             <div class="comment-image">
-                                <img class="img-rounded lazy img-responsive" src="" data-original="assets/image-resources/people/testimonial1.jpg" alt="">
+                                <!-- <img class="img-rounded lazy img-responsive" src="" data-original="assets/image-resources/people/testimonial1.jpg" alt=""> -->
+                @if($question_post->is_type==1 || $question_post->is_type==2)
+                <img class="img-circle" style="border-radius:50%;height:70px;width:70px;" src="{{ asset('image/person-manager/resize/'.$question_post->is_image_url) }}" alt="">
+                @elseif($question_post->is_type==3)
+                <img class="img-circle img-sm" style="border-radius:50%;height:70px;width:70px;" src="{{ asset('image/person-employee/resize/'.$question_post->is_image_url) }}" alt="">
+                @elseif($question_post->is_type==4)
+                <img class="img-circle img-sm" style="border-radius:50%;height:70px;width:70px;" src="{{ asset('image/person-member/resize/'.$question_post->is_image_url) }}" alt="">
+                @endif
                             </div>
                             <div class="comment-wrapper">
                                 <div class="comment-header clearfix">

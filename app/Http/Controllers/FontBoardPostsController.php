@@ -19,16 +19,16 @@ class FontBoardPostsController extends Controller
             'persons_member.id as pm_id'
             ,'persons_member.name as member_name'
             ,'persons_member.type as member_type'
-            // ,'persons_member.image_url as member_image_url'
+            ,'persons_member.image_url as member_image_url'
     
             , 'persons.id as p_id'
             , 'persons.name as person_name'
-            // , 'persons.image_url as person_image_url'
+            , 'persons.image_url as person_image_url'
             , 'persons.type as person_type'
     
             , 'question_posts.id as id'
             , 'question_posts.persons_member_id as persons_member_id'
-            // , 'question_posts.persons_id as persons_id'
+            , 'question_posts.persons_id as persons_id'
             , 'question_posts.topic as topic'
             , 'question_posts.message as message'
             , 'question_posts.created_at as created_at'
@@ -69,20 +69,21 @@ class FontBoardPostsController extends Controller
           ];
       }
       elseif($request['chk_get']=='only'){
+        // exit();
         $s_id=session('s_id','default');
         $items = [// get คนถาม
           'persons_member.id as pm_id'
           ,'persons_member.name as member_name'
           ,'persons_member.type as member_type'
-          // ,'persons_member.image_url as member_image_url'
+          ,'persons_member.image_url as member_image_url'
   
           , 'persons.id as p_id'
           , 'persons.name as person_name'
-          // , 'persons.image_url as person_image_url'
+          , 'persons.image_url as person_image_url'
           , 'persons.type as person_type'
   
           , 'question_posts.id as id'
-          // , 'question_posts.persons_id as persons_id'
+          , 'question_posts.persons_id as persons_id'
           , 'question_posts.persons_member_id as persons_member_id'
           , 'question_posts.topic as topic'
           , 'question_posts.message as message'
@@ -90,7 +91,7 @@ class FontBoardPostsController extends Controller
           , 'question_posts.updated_at as updated_at'
       ];
         $question_posts = QuestionPost::where('question_posts.status',1)
-        ->where('question_posts.persons_id',$s_id)
+        ->where('question_posts.persons_member_id',$s_id)
         ->orderBy('question_posts.id','desc')
         ->leftJoin('persons_member', 'persons_member.id', '=', 'question_posts.persons_member_id')
         ->leftJoin('persons', 'persons.id', '=', 'question_posts.persons_id')
@@ -151,25 +152,117 @@ class FontBoardPostsController extends Controller
         // return redirect('questtion-post');
         if($request['chk_get']=='all'){
           $s_id=session('s_id','default');
-          $question_posts = QuestionPost::where('status', 1)
-          ->orderBy('id','desc')
-          ->get();
+          $items = [// get คนถาม
+            'persons_member.id as pm_id'
+            ,'persons_member.name as member_name'
+            ,'persons_member.type as member_type'
+            ,'persons_member.image_url as member_image_url'
+    
+            , 'persons.id as p_id'
+            , 'persons.name as person_name'
+            , 'persons.image_url as person_image_url'
+            , 'persons.type as person_type'
+    
+            , 'question_posts.id as id'
+            , 'question_posts.persons_member_id as persons_member_id'
+            , 'question_posts.persons_id as persons_id'
+            , 'question_posts.topic as topic'
+            , 'question_posts.message as message'
+            , 'question_posts.created_at as created_at'
+            , 'question_posts.updated_at as updated_at'
+        ];
+          $question_posts = QuestionPost::where('question_posts.status',1)
+          ->orderBy('question_posts.id','desc')
+          ->leftJoin('persons_member', 'persons_member.id', '=', 'question_posts.persons_member_id')
+          ->leftJoin('persons', 'persons.id', '=', 'question_posts.persons_id')
+          ->get($items);
+          // echo $question_posts;exit();
+          foreach($question_posts as $key=>$value)
+          {
+                if($question_posts[$key]['pm_id']!=NULL)
+                {
+                  $question_posts[$key]['is_name']=$value['member_name'];
+                  $question_posts[$key]['is_type']=$value['member_type'];
+                  $question_posts[$key]['is_image_url']=$value['member_image_url'];
+                }
+                else if($question_posts[$key]['p_id']!=NULL)
+                {
+                  $question_posts[$key]['is_name']=$value['person_name'];
+                  $question_posts[$key]['is_type']=$value['person_type'];
+                  $question_posts[$key]['is_image_url']=$value['person_image_url'];
+                }
+          }
+          // echo $question_posts;exit();
+          $date = new CallUseController();
+          $question_posts = $date->get_date_all($question_posts,'created','created_at');
+          $question_posts = $date->get_time_all($question_posts,'time_created','created_at');
+    
+          $question_posts = $date->get_date_all($question_posts,'updated','updated_at');
+          $question_posts = $date->get_time_all($question_posts,'time_updated','updated_at');
+          // echo $question_posts;exit();
           $data = [
-              's_id'=>$s_id,
-              'chk_get'=>$request['chk_get'],
+            's_id'=>$s_id,
+            'chk_get'=>$request['chk_get'],
           ];
       }
       elseif($request['chk_get']=='only'){
+        // exit();
         $s_id=session('s_id','default');
-        $question_posts = QuestionPost::where('status', 1)
-        ->where('persons_member_id',$s_id)
-        ->orderBy('id','desc')
-        ->get();
+        $items = [// get คนถาม
+          'persons_member.id as pm_id'
+          ,'persons_member.name as member_name'
+          ,'persons_member.type as member_type'
+          ,'persons_member.image_url as member_image_url'
+  
+          , 'persons.id as p_id'
+          , 'persons.name as person_name'
+          , 'persons.image_url as person_image_url'
+          , 'persons.type as person_type'
+  
+          , 'question_posts.id as id'
+          , 'question_posts.persons_id as persons_id'
+          , 'question_posts.persons_member_id as persons_member_id'
+          , 'question_posts.topic as topic'
+          , 'question_posts.message as message'
+          , 'question_posts.created_at as created_at'
+          , 'question_posts.updated_at as updated_at'
+      ];
+        $question_posts = QuestionPost::where('question_posts.status',1)
+        ->where('question_posts.persons_member_id',$s_id)
+        ->orderBy('question_posts.id','desc')
+        ->leftJoin('persons_member', 'persons_member.id', '=', 'question_posts.persons_member_id')
+        ->leftJoin('persons', 'persons.id', '=', 'question_posts.persons_id')
+        ->get($items);
+        // echo $question_posts;exit();
+        foreach($question_posts as $key=>$value)
+        {
+              if($question_posts[$key]['pm_id']!=NULL)
+              {
+                $question_posts[$key]['is_name']=$value['member_name'];
+                $question_posts[$key]['is_type']=$value['member_type'];
+                $question_posts[$key]['is_image_url']=$value['member_image_url'];
+              }
+              else if($question_posts[$key]['p_id']!=NULL)
+              {
+                $question_posts[$key]['is_name']=$value['person_name'];
+                $question_posts[$key]['is_type']=$value['person_type'];
+                $question_posts[$key]['is_image_url']=$value['person_image_url'];
+              }
+        }
+        // echo $question_posts;exit();
+        $date = new CallUseController();
+        $question_posts = $date->get_date_all($question_posts,'created','created_at');
+        $question_posts = $date->get_time_all($question_posts,'time_created','created_at');
+  
+        $question_posts = $date->get_date_all($question_posts,'updated','updated_at');
+        $question_posts = $date->get_time_all($question_posts,'time_updated','updated_at');
+        // echo $question_posts;exit();
         $data = [
-            's_id'=>$s_id,
-            'chk_get'=>$request['chk_get'],
+          's_id'=>$s_id,
+          'chk_get'=>$request['chk_get'],
         ];
       }
+
 
       return view('font_pages/board-question', ['question_posts' => $question_posts],$data);
     }
@@ -193,27 +286,119 @@ class FontBoardPostsController extends Controller
         // $question_posts->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว');
         
         // return redirect('questtion-post');
-        if($request['chk_get']=='all'){
-          $s_id=session('s_id','default');
-          $question_posts = QuestionPost::where('status', 1)
-          ->orderBy('id','desc')
-          ->get();
-          $data = [
-              's_id'=>$s_id,
-              'chk_get'=>$request['chk_get'],
-          ];
-      }
-      elseif($request['chk_get']=='only'){
-        $s_id=session('s_id','default');
-        $question_posts = QuestionPost::where('status', 1)
-        ->where('persons_member_id',$s_id)
-        ->orderBy('id','desc')
-        ->get();
-        $data = [
-            's_id'=>$s_id,
-            'chk_get'=>$request['chk_get'],
-        ];
-      }
+                // return redirect('questtion-post');
+                if($request['chk_get']=='all'){
+                  $s_id=session('s_id','default');
+                  $items = [// get คนถาม
+                    'persons_member.id as pm_id'
+                    ,'persons_member.name as member_name'
+                    ,'persons_member.type as member_type'
+                    ,'persons_member.image_url as member_image_url'
+            
+                    , 'persons.id as p_id'
+                    , 'persons.name as person_name'
+                    , 'persons.image_url as person_image_url'
+                    , 'persons.type as person_type'
+            
+                    , 'question_posts.id as id'
+                    , 'question_posts.persons_member_id as persons_member_id'
+                    , 'question_posts.persons_id as persons_id'
+                    , 'question_posts.topic as topic'
+                    , 'question_posts.message as message'
+                    , 'question_posts.created_at as created_at'
+                    , 'question_posts.updated_at as updated_at'
+                ];
+                  $question_posts = QuestionPost::where('question_posts.status',1)
+                  ->orderBy('question_posts.id','desc')
+                  ->leftJoin('persons_member', 'persons_member.id', '=', 'question_posts.persons_member_id')
+                  ->leftJoin('persons', 'persons.id', '=', 'question_posts.persons_id')
+                  ->get($items);
+                  // echo $question_posts;exit();
+                  foreach($question_posts as $key=>$value)
+                  {
+                        if($question_posts[$key]['pm_id']!=NULL)
+                        {
+                          $question_posts[$key]['is_name']=$value['member_name'];
+                          $question_posts[$key]['is_type']=$value['member_type'];
+                          $question_posts[$key]['is_image_url']=$value['member_image_url'];
+                        }
+                        else if($question_posts[$key]['p_id']!=NULL)
+                        {
+                          $question_posts[$key]['is_name']=$value['person_name'];
+                          $question_posts[$key]['is_type']=$value['person_type'];
+                          $question_posts[$key]['is_image_url']=$value['person_image_url'];
+                        }
+                  }
+                  // echo $question_posts;exit();
+                  $date = new CallUseController();
+                  $question_posts = $date->get_date_all($question_posts,'created','created_at');
+                  $question_posts = $date->get_time_all($question_posts,'time_created','created_at');
+            
+                  $question_posts = $date->get_date_all($question_posts,'updated','updated_at');
+                  $question_posts = $date->get_time_all($question_posts,'time_updated','updated_at');
+                  // echo $question_posts;exit();
+                  $data = [
+                    's_id'=>$s_id,
+                    'chk_get'=>$request['chk_get'],
+                  ];
+              }
+              elseif($request['chk_get']=='only'){
+                // exit();
+                $s_id=session('s_id','default');
+                $items = [// get คนถาม
+                  'persons_member.id as pm_id'
+                  ,'persons_member.name as member_name'
+                  ,'persons_member.type as member_type'
+                  ,'persons_member.image_url as member_image_url'
+          
+                  , 'persons.id as p_id'
+                  , 'persons.name as person_name'
+                  , 'persons.image_url as person_image_url'
+                  , 'persons.type as person_type'
+          
+                  , 'question_posts.id as id'
+                  , 'question_posts.persons_id as persons_id'
+                  , 'question_posts.persons_member_id as persons_member_id'
+                  , 'question_posts.topic as topic'
+                  , 'question_posts.message as message'
+                  , 'question_posts.created_at as created_at'
+                  , 'question_posts.updated_at as updated_at'
+              ];
+                $question_posts = QuestionPost::where('question_posts.status',1)
+                ->where('question_posts.persons_member_id',$s_id)
+                ->orderBy('question_posts.id','desc')
+                ->leftJoin('persons_member', 'persons_member.id', '=', 'question_posts.persons_member_id')
+                ->leftJoin('persons', 'persons.id', '=', 'question_posts.persons_id')
+                ->get($items);
+                // echo $question_posts;exit();
+                foreach($question_posts as $key=>$value)
+                {
+                      if($question_posts[$key]['pm_id']!=NULL)
+                      {
+                        $question_posts[$key]['is_name']=$value['member_name'];
+                        $question_posts[$key]['is_type']=$value['member_type'];
+                        $question_posts[$key]['is_image_url']=$value['member_image_url'];
+                      }
+                      else if($question_posts[$key]['p_id']!=NULL)
+                      {
+                        $question_posts[$key]['is_name']=$value['person_name'];
+                        $question_posts[$key]['is_type']=$value['person_type'];
+                        $question_posts[$key]['is_image_url']=$value['person_image_url'];
+                      }
+                }
+                // echo $question_posts;exit();
+                $date = new CallUseController();
+                $question_posts = $date->get_date_all($question_posts,'created','created_at');
+                $question_posts = $date->get_time_all($question_posts,'time_created','created_at');
+          
+                $question_posts = $date->get_date_all($question_posts,'updated','updated_at');
+                $question_posts = $date->get_time_all($question_posts,'time_updated','updated_at');
+                // echo $question_posts;exit();
+                $data = [
+                  's_id'=>$s_id,
+                  'chk_get'=>$request['chk_get'],
+                ];
+              }
 
       return view('font_pages/board-question', ['question_posts' => $question_posts],$data);
     }    
@@ -225,27 +410,119 @@ class FontBoardPostsController extends Controller
         // $question_posts->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว');
         
         // return redirect('questtion-post');
-        if($request['chk_get']=='all'){
-          $s_id=session('s_id','default');
-          $question_posts = QuestionPost::where('status', 1)
-          ->orderBy('id','desc')
-          ->get();
-          $data = [
-              's_id'=>$s_id,
-              'chk_get'=>$request['chk_get'],
-          ];
-      }
-      elseif($request['chk_get']=='only'){
-        $s_id=session('s_id','default');
-        $question_posts = QuestionPost::where('status', 1)
-        ->where('persons_member_id',$s_id)
-        ->orderBy('id','desc')
-        ->get();
-        $data = [
-            's_id'=>$s_id,
-            'chk_get'=>$request['chk_get'],
-        ];
-      }
+              // return redirect('questtion-post');
+              if($request['chk_get']=='all'){
+                $s_id=session('s_id','default');
+                $items = [// get คนถาม
+                  'persons_member.id as pm_id'
+                  ,'persons_member.name as member_name'
+                  ,'persons_member.type as member_type'
+                  ,'persons_member.image_url as member_image_url'
+          
+                  , 'persons.id as p_id'
+                  , 'persons.name as person_name'
+                  , 'persons.image_url as person_image_url'
+                  , 'persons.type as person_type'
+          
+                  , 'question_posts.id as id'
+                  , 'question_posts.persons_member_id as persons_member_id'
+                  , 'question_posts.persons_id as persons_id'
+                  , 'question_posts.topic as topic'
+                  , 'question_posts.message as message'
+                  , 'question_posts.created_at as created_at'
+                  , 'question_posts.updated_at as updated_at'
+              ];
+                $question_posts = QuestionPost::where('question_posts.status',1)
+                ->orderBy('question_posts.id','desc')
+                ->leftJoin('persons_member', 'persons_member.id', '=', 'question_posts.persons_member_id')
+                ->leftJoin('persons', 'persons.id', '=', 'question_posts.persons_id')
+                ->get($items);
+                // echo $question_posts;exit();
+                foreach($question_posts as $key=>$value)
+                {
+                      if($question_posts[$key]['pm_id']!=NULL)
+                      {
+                        $question_posts[$key]['is_name']=$value['member_name'];
+                        $question_posts[$key]['is_type']=$value['member_type'];
+                        $question_posts[$key]['is_image_url']=$value['member_image_url'];
+                      }
+                      else if($question_posts[$key]['p_id']!=NULL)
+                      {
+                        $question_posts[$key]['is_name']=$value['person_name'];
+                        $question_posts[$key]['is_type']=$value['person_type'];
+                        $question_posts[$key]['is_image_url']=$value['person_image_url'];
+                      }
+                }
+                // echo $question_posts;exit();
+                $date = new CallUseController();
+                $question_posts = $date->get_date_all($question_posts,'created','created_at');
+                $question_posts = $date->get_time_all($question_posts,'time_created','created_at');
+          
+                $question_posts = $date->get_date_all($question_posts,'updated','updated_at');
+                $question_posts = $date->get_time_all($question_posts,'time_updated','updated_at');
+                // echo $question_posts;exit();
+                $data = [
+                  's_id'=>$s_id,
+                  'chk_get'=>$request['chk_get'],
+                ];
+            }
+            elseif($request['chk_get']=='only'){
+              // exit();
+              $s_id=session('s_id','default');
+              $items = [// get คนถาม
+                'persons_member.id as pm_id'
+                ,'persons_member.name as member_name'
+                ,'persons_member.type as member_type'
+                ,'persons_member.image_url as member_image_url'
+        
+                , 'persons.id as p_id'
+                , 'persons.name as person_name'
+                , 'persons.image_url as person_image_url'
+                , 'persons.type as person_type'
+        
+                , 'question_posts.id as id'
+                , 'question_posts.persons_id as persons_id'
+                , 'question_posts.persons_member_id as persons_member_id'
+                , 'question_posts.topic as topic'
+                , 'question_posts.message as message'
+                , 'question_posts.created_at as created_at'
+                , 'question_posts.updated_at as updated_at'
+            ];
+              $question_posts = QuestionPost::where('question_posts.status',1)
+              ->where('question_posts.persons_member_id',$s_id)
+              ->orderBy('question_posts.id','desc')
+              ->leftJoin('persons_member', 'persons_member.id', '=', 'question_posts.persons_member_id')
+              ->leftJoin('persons', 'persons.id', '=', 'question_posts.persons_id')
+              ->get($items);
+              // echo $question_posts;exit();
+              foreach($question_posts as $key=>$value)
+              {
+                    if($question_posts[$key]['pm_id']!=NULL)
+                    {
+                      $question_posts[$key]['is_name']=$value['member_name'];
+                      $question_posts[$key]['is_type']=$value['member_type'];
+                      $question_posts[$key]['is_image_url']=$value['member_image_url'];
+                    }
+                    else if($question_posts[$key]['p_id']!=NULL)
+                    {
+                      $question_posts[$key]['is_name']=$value['person_name'];
+                      $question_posts[$key]['is_type']=$value['person_type'];
+                      $question_posts[$key]['is_image_url']=$value['person_image_url'];
+                    }
+              }
+              // echo $question_posts;exit();
+              $date = new CallUseController();
+              $question_posts = $date->get_date_all($question_posts,'created','created_at');
+              $question_posts = $date->get_time_all($question_posts,'time_created','created_at');
+        
+              $question_posts = $date->get_date_all($question_posts,'updated','updated_at');
+              $question_posts = $date->get_time_all($question_posts,'time_updated','updated_at');
+              // echo $question_posts;exit();
+              $data = [
+                's_id'=>$s_id,
+                'chk_get'=>$request['chk_get'],
+              ];
+            }
       
       return view('font_pages/board-question', ['question_posts' => $question_posts],$data);
     }

@@ -218,9 +218,9 @@ class ListRepairsController extends Controller
       if ($request->hasFile('image')) {        
         $filename = str_random(10) . '.' . $request->file('image')
         ->getClientOriginalName();             
-        $request->file('image')->move(public_path() . '/image/list-repair/picture/', $filename);           
-        Image::make(public_path() . '/image/list-repair/picture/' . $filename)
-        ->resize(200, 200)->save(public_path() . '/image/list-repair/resize/' . $filename);     
+        $request->file('image')->move('image/list-repair/picture/', $filename);           
+        Image::make('image/list-repair/picture/' . $filename)
+        ->resize(200, 200)->save('image/list-repair/resize/' . $filename);     
         $repair->image = $filename;         
       } 
       else{

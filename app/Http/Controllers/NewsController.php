@@ -33,9 +33,9 @@ class NewsController extends Controller
         // echo $request;exit();       
         $filename = str_random(10) . '.' . $request->file('img_url')
         ->getClientOriginalName();             
-        $request->file('img_url')->move(public_path() . '/image/new/picture/', $filename);            
-        Image::make(public_path() . '/image/new/picture/' . $filename)
-        ->resize(200, 200)->save(public_path() . '/image/new/resize/' . $filename);     
+        $request->file('img_url')->move('image/new/picture/', $filename);            
+        Image::make('image/new/picture/' . $filename)
+        ->resize(200, 200)->save('image/new/resize/' . $filename);     
         // $img = Image::make($request->file('image')->getRealPath());
         $news->img_url = $filename;         
       } 
@@ -78,9 +78,9 @@ class NewsController extends Controller
       // echo $request;exit();       
       $filename = str_random(10) . '.' . $request->file('img_url')
       ->getClientOriginalName();             
-      $request->file('img_url')->move(public_path() . '/image/new/picture/', $filename);            
-      Image::make(public_path() . '/image/new/picture/' . $filename)
-      ->resize(200, 200)->save(public_path() . '/image/new/resize/' . $filename);     
+      $request->file('img_url')->move('image/new/picture/', $filename);            
+      Image::make('image/new/picture/' . $filename)
+      ->resize(200, 200)->save('image/new/resize/' . $filename);     
       // $img = Image::make($request->file('image')->getRealPath());
       $news->img_url = $filename;         
     } 

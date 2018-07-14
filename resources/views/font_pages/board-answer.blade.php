@@ -156,6 +156,7 @@
                     @if($s_type==4) 
 
                     <div class="example-box-wrapper">
+                    รายละเอียด
                     <textarea  class="ckeditor" cols="80" id="editor" rows="10"name="message">
                    
                   </textarea>

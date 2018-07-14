@@ -78,9 +78,9 @@ class PersonsMemberController extends Controller
         if ($request->hasFile('image_url')) {        
           $filename = str_random(10) . '.' . $request->file('image_url')
           ->getClientOriginalName();             
-          $request->file('image_url')->move(public_path() . '/image/person-member/picture/', $filename);           
-          Image::make(public_path() . '/image/person-member/picture/' . $filename)
-          ->resize(200, 200)->save(public_path() . '/image/person-member/resize/' . $filename);     
+          $request->file('image_url')->move('image/person-member/picture/', $filename);           
+          Image::make('image/person-member/picture/' . $filename)
+          ->resize(200, 200)->save('image/person-member/resize/' . $filename);     
           $person->image_url = $filename;         
         } 
         else{
@@ -112,9 +112,9 @@ class PersonsMemberController extends Controller
       if ($request->hasFile('image_url')) {        
         $filename = str_random(10) . '.' . $request->file('image_url')
         ->getClientOriginalName();             
-        $request->file('image_url')->move(public_path() . '/image/person-member/picture/', $filename);           
-        Image::make(public_path() . '/image/person-member/picture/' . $filename)
-        ->resize(200, 200)->save(public_path() . '/image/person-member/resize/' . $filename);     
+        $request->file('image_url')->move('image/person-member/picture/', $filename);           
+        Image::make('image/person-member/picture/' . $filename)
+        ->resize(200, 200)->save('image/person-member/resize/' . $filename);     
         $person->image_url = $filename;         
       } 
       else{

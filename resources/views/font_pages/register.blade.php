@@ -20,7 +20,7 @@
 		var elem = document.getElementById("password").value;
         if(!elem.match(/^([a-z0-9\_])+$/i))
 		{
-            document.getElementById('pass').innerHTML = "กรุณากรอกรหัสผ่านเแชป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";
+            document.getElementById('pass').innerHTML = "กรุณากรอกรหัสผ่านเป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";
 		}
 		else if(y.length<8){document.getElementById('pass').innerHTML = "รหัสผ่านไม่ควรต่ำกว่า 8 ตัว";}
 		else{document.getElementById('pass').innerHTML = "";}

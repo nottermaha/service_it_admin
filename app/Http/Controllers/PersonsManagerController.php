@@ -110,7 +110,7 @@ class PersonsManagerController extends Controller
       $s_store_branch_id=session('s_store_branch_id','default');
       if($request['chk_table']==0){
         $persons = Persons::find($request->person_id);
-        // echo $persons;exit();
+        echo $persons;exit();
         $date = new CallUseController();
         $persons = $date->get_date_only2($persons,'created','created_at');
         $persons = $date->get_date_only2($persons,'birth','birthday');//get วันที่ภาษาไทย แถวเดียว
@@ -134,6 +134,22 @@ class PersonsManagerController extends Controller
       else{
         $persons = PersonsMember::find($request->person_id);
         // echo $persons;exit();
+        $data = [
+
+          'name'=>$persons['name'],
+          'gender'=>$persons['gender'],
+          'email'=>$persons['email'],
+          'phone'=>$persons['phone'],
+          'address'=>$persons['address'],
+          'created'=>$persons['created'],
+          'birth'=>$persons['birth'],//
+          
+          'check_show'=>1,//
+          'check_table'=>0,
+          'check_store'=>-1,
+          'check'=>0,
+          'type'=>$s_type,
+          ];
       }
 
 
@@ -266,9 +282,9 @@ class PersonsManagerController extends Controller
         if ($request->hasFile('image_url')) {        
           $filename = str_random(10) . '.' . $request->file('image_url')
           ->getClientOriginalName();             
-          $request->file('image_url')->move(public_path() . '/image/person-manager/picture/', $filename);           
-          Image::make(public_path() . '/image/person-manager/picture/' . $filename)
-          ->resize(200, 200)->save(public_path() . '/image/person-manager/resize/' . $filename);     
+          $request->file('image_url')->move('image/person-manager/picture/', $filename);           
+          Image::make('image/person-manager/picture/' . $filename)
+          ->resize(200, 200)->save('image/person-manager/resize/' . $filename);     
           $person->image_url = $filename;         
         } 
         else{
@@ -318,9 +334,9 @@ class PersonsManagerController extends Controller
       if ($request->hasFile('image_url')) {        
         $filename = str_random(10) . '.' . $request->file('image_url')
         ->getClientOriginalName();             
-        $request->file('image_url')->move(public_path() . '/image/person-manager/picture/', $filename);           
-        Image::make(public_path() . '/image/person-manager/picture/' . $filename)
-        ->resize(200, 200)->save(public_path() . '/image/person-manager/resize/' . $filename);     
+        $request->file('image_url')->move('image/person-manager/picture/', $filename);           
+        Image::make('image/person-manager/picture/' . $filename)
+        ->resize(200, 200)->save('image/person-manager/resize/' . $filename);     
         $person->image_url = $filename;         
       } 
       else{

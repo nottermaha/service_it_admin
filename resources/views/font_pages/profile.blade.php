@@ -230,10 +230,9 @@
                             <div class="arrow"></div>
                             <div class="popover-content">
                                 <div class="tl-label bs-label label-success">รายการซ่อมที่ปิดบิลแล้ว</div>
-                                <!-- <p class="tl-content">จำนวน {{$count_on }} รายการ</p> -->
                                 <div class="tl-time">
                                     <i class="glyph-icon icon-check"></i>
-                                    จำนวน {{$count_close }} รายการ
+                                    จำนวน count_close  รายการ
                                 </div>
                             </div>
                         </div>
@@ -248,10 +247,9 @@
                             <div class="arrow"></div>
                             <div class="popover-content">
                                 <div class="tl-label bs-label label-danger">รายการซ่อมที่ยังไม่ปิดบิล</div>
-                                <!-- <p class="tl-content">จำนวน {{ $count_close }} รายการ</p> -->
                                 <div class="tl-time">
                                     <i class="glyph-icon icon-close"></i>
-                                    จำนวน {{ $count_on }} รายการ
+                                    จำนวน  count_on  รายการ
                                 </div>
                             </div>
                         </div>
@@ -669,7 +667,7 @@
                                 <button type="submit"style="width:100px;" class="btn btn-success"><i class="glyph-icon  icon-print" title=".icon-print"></i>&nbsp;ใบซ่อม</button>
                                 {!! Form::close() !!}
                           </div>
-                          @if($repair->status_bill==0)
+                          @if($repair->status_bill==1)
                           <div class="col-md-3">
                                 <?= Form::open(array('url' => '/print2')) ?>
                                 <!-- <a href="<?php echo url('/print') ?>" class="btn btn-success" style="width:300px;"><i class="fa fa-print fa-lg"></i>&nbsp;พิมพ์ใบรับซ่อม</a></a> -->

@@ -145,6 +145,7 @@ class RepairsGeneralController extends Controller
   }
   
   public function font_general_search(Request $request) {
+    // echo 'hh';exit();
     $items = [
       'repair.id as r_id'
       ,'repair.persons_member_id as persons_member_id'
@@ -180,6 +181,8 @@ class RepairsGeneralController extends Controller
     ->leftJoin('list_repair', 'list_repair.repair_id', '=', 'repair.id')
     ->get($items);        
     // echo $repairs;exit();
+    if(count($repairs)!=0){
+          // echo $repairs;exit();
     $repairs2 = Repair::where('repair.status', 1)
     ->where('repair.bin_number',$request->bin_number)  
     ->leftJoin('store_branch', 'store_branch.id', '=', 'repair.store_branch_id')      
@@ -229,8 +232,6 @@ class RepairsGeneralController extends Controller
         //   $repairs[$key]['is_type']=$value['person_type'];
         // }
     }
-    if(count($repairs)!=0){
-      
     $data = [
       'id' => $repairs['0']['id'],
       'store_branch_name' => $repairs['0']['store_branch_name'],

@@ -118,9 +118,9 @@ class PersonsEmployeeController extends Controller
         if ($request->hasFile('image_url')) {        
           $filename = str_random(10) . '.' . $request->file('image_url')
           ->getClientOriginalName();             
-          $request->file('image_url')->move(public_path() . '/image/person-employee/picture/', $filename);           
-          Image::make(public_path() . '/image/person-employee/picture/' . $filename)
-          ->resize(200, 200)->save(public_path() . '/image/person-employee/resize/' . $filename);     
+          $request->file('image_url')->move('image/person-employee/picture/', $filename);           
+          Image::make('image/person-employee/picture/' . $filename)
+          ->resize(200, 200)->save('image/person-employee/resize/' . $filename);     
           $person->image_url = $filename;         
         } 
         else{
@@ -171,9 +171,9 @@ class PersonsEmployeeController extends Controller
         if ($request->hasFile('image_url')) {        
           $filename = str_random(10) . '.' . $request->file('image_url')
           ->getClientOriginalName();             
-          $request->file('image_url')->move(public_path() . '/image/person-employee/picture/', $filename);           
-          Image::make(public_path() . '/image/person-employee/picture/' . $filename)
-          ->resize(200, 200)->save(public_path() . '/image/person-employee/resize/' . $filename);     
+          $request->file('image_url')->move('image/person-employee/picture/', $filename);           
+          Image::make('image/person-employee/picture/' . $filename)
+          ->resize(200, 200)->save('image/person-employee/resize/' . $filename);     
           $person->image_url = $filename;         
         } 
         else{

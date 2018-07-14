@@ -249,7 +249,7 @@ class ListTechnicianController extends Controller
           'chk'=>1,
         ];
         
-        $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
+        $request->session()->flash('status_create', 'เพิ่มอะไหล่เรียบร้อยแล้ว'); 
         }
 
         // $s_store_branch_id=session('s_store_branch_id','default');
@@ -347,7 +347,7 @@ class ListTechnicianController extends Controller
         $list_part_delete_number->status = true;
         $list_part_delete_number->save();
 
-        $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
+        $request->session()->flash('status_create', 'ลบอะไหล่เรียบร้อยแล้ว'); 
         
         $s_store_branch_id=session('s_store_branch_id','default');
         $s_id=session('s_id','default');

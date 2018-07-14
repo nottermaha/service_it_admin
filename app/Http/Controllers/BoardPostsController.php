@@ -14,7 +14,7 @@ class BoardPostsController extends Controller
 
     public function get_question_post(Request $request) {
       $s_type=session('s_type','default');
-      if($s_type==1){
+      if($s_type==1 || $s_type==2 || $s_type==3){
         if($request['chk_get']=='all'){
           $s_id=session('s_id','default');
 

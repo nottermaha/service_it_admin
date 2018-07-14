@@ -119,9 +119,9 @@ class AuthenController extends Controller
         if ($request->hasFile('image_url')) {        
           $filename = str_random(10) . '.' . $request->file('image_url')
           ->getClientOriginalName();             
-          $request->file('image_url')->move(public_path() . '/image/person-member/picture/', $filename);           
-          Image::make(public_path() . '/image/person-member/picture/' . $filename)
-          ->resize(200, 200)->save(public_path() . '/image/person-member/resize/' . $filename);     
+          $request->file('image_url')->move('image/person-member/picture/', $filename);           
+          Image::make('image/person-member/picture/' . $filename)
+          ->resize(200, 200)->save('image/person-member/resize/' . $filename);     
           $person->image_url = $filename;         
         } 
         else{
@@ -200,6 +200,7 @@ class AuthenController extends Controller
               ,'repair.name as name_general'
               ,'repair.phone as phone_general'
               ,'repair.status_repair as status_repair'
+              ,'repair.status_bill as status_bill'
               // ,'repair.price as price'
               ,'repair.date_in_repair as date_in_repair'
               ,'repair.date_out_repair as date_out_repair'
@@ -316,9 +317,9 @@ class AuthenController extends Controller
       if ($request->hasFile('image_url')) {        
         $filename = str_random(10) . '.' . $request->file('image_url')
         ->getClientOriginalName();             
-        $request->file('image_url')->move(public_path() . '/image/person-member/picture/', $filename);           
-        Image::make(public_path() . '/image/person-member/picture/' . $filename)
-        ->resize(200, 200)->save(public_path() . '/image/person-member/resize/' . $filename);     
+        $request->file('image_url')->move('image/person-member/picture/', $filename);           
+        Image::make('image/person-member/picture/' . $filename)
+        ->resize(200, 200)->save('image/person-member/resize/' . $filename);     
         $person->image_url = $filename;         
       } 
       else{
@@ -376,6 +377,7 @@ class AuthenController extends Controller
           ,'repair.name as name_general'
           ,'repair.phone as phone_general'
           ,'repair.status_repair as status_repair'
+          ,'repair.status_bill as status_bill'
           // ,'repair.price as price'
           ,'repair.date_in_repair as date_in_repair'
           ,'repair.date_out_repair as date_out_repair'
@@ -507,9 +509,9 @@ class AuthenController extends Controller
               if ($request->hasFile('image_url')) {        
                 $filename = str_random(10) . '.' . $request->file('image_url')
                 ->getClientOriginalName();             
-                $request->file('image_url')->move(public_path() . '/image/person-manager/picture/', $filename);           
-                Image::make(public_path() . '/image/person-manager/picture/' . $filename)
-                ->resize(200, 200)->save(public_path() . '/image/person-manager/resize/' . $filename);     
+                $request->file('image_url')->move('image/person-manager/picture/', $filename);           
+                Image::make('image/person-manager/picture/' . $filename)
+                ->resize(200, 200)->save('image/person-manager/resize/' . $filename);     
                 $person->image_url = $filename;         
               } 
               else{
@@ -522,9 +524,9 @@ class AuthenController extends Controller
                 if ($request->hasFile('image_url')) {        
                   $filename = str_random(10) . '.' . $request->file('image_url')
                   ->getClientOriginalName();             
-                  $request->file('image_url')->move(public_path() . '/image/person-employee/picture/', $filename);           
-                  Image::make(public_path() . '/image/person-employee/picture/' . $filename)
-                  ->resize(200, 200)->save(public_path() . '/image/person-employee/resize/' . $filename);     
+                  $request->file('image_url')->move('image/person-employee/picture/', $filename);           
+                  Image::make('image/person-employee/picture/' . $filename)
+                  ->resize(200, 200)->save('image/person-employee/resize/' . $filename);     
                   $person->image_url = $filename;         
                 } 
                 else{
@@ -574,6 +576,7 @@ class AuthenController extends Controller
           ,'repair.name as name_general'
           ,'repair.phone as phone_general'
           ,'repair.status_repair as status_repair'
+          ,'repair.status_bill as status_bill'
           // ,'repair.price as price'
           ,'repair.date_in_repair as date_in_repair'
           ,'repair.date_out_repair as date_out_repair'

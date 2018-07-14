@@ -421,14 +421,14 @@
           <div class="modal-header " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">สถานะการซ่อม</h4>
+            <h4 class="modal-title">สถานะสินค้า</h4>
           </div>        
           <?= Form::open(array('url' => '/repair-member-status/'.$repair->id)) ?>
           <div class="modal-body">
 
             <div class="row" >
               <div class="form-group">
-                    <b for="" class="control-label col-md-3"style="text-align:right">สถานะการซ่อม</b>
+                    <b for="" class="control-label col-md-3"style="text-align:right">สถานะสินค้า</b>
                     <div class="col-md-8">               
                         <select class="form-control select2" style="width: 100%;" name="status_repair">
                         <option selected="selected">สถานะที่เลือก [ {{ $repair->status_name }} ]</option>

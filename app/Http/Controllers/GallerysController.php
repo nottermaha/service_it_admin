@@ -73,10 +73,18 @@ class GallerysController extends Controller
       if ($request->hasFile('img_url')) {           
           $filename = str_random(10) . '.' . $request->file('img_url')
           ->getClientOriginalName();             
-          $request->file('img_url')->move(public_path() . '/image/gallery/picture/', $filename);       
-          Image::make(public_path() . '/image/gallery/picture/' . $filename)
-          ->resize(200, 200)->save(public_path() . '/image/gallery/resize/' . $filename);     
-          $gallerys->img_url = $filename;         
+          $request->file('img_url')->move('image/gallery/picture/', $filename);       
+          Image::make('image/gallery/picture/' . $filename)
+          ->resize(200, 200)->save('image/gallery/resize/' . $filename);     
+          $gallerys->img_url = $filename;    
+          
+          // $filename = str_random(10) . '.' . $request->file('img_url')
+          // ->getClientOriginalName();             
+          // $request->file('img_url')->move(public_path() . '/image/gallery/picture/', $filename);       
+          // Image::make(public_path() . '/image/gallery/picture/' . $filename)
+          // ->resize(200, 200)->save(public_path() . '/image/gallery/resize/' . $filename);     
+          // $gallerys->img_url = $filename;         
+           
         } 
 
         else{               
