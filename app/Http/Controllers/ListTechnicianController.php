@@ -51,6 +51,7 @@ class ListTechnicianController extends Controller
           ->where('list_repair.person_id', $s_id)//->
           ->where('repair.store_branch_id', $s_store_branch_id)//->
           ->where('repair.status_bill',0)//->
+          ->where('repair.status',1)//->
           ->orderBy('repair.bin_number','desc')//->
           // ->where('list_repair.repair_id',$request->id)
           ->get($items);
@@ -166,6 +167,7 @@ class ListTechnicianController extends Controller
       ->where('list_repair.person_id', $s_id)//->
       ->where('repair.store_branch_id', $s_store_branch_id)//->
       ->where('repair.status_bill',0)//->
+      ->where('repair.status',1)//->
       ->orderBy('repair.bin_number','desc')//->
       // ->where('list_repair.repair_id',$request->id)
       ->get($items);
@@ -286,6 +288,7 @@ class ListTechnicianController extends Controller
         ->where('list_repair.person_id', $s_id)//->
         ->where('repair.store_branch_id', $s_store_branch_id)//->
         ->where('repair.status_bill',0)//->
+        ->where('repair.status',1)//->
         ->orderBy('repair.bin_number','desc')//->
         // ->where('list_repair.repair_id',$request->id)
         ->get($items);
@@ -383,6 +386,7 @@ class ListTechnicianController extends Controller
         ->where('list_repair.person_id', $s_id)//->
         ->where('repair.store_branch_id', $s_store_branch_id)//->
         ->where('repair.status_bill',0)//->
+        ->where('repair.status',1)//->
         ->orderBy('repair.bin_number','desc')//->
         // ->where('list_repair.repair_id',$request->id)
         ->get($items);

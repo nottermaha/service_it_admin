@@ -294,7 +294,7 @@ class RepairsGeneralController extends Controller
           ,'repair.date_out_repair as date_out_repair'
           // ,'repair.after_price as after_price'
           ,'repair.equipment_follow as equipment_follow'
-          ,'repair.guarantee as guarantee'
+          // ,'repair.guarantee as guarantee'
 
         ];
         $repairs = Repair::where('repair.status', 1)

@@ -176,7 +176,7 @@
                               @foreach($status_lists as $value)
                                 @if($value->l_id==$repair->list_repair_id)
                                 <b for="" class="control-label col-md-3"style="text-align:right">
-                                {{ $i=$i+1 }} </b>
+                                รายการซ่อมที่ {{ $i=$i+1 }} </b>
                                 <b for="" class="control-label col-md-9" style="color:gray">
                                 {{$value->list_repair_name}}.
                                 </b>
@@ -227,9 +227,16 @@
                                     {{ $value->name }}.
                                     </button>
                                     </b>
-                                    @endif
-   
-                                  @endforeach
+                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                รูปภาพ : </b><br>
+                                <b for="" class="control-label col-md-9" style="color:gray">
+                                <a href="{{ asset('image/list-repair/picture/'.$value->image) }}" target="_blank">
+                                <img src="{{ asset('image/list-repair/resize/'.$value->image) }}" alt="" style="width:190px;height:150px;margin-top:20px;">
+                                </a>
+                                </b>
+
+                                @endif
+                              @endforeach
                                 
                             @endforeach 
                           

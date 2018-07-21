@@ -233,7 +233,7 @@ document.getElementById("EditChkForm{{ $store->id }}").submit();
                     </div>
                   </div><br>
                   <div class="row">
-                    <label for="Person_id" class="control-label col-sm-2">ชื่อร้านสาขา</label>
+                    <label for="Person_id" class="control-label col-sm-2">ชื่อร้าน</label>
                     <div class="col-sm-9">
                         <input type="text" class="form-control" id="Person_id" name="name" placeholder="ชื่อร้านสาขา..." value="{{ $name }}" required>
                     </div>

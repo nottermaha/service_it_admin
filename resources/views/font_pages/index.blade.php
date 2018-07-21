@@ -30,7 +30,7 @@
             <div class="icon-box icon-box-offset-large bg-default content-box icon-boxed">
                 <i class="icon-large glyph-icon bg-white border-default btn-border icon-linecons-clock wow bounceInDown" data-wow-delay="1s"></i>
                 <h3 class="text-transform-upr icon-title wow fadeInUp"><h3 style="color:gray;">บริการรวดเร็ว</h3></h3>
-                <p class="icon-content wow fadeInUp">บริการกระชับฉับไว ด้วยระบบที่มีความทันสมัย</p>
+                <p class="icon-content wow fadeInUp">บริการกระชับฉับไว ด้วยระบบที่มีความทันสมัย <br> พร้อมใส่ใจทุกบริการ</p>
             </div>
         </div>
         <div class="col-md-4">
@@ -126,8 +126,9 @@
 
 <div class="cta-box-btn bg-yellow">
     <div class="container">
+    <?php $s_store_name=session('s_store_name','default'); ?>
         <a href="#" class="btn btn-success" title="">
-                ร้าน Macservice
+                ร้าน {{ $s_store_name }}
             <!-- <span>It takes less than 5 minutes to get everything set up.</span> -->
         </a>
     </div>
@@ -150,8 +151,8 @@
                 <i class="icon-alt glyph-icon icon-linecons-beaker wow bounceIn" data-wow-duration="0.8s" data-wow-delay="0.3s"></i>
                 <div class="icon-wrapper">
                     <h4 class="icon-title wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.4s">ตรวจสอบการแจ้งซ่อมสินค้า !!</h4>
-                    <p class="icon-content wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.5s">ท่านสามารถตรวจสอบการแจ้งซ่อมของท่านได้ง่ายๆ...</p>
-                    <a class="read-more wow fadeInUp" data-wow-delay="1.4s" href="{{ url('/font-repair')  }}" title="Learn more about AUI widgets &amp; plugins">ดูข้อมูลเพิ่มเติม</a>
+                    <p class="icon-content wow bounceIn" data-wow-duration="0.6s" data-wow-delay="0.5s">ท่านสามารถตรวจสอบการแจ้งซ่อมของท่านได้ง่ายๆ ทางเรามีบริการเช็คข้อมูลการซ่อมสินค้าออนไลน์...</p>
+                    <a class="read-more wow fadeInUp" data-wow-delay="1.4s" href="{{ url('/font-repair')  }}" title="Learn more about AUI widgets plugins">ดูข้อมูลเพิ่มเติม</a>
                 </div>
             </div>
         </div>
@@ -258,14 +259,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="thumb-overlay bg-primary"></div>
+                    <div class="thumb-overlay "></div>
                     <!-- <img src="assets/image-resources/stock-images/img-1.jpg" alt=""> -->
                     <img src="{{ asset('image/new/picture/'.$new->img_url) }}" style="height:230px;">
                     
-                </div>
+                </div><br>
                 <?= Form::open(array('url' => '/font-new-detail')) ?>
                     <input type="hidden" name="id" value="{{ $new->id }}">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-list-ul"></i>&nbsp; ดูรายละเอียด</button>
+                    <button type="submit" class="btn ra-100 btn-blue-alt"><i class="glyph-icon tooltip-button  icon-navicon"></i>&nbsp; ดูรายละเอียด</button>
                     {!! Form::close() !!}
             </div>
             @endforeach
@@ -277,13 +278,5 @@
     <div class="hero-overlay bg-black opacity-60"></div>
     <div class="hero-pattern pattern-bg-1"></div>
 </div>
-@if (session()->has('status_login_ok'))     
-     <script>swal({ title: "<?php echo session()->get('status_login_ok'); ?>",        
-                     text: "ยินดีต้อนรับ",         
-                     timer: 2500,         
-                     type: 'success',  
-                     position: 'top-end',       
-                     showConfirmButton: false     }); 
-    </script>
-@endif
+
 @include('form/footer-font')

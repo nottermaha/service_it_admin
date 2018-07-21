@@ -13,7 +13,7 @@
    <div class="row">
         <h4 class="text-center"><I>กรุณากรอก "เลขบิล" ที่ท่านต้องการตรวจสอบ</I></h4><br>
         <div class="col-md-3 col-xs-3">
-            <p style="text-align:right;font-size:25px;">เลขบิล</p> 
+            <b class="float-right"style="text-align:right;font-size:25px;font-size:20px;padding-top:7px;">หมายเลขบิล</b> 
             <!-- <h3 style="text-align:right;">เลขบิล</h3> -->
         </div>
         <?= Form::open(array('url' => '/font-repair-general-search')) ?>
@@ -48,11 +48,12 @@
     @if($check==1)
     <div class="col-md-2">
     </div>
-    <div class="col-md-8" >
-    <div class="panel" >
+    <div class="col-md-8 bg-primary" style="padding-top:20px;">
+    <h3 class="modal-title text-center" style="color:white;font-size:25px;"><b>รายละเอียด</b></h3>
+    <div class="panel" style="background-color:#F5FFFA;margin-top:10px;">
     <div class="panel-body">
         <h3 class="title-hero">
-            <h3 class="modal-title text-center" style="color:gray;"><b>รายละเอียด</b></h3>
+            
         </h3>
         <br>
         <div class="box box-info">
@@ -63,73 +64,76 @@
 
                     <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right;color:gray;">
                           สาขาที่ซ่อม : </b>
-                          <b for="" class="control-label col-md-9" style="color:gray">
+                          <b for="" class="control-label col-md-8" style="color:gray">
                           {{$store_branch_name}}</b>
                         </div>
                     </div><hr style="margin-top:5px;margin-bottom:5px;">
 
                     <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right;color:gray;">
                           หมายเลขบิล : </b>
-                          <b for="" class="control-label col-md-9" style="color:gray">
+                          <b for="" class="control-label col-md-8" style="color:gray">
                           {{$bin_number}}</b>
                         </div>
                     </div><hr style="margin-top:5px;margin-bottom:5px;">
 
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right;color:gray;">
                           ชื่อลูกค้า : </b>
-                          <b for="" class="control-label col-md-9" style="color:gray">
+                          <b for="" class="control-label col-md-8" style="color:gray">
                           {{ $name }}</b>
                         </div>
                       </div><hr style="margin-top:5px;margin-bottom:5px;">
 
                        <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right;color:gray;">
                           เบอร์โทร : </b>
-                          <b for="" class="control-label col-md-9" style="color:gray">
+                          <b for="" class="control-label col-md-8" style="color:gray">
                           {{ $phone }}</b>
                         </div>
                       </div><hr style="margin-top:5px;margin-bottom:5px;">
 
                       <div class="row" >
-                        <div class="form-group">
-                        
-                        <b for="" class="control-label col-md-3"style="text-align:right">
-                                อุปกรณ์ที่นำมาซ่อม  </b><br>
+                        <div class="form-group"><br>
+                        <b for="" class="control-label col-md-4"style="text-align:right;color:gray;">
+                        </b>
+                        <b for="" class="control-label col-md-8"style="text-align:left;color:gray;">
+                               <U> อุปกรณ์ที่นำมาซ่อม</U>  </b><br>
                                 <?php $i=0; ?>
                             @foreach($repairs as $repair)
                               @foreach($status_lists as $value)
                               @if($value->l_id==$repair->list_repair_id)
-                                <b for="" class="control-label col-md-3"style="text-align:right">
-                                {{ $i=$i+1 }} </b>
-                                <b for="" class="control-label col-md-9" style="color:gray">
+                              <div class="row" style="margin-top:10px;">
+                              <div class="col-md-8" >
+                                <b for="" class="control-label col-md-6"style="text-align:right;color:gray;">
+                               รายการที่ {{ $i=$i+1 }} : </b>
+                                <b for="" class="control-label col-md-6" style="color:gray">
                                 {{$value->list_repair_name}}.
                                 </b>
-                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                <b for="" class="control-label col-md-6"style="text-align:right;color:gray;">
                                 อาการเสีย: </b>
-                                <b for="" class="control-label col-md-9" style="color:gray">
+                                <b for="" class="control-label col-md-6" style="color:gray">
                                 {{$value->symptom}}.
                                 </b>
                              
-                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                <b for="" class="control-label col-md-6"style="text-align:right;color:gray;">
                                 ราคา : </b>
-                                <b for="" class="control-label col-md-9" style="color:gray">
+                                <b for="" class="control-label col-md-6" style="color:gray">
                                 {{$value->price}} บาท.
                                 </b>
-                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                <b for="" class="control-label col-md-6"style="text-align:right;color:gray;">
                                 ช่างซ่อม : </b>
-                                <b for="" class="control-label col-md-9" style="color:gray">
+                                <b for="" class="control-label col-md-6" style="color:gray">
                                 {{$value->person_name}}
                                 </b>
-                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                <b for="" class="control-label col-md-6"style="text-align:right;color:gray;">
                                 สถานะการซ่อม : </b>
-                                <b for="" class="control-label col-md-9" style="color:gray">
+                                <b for="" class="control-label col-md-6" style="color:gray">
 
                                     @if( $value->status_color==1 )
                                     <button style="width:190px;" type="button" class="btn btn-info">
@@ -159,6 +163,17 @@
                                     {{ $value->name }}
                                     </button>
                                     </b>
+                                    </div>
+                                    <!-- ///col/// -->
+                                <div class="col-md-4">
+                                
+                                <a href="{{ asset('image/list-repair/picture/'.$value->image) }}" target="_blank">
+                                <img src="{{ asset('image/list-repair/resize/'.$value->image) }}" alt="" style="width:170px;height:100px;"><br>
+                                <b style="padding-left:30px;">รูปแสดงงานซ่อม</b> 
+                                </a>
+                                    </div>
+                                    </div>
+                                    <!-- ///row/// -->
                                     @endif
    
                                   @endforeach
@@ -167,24 +182,24 @@
                           
                         </div>
                       </div><hr style="margin-top:5px;margin-bottom:5px;">
-
+                      <br>
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right;color:gray;">
                           อุปกรณ์ที่ติดมาด้วย : </b>
-                          <b for="" class="control-label col-md-9" style="color:gray">
+                          <b for="" class="control-label col-md-8" style="color:gray">
                          {{ $equipment_follow }}</b>
                         </div>
                       </div><hr style="margin-top:5px;margin-bottom:5px;">
 
-                      <div class="row" >
+                      <!-- <div class="row" >
                         <div class="form-group">
                           <b for="" class="control-label col-md-3"style="text-align:right">
                           ราคาประเมิน : </b>
                           <b for="" class="control-label col-md-9" style="color:gray">
                           {{$price}}</b>
                         </div>
-                      </div><hr style="margin-top:5px;margin-bottom:5px;">
+                      </div><hr style="margin-top:5px;margin-bottom:5px;"> -->
 
                       <!-- <div class="row" >
                         <div class="form-group">
@@ -197,18 +212,18 @@
 
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right">
                           วันที่รับเข้าระบบ : </b>
-                          <b for="" class="control-label col-md-9" style="color:gray">
+                          <b for="" class="control-label col-md-8" style="color:gray">
                           {{$date_in_repair}}</b>
                         </div>
                       </div><hr style="margin-top:5px;margin-bottom:5px;">
 
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right">
                           วันที่คืนสินค้า : </b>
-                          <b for="" class="control-label col-md-9" style="color:gray">
+                          <b for="" class="control-label col-md-8" style="color:gray">
                           {{$date_out_repair}}</b>
                         </div>
                       </div>

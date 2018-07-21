@@ -12,6 +12,19 @@ use Illuminate\Http\Request;
 class FontBoardPostsController extends Controller
 {    
 
+  //หน้าค้ำถาม
+  //chk_status_show=0 ดึงเฉยๆ
+    //chk_status_show=1 ตั้งกระทู้
+      //chk_status_show=2 แก้ไขกระทู้
+        //chk_status_show=3 ลบกระทู้
+
+  //หน้าคำตอบ
+    //chk_status_show=0 ดึงเฉยๆ
+    //chk_status_show=1 ตอบกระทู้
+      //chk_status_show=2 แก้ไขกระทู้คำถามในหน้าคำตอบ
+        //chk_status_show=3 ลบกระทู้คำถามในหน้าคำตอบ ตัวนี้จะใช้ฟังชั่นเดียวกับหน้าคำถาม
+          //chk_status_show=4 แก้ไขกระทู้คำตอบ
+            //chk_status_show=5 ลบกระทู้คำตอบ
     public function get_question_post(Request $request) {
       if($request['chk_get']=='all'){
           $s_id=session('s_id','default');
@@ -66,6 +79,7 @@ class FontBoardPostsController extends Controller
           $data = [
             's_id'=>$s_id,
             'chk_get'=>$request['chk_get'],
+            'chk_status_show'=>0,
           ];
       }
       elseif($request['chk_get']=='only'){
@@ -123,6 +137,7 @@ class FontBoardPostsController extends Controller
         $data = [
           's_id'=>$s_id,
           'chk_get'=>$request['chk_get'],
+          'chk_status_show'=>0,
         ];
       }
       // return view('board/question_post', ['question_posts' => $question_posts],$data);
@@ -147,7 +162,7 @@ class FontBoardPostsController extends Controller
         $question_posts->message = $request->message;
         $question_posts->status = true;
         $question_posts->save();
-        // $question_posts->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว');
+        // $request->session()->flash('status_create', 'ตั้งกระทู้เรียบร้อยแล้ว');
         
         // return redirect('questtion-post');
         if($request['chk_get']=='all'){
@@ -203,6 +218,7 @@ class FontBoardPostsController extends Controller
           $data = [
             's_id'=>$s_id,
             'chk_get'=>$request['chk_get'],
+            'chk_status_show'=>1,
           ];
       }
       elseif($request['chk_get']=='only'){
@@ -260,6 +276,7 @@ class FontBoardPostsController extends Controller
         $data = [
           's_id'=>$s_id,
           'chk_get'=>$request['chk_get'],
+          'chk_status_show'=>1,
         ];
       }
 
@@ -283,7 +300,7 @@ class FontBoardPostsController extends Controller
         $question_posts->message = $request->message2;//message2
         $question_posts->status = true;
         $question_posts->save();
-        // $question_posts->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว');
+        // $request->session()->flash('status_edit', 'แก้ไขกระทู้เรียบร้อยแล้ว');
         
         // return redirect('questtion-post');
                 // return redirect('questtion-post');
@@ -340,6 +357,7 @@ class FontBoardPostsController extends Controller
                   $data = [
                     's_id'=>$s_id,
                     'chk_get'=>$request['chk_get'],
+                    'chk_status_show'=>2,
                   ];
               }
               elseif($request['chk_get']=='only'){
@@ -397,6 +415,7 @@ class FontBoardPostsController extends Controller
                 $data = [
                   's_id'=>$s_id,
                   'chk_get'=>$request['chk_get'],
+                  'chk_status_show'=>2,
                 ];
               }
 
@@ -407,7 +426,7 @@ class FontBoardPostsController extends Controller
         $question_posts = QuestionPost::find($request->id);
         $question_posts->status = 0;
         $question_posts->save();
-        // $question_posts->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว');
+        // $request->session()->flash('status_delete', 'ลบกระทู้เรียบร้อยแล้ว');
         
         // return redirect('questtion-post');
               // return redirect('questtion-post');
@@ -464,6 +483,7 @@ class FontBoardPostsController extends Controller
                 $data = [
                   's_id'=>$s_id,
                   'chk_get'=>$request['chk_get'],
+                  'chk_status_show'=>3,
                 ];
             }
             elseif($request['chk_get']=='only'){
@@ -521,6 +541,7 @@ class FontBoardPostsController extends Controller
               $data = [
                 's_id'=>$s_id,
                 'chk_get'=>$request['chk_get'],
+                'chk_status_show'=>3,
               ];
             }
       
@@ -607,6 +628,7 @@ class FontBoardPostsController extends Controller
           's_id_from_question'=>$request->s_id,
           's_id'=>$s_id,
           'chk_get'=>$request['chk_get'],
+          'chk_status_show'=>2,
         ];
         $ansewr_posts = $this->get_answer_posts($question_posts['0']['q_id']);
         // echo $ansewr_posts;exit();
@@ -681,6 +703,7 @@ class FontBoardPostsController extends Controller
         's_id_from_question'=>$request->s_id,
         's_id'=>$s_id,
         'chk_get'=>$request['chk_get'],
+        'chk_status_show'=>0,
       ];
       $ansewr_posts = $this->get_answer_posts($question_posts['0']['q_id']);
       // echo $ansewr_posts;exit();
@@ -764,6 +787,7 @@ class FontBoardPostsController extends Controller
           's_id_from_question'=>$request->s_id,
           's_id'=>$s_id,
           'chk_get'=>$request['chk_get'],
+          'chk_status_show'=>1,
         ];
         $ansewr_posts = $this->get_answer_posts($question_posts['0']['q_id']);
         
@@ -844,6 +868,7 @@ class FontBoardPostsController extends Controller
           's_id_from_question'=>$request->s_id,
           's_id'=>$s_id,
           'chk_get'=>$request['chk_get'],
+          'chk_status_show'=>4,
         ];
         $ansewr_posts = $this->get_answer_posts($question_posts['0']['q_id']);
         
@@ -923,6 +948,7 @@ class FontBoardPostsController extends Controller
           's_id_from_question'=>$request->s_id,
           's_id'=>$s_id,
           'chk_get'=>$request['chk_get'],
+          'chk_status_show'=>5,
         ];
         $ansewr_posts = $this->get_answer_posts($question_posts['0']['q_id']);
         

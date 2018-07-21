@@ -25,9 +25,9 @@
 
 
 
-<div id="page-content" class="container mrg25T" style="background-color:#DCDCDC;">
+<div id="page-content" class="container mrg25T bg-primary" >
 @foreach($store_branchs as $store_branch)
-    <div class="blog-box row" style="background-color:white;padding-top:25px;padding-bottom:25px;">
+    <div class="blog-box row " style="background-color:#F5FFFA;padding-top:25px;padding-bottom:25px;margin-top:25px;">
         <div class="post-image col-md-4">
             <a href="assets/image-resources/stock-images/img-44.jpg" class="prettyphoto" rel="prettyPhoto[pp_gal]" title="Blog post title">
             <!-- // -->
@@ -45,8 +45,8 @@
                     <a href="#" title="">Thomas Edison</a>
                 </span> -->
                 <span>
-                    <h4><i class="glyph-icon icon-phone"></i>
-                    เบอร์โทรศัพท์ <b>:</b> {{ $store_branch->phone }}</h4>
+                    <b style="color:gray;"><h4><i class="glyph-icon icon-phone"></i>
+                    เบอร์โทรศัพท์ : {{ $store_branch->phone }}</h4></b>
                 </span>
                 <!-- <span>
                     <i class="glyph-icon icon-comments-o"></i>
@@ -54,7 +54,7 @@
                 </span> -->
             </div>
             <div class="post-content">
-                {{ $store_branch->address}}
+            <b style="color:gray;"><h4><i class="glyph-icon icon-typicons-location"></i>&nbsp;{{ $store_branch->address}}</h4></b>
             </div>
             
             <?= Form::open(array('url' => '/font-contact-detail')) ?>

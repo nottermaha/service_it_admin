@@ -85,8 +85,9 @@ class AuthenController extends Controller
                       session(['s_name'=>$result2['0']['name']]);
                       session(['s_id'=>$result2['0']['id'] ]); 
                       session(['s_type'=>$result2['0']['type'] ]);
+                      session(['s_image_url'=>$result2['0']['image_url'] ]);
                       $request->session()->flash('status_login_ok', 'การเข้าสู่ระบบเสร็จสิ้น'); 
-                    return redirect('/');
+                    return redirect('/font-profile');
                   }
               }
               else{
@@ -149,6 +150,7 @@ class AuthenController extends Controller
               session(['s_name'=>$result2['0']['name']]);
               session(['s_id'=>$result2['0']['id'] ]); 
               session(['s_type'=>$result2['0']['type'] ]);
+              session(['s_image_url'=>$result2['0']['image_url'] ]);
               $request->session()->flash('status_login_ok', 'การเข้าสู่ระบบเสร็จสิ้น'); 
             // return redirect('/');
             return redirect('/font-profile');
@@ -291,6 +293,8 @@ class AuthenController extends Controller
             'created_at' => $person_member['created_at'],
             'birthday' => $person_member['birth_day'],
             'date_created' => $person_member['date_created'],
+            'count_on' => $count_on,
+            'count_close' => $count_close,
 
         ];
           return view('font_pages/profile',['repairs'=>$repairs], $data);

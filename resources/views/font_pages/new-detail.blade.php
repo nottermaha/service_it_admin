@@ -36,14 +36,15 @@
 <div id="page-content" class="container mrg25T">
     <div class="row">
         <div class="col-md-9">
-            <div class="blog-box blog-box-single blog-box-alt row">
+            <div class="blog-box blog-box-single blog-box-alt row" >
                 <a class="post-title"  title="">
-                    <h3>เรื่อง :{{ $title }}</h3>
+                    <h3 style="margin-top:20px;">เรื่อง :{{ $title }}</h3>
                 </a>
-                <div class="post-image">
-                    <a href="assets/image-resources/stock-images/img-42.jpg" class="prettyphoto" rel="prettyPhoto[pp_gal]" title="Blog post title">
+                <div class="post-image"style="text-align:center;">
+                    <!-- <a href="assets/image-resources/stock-images/img-42.jpg" class="prettyphoto" rel="prettyPhoto[pp_gal]" title="Blog post title"> -->
                         <!-- <img class="img-responsive lazy img-rounded" src="" data-original="assets/image-resources/slides-bg/slide-3.jpg" alt=""> -->
-                        <img class="img-responsive lazy img-rounded" src="{{ asset('image/new/picture/'.$img_url) }}" style="height:700px;"></a>
+                        <img class="img-responsive lazy img-rounded" src="{{ asset('image/new/picture/'.$img_url) }}" style="margin: auto;width:50%;height:50%px;">
+                        <!-- </a> -->
                     </a>
                 </div>
                 <div class="post-content-wrapper">
@@ -54,7 +55,7 @@
                         </span>
                         <span class="float-left">
                             <i class="glyph-icon icon-clock-o"></i>
-                           วันที่โพส :{{ $date_create }} แก้ไขล่าสุด :{{ $date_update }}
+                           เผยแพร่เมื่อ :{{ $date_create }} แก้ไขล่าสุด :{{ $date_update }}
                         </span>
                         <span class="float-right">
                             <!-- <i class="glyph-icon icon-comments-o"></i> -->
@@ -62,7 +63,7 @@
                         </span>
                     </div>
                     <div class="divider"></div>
-                    <div class="post-content">
+                    <div class="post-content" style="background-image: url(image/background-message.jpg);padding-left:20px;padding-top:20px;padding-right:20px;">
                         {!! $detail !!}
                     </div>
 
@@ -112,8 +113,8 @@
 
         </div>
         <div class="col-md-3">
-            <div class="content-box">
-    <h3 class="content-box-header bg-default">
+            <div class="content-box" >
+    <h3 class="content-box-header bg-primary" style="font-size:25px;text-align:center;">
         ข่าวใหม่
     </h3>
     <div class="posts-list content-box-wrapper">
@@ -121,9 +122,9 @@
         @foreach ($news_rights as $news_right)
             <li>
                 <div class="post-image">
-                    <a href="assets/image-resources/stock-images/img-10.jpg" class="prettyphoto" rel="prettyPhoto[pp_gal]" title="Blog post title">
+                    <!-- <a href="assets/image-resources/stock-images/img-10.jpg" class="prettyphoto" rel="prettyPhoto[pp_gal]" title="Blog post title"> -->
                         <img class="img-responsive" src="{{ asset('image/new/resize/'.$news_right->img_url) }}" alt="">
-                    </a>
+                    <!-- </a> -->
                 </div>
                 <div class="post-body">
                     <a class="post-title" href="blog-single.html" title="">

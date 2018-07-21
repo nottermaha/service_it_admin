@@ -26,7 +26,7 @@
             <h3>ช่องทางการติดต่อ</h3>
             <ul class="contact-list mrg15T mrg25B reset-ul">
                 <li>
-                    <i class="glyph-icon icon-home"></i>
+                <i class="glyph-icon icon-typicons-location"></i>
                     {{$address}}
                 </li>
                 <li>
@@ -35,11 +35,11 @@
                 </li>
                 <li>
                     <i class="glyph-icon icon-envelope-o"></i>
-                    <a href="#" title="">{{$email}}</a>
+                    {{$email}}
                 </li>
                 <li>
                     <i class="glyph-icon  icon-facebook-square"></i>
-                    <a href="#" title="">{{$contact}}</a>
+                    <a href="{{$contact}}" target="_blank"title="">{{$contact}}</a>
                 </li>
                 
             </ul>

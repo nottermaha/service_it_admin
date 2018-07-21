@@ -340,7 +340,6 @@
        <!-- //////////////////////////////modal-add-setting-status-repair//////////////////////////////// -->
 
         <div class="modal fade " id="modal-add-setting-status-repair">
-        
         <div class="modal-dialog ">
         <div class="modal-content ">
           <div class="modal-header " >

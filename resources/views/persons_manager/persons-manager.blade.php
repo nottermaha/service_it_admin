@@ -135,7 +135,7 @@
           <tr>
             <th>#</th>
             <th>รูปภาพ</th>
-            <th style="text-align:center">ชื่อ-สกุล</th>
+            <th style="text-align:center;">ชื่อ-สกุล</th>
             <th style="text-align:center">เบอร์โทร</th>
             <th style="text-align:center">เพศ</th>
             <th style="text-align:center">แก้ไข</th>

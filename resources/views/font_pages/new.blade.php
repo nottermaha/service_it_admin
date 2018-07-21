@@ -62,11 +62,11 @@
                     </a>
                 </h3>
                 {!!str_limit($new->detail, 120)!!}<br>
-                <small>{{ $new->date_in }}</small>
+                <small>เผยแพร่เมื่อ : {{ $new->date_in }}</small>
                 <?= Form::open(array('url' => '/font-new-detail')) ?>
                 <input type="hidden" name="id" value="{{ $new->id }}">
-                <div style="padding-left:130px;">
-                    <button type="submit" class="btn  ra-100 btn-blue-alt"><i class="fas fa-list-ul"></i>&nbsp; ดูเพิ่มเติม</button>
+                <div style="padding-left:130px;padding-bottom:10px;">
+                    <button type="submit" class="btn ra-100 btn-blue-alt"><i class="glyph-icon tooltip-button  icon-navicon"></i>&nbsp; ดูเพิ่มเติม</button>
                 </div>
                 {!! Form::close() !!}
             </div>

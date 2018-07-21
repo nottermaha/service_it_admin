@@ -47,16 +47,16 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="panel">
-                                    <div class="panel-body">
+                                    <div class="panel-body" style="margin-top:-10px;margin-bottom:-30px;">
                                         <!-- <h3 class="title-hero">
                                             Basic
-                                        </h3> -->
+                                        </h3> --> 
                                         <div class="example-box-wrapper">
                                             <ul class="nav">
                                             <?= Form::open(array('url' => '/font-board-question')) ?>
                                             </li>
                                             <input type="hidden" name="chk_get" value="all">
-                                            <button type="submit" class="btn btn-warning btn-block margin-bottom"><i class="fa fa-comments fa-lg"></i>&nbsp; กระทู้ทั้งหมด</button>
+                                            <button type="submit" class="btn btn-warning btn-block margin-bottom"><i class="glyph-icon icon-comments-o " style="font-size:20px;"></i>&nbsp; กระทู้ทั้งหมด</button> <br>
                                             </li>
                                     {!! Form::close() !!}
                                     <?php $s_type='' ;$s_type=session('s_type','default');?>
@@ -64,7 +64,7 @@
                                     <?= Form::open(array('url' => '/font-board-question')) ?>
                                             </li>
                                             <input type="hidden" name="chk_get" value="only">
-                                            <button type="submit" class="btn btn-primary btn-block margin-bottom"><i class="fa fa-comments fa-lg"></i>&nbsp; กระทู้ของท่าน</button>
+                                            <button type="submit" class="btn btn-primary btn-block margin-bottom"><i class="glyph-icon icon-comment-o" style="font-size:20px;"></i>&nbsp; กระทู้ของท่าน</button>
                                             </li>
                                     {!! Form::close() !!}
                                     @endif
@@ -73,11 +73,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>          
+                        </div>       
                 <br>
             <div class="text-right">
                 <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#modal-add-question-post">
-                    <i class="fa fa-plus-circle fa-lg"></i> &nbsp; ตั้งกระทู้
+                <i class="glyph-icon icon-plus-circle"></i> &nbsp; ตั้งกระทู้
                 </button><br><br>
             </div>
                 
@@ -86,7 +86,7 @@
         
         <div class="modal-dialog ">
         <div class="modal-content ">
-          <div class="modal-header " >
+          <div class="modal-header bg-primary" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">ตั้งกระทู้ใหม่</h4>
@@ -99,7 +99,7 @@
             <div class="row" style="padding-top:20px;">
               <div class="form-group" style="padding-left:20px;padding-right:20px;">
                    หัวข้อ
-                          <input type="text" class="form-control pull-right" id="Name" name="topic" placeholder="ชื่อเรื่อง...">
+                          <input type="text" class="form-control pull-right" id="Name" name="topic" placeholder="ชื่อเรื่อง..." required>
               </div>
             </div>
             <div class="row" style="padding-top:20px;">
@@ -133,18 +133,18 @@
       </div>          
     </div>
     <!-- //////////////////////////////End modal-add-question-post//////////////////////////////// -->
-                <ul class="comments-list">
+                <ul class="comments-list bg-primary"style="padding-bottom:4px;">
                 @foreach ($question_posts as $question_post)
-                    <li class="panel" style="background-color:#DCDCDC;"> 
+                    <li class="panel bg-default"  style="background-image: url(image/background-message.jpg);padding-left:20px;padding-top:20px;"> 
                         <div class="panel-body">
                             <div class="comment-image">
                                 <!-- <img class="img-rounded lazy img-responsive" src="" data-original="assets/image-resources/people/testimonial1.jpg" alt=""> -->
                 @if($question_post->is_type==1 || $question_post->is_type==2)
-                <img class="img-circle" style="border-radius:50%;height:70px;width:70px;" src="{{ asset('image/person-manager/resize/'.$question_post->is_image_url) }}" alt="">
+                <img class="img-circle" style="border-radius:50%;height:100px;width:100px;" src="{{ asset('image/person-manager/resize/'.$question_post->is_image_url) }}" alt="">
                 @elseif($question_post->is_type==3)
-                <img class="img-circle img-sm" style="border-radius:50%;height:70px;width:70px;" src="{{ asset('image/person-employee/resize/'.$question_post->is_image_url) }}" alt="">
+                <img class="img-circle img-sm" style="border-radius:50%;height:100px;width:100px;" src="{{ asset('image/person-employee/resize/'.$question_post->is_image_url) }}" alt="">
                 @elseif($question_post->is_type==4)
-                <img class="img-circle img-sm" style="border-radius:50%;height:70px;width:70px;" src="{{ asset('image/person-member/resize/'.$question_post->is_image_url) }}" alt="">
+                <img class="img-circle img-sm" style="border-radius:50%;height:100px;width:100px;" src="{{ asset('image/person-member/resize/'.$question_post->is_image_url) }}" alt="">
                 @endif
                             </div>
                             <div class="comment-wrapper">
@@ -155,7 +155,7 @@
                                            <b> {{ $question_post->is_name }} </b>&nbsp;&nbsp;&nbsp;&nbsp;
                                             <b style="color:gray;">สถานะ :</b>  
                                                 @if($question_post->is_type==1)
-                                                <b style="color:orange;">แอดมิน</b>
+                                                <b style="color:Brown;">แอดมิน</b>
                                                 @elseif($question_post->is_type==2)
                                                 <b style="color:back;">ผู้จัดการร้าน</b>
                                                 @elseif($question_post->is_type==3)
@@ -179,8 +179,8 @@
                     <input type="hidden" name="chk_get" value="{{$chk_get}}">
                       <input type="hidden" name="id" value="{{ $question_post->id }}">
                       <input type="hidden" name="s_id" value="{{ $question_post->persons_member_id }}">
-                                    <div style="padding-left:130px;">
-                                        <button type="submit" class="btn btn-xs btn-primary"><i class="fas fa-list-ul"></i>&nbsp; แสดงความคิดเห็น</button>
+                                    <div style="padding-left:810px;">
+                                        <button type="submit" class="btn btn-sm btn-primary"><i class="glyph-icon icon-comments-o"></i> แสดงความคิดเห็น</button>
                                     </div>
                                     {!! Form::close() !!}
 
@@ -192,10 +192,10 @@
             @if($question_post->persons_member_id == $s_id)
             <div class="text-right" >
                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-question-post{{ $question_post->id }}">
-                <i class="fa  fa-edit fa-lg"></i>แก้ไข&nbsp;
+                <i class="glyph-icon icon-pencil"></i>&nbsp;แก้ไข
                 </button>
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-question-post{{ $question_post->id }}">
-                <i class="fa  fa-trash fa-lg"></i>ลบ&nbsp;
+                <i class="glyph-icon icon-times"></i>&nbsp;ลบ
                 </button>
             </div>
 
@@ -206,10 +206,10 @@
                         <div class="modal fade " id="modal-delete-question-post{{ $question_post->id }}">
                         <div class="modal-dialog ">
                             <div class="modal-content ">
-                            <div class="modal-header " >
+                            <div class="modal-header bg-primary" >
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title">ลบกระทู้</h4>
+                                    <h4 class="modal-title">ลบกระทู้ของท่าน</h4>
                             </div>        
                             <?= Form::open(array('url' => '/questtion-post-font-delete')) ?>
                                 <div class="modal-body">
@@ -236,7 +236,7 @@
                     
                     <div class="modal-dialog ">
                     <div class="modal-content ">
-                    <div class="modal-header " >
+                    <div class="modal-header bg-primary" >
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">แก้ไขกระทู้ของท่าน</h4>
@@ -278,19 +278,45 @@
                         </div>
                     </li>
                     @endforeach
-            <div class="text-right">
+        
+                </ul>
+                <br>
+                <div class="text-right">
                 <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#modal-add-question-post">
-                    <i class="fa fa-plus-circle fa-lg"></i> &nbsp; ตั้งกระทู้
+                <i class="glyph-icon icon-plus-circle"></i> &nbsp; ตั้งกระทู้
                 </button><br><br>
             </div>
-
-                </ul>
             </div>
 
         </div>
   
 </div>
 
+@if($chk_status_show==1)
+<script>swal({ title: "ตั้งกระทู้เรียบร้อยแล้ว",        
+                     text: "ผลการทํางาน",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+@elseif($chk_status_show==2)
+<script>swal({ title: "แก้ไขกระทู้เรียบร้อยแล้ว",        
+                     text: "ผลการทํางาน",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+@elseif($chk_status_show==3)
+<script>swal({ title: "ลบกระทู้เรียบร้อยแล้ว",        
+                     text: "ผลการทํางาน",         
+                     timer: 2500,         
+                     type: 'success',  
+                     position: 'top-end',       
+                     showConfirmButton: false     }); 
+    </script>
+@endif
 
 
 <br><br>

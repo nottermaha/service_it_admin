@@ -89,7 +89,7 @@
                 <li><a href="#">ชาย <span class="pull-right badge bg-aqua">{{ $countmale_me }}</span></a></li>
                 <li><a href="#">หญิง<span class="pull-right badge bg-green">{{ $countfemale_me }}</span></a></li>
                 <li><a href="#">ไม่ระบุ<span class="pull-right badge bg-green">{{ $countundefine_me }}</span></a></li>
-                <li><a href="#">Followers <span class="pull-right">
+                <li><a href="#">ออกรายงาน <span class="pull-right">
                 <?= Form::open(array('url' => '/report-detail')) ?>
                 <input type="hidden" name="chk" value="2">
                         <button type="submit" class="btn btn-default">คลิก</button>
@@ -154,7 +154,7 @@
                 {{ $countall_re }}</span></a></li>
                 <li><a href="#">ลูกค้าสมาชิก<span class="pull-right badge bg-aqua">{{ $countmember_re }}</span></a></li>
                 <li><a href="#">ลูกค้าทั่วไป<span class="pull-right badge bg-green">{{ $countgeneral_re }}</span></a></li>
-                <li><a href="#">Followers <span class="pull-right ">
+                <li><a href="#">ออกรายงาน <span class="pull-right ">
                 <?= Form::open(array('url' => '/report-detail')) ?>
                 <input type="hidden" name="chk" value="4">
                         <button type="submit" class="btn btn-default">คลิก</button>

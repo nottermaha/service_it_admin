@@ -20,6 +20,7 @@ class IndexController extends Controller
       ->get();
       $store = Store::find(1);
       session(['s_logo'=>$store['logo'] ]);
+      session(['s_store_name'=>$store['name'] ]);
       return view('font_pages/index', ['gallerys' => $gallerys,'news' => $news]);
     }
 

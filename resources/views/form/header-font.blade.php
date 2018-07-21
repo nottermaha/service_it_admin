@@ -238,108 +238,10 @@
         <div class="bounce3"></div>
     </div>
 </div>
-<div id="theme-options">
-    <a href="#" class="btn btn-primary theme-switcher tooltip-button" data-placement="left" title="Color schemes and layout options">
-        <i class="glyph-icon icon-linecons-cog icon-spin"></i>
-    </a>
-    <div id="theme-switcher-wrapper">
-        <div class="scroll-switcher">
-            <h5 class="header">Layout options</h5>
-            <ul class="reset-ul">
-                <li>
-                    <label for="boxed-layout">Boxed layout</label>
-                    <input type="checkbox" data-toggletarget="boxed-layout" id="boxed-layout" class="input-switch-alt">
-                </li>
-            </ul>
-            <div class="boxed-bg-wrapper hide">
-                <h5 class="header">
-                    Boxed Page Background
-                    <a class="set-background-style" data-header-bg="" title="Remove all styles" href="#">Clear</a>
-                </h5>
-                <div class="theme-color-wrapper clearfix">
-                    <h5>Patterns</h5>
-                    <a class="tooltip-button set-background-style pattern-bg-3" data-header-bg="pattern-bg-3" title="Pattern 3" href="#">Pattern 3</a>
-                    <a class="tooltip-button set-background-style pattern-bg-4" data-header-bg="pattern-bg-4" title="Pattern 4" href="#">Pattern 4</a>
-                    <a class="tooltip-button set-background-style pattern-bg-5" data-header-bg="pattern-bg-5" title="Pattern 5" href="#">Pattern 5</a>
-                    <a class="tooltip-button set-background-style pattern-bg-6" data-header-bg="pattern-bg-6" title="Pattern 6" href="#">Pattern 6</a>
-                    <a class="tooltip-button set-background-style pattern-bg-7" data-header-bg="pattern-bg-7" title="Pattern 7" href="#">Pattern 7</a>
-                    <a class="tooltip-button set-background-style pattern-bg-8" data-header-bg="pattern-bg-8" title="Pattern 8" href="#">Pattern 8</a>
-                    <a class="tooltip-button set-background-style pattern-bg-9" data-header-bg="pattern-bg-9" title="Pattern 9" href="#">Pattern 9</a>
-                    <a class="tooltip-button set-background-style pattern-bg-10" data-header-bg="pattern-bg-10" title="Pattern 10" href="#">Pattern 10</a>
-
-                    <div class="clear"></div>
-
-                    <h5 class="mrg15T">Solids &amp;Images</h5>
-                    <a class="tooltip-button set-background-style bg-black" data-header-bg="bg-black" title="Black" href="#">Black</a>
-                    <a class="tooltip-button set-background-style bg-gray mrg10R" data-header-bg="bg-gray" title="Gray" href="#">Gray</a>
-
-                    <a class="tooltip-button set-background-style full-bg-1" data-header-bg="full-bg-1 fixed-bg" title="Image 1" href="#">Image 1</a>
-                    <a class="tooltip-button set-background-style full-bg-2" data-header-bg="full-bg-2 fixed-bg" title="Image 2" href="#">Image 2</a>
-                    <a class="tooltip-button set-background-style full-bg-3" data-header-bg="full-bg-3 fixed-bg" title="Image 3" href="#">Image 3</a>
-                    <a class="tooltip-button set-background-style full-bg-4" data-header-bg="full-bg-4 fixed-bg" title="Image 4" href="#">Image 4</a>
-                    <a class="tooltip-button set-background-style full-bg-5" data-header-bg="full-bg-5 fixed-bg" title="Image 5" href="#">Image 5</a>
-                    <a class="tooltip-button set-background-style full-bg-6" data-header-bg="full-bg-6 fixed-bg" title="Image 6" href="#">Image 6</a>
-
-                </div>
-            </div>
-            <h5 class="header">
-                Top Menu Style
-                <a class="set-topmenu-style" data-header-bg="" title="Remove all styles" href="#">Clear</a>
-            </h5>
-            <div class="theme-color-wrapper clearfix">
-                <h5>Solids</h5>
-                <a class="tooltip-button set-topmenu-style bg-primary" data-header-bg="bg-primary font-inverse" title="Primary" href="#">Primary</a>
-                <a class="tooltip-button set-topmenu-style bg-green" data-header-bg="bg-green font-inverse" title="Green" href="#">Green</a>
-                <a class="tooltip-button set-topmenu-style bg-red" data-header-bg="bg-red font-inverse" title="Red" href="#">Red</a>
-                <a class="tooltip-button set-topmenu-style bg-blue" data-header-bg="bg-blue font-inverse" title="Blue" href="#">Blue</a>
-                <a class="tooltip-button set-topmenu-style bg-warning" data-header-bg="bg-warning font-inverse" title="Warning" href="#">Warning</a>
-                <a class="tooltip-button set-topmenu-style bg-purple" data-header-bg="bg-purple font-inverse" title="Purple" href="#">Purple</a>
-                <a class="tooltip-button set-topmenu-style bg-black" data-header-bg="bg-black font-inverse" title="Black" href="#">Black</a>
-
-                <div class="clear"></div>
-
-                <h5 class="mrg15T">Gradients</h5>
-                <a class="tooltip-button set-topmenu-style bg-gradient-1" data-header-bg="bg-gradient-1 font-inverse" title="Gradient 1" href="#">Gradient 1</a>
-                <a class="tooltip-button set-topmenu-style bg-gradient-2" data-header-bg="bg-gradient-2 font-inverse" title="Gradient 2" href="#">Gradient 2</a>
-                <a class="tooltip-button set-topmenu-style bg-gradient-3" data-header-bg="bg-gradient-3 font-inverse" title="Gradient 3" href="#">Gradient 3</a>
-                <a class="tooltip-button set-topmenu-style bg-gradient-4" data-header-bg="bg-gradient-4 font-inverse" title="Gradient 4" href="#">Gradient 4</a>
-                <a class="tooltip-button set-topmenu-style bg-gradient-5" data-header-bg="bg-gradient-5 font-inverse" title="Gradient 5" href="#">Gradient 5</a>
-                <a class="tooltip-button set-topmenu-style bg-gradient-6" data-header-bg="bg-gradient-6 font-inverse" title="Gradient 6" href="#">Gradient 6</a>
-                <a class="tooltip-button set-topmenu-style bg-gradient-7" data-header-bg="bg-gradient-7 font-inverse" title="Gradient 7" href="#">Gradient 7</a>
-                <a class="tooltip-button set-topmenu-style bg-gradient-8" data-header-bg="bg-gradient-8 font-inverse" title="Gradient 8" href="#">Gradient 8</a>
-            </div>
-            <h5 class="header">
-                Header Style
-                <a class="set-header-style" data-header-bg="bg-header" title="Remove all styles" href="#">Clear</a>
-            </h5>
-            <div class="theme-color-wrapper clearfix">
-                <h5>Solids</h5>
-                <a class="tooltip-button set-header-style bg-primary" data-header-bg="bg-primary font-inverse" title="Primary" href="#">Primary</a>
-                <a class="tooltip-button set-header-style bg-green" data-header-bg="bg-green font-inverse" title="Green" href="#">Green</a>
-                <a class="tooltip-button set-header-style bg-red" data-header-bg="bg-red font-inverse" title="Red" href="#">Red</a>
-                <a class="tooltip-button set-header-style bg-blue" data-header-bg="bg-blue font-inverse" title="Blue" href="#">Blue</a>
-                <a class="tooltip-button set-header-style bg-warning" data-header-bg="bg-warning font-inverse" title="Warning" href="#">Warning</a>
-                <a class="tooltip-button set-header-style bg-purple" data-header-bg="bg-purple font-inverse" title="Purple" href="#">Purple</a>
-                <a class="tooltip-button set-header-style bg-black" data-header-bg="bg-black font-inverse" title="Black" href="#">Black</a>
-
-                <div class="clear"></div>
-
-                <h5 class="mrg15T">Gradients</h5>
-                <a class="tooltip-button set-header-style bg-gradient-1" data-header-bg="bg-gradient-1 font-inverse" title="Gradient 1" href="#">Gradient 1</a>
-                <a class="tooltip-button set-header-style bg-gradient-2" data-header-bg="bg-gradient-2 font-inverse" title="Gradient 2" href="#">Gradient 2</a>
-                <a class="tooltip-button set-header-style bg-gradient-3" data-header-bg="bg-gradient-3 font-inverse" title="Gradient 3" href="#">Gradient 3</a>
-                <a class="tooltip-button set-header-style bg-gradient-4" data-header-bg="bg-gradient-4 font-inverse" title="Gradient 4" href="#">Gradient 4</a>
-                <a class="tooltip-button set-header-style bg-gradient-5" data-header-bg="bg-gradient-5 font-inverse" title="Gradient 5" href="#">Gradient 5</a>
-                <a class="tooltip-button set-header-style bg-gradient-6" data-header-bg="bg-gradient-6 font-inverse" title="Gradient 6" href="#">Gradient 6</a>
-                <a class="tooltip-button set-header-style bg-gradient-7" data-header-bg="bg-gradient-7 font-inverse" title="Gradient 7" href="#">Gradient 7</a>
-                <a class="tooltip-button set-header-style bg-gradient-8" data-header-bg="bg-gradient-8 font-inverse" title="Gradient 8" href="#">Gradient 8</a>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="page-wrapper">
-<div class="top-bar bg-topbar">
-    <div class="container">
+<!-- #48D1CC #87CEEB #00CED1-->
+<div id="page-wrapper" >
+<div class="top-bar bg-primary" >
+    <div class="container" >
         <div class="float-left">
             <!-- <a href="#" class="btn btn-sm bg-facebook tooltip-button" data-placement="bottom" title="Follow us on Facebook">
                 <i class="glyph-icon icon-facebook"></i>
@@ -369,16 +271,19 @@
             <div id="header-nav-left">
                 <!-- <div class="user-account-btn dropdown"> -->
                     <a href="#" title="My Account" class="user-profile clearfix" data-toggle="dropdown">
-                        <img width="28" src="assets/image-resources/gravatar.jpg" alt="Profile image">
-                        <span><?php echo $s_name; ?></span>
-                        <i class="glyph-icon icon-angle-down"></i>
+                    <?php $s_image_url=session('s_image_url','default'); ?>
+                        <!-- <img width="28" src="assets/image-resources/gravatar.jpg" alt="Profile image"> -->
+                        <img width="28" src="{{ asset('image/person-member/resize/'.$s_image_url) }}" alt="Profile image" class="img-circle" >
+                        <span style="color:white;"><?php echo $s_name; ?>&nbsp;<i class="glyph-icon icon-angle-down"></i></span>
+                        
                     </a>
                     <div class="dropdown-menu float-left">
                         <div class="box-sm">
                             <div class="login-box clearfix">
                                 <div class="user-img">
-                                    <a href="#" title="" class="change-img">Change photo</a>
-                                    <img src="assets/image-resources/gravatar.jpg" alt="">
+                                    <!-- <a href="#" title="" class="change-img">Change photo</a>
+                                    <img src="assets/image-resources/gravatar.jpg" alt=""> -->
+                                    <img class="img-circle "src="{{ asset('image/person-member/resize/'.$s_image_url) }}" alt="">
                                 </div>
                                 <!-- <div class="user-info">
                                     <span>
@@ -414,11 +319,11 @@
             <!-- #header-nav-left -->
         @endif 
         </div>
-                
+        <?php $s_store_name=session('s_store_name','default'); ?>
         <div class="float-right user-account-btn dropdown">
-            <a href="#" class="btn btn-top btn-sm" title="Give us a call">
-              <h2>  <i class="glyph-icon icon-home"></i>
-               Mac Service</h2>
+            <a href="#" class="btn btn-top btn-sm" title="Give us a call" style="color:white;">
+              <h2> <b><i class="glyph-icon icon-home"></i>
+              {{ $s_store_name }}</b> </h2>
             </a>
             
 <ul class="header-nav collapse">
@@ -429,14 +334,14 @@
 </div><!-- .top-bar -->
 
        <!-- //////////////////////////////modal-login//////////////////////////////// -->
-        <div class="modal fade " id="modal-login">
+        <div class="modal fade " id="modal-login" >
         
-        <div class="modal-dialog ">
-        <div class="modal-content ">
-          <div class="modal-header " >
+        <div class="modal-dialog " >
+        <div class="modal-content " >
+          <div class="modal-header bg-primary " >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h3 class="modal-title text-center"><b style="color:gray;">เข้าสู่ระบบ</b> </h3>
+            <h3 class="modal-title text-center"><b style="color:white;">เข้าสู่ระบบ</b> </h3>
           </div>  
           {!!  Form::open(['url'=>'/test_login','class'=>'form','files'=>true])   !!}
                       <div id="login-form" class="content-box">
@@ -554,31 +459,30 @@
     </div><!-- .header-logo -->
     <ul class="header-nav collapse">
         <li>
-            <a href="#" title="Homepages" style="font-size:20px;">
-                หน้าแรก 
-                <i class="glyph-icon icon-angle-down"></i>
+            <a href="{{ url('/')  }}" title="Homepages" style="font-size:20px;">
+            <i class="glyph-icon icon-home"></i> หน้าแรก 
             </a>
-            <ul>
+            <!-- <ul>
                 <li><a href="{{ url('/')  }}" title="Homepage example 1"><span>หน้าแรก</span></a></li>
-            </ul>
+            </ul> -->
         </li>
         <li>
-            <a href="#" title="Homepages" style="font-size:20px;">
-            ซ่อมสินค้า
-                <i class="glyph-icon icon-angle-down"></i>
+            <a href="{{ url('/font-repair')  }}" title="ตรวจสอบการซ่อมสินค้า" style="font-size:20px;">
+           <i class="glyph-icon  icon-check-circle"></i> ตรวจสอบการซ่อมสินค้า
+                
             </a>
-            <ul>
+            <!-- <ul>
                 <li><a href="{{ url('/font-repair')  }}" title="Homepage example 1"><span>ตรวจสอบการซ่อมสินค้า</span></a></li>
-            </ul>
+            </ul> -->
         </li>
         <li>
-            <a href="#" title="Homepages" style="font-size:20px;">
-            ฟีดข่าว
-                <i class="glyph-icon icon-angle-down"></i>
+            <a href="{{ url('/font-new')  }}" title="ฟีดข่าว" style="font-size:20px;">
+           <i class="glyph-icon icon-newspaper-o"></i> ฟีดข่าว
+                
             </a>
-            <ul>
+            <!-- <ul>
                 <li><a href="{{ url('/font-new')  }}" title="Homepage example 1"><span>ฟีดข่าว</span></a></li>
-            </ul>
+            </ul> -->
         </li>
         <!-- <li>
             <a href="#" title="Homepages" style="font-size:20px;">
@@ -589,40 +493,35 @@
                 <li><a href="" title="Homepage example 1"><span>โปรโมชั่น</span></a></li>
             </ul>
         </li> -->
-
+        <link rel="stylesheet" type="text/css" href="assets/icons/typicons/typicons.css">
         <li>
-            <a href="#" title="Homepages" style="font-size:20px;">
-            เกี่ยวกับเรา
-                <i class="glyph-icon icon-angle-down"></i>
+            <a href="{{ url('/font-contact')  }}" title="เกี่ยวกับเรา" style="font-size:20px;">
+           <i class="glyph-icon icon-typicons-location"></i> เกี่ยวกับเรา
             </a>
-            <ul>
+            <!-- <ul>
                 <li><a href="{{ url('/font-contact')  }}" title="Homepage example 1"><span>เกี่ยวกับเรา</span></a></li>
-            </ul>
+            </ul> -->
         </li>
 
         <li>
-            <a href="#" title="Homepages"style="font-size:20px;">
-            การรับประกัน
-                <i class="glyph-icon icon-angle-down"></i>
+            <a href="{{ url('/font-guarantee')  }}" title="การรับประกัน"style="font-size:20px;">
+            <i class="glyph-icon icon-mortar-board"></i> การรับประกัน
+                
             </a>
-            <ul>
+            <!-- <ul>
                 <li><a href="{{ url('/font-guarantee')  }}" title="Homepage example 1"><span>การรับประกัน</span></a></li>
-            </ul>
+            </ul> -->
         </li>
-
-                <li>
-            <a href="#" title="Homepages" style="font-size:20px;">
-            กระทู้ถามตอบ
-                <i class="glyph-icon icon-angle-down"></i>
-            </a>
-            <ul>
-                <!-- <li><a href="{{ url('/font-board-question')  }}" title="Homepage example 1"><span>กระทู้ถามตอบ</span></a></li> -->
-                {!!  Form::open(['url'=>'/font-board-question','class'=>'form','id'=>'myForm','files'=>true])   !!}
-                    <!-- <li onclick="myForm.submit();">Click me</li> -->
+        <li>
+        {!!  Form::open(['url'=>'/font-board-question','id'=>'myForm'])   !!}
+            <a  title="Homepages" style="font-size:20px;padding-top:25px;" onclick="myForm.submit();">
+           <i class="glyph-icon icon-comments-o"></i> กระทู้ถามตอบ
+                <input type="hidden" name="chk_get" value="all">
+            </a>{!! Form::close() !!}
+            <!-- <ul>
                     <input type="hidden" name="chk_get" value="all">
                     <li class="active" onclick="myForm.submit();"><a ><i class="fa fa-circle-o"></i>กระทู้ถาม-ตอบ</a></li>
-                {!! Form::close() !!}
-            </ul>
+            </ul> -->
         </li>
 
         <li>

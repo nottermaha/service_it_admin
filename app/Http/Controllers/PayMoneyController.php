@@ -174,11 +174,11 @@ class PayMoneyController extends Controller
         ,'list_parts.pay_out as pay_out'
       ];
       $data_use_parts = DataUsePart::where('data_use_parts.status', 1)
-      ->where('data_use_parts.store_branch_id',$request->store_branch_id)
+      // ->where('data_use_parts.store_branch_id',$request->store_branch_id)
       ->where('data_use_parts.store_branch_id', $s_store_branch_id)
       ->leftJoin('list_parts', 'list_parts.id', '=', 'data_use_parts.list_parts_id')
       ->get($items2);
-
+      // echo  $data_use_parts;exit();
       $count_pay_out_part=0;
       $count_list_repair_price=0;
       foreach($repairs as $key=>$value){ //เช็คคล้อยๆ หน้าแสดง

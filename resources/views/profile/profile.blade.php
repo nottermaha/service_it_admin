@@ -51,20 +51,20 @@
 
         if ( s.length != 10)
         {
-            document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+            document.getElementById('txt_phone').innerHTML = "เบอร์โทรศัพท์ต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
             //   alert(msg);
             return false;
         }
 
             for (i = 0; i < s.length; i++ ) {               
                 if ( s.charCodeAt(i) < 48 || s.charCodeAt(i) > 57 ) {
-                    document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+                    document.getElementById('txt_phone').innerHTML = "เบอร์โทรศัพท์ต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
                     //  alert(msg);
                     return false;
                 } 
                     if ( ((i == 0) && (s.charCodeAt(i) != 48)) || ((i == 1) && (s.charCodeAt(i) == 55)) || ((i == 1) && (s.charCodeAt(i) == 49)) || ((i == 1) && (s.charCodeAt(i) == 48) ))
                     {
-                        document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
+                        document.getElementById('txt_phone').innerHTML = "เบอร์โทรศัพท์ต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";
                         return false;
                     }
                     else{
@@ -141,7 +141,7 @@
         
         if(!CheckMobileNumber(phone.value)) 
         {
-            document.getElementById('txt_phone').innerHTML = "เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";return false;
+            document.getElementById('txt_phone').innerHTML = "เบอร์โทรศัพท์ต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น";return false;
         }
         else
         {
@@ -331,7 +331,7 @@
                 </div>
 
                 <div class="row">
-                  <b  style="margin-top:-10px;">เบอร์โทร : </b>{{$phone}} 
+                  <b  style="margin-top:-10px;">เบอร์โทรศัพท์ : </b>{{$phone}} 
                   <hr style="margin-top:5px;margin-bottom:5px;">
                 </div>
 
@@ -497,7 +497,7 @@
                        <div class="row" >
                         <div class="form-group">
                           <b for="" class="control-label col-md-3"style="text-align:right">
-                          เบอร์โทร : </b>
+                          เบอร์โทรศัพท์ : </b>
                           <b for="" class="control-label col-md-9" style="color:gray">
                           {{ $repair->is_phone }}</b>
                         </div>
@@ -717,13 +717,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="Birthday" class="control-label col-sm-3">เบอร์โทร <b style="color:red;font-size:20px;">*</b></label>
+                    <label for="Birthday" class="control-label col-sm-3">เบอร์โทรศัพท์ <b style="color:red;font-size:20px;">*</b></label>
                         <div class="col-sm-9">
                             <div class="input-group date">
                                 <div class="input-group-addon">
                                     <i class="fa fa-phone fa-lg"></i>
                                 </div>
-                                    <input type="text" class="form-control pull-right"  name="phone" placeholder="เบอร์โทร..." value="{{$phone}}" id="phone" required onBlur="CheckMobileNumber()">
+                                    <input type="text" class="form-control pull-right"  name="phone" placeholder="เบอร์โทรศัพท์..." value="{{$phone}}" id="phone" required onBlur="CheckMobileNumber()">
                             </div><b id="txt_phone" style="color:red;"></b>
                         </div> 
                 </div> 

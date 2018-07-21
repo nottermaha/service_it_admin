@@ -17,9 +17,10 @@ class ImportPartsController extends Controller
         ->get();
         $date = new CallUseController();
         $Import_parts = $date->get_date_all($Import_parts,'date','created_at'); //get วันที่ภาษาไทย ลูป
-
+        $current_date=(date('Y-m-d'));
+        $data['current_date']=$current_date;
         // echo $Import_parts;exit();
-        return view('import_part/import-part', ['Import_parts' => $Import_parts]);
+        return view('import_part/import-part', ['Import_parts' => $Import_parts],$data);
       }
       else{
         echo "<meta http-equiv='refresh' content='0;url=blank.php'>";

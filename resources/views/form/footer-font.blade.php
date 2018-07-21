@@ -103,9 +103,10 @@
             </ul>
         </div> -->
     </div>
+    <?php $s_store_name=session('s_store_name','default'); ?>
     <div class="footer-pane">
         <div class="container clearfix">
-            <div class="logo">&copy;<h3> 2018 Mac ServiceIT</h3></div>
+            <div class="logo">&copy;<h3> 2018 {{ $s_store_name }}</h3></div>
             
             <div class="footer-nav-bottom">
             <div class="logo">&copy;<h4>รวดเร็ว ทันใจ พร้อมให้บริการซ่อมด้วยช่างซ่อมที่มีประสบการณ์ และการรับประกันสินค้าที่ท่านนำมาซ่อม</h4> </div>

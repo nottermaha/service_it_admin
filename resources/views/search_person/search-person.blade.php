@@ -34,7 +34,7 @@
           </section> 
       <br>
 
-    <section class="content">
+<section class="content">
 
 <div class="container">
 
@@ -108,7 +108,6 @@
                               กรุณาตรวจสอบหมายเลขบิลของท่านให้ถูกต้อง
                             </div>
                           </div> -->
-                </div>
           </div>
         </div>
       </div>
@@ -128,22 +127,37 @@
             <div class="box-header">
               <!-- <h3 class="box-title">Color & Time Picker</h3> -->
             </div>
-            <div class="box-body">
+              <div class="box-body">
 
+                    <div class="row">
+                        <b for="" class="control-label col-md-4"style="text-align:right">
+                        </b>
+                        <b for="" class="control-label col-md-8"style="text-align:left">
+                            @if($person_type==2 )
+                            <img class="img-circle " src="{{ asset('image/person-manager/resize/'.$image_url) }}" alt="" style="width:200px;"><br> 
+                           <h4><b style="color:gray;">ผู้จัดการ : {{$branch_name}}</b> </h4> 
+                            @elseif($person_type==3)
+                            <img class="img-circle " src="{{ asset('image/person-employee/resize/'.$image_url) }}" alt="" style="width:200px;"><br> 
+                           <h4><b style="color:gray;">พนักงาน : {{$branch_name}}</b> </h4> 
+                            @elseif($person_type==4)
+                            <img class="img-circle " src="{{ asset('image/person-member/resize/'.$image_url) }}" alt="" style="width:200px;"><br> <b style="color:gray;">สมาชิก</b> 
+                            @endif
+                        </b>
+                    </div><br>
                     <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right">
                           ชื่อ : </b>
-                          <b for="" class="control-label col-md-9" style="color:gray">
+                          <b for="" class="control-label col-md-8" style="color:gray">
                           {{ $name }}</b>
                         </div>
                     </div><hr style="margin-top:5px;margin-bottom:5px;">
 
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right">
                           เพศ : </b>
-                          <b for="" class="control-label col-md-9" style="color:gray">
+                          <b for="" class="control-label col-md-8" style="color:gray">
                           @if($gender==1)ชาย 
                           @else หญิง 
                           @endif</b>
@@ -152,66 +166,67 @@
 
                        <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right">
                           เบอร์โทร : </b>
-                          <b for="" class="control-label col-md-9" style="color:gray">
+                          <b for="" class="control-label col-md-8" style="color:gray">
                           {{ $phone }}</b>
                         </div>
                       </div><hr style="margin-top:5px;margin-bottom:5px;">
 
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right">
                           วันเกิด : </b>
-                          <b for="" class="control-label col-md-9" style="color:gray">
+                          <b for="" class="control-label col-md-8" style="color:gray">
                           {{ $birth }}</b>
                         </div>
                       </div><hr style="margin-top:5px;margin-bottom:5px;">
 
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right">
                           อีเมล์ : </b>
-                          <b for="" class="control-label col-md-9" style="color:gray">
+                          <b for="" class="control-label col-md-8" style="color:gray">
                           {{ $email }}</b>
                         </div>
                       </div><hr style="margin-top:5px;margin-bottom:5px;">
 
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right">
                           ที่อยู่ : </b>
-                          <b for="" class="control-label col-md-9" style="color:gray">
+                          <b for="" class="control-label col-md-8" style="color:gray">
                           {{ $address }}</b>
                         </div>
                       </div><hr style="margin-top:5px;margin-bottom:5px;">
 
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-3"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right">
                           วันที่เป็นสมาชิกของระบบ : </b>
-                          <b for="" class="control-label col-md-9" style="color:gray">
+                          <b for="" class="control-label col-md-8" style="color:gray">
                          {{ $created }}</b>
                         </div>
                       </div><hr style="margin-top:5px;margin-bottom:5px;">
 
 
-            </div>
+               </div>
             <!-- /.box-body -->
-          </div>
+        </div>
         </div>
           <!-- /.box -->
         
     </div>
-</div>
-@endif
     </div>
+    </div>
+@endif
+    
         
     <div class="col-md-2">
     </div>
 
                         
-</div>
+<!-- </div> -->
 
   
         </section>

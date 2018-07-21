@@ -217,6 +217,19 @@
                     </div>
               </div>
             </div>
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">วัน/เดือน/ปี <b style="color:red;font-size:20px;">*</b></b>
+                    <div class="col-md-8">
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-dropbox fa-lg"></i>
+                        </div>
+                          <input type="date" class="form-control pull-right" id="Name" name="lot_name" value="{{$current_date}}" disabled>
+                      </div>
+                    </div>
+              </div>
+            </div>
             
           
           </div> 

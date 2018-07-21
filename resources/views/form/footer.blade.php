@@ -1,7 +1,7 @@
     <!-- right col -->
-    </div>
+    <!-- </div> -->
       <!-- /.row (main row) -->
-    </section>
+    <!-- </section> -->
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

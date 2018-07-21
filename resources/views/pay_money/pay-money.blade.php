@@ -44,7 +44,7 @@
                   </div> -->
           <div class="box-body">
                 <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-2" style="margin-right:60px;">
                       <br>
                       
                       <?= Form::open(array('url' => '/search-pay-money')) ?>
@@ -53,7 +53,7 @@
                           <div class="input-group-addon">
                               <i class="fa fa-calendar fa-lg"></i>
                           </div>
-                          <input type="text" class="form-control pull-right" id="datepicker" name="chk_date_in" placeholder="จากวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
+                          <input type="date" class="form-control pull-right" id="" name="chk_date_in" placeholder="จากวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
                       </div>            
                     </div>
                     <div class="col-md-3">
@@ -62,7 +62,7 @@
                           <div class="input-group-addon">
                               <i class="fa fa-calendar fa-lg"></i>
                           </div>
-                          <input type="text" class="form-control pull-right" id="datepicker2" name="chk_date_out" placeholder="ถึงวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
+                          <input type="date" class="form-control pull-right" id="" name="chk_date_out" placeholder="ถึงวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
                       </div>              
                     </div>
                     @if($s_type == 1)
@@ -209,7 +209,7 @@
           <td>{{ $repair->date_in }} 
           <td>
 
-          ราคาประเมิน {{ number_format($repair->price, 2) }} <br>
+          <!-- ราคาประเมิน {{ number_format($repair->price, 2) }} <br> -->
           <input type="button" class="btn btn-info" name="answer" value="ดูรายละเอียด" onclick="showDiv{{$repair->id}}()" />
           <div id="welcomeDiv{{$repair->id}}"  style="display:none;" class="answer_list" >
           
@@ -219,24 +219,25 @@
             @if( $list_repair->repair_id_from_list == $repair->id )
             - {{ $list_repair->list_name}} <b style="color:blue;">
             
-            ราคาที่รับจากลูกค้า {{ number_format($list_repair->price, 2) }}บ.
+            ราคา {{ number_format($list_repair->price, 2) }}บ.
             <?php $num_price =$num_price+$list_repair->price; ?>
             </b>  <br> อะไหล่ที่ใช้
             <!-- ///เช็ค การใช้อะไหล่ กับรายการซ่อม// -->
+            <?php $a=0; ?>
                 @foreach($data_use_parts as $data_use_part)
                 
                   @if( $list_repair->list_id==$data_use_part->list_repair_id_chk )  
                       <?php $num_part =$num_part+$data_use_part->pay_out; ?>
-                      <a>- {{ $data_use_part->list_parts_name }} {{ number_format($data_use_part->pay_out) }}  </a>
+                      <a><br> {{ $a=$a+1}} {{ $data_use_part->list_parts_name }} {{ number_format($data_use_part->pay_out) }}  </a>
                   @endif
                   
-                @endforeach   
+                @endforeach  
                 <br>
             @endif
             
           @endforeach
-          ราคารวมที่รับจากลูกค้า {{ number_format($num_price, 2) }}บ. <br>
-          ยอดรวมอะไหล่  {{ $num_part }}บ. <br>
+          <b style="color:green;">ราคารวมที่รับจากลูกค้า {{ number_format($num_price, 2) }}บ. <br></b> 
+         <b  style="color:orange;">ยอดรวมอะไหล่  {{ $num_part }}บ. <br></b> 
           <?php $temp_num =$num_price-$num_part; ?><?php $num_price = 0;$num_part =0; ?>
           <!-- @if( $temp_num>=0 )
           <b style="color:green;">กำไร {{ number_format($temp_num, 2) }}บ.</b> 

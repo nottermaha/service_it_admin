@@ -1,12 +1,12 @@
 
  <?php
 
-//  $strExcelFileName="Member-All.xls";
-//  header("Content-Type:   application/vnd.ms-excel; charset=utf-8");
-//  header("Content-Disposition: attachment; filename=employee.xls");  //File name extension was wrong
-//  header("Expires: 0");
-//  header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-// header("Cache-Control: private",false);
+ $strExcelFileName="Member-All.xls";
+ header("Content-Type:   application/vnd.ms-excel; charset=utf-8");
+ header("Content-Disposition: attachment; filename=employee.xls");  //File name extension was wrong
+ header("Expires: 0");
+ header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+header("Cache-Control: private",false);
 
  ?>
 <html xmlns:o="urn:schemas-microsoft-com:office:office"xmlns:x="urn:schemas-microsoft-com:office:excel"xmlns="http://www.w3.org/TR/REC-html40">
@@ -21,6 +21,11 @@
 <body>
 <br>
 <strong><h2></h2></strong>
+@foreach($stores as $store)
+<img src="{{ asset('image/'.$store->logo) }}" alt="" style="width:100px;height:100px;" disabled>
+<br>
+<h3> {{ $store->name }}</h3> 
+@endforeach
 @if($chk==1)
 <strong class="text-center"><h2>รายงานพนักงาน : {{$type_name}}</strong></h2><h4>ณ วันที่ {{$current_date}}</h4>
 
@@ -31,7 +36,7 @@
 <strong class="text-center"><h2>รายงานร้าน : {{$type_name}}</strong></h2><h4>ณ วันที่ {{$current_date}}</h4>
 
 @elseif($chk==4)
-<strong class="text-center"><h2>รายงานการซ่อม : {{$type_name}}</strong></h2><h4>ณ วันที่ {{$current_date}}</h4>
+<strong class="text-center"><h3>รายงานการซ่อม : {{$type_name}} จากวันที่ {{$chk_date_in}}  ถึงวันที่ {{$chk_date_out}}</strong></h3><h4>วันที่ออกรายงาน {{$current_date}}  </h4>
 
 @elseif($chk==5)
 <strong class="text-center"><h2>รายงานอะไหล่ : {{$type_name}}</strong></h2><h4>ณ วันที่ {{$current_date}}</h4>

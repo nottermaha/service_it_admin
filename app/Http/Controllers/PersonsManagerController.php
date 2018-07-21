@@ -109,8 +109,13 @@ class PersonsManagerController extends Controller
       $s_type=session('s_type','default');
       $s_store_branch_id=session('s_store_branch_id','default');
       if($request['chk_table']==0){
+
+        $item = ['store_branch.name as branch_name'];
+        $store_branch = Persons::where('persons.id',$request->person_id)
+        ->leftJoin('store_branch','store_branch.id','=','persons.store_branch_id')
+        ->get($item);
         $persons = Persons::find($request->person_id);
-        echo $persons;exit();
+        // echo $persons;exit();
         $date = new CallUseController();
         $persons = $date->get_date_only2($persons,'created','created_at');
         $persons = $date->get_date_only2($persons,'birth','birthday');//get วันที่ภาษาไทย แถวเดียว
@@ -120,9 +125,12 @@ class PersonsManagerController extends Controller
           'gender'=>$persons['gender'],
           'email'=>$persons['email'],
           'phone'=>$persons['phone'],
+          'image_url'=>$persons['image_url'],
+          'person_type'=>$persons['type'],
           'address'=>$persons['address'],
           'created'=>$persons['created'],
           'birth'=>$persons['birth'],//
+          'branch_name'=>$store_branch[0]->branch_name,
 
           'check_show'=>1,//
           'check_table'=>0,
@@ -140,6 +148,8 @@ class PersonsManagerController extends Controller
           'gender'=>$persons['gender'],
           'email'=>$persons['email'],
           'phone'=>$persons['phone'],
+          'image_url'=>$persons['image_url'],
+          'person_type'=>$persons['type'],
           'address'=>$persons['address'],
           'created'=>$persons['created'],
           'birth'=>$persons['birth'],//

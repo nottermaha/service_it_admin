@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Persons;
 use App\PersonsMember;
 use App\StoreBranch;
+use App\Store;
 use App\Repair;
 use App\ListPart;
 use App\ImportPart;
@@ -207,6 +208,7 @@ class ReportController extends Controller
             if($request->store_branch_id==-1){///ร้านทั้งหมด
                   if($request->status_repair_id==-1)///สถานะทั้งหมด
                     {
+
                       $store_branchs = StoreBranch::where('status',1)
                       ->get();
 
@@ -218,9 +220,20 @@ class ReportController extends Controller
                       ->where('repair.date_in_repair','<=',$request['chk_date_out'])
                       ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
                       ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
-                      ->get($item);                    
-                      
-                      $data =['chk'=>$request->chk,'type_name'=>'ร้านทั้งหมด','current_date'=>$current_date['current_date'],'chk_print'=>$request['chk_print'],'chk_get_per'=>0];
+                      ->get($item);     
+
+                      $date = new CallUseController();
+                      $date_print = $date->get_date_all($question_posts,'created','created_at');
+                      $date_print = $date->get_time_all($question_posts,'time_created','created_at');
+
+                      $data =['chk'=>$request->chk,
+                      'type_name'=>'ร้านทั้งหมด',
+                      'current_date'=>$current_date['current_date'],
+                      'chk_print'=>$request['chk_print'],
+                      'chk_get_per'=>0,
+                      'chk_date_in'=>$request['chk_date_in'],
+                      'chk_date_out'=>$request['chk_date_out'],
+                    ];
                     }
                     else{///สถานะตามที่เลือก
                       $store_branchs = StoreBranch::where('status',1)
@@ -291,12 +304,16 @@ class ReportController extends Controller
             ->leftJoin('persons','persons.id','=','list_repair.person_id')
             ->get($item2);
 
+            $stores = Store::where('id',1)
+            ->get();
+
+
             $date = new CallUseController();
             $result = $date->get_date_all($result,'date_in','date_in_repair');
             $result = $date->get_date_all($result,'date_out','date_out_repair');
 
             // echo $chk_print['chk_print'];exit();
-            return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs,'status_repair'=>$status_repair,'list_repair'=>$list_repair,'chk_get_per'=>0],$data);
+            return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs,'status_repair'=>$status_repair,'list_repair'=>$list_repair,'chk_get_per'=>0,'stores'=>$stores],$data);
             
         }////end chk_print1
         if($request->chk_print==2){///chk_print คือข้อที่ 2
