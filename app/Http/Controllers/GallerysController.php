@@ -27,17 +27,26 @@ class GallerysController extends Controller
     }
     public function create(Request $request)
     {
-      //  $image = 'default.png';
-      // echo $request;exit();
-      // $upload = new UploadController();
-      // $image = $upload->setImage($request, $this->path);
-      // echo $request->image;exit();
+
         $gallerys = new Gallery;
         $gallerys->store_branch_id = 2;
         // $gallerys->image = $image;
         // if ($request->file('img_url')->isValid()) {
         if ($request->hasFile('img_url')) {     
-          // echo $request;exit();       
+          // echo $request;exit();     
+          $chk_name =$request->file('img_url')
+          ->getClientOriginalName();     
+          $value = substr($chk_name,-3);
+          if($value=='jpg' || $value=='JPG' || $value=='png' || $value=='PNG' || $value=='gif' || $value=='GIF'){
+            // echo '44';exit();
+          }
+          else{
+            // echo 'tt';exit();
+            $request->session()->flash('status_image_fail', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+            // $request->session()->flash('status_id',$request->id); 
+            return redirect('gallery');
+          }  
+
           $filename = str_random(10) . '.' . $request->file('img_url')
           ->getClientOriginalName();             
           // $request->file('img_url')->move(public_path() . '/image/gallery/picture/', $filename);
@@ -57,20 +66,38 @@ class GallerysController extends Controller
             $gallerys->img_url = 'default.jpg';         
           }  
           else{
-            $request->session()->flash('status_create_fail', 'ไฟล์ไม่ถูกต้อง'); 
+            $request->session()->flash('status_image_fail', '');
+            return redirect('gallery');
           }              
                  
          }  
  
-
-        return redirect('gallery');
+          $gallerys->status = true;
+          $gallerys->save();
+          $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว');   
+          return redirect('gallery');
     }
     public function edit(Request $request)
     {
+      // echo 'hh';exit();
       $gallerys = Gallery::find($request->id);
       // echo $request['img_url'];exit();
       $gallerys->store_branch_id = 2;
-      if ($request->hasFile('img_url')) {           
+      if ($request->hasFile('img_url')) {
+       
+      $chk_name =$request->file('img_url')
+      ->getClientOriginalName();     
+      $value = substr($chk_name,-3);
+      if($value=='jpg' || $value=='JPG' || $value=='png' || $value=='PNG' || $value=='gif' || $value=='GIF'){
+        // echo '44';exit();
+      }
+      else{
+        // echo 'tt';exit();
+        $request->session()->flash('status_image_fail', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+        $request->session()->flash('status_id',$request->id); 
+        return redirect('gallery');
+      }
+
           $filename = str_random(10) . '.' . $request->file('img_url')
           ->getClientOriginalName();             
           $request->file('img_url')->move('image/gallery/picture/', $filename);       
@@ -84,15 +111,23 @@ class GallerysController extends Controller
           // Image::make(public_path() . '/image/gallery/picture/' . $filename)
           // ->resize(200, 200)->save(public_path() . '/image/gallery/resize/' . $filename);     
           // $gallerys->img_url = $filename;         
-           
+          $gallerys->status = true;
+          $gallerys->save();
+          $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
         } 
-
-        else{               
-          $gallerys->img_url=$gallerys['img_url'];        
+        else{    
+          if($request['img_url']==''){
+              $gallerys->img_url=$gallerys['img_url'];  
+              $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+          }
+          else{
+            $request->session()->flash('status_image_fail', ''); 
+            $request->session()->flash('status_id',$request->id); 
+            return redirect('gallery');
+          }
+              
          }  
-      $gallerys->status = true;
-      $gallerys->save();
-      $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+
       
       return redirect('gallery');
     }

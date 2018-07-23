@@ -290,6 +290,13 @@
                 </a>
             </li> -->
         </ul>
+            @if(session()->has('status_image_fail'))                
+                <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><i class="icon fa fa-warning"></i> การอัพโหลดรูปล้มเหลว!</h4>
+                    กรุณาอัพโหลดรูปภาพที่เป็น .png .jpg .gif เท่านั่น.
+                </div>       
+            @endif
         <div class="tab-content">
             <div class="tab-pane fade " id="tab-example-1">
                 <div class="alert alert-close alert-success">
@@ -738,7 +745,12 @@
                                 </div>
 
                                 <div class="row">
-                                <h4 style="color:gray"><b  style="margin-top:-10px;">วัน/เดือน/ปีเกิด : </b>{{$birthday}} </h4> 
+                                <h4 style="color:gray"><b  style="margin-top:-10px;">วัน/เดือน/ปีเกิด : </b>
+                                @if($birthday != '01 มกราคม 2513')
+                                    {{$birthday}}
+                                
+                                @endif
+                                 </h4> 
                                 <hr style="margin-top:5px;margin-bottom:5px;">
                                 </div>
 

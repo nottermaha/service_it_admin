@@ -1,10 +1,11 @@
 
 <!DOCTYPE html>
 <html>
-
+<?php $s_store_name=session('s_store_name','default'); ?>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-
+<!-- <title>MA 2 | Dashboard</title> -->
+<title>{{$s_store_name}}</title>
   <header class="main-header">
     <!-- Logo -->
     <a href="" class="logo">
@@ -13,7 +14,7 @@
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>   
     <?php $s_logo=session('s_logo','default'); ?>
-    <?php $s_store_name=session('s_store_name','default'); ?>
+    
     <!-- <img src="{{ asset('image/'.$s_logo) }}" style="width:30px;height:30px;"alt=""> -->
     {{$s_store_name}}</b></span>
     </a>
@@ -35,9 +36,11 @@
               <?php $data='' ;
                     $data=session('s_name','default');
               ?>
+              <i class="fa  fa-User fa-lg"></i>
              @if (session()->has('s_name'))  
                 {{ $data }} 
              @endif 
+              <i class="fa  fa-chevron-down "></i>
               </span>
             </a>
             <ul class="dropdown-menu">
@@ -145,7 +148,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-          <li><a href="{{ url('/form-search-repair-only-bill')  }}"><i class="fa fa-circle-o"></i>ค้นหารายการซ่อม</a></li>
+          <li><a href="{{ url('/form-search-repair-only-bill')  }}"><i class="fa fa-search-minus"></i>ค้นหารายการซ่อม</a></li>
+          <li><a href="{{ url('/form-search-data-pay')  }}"><i class="fa fa-money"></i>การชำระเงิน</a></li>
             <li><a href="{{ url('/repair-member')  }}"><i class="fa fa-circle-o"></i> ลูกค้าสมาชิก</a></li>
             <li><a href="{{ url('/repair-general')  }}"><i class="fa fa-circle-o"></i> ลูกค้าทั่วไป</a></li>
             <hr style="margin-top:0px;margin-bottom:0px;"><br>
@@ -154,18 +158,18 @@
           </ul>
         </li>
 
-        <li class="treeview">
-          <a href="#">
+        <li class="">
+          <a href="{{ url('/pay-money')  }}">
             <i class="fa fa-money"></i>
             <span>สรุปยอดเงิน รับ-จ่าย</span>
-            <span class="pull-right-container">
+            <!-- <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
-            </span>
+            </span> -->
           </a>
-          <ul class="treeview-menu">
+          <!-- <ul class="treeview-menu">
             <li><a href="{{ url('/pay-money')  }}"><i class="fa fa-circle-o"></i> 
             สรุปยอดเงิน รับ-จ่าย</a></li>
-          </ul>
+          </ul> -->
         </li>
 
 
@@ -178,7 +182,7 @@
             <span>บุคคล</span>
           </a>
           <ul class="treeview-menu">
-          <li><a href="{{ url('/persons-form-search')  }}"><i class="fa fa-circle-o"></i>ค้นหารายการบุคคล</a></li>
+          <li><a href="{{ url('/persons-form-search')  }}"><i class="fa fa-search-minus"></i>ค้นหารายการบุคคล</a></li>
           <hr style="margin-top:0px;margin-bottom:-17px;"><br>
           @if($s_type==1)
             <li><a href="{{ url('/persons-manager')  }}"><i class="fa fa-circle-o"></i> ผู้จัดการร้าน</a></li>
@@ -207,36 +211,36 @@
           </ul>
         </li>
 
-        <li class="treeview">
-        <a href="#">
-            <i class="fa fa-comments"></i> <span>กระทู้ถาม-ตอบ</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <!-- <li class="active"><a href="{{ url('/questtion-post')  }}"><i class="fa fa-circle-o"></i> รายการกระทู้</a></li> -->
-            {!!  Form::open(['url'=>'/questtion-post','class'=>'form','id'=>'myForm','files'=>true])   !!}
+        <li class="">
+        {!!  Form::open(['url'=>'/questtion-post','id'=>'myForm','files'=>true])   !!}
             <!-- <li onclick="myForm.submit();">Click me</li> -->
             <input type="hidden" name="chk_get" value="all">
-            <div style="padding-top:5px;padding-bottom:5px;padding-left:15px;">
-              <li class="active" onclick="myForm.submit();"><a >
-              <i class="fa fa-circle-o"></i>&nbsp;&nbsp;   กระทู้ถาม-ตอบ</a></li>
+            <div style="padding-top:10px;padding-bottom:5px;padding-left:15px;background-color:#222d32;">
+              <span class="active" onclick="myForm.submit();">
+              <a style="cursor:Pointer;"class="fa fa-comments"></i>&nbsp;&nbsp;  กระทู้ถาม-ตอบ</a></span>
             </div>
               {!! Form::close() !!}
-          </ul>
+        <!-- <a href="#"> -->
+            <!-- <i class="fa fa-comments"></i> <span>กระทู้ถาม-ตอบ</span> -->
+            <!-- <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span> -->
+          <!-- </a> -->
+          <!-- <ul class="treeview-menu">
+            <li class="active"><a href="{{ url('/questtion-post')  }}"><i class="fa fa-circle-o"></i> รายการกระทู้</a></li>
+          </ul> -->
         </li>
 
-        <li class="treeview">
-        <a href="#">
+        <li class="">
+        <a href="{{ url('/import_part')  }}">
             <i class="fa fa-wrench"></i> <span>อะไหล่</span>
-            <span class="pull-right-container">
+            <!-- <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
-            </span>
+            </span> -->
           </a>
-          <ul class="treeview-menu">
+          <!-- <ul class="treeview-menu">
             <li class="active"><a href="{{ url('/import_part')  }}"><i class="fa fa-circle-o"></i> นำเข้าอะไหล่</a></li>
-          </ul>
+          </ul> -->
         </li>
         
         @if($s_type==1)
@@ -257,16 +261,16 @@
         </li>
         @endif
         
-            <li class="treeview" >
-        <a href="#">
+            <li class="" >
+        <a href="{{ url('/report-list')  }}">
             <i class="fa fa-list"></i> <span>ออกรายงาน</span>
-            <span class="pull-right-container">
+            <!-- <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
-            </span>
+            </span> -->
           </a>
-          <ul class="treeview-menu">
+          <!-- <ul class="treeview-menu">
             <li class="active"><a href="{{ url('/report-list')  }}"><i class="fa fa-circle-o"></i>รายการออกรายงาน</a></li>
-          </ul>
+          </ul> -->
         </li> 
 
         <li class="treeview">

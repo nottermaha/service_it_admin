@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <!-- <title>AdminLTE 2 | Dashboard</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -47,31 +47,13 @@
           <?php $s_type='' ;$s_type=session('s_type','default');?>
           <?php $s_store_branch_id='' ;$s_store_branch_id=session('s_store_branch_id','default');?>
           @if($s_type == 1)
-            1. ออกรายงานการซ่อมตาม สาขา หรือ เลือกทั้งหมด และสถานะการซ่อม หรือ จะเลือกสถานะทั้งหมด <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม(หน้าร้าน) </U> ช่องวันที่คือช่วงเวลา จากวันไหน ถึงวันไหน
+            1.<b style="color:blue;">ออกรายงานการซ่อมตามสถานะ</b> ออกรายงานการซ่อมตาม สาขา หรือ สาขาทั้งหมด เลือกสถานะการซ่อม หรือ จะเลือกสถานะทั้งหมด <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม(หน้าร้าน) </U> ช่องวันที่คือช่วงเวลา จากวันไหน ถึงวันไหน
           @else
-            1. ออกรายงานการซ่อมสาขาที่ท่านสังกัด และสถานะการซ่อม หรือ จะเลือกสถานะทั้งหมด <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม(หน้าร้าน) </U> ช่องวันที่คือช่วงเวลา จากวันไหน ถึงวันไหน
-          @endif
-                <div class="row">
-                  <div class="col-md-3">
-                      <br>  
-                      <?= Form::open(array('url' => '/report-print')) ?>
+            1.<b style="color:blue;">ออกรายงานการซ่อมตามสถานะ</b> ออกรายงานการซ่อมสาขาที่ท่านสังกัด เลือกสถานะการซ่อม หรือ จะเลือกสถานะทั้งหมด <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม(หน้าร้าน) </U> ช่องวันที่คือช่วงเวลา จากวันไหน ถึงวันไหน
+          @endif                     
+           <?= Form::open(array('url' => '/report-print')) ?>
                       {{ csrf_field() }}
-                      <div class="input-group date">
-                          <div class="input-group-addon">
-                              <i class="fa fa-calendar fa-lg"></i>
-                          </div>
-                          <input type="date" class="form-control pull-right" id="" name="chk_date_in" placeholder="จากวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
-                      </div>            
-                    </div>
-                    <div class="col-md-3">
-                      <br>
-                      <div class="input-group date">
-                          <div class="input-group-addon">
-                              <i class="fa fa-calendar fa-lg"></i>
-                          </div>
-                          <input type="date" class="form-control pull-right" id="" name="chk_date_out" placeholder="ถึงวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
-                      </div>              
-                    </div>
+                <div class="row">
 
                     <div class="col-md-3">
                       <br>
@@ -109,6 +91,26 @@
                         </select>             
                     </div>
 
+                    <div class="col-md-3">
+                      <br>  
+
+                      <div class="input-group date">
+                          <div class="input-group-addon">
+                              <i class="fa fa-calendar fa-lg"></i>
+                          </div>
+                          <input type="date" class="form-control pull-right" id="" name="chk_date_in" placeholder="จากวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
+                      </div>            
+                    </div>
+                    <div class="col-md-3">
+                      <br>
+                      <div class="input-group date">
+                          <div class="input-group-addon">
+                              <i class="fa fa-calendar fa-lg"></i>
+                          </div>
+                          <input type="date" class="form-control pull-right" id="" name="chk_date_out" placeholder="ถึงวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
+                      </div>              
+                    </div>
+
                     <div class="col-md-1 col-xs-1" style="margin-top:17px;">
                     <!-- <div class="row">
                       <button type="submit" class="btn btn-warning ">ดูตัวอย่าง</button></div>
@@ -123,9 +125,9 @@
 <!-- /////////////////////row///////////////////////// -->
 <br>
           @if($s_type == 1)
-              2. ออกรายงานการซ่อมของลูกค้าสมาชิก โดยสามารถเลือกตามสาขา หรือ เลือกทั้งหมด และ เลือกสถานะการซ่อม หรือเลือกทั้งหมดได้ <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม(หน้าร้าน) </U> เลือกสมาชิกคนที่่ต้องการได้ ช่องวันที่คือช่วงเวลา จากวันไหน ถึงวันไหน
+              2. <b style="color:blue;">ออกรายงานการซ่อมลูกค้าสมาชิก</b> โดยสามารถเลือกตามสาขา หรือ สาขาทั้งหมด และ เลือกสถานะการซ่อม หรือเลือกทั้งหมดได้ <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม(หน้าร้าน) </U> เลือกสมาชิกคนที่่ต้องการได้ ช่องวันที่คือช่วงเวลา จากวันไหน ถึงวันไหน
           @else
-              2. ออกรายงานการซ่อมของลูกค้าสมาชิก โดยสามารถเลือกสาขาที่ท่านสังกัด และ เลือกสถานะการซ่อม หรือเลือกทั้งหมดได้ <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม(หน้าร้าน) </U> เลือกสมาชิกคนที่่ต้องการได้ ช่องวันที่คือช่วงเวลา จากวันไหน ถึงวันไหน
+              2.<b style="color:blue;">ออกรายงานการซ่อมลูกค้าสมาชิก</b> โดยสามารถเลือกสาขาที่ท่านสังกัด และ เลือกสถานะการซ่อม หรือเลือกทั้งหมดได้ <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม(หน้าร้าน) </U> เลือกสมาชิกคนที่่ต้องการได้ ช่องวันที่คือช่วงเวลา จากวันไหน ถึงวันไหน
           @endif
 
 <div class="row">      
@@ -168,7 +170,8 @@
                     </div>
 
                      <div class="col-md-2" style="margin-right:40px;">
-                      <!-- <br> -->  จาก:
+                      <!-- <br> -->  
+                      .
                       <div class="input-group date">
                           <div class="input-group-addon">
                               <i class="fa fa-calendar fa-lg"></i>
@@ -177,7 +180,8 @@
                       </div>            
                     </div>
                     <div class="col-md-2" style="margin-right:40px;">
-                      <!-- <br> -->ถึง: 
+                      <!-- <br> -->
+                      . 
                       <div class="input-group date">
                           <div class="input-group-addon">
                               <i class="fa fa-calendar fa-lg"></i>
@@ -197,33 +201,13 @@
  <!-- ///////////////////////////////////////////// -->
  <br>
           @if($s_type == 1)
-              3. ออกรายงานการซ่อมของลูกค้าทั่วไป โดยสามารถเลือกตามสาขา หรือ เลือกทั้งหมด ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน
+              3. <b style="color:blue;">ออกรายงานการซ่อมลูกค้าทั่วไป</b> โดยสามารถเลือกตามสาขา หรือ สาทั้งหมด ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน
           @else
-              3. ออกรายงานการซ่อมของลูกค้าทั่วไป โดยสามารถเลือกสาขาที่ท่านสังกัด ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน
+              3.<b style="color:blue;">ออกรายงานการซ่อมลูกค้าทั่วไป</b> โดยสามารถเลือกสาขาที่ท่านสังกัด ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน
           @endif
-
- <div class="row">
- <div class="col-md-3">
-                      <br>
-                      
                       <?= Form::open(array('url' => '/report-print')) ?>
                       {{ csrf_field() }}
-                      <div class="input-group date">
-                          <div class="input-group-addon">
-                              <i class="fa fa-calendar fa-lg"></i>
-                          </div>
-                          <input type="date" class="form-control pull-right" id="" name="chk_date_in" placeholder="จากวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
-                      </div>            
-                    </div>
-                    <div class="col-md-3">
-                      <br>
-                      <div class="input-group date">
-                          <div class="input-group-addon">
-                              <i class="fa fa-calendar fa-lg"></i>
-                          </div>
-                          <input type="date" class="form-control pull-right" id="" name="chk_date_out" placeholder="ถึงวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
-                      </div>              
-                    </div>
+                    <div class="row">
 
                     <div class="col-md-3">
                       <br>
@@ -246,6 +230,26 @@
                         @endif
                         </select>              
                     </div>
+                    <div class="col-md-3">
+                      <br>
+                      
+
+                      <div class="input-group date">
+                          <div class="input-group-addon">
+                              <i class="fa fa-calendar fa-lg"></i>
+                          </div>
+                          <input type="date" class="form-control pull-right" id="" name="chk_date_in" placeholder="จากวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
+                      </div>            
+                    </div>
+                    <div class="col-md-3">
+                      <br>
+                      <div class="input-group date">
+                          <div class="input-group-addon">
+                              <i class="fa fa-calendar fa-lg"></i>
+                          </div>
+                          <input type="date" class="form-control pull-right" id="" name="chk_date_out" placeholder="ถึงวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
+                      </div>              
+                    </div>
 
                     <div class="col-md-1 col-xs-1" style="margin-top:17px;">
                     <!-- <div class="row">
@@ -261,9 +265,9 @@
 <!-- ////////////////////////////////////////////////////-->
 <br>
           @if($s_type == 1)
-              4. ออกรายงานการซ่อมของช่าง โดยสามารถเลือกตามสาขา หรือ เลือกทั้งหมด และ เลือกสถานะการซ่อม หรือเลือกทั้งหมดได้ <U>สถานะเป็นส่วนของหน้ารายการซ่อมของช่าง </U> ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน    
+              4. <b style="color:blue;">ออกรายงานการซ่อมของช่างซ่อม รายบุคคล</b> โดยสามารถเลือกตามสาขา หรือ เลือกทั้งหมด และ เลือกสถานะการซ่อม หรือเลือกทั้งหมดได้ <U>สถานะเป็นส่วนของหน้ารายการซ่อมของช่าง </U> ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน    
           @else
-              4. ออกรายงานการซ่อมของช่าง โดยสามารถเลือกช่างสาขาท่าน และ เลือกสถานะการซ่อม หรือเลือกทั้งหมดได้ <U>สถานะเป็นส่วนของหน้ารายการซ่อมของช่าง </U> ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน    
+              4. <b style="color:blue;">ออกรายงานการซ่อมของช่างซ่อม รายบุคคล</b>โดยสามารถเลือกช่างสาขาท่าน และ เลือกสถานะการซ่อม หรือเลือกทั้งหมดได้ <U>สถานะเป็นส่วนของหน้ารายการซ่อมของช่าง </U> ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน    
           @endif
    
 <div class="row">
@@ -363,33 +367,13 @@
 <!-- /////////////////////////////////////// -->
 <br>
           @if($s_type == 1)
-              5. ออกรายงานการซ่อมของอะไหล่ที่ใช้ซ่อมแต่ละรายการ โดยสามารถเลือกตามสาขา หรือ เลือกทั้งหมด และ เลือกสถานะการซ่อม หรือเลือกทั้งหมดได้ <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม </U> ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน
+              5. <b style="color:blue;">ออกรายงานการซ่อมของอะไหล่ที่ใช้ซ่อมแต่ละรายการ</b>ออกรายงานการซ่อมของอะไหล่ที่ใช้ซ่อมแต่ละรายการ โดยสามารถเลือกตามสาขา หรือ เลือกทั้งหมด และ เลือกสถานะการซ่อม หรือเลือกสถานะทั้งหมดได้ <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม(หน้าร้าน) </U> ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน
           @else
-             5. ออกรายงานการซ่อมของอะไหล่ที่ใช้ซ่อมแต่ละรายการ โดยสามารถเลือกสาขาที่ท่านสังกัด และ เลือกสถานะการซ่อม หรือเลือกทั้งหมดได้ <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม </U> ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน   
+             5. <b style="color:blue;">ออกรายงานการซ่อมของอะไหล่ที่ใช้ซ่อมแต่ละรายการ</b> โดยสามารถเลือกสาขาที่ท่านสังกัด และ เลือกสถานะการซ่อม หรือเลือกสถานะทั้งหมดได้ <U>สถานะเป็นส่วนของหน้าเปิดบิลงานซ่อม(หน้าร้าน) </U> ช่องวันที่คือช่วงเวลา จากวันไหน - วันไหน   
           @endif
-
- <div class="row">
- <div class="col-md-3">
-                      <br>
-                      
                       <?= Form::open(array('url' => '/report-print')) ?>
                       {{ csrf_field() }}
-                      <div class="input-group date">
-                          <div class="input-group-addon">
-                              <i class="fa fa-calendar fa-lg"></i>
-                          </div>
-                          <input type="date" class="form-control pull-right" id="" name="chk_date_in" placeholder="จากวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
-                      </div>            
-                    </div>
-                    <div class="col-md-3">
-                      <br>
-                      <div class="input-group date">
-                          <div class="input-group-addon">
-                              <i class="fa fa-calendar fa-lg"></i>
-                          </div>
-                          <input type="date" class="form-control pull-right" id="" name="chk_date_out" placeholder="ถึงวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
-                      </div>              
-                    </div>
+                <div class="row">
 
                     <div class="col-md-3">
                       <br>
@@ -424,7 +408,26 @@
                           @endforeach
                         </select>             
                     </div>
+                    <div class="col-md-3">
+                                      <br>
+                      
 
+                      <div class="input-group date">
+                          <div class="input-group-addon">
+                              <i class="fa fa-calendar fa-lg"></i>
+                          </div>
+                          <input type="date" class="form-control pull-right" id="" name="chk_date_in" placeholder="จากวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
+                      </div>            
+                    </div>
+                    <div class="col-md-3">
+                      <br>
+                      <div class="input-group date">
+                          <div class="input-group-addon">
+                              <i class="fa fa-calendar fa-lg"></i>
+                          </div>
+                          <input type="date" class="form-control pull-right" id="" name="chk_date_out" placeholder="ถึงวันที่..." data-date-format="yyyy-mm-dd" required value="{{ $current_date }}">
+                      </div>              
+                    </div>
                     <div class="col-md-1 col-xs-1" style="margin-top:17px;">
                     <div class="row">
                       <!-- <button type="submit" class="btn btn-warning ">ดูตัวอย่าง</button></div> -->
@@ -597,12 +600,17 @@
                 @if($chk==5)
                 <td class="text-center">{{ $value->lot_name }}</td>
                 <td class="text-center">{{ $value->name }}</td>
-                <td class="text-center">{{ $value->number }}</td>
-                <td class="text-center">{{ $value->pay_out }}</td>
+                <!-- <td class="text-center">{{ $value->number }}</td> -->
+                @if($value->number<=5)
+                  <td class="text-center" style="background-color:orange;">{{ $value->number }} เหลือน้อย</td>
                 @else
-                <td class="text-center">{{ $value->name }}</td>
+                <td class="text-center">{{ $value->number }}</td>
+                @endif
+                <td class="text-center">{{ number_format($value->pay_out, 2) }} บ.</td>
+                @else
+                <td >{{ $value->name }}</td>
                 <td class="text-center">{{ $value->phone }}</td>
-                <td class="text-center">{{ $value->email }}</td>
+                <td >{{ $value->email }}</td>
                 @endif
               </tr>
               @endforeach

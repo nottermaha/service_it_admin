@@ -17,20 +17,40 @@ class StoreController extends Controller
       // $store->account_number = $request->account_number;
       if ($request->hasFile('logo')) {      
         // echo $request;exit();       
+        $chk_name =$request->file('logo')
+          ->getClientOriginalName();     
+          $value = substr($chk_name,-3);
+          if($value=='jpg' || $value=='JPG' || $value=='png' || $value=='PNG' || $value=='gif' || $value=='GIF'){
+            // echo '44';exit();
+          }
+          else{
+            // echo 'tt';exit();
+            $request->session()->flash('status_image_fail', ''); 
+            // $request->session()->flash('status_id',$request->id); 
+            return redirect('stores');
+          }  
+
         $filename = str_random(10) . '.' . $request->file('logo')
         ->getClientOriginalName();             
-        $request->file('logo')->move(public_path() . '/image/', $filename);            
-        // Image::make(public_path() . '/image/' . $filename)
-        // ->resize(200, 200)->save(public_path() . '/image/' . $filename);     
+        $request->file('logo')->move('image/', $filename);            
+        Image::make('image/' . $filename)
+        ->resize(50, 50)->save('image/logo-report/' . $filename);     
         // $img = Image::make($request->file('image')->getRealPath());
-        $store->logo = $filename;         
+        $store->logo = $filename;        
+      $store->save();
+      $request->session()->flash('status_store_edit', 'แก้ไขข้อมูลร้านเรียบร้อยแล้ว');        
       } 
-      else{                
-        $store->logo=$store['logo'];        
+      else{                    
+        if($request['logo']<=1)
+        { 
+          $store->logo=$store['logo'];         
+        }  
+        else{
+          $request->session()->flash('status_image_fail', '');
+        }    
        }
       //  exit();
-      $store->save();
-      $request->session()->flash('status_store_edit', 'แก้ไขข้อมูลร้านเรียบร้อยแล้ว'); 
+
 
       return redirect('stores');
     }
@@ -148,6 +168,7 @@ class StoreController extends Controller
 
     public function create_store_branch(Request $request)
     {
+
         $store = new StoreBranch;
         $store->store_id = '1';
         $store->name = $request->name;
@@ -161,26 +182,63 @@ class StoreController extends Controller
         $store->contact = $request->contact;
         if ($request->hasFile('image_url')) {      
           // echo $request;exit();       
+
+          $chk_name =$request->file('image_url')
+          ->getClientOriginalName();     
+          $value = substr($chk_name,-3);
+          if($value=='jpg' || $value=='JPG' || $value=='png' || $value=='PNG' || $value=='gif' || $value=='GIF'){
+            // echo '44';exit();
+          }
+          else{
+            // echo 'tt';exit();
+            $request->session()->flash('status_image_create_fail', ''); 
+            return redirect('stores');
+          } 
+
           $filename = str_random(10) . '.' . $request->file('image_url')
           ->getClientOriginalName();             
           $request->file('image_url')->move(public_path() . '/image/store-branch/picture/', $filename);   
           Image::make(public_path() . '/image/store-branch/picture/' . $filename)
           ->resize(200, 200)->save(public_path() . '/image/store-branch/resize/' . $filename);     
           // $img = Image::make($request->file('image')->getRealPath());          
-          $store->image_url = $filename;         
+          $store->image_url = $filename;        
+          $store->status = true;
+         $store->save();
+          $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว');          
         } 
         else{                
-          $store->image_url = 'default.jpg';        
+                  
+                if($request['image_url']<=1)
+              { 
+                $store->image_url = 'default.jpg';  
+                $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว');           
+              }  
+              else{
+                $request->session()->flash('status_image_create_fail', ''); 
+                return redirect('stores');
+              }  
          }  
-        $store->status = true;
-        $store->save();
-        $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
-        
+     
         return redirect('stores');
     }
 
     public function edit_store_branch(Request $request)
     {
+      $num=$request['phone'];
+      $value = substr($num,0,2);
+      if( strlen($num) > 10 || strlen($num) < 9){
+      //  echo $request['phone'];
+      $request->session()->flash('status_phone_fail', '');
+      $request->session()->flash('status_id',$request->id); 
+      return redirect('stores');
+      }
+      if($value!='02' && $value!='03'  && $value!='04'  && $value!='05'  && $value!='06'  && $value!='08'  && $value!='09' )
+      { 
+        $request->session()->flash('status_phone_fail', ''); 
+        $request->session()->flash('status_id',$request->id); 
+        return redirect('stores');
+      }
+
       $store = StoreBranch::find($request->id);
       $store->store_id = '1';
       $store->name = $request->name;
@@ -189,24 +247,50 @@ class StoreController extends Controller
       // $store->image_url = $request->image_url;
       $store->map = $request->map;
       $store->address = $request->address;
-      // $store->account_number = $request->account_number;
+      // $store->account_number = $request->account_number;   
+
       if ($request->hasFile('image_url')) {      
         // echo $request;exit();       
+      //               echo $store; 
+      // exit();
+        $chk_name =$request->file('image_url')
+          ->getClientOriginalName();     
+          $value = substr($chk_name,-3);
+          if($value=='jpg' || $value=='JPG' || $value=='png' || $value=='PNG' || $value=='gif' || $value=='GIF'){
+            // echo '44';exit();
+          }
+          else{
+            // echo 'tt';exit();
+            $request->session()->flash('status_image_edit_fail', ''); 
+            $request->session()->flash('status_id',$request->id); 
+            return redirect('stores');
+          } 
+
         $filename = str_random(10) . '.' . $request->file('image_url')
         ->getClientOriginalName();             
         $request->file('image_url')->move(public_path() . '/image/store-branch/picture/', $filename);            
         Image::make(public_path() . '/image/store-branch/picture/' . $filename)
         ->resize(200, 200)->save(public_path() . '/image/store-branch/resize/' . $filename);     
         // $img = Image::make($request->file('image')->getRealPath());
-        $store->image_url = $filename;         
+        $store->image_url = $filename;
+        $store->detail = $request->detail;
+        $store->contact = $request->contact;
+        // echo "hhh";exit();
+        $store->save();
+        $request->session()->flash('status_edit', 'แก้ไขข้อมูลสาขาเรียบร้อยแล้ว');          
       } 
       else{                
-        $store->image_url=$store['image_url'];        
+        if($request['image_url']<=1)
+        { 
+          $store->image_url=$store['image_url'];   
+          $request->session()->flash('status_edit', 'แก้ไขข้อมูลสาขาเรียบร้อยแล้ว');             
+        }  
+        else{
+          $request->session()->flash('status_image_edit_fail', ''); 
+            $request->session()->flash('status_id',$request->id); 
+        }    
        }
-      $store->detail = $request->detail;
-      $store->contact = $request->contact;
-      $store->save();
-      $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+      
 
       return redirect('stores');
     }

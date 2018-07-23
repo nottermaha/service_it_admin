@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <!-- <title>AdminLTE 2 | Dashboard</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -61,7 +61,7 @@
             <th style="text-align:center">เบอร์โทร</th>
             <th style="text-align:center">เพศ</th>
             <th style="text-align:center">แก้ไข</th>
-            <th style="text-align:center">ลบ</th>
+            <th style="text-align:center">สถานะ</th>
           </tr>
         </thead>
         
@@ -113,10 +113,10 @@
             <div class="modal fade " id="modal-delete-person-member{{ $person->id }}">
               <div class="modal-dialog ">
                 <div class="modal-content ">
-                  <div class="modal-header " >
+                  <div class="modal-header bg-yellow" >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">ลบข้อมูล</h4>
+                        <h4 class="modal-title">สถานะการเปิดปิดการใช้งานบุคคล</h4>
                   </div>        
                 <?= Form::open(array('url' => '/person-member/delete/'.$person->id)) ?>
                     <div class="modal-body">

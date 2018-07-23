@@ -31,22 +31,45 @@ class NewsController extends Controller
       $news->title = $request->title;
       if ($request->hasFile('img_url')) {      
         // echo $request;exit();       
+        $chk_name =$request->file('img_url')
+        ->getClientOriginalName();     
+        $value = substr($chk_name,-3);
+        if($value=='jpg' || $value=='JPG' || $value=='png' || $value=='PNG' || $value=='gif' || $value=='GIF'){
+          // echo '44';exit();
+        }
+        else{
+          // echo 'tt';exit();
+          $request->session()->flash('status_image_fail', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+          $request->session()->flash('status_id',$request->id); 
+          return redirect('news');
+        }
+
         $filename = str_random(10) . '.' . $request->file('img_url')
         ->getClientOriginalName();             
         $request->file('img_url')->move('image/new/picture/', $filename);            
         Image::make('image/new/picture/' . $filename)
         ->resize(200, 200)->save('image/new/resize/' . $filename);     
         // $img = Image::make($request->file('image')->getRealPath());
-        $news->img_url = $filename;         
+        $news->img_url = $filename;      
+        $news->detail = $request->detail;
+        $news->status = true;
+        $news->save();
+        $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว');         
       } 
-      else{                
-        $news->img_url = 'default.jpg';        
+      else{      
+                  
+        if($request['img_url']<=1)
+        {
+          $news->img_url = 'default.jpg'; 
+          $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว');      
+        } 
+        else{
+          $request->session()->flash('status_image_fail', 'รูปเฟล');
+          return redirect('/news');
+        }          
        }  
       // $news->img_url = $request->img_url;
-      $news->detail = $request->detail;
-      $news->status = true;
-      $news->save();
-      $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
+ 
 
       return redirect('/news');
   }
@@ -58,24 +81,21 @@ class NewsController extends Controller
     $news->store_branch_id = 2;
     $news->title = $request->title;      
   
-      // $chk_name =$request->file('img_url')
-      // ->getClientOriginalName();     
-      // // echo $chk_name;
-      // $value = substr($chk_name,-3);
-      // // echo $value;exit();
-      // if($value=='jpg' || $value=='JPG' || $value=='png' || $value=='PNG' || $value=='gif' || $value=='GIF'){
-      //   echo '';
-      // }
-      // else{
-      //   // echo '555';exit();
-      //   $request->session()->flash('status_image_fail', 'รูปเฟล');
-      //   $request->session()->flash('status_id',$request->id);
-      //   return redirect('/news');
-      // }
-
     if ($request->hasFile('img_url')) {  
       ////check type jpg png/////
-      // echo $request;exit();       
+      $chk_name =$request->file('img_url')
+      ->getClientOriginalName();     
+      $value = substr($chk_name,-3);
+      if($value=='jpg' || $value=='JPG' || $value=='png' || $value=='PNG' || $value=='gif' || $value=='GIF'){
+        // echo '44';exit();
+      }
+      else{
+        // echo 'tt';exit();
+        $request->session()->flash('status_image_fail', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+        $request->session()->flash('status_id',$request->id); 
+        return redirect('news');
+      }
+
       $filename = str_random(10) . '.' . $request->file('img_url')
       ->getClientOriginalName();             
       $request->file('img_url')->move('image/new/picture/', $filename);            
@@ -98,7 +118,7 @@ class NewsController extends Controller
      }
     $news->detail = $request->detail;
     $news->status = true;
-    // $news->save();
+    $news->save();
     $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
     return redirect('/news');
   }

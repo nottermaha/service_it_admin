@@ -117,7 +117,20 @@ class AuthenController extends Controller
         $person->phone = $request->phone;
         // $person->image_url = $request->image_url;
         $person->address = $request->address;
-        if ($request->hasFile('image_url')) {        
+        if ($request->hasFile('image_url')) {     
+          
+          $chk_name =$request->file('image_url')
+          ->getClientOriginalName();     
+          $value = substr($chk_name,-3);
+          if($value=='jpg' || $value=='JPG' || $value=='png' || $value=='PNG' || $value=='gif' || $value=='GIF'){
+            // echo '44';exit();
+          }
+          else{
+            // echo 'tt';exit();
+            $request->session()->flash('status_image_fail', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+            return redirect('font-register');
+          }
+
           $filename = str_random(10) . '.' . $request->file('image_url')
           ->getClientOriginalName();             
           $request->file('image_url')->move('image/person-member/picture/', $filename);           
@@ -126,9 +139,19 @@ class AuthenController extends Controller
           $person->image_url = $filename;         
         } 
         else{
-          // echo '5555555555555';exit();                
-          $person->image_url = 'default.png';        
+          // echo '5555555555555';exit(); 
+              if($request['image_url']<=1){
+                // echo 'ii';exit();
+                $person->image_url = 'default.png';     
+              }
+              else{
+                // echo 'hh';exit();
+                $request->session()->flash('status_image_fail', ''); 
+                return redirect('font-register');
+              }               
+                // $person->image_url = 'default.png';        
          }
+        //  exit();
         $person->save();
         $request->session()->flash('status_create', 'คุณได้สมัครสมาชิกเรียบร้อย');
         $id=session('s_id','default');
@@ -318,7 +341,18 @@ class AuthenController extends Controller
       $person->phone = $request->phone;
       // $person->image_url = $request->image_url;
       $person->address = $request->address;
-      if ($request->hasFile('image_url')) {        
+      if ($request->hasFile('image_url')) {
+            $chk_name =$request->file('image_url')
+            ->getClientOriginalName();     
+            $value = substr($chk_name,-3);
+            if($value=='jpg' || $value=='JPG' || $value=='png' || $value=='PNG' || $value=='gif' || $value=='GIF'){
+              // echo '44';exit();
+            }
+            else{
+              // echo 'tt';exit();
+              $request->session()->flash('status_image_fail', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+              return redirect('font-profile');
+            }
         $filename = str_random(10) . '.' . $request->file('image_url')
         ->getClientOriginalName();             
         $request->file('image_url')->move('image/person-member/picture/', $filename);           
@@ -328,7 +362,14 @@ class AuthenController extends Controller
       } 
       else{
         // echo '5555555555555';exit();                
-        $person->image_url = $person['image_url'];        
+        // $person->image_url = $person['image_url'];  
+            if($request['image_url']<=1){
+                $person->image_url = $person['image_url'];  
+            }
+            else{
+              $request->session()->flash('status_image_fail', ''); 
+              return redirect('font-profile');
+            }      
         }
       $person->save();
       $request->session()->flash('status_edit', 'แก้ไขข้อมูลโปรไฟล์เรียบร้อยแล้ว'); 
@@ -510,7 +551,18 @@ class AuthenController extends Controller
           $person->date_out = $request->date_out;
           $type=session('s_type','default');
           if($type==1||$type==2){
-              if ($request->hasFile('image_url')) {        
+              if ($request->hasFile('image_url')) {  
+                        $chk_name =$request->file('image_url')
+                        ->getClientOriginalName();     
+                        $value = substr($chk_name,-3);
+                        if($value=='jpg' || $value=='JPG' || $value=='png' || $value=='PNG' || $value=='gif' || $value=='GIF'){
+                          // echo '44';exit();
+                        }
+                        else{
+                          // echo 'tt';exit();
+                          $request->session()->flash('status_image_fail', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+                          return redirect('/profile');
+                        }      
                 $filename = str_random(10) . '.' . $request->file('image_url')
                 ->getClientOriginalName();             
                 $request->file('image_url')->move('image/person-manager/picture/', $filename);           
@@ -519,13 +571,33 @@ class AuthenController extends Controller
                 $person->image_url = $filename;         
               } 
               else{
-                // echo '5555555555555';exit();                
-                $person->image_url = $person['image_url'];        
+                // echo '5555555555555';exit();       
+                    if($request['image_url']<=1){
+                      // echo 'jj';exit();
+                        $person->image_url = $person['image_url'];   
+                    }
+                    else{
+                      // echo 'lolo';exit();
+                      $request->session()->flash('status_image_fail', ''); 
+                      return redirect('/profile');
+                    }            
+                // $person->image_url = $person['image_url'];        
                 }
           }
           else if($type==3)
           {
-                if ($request->hasFile('image_url')) {        
+                if ($request->hasFile('image_url')) {   
+                        $chk_name =$request->file('image_url')
+                        ->getClientOriginalName();     
+                        $value = substr($chk_name,-3);
+                        if($value=='jpg' || $value=='JPG' || $value=='png' || $value=='PNG' || $value=='gif' || $value=='GIF'){
+                          // echo '44';exit();
+                        }
+                        else{
+                          // echo 'tt';exit();
+                          $request->session()->flash('status_image_fail', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+                          return redirect('/profile');
+                        }              
                   $filename = str_random(10) . '.' . $request->file('image_url')
                   ->getClientOriginalName();             
                   $request->file('image_url')->move('image/person-employee/picture/', $filename);           
@@ -534,8 +606,17 @@ class AuthenController extends Controller
                   $person->image_url = $filename;         
                 } 
                 else{
-                  // echo '5555555555555';exit();                
-                  $person->image_url = $person['image_url'];        
+                  // echo '5555555555555';exit();   
+                      if($request['image_url']<=1){
+                        // echo 'jj';exit();
+                          $person->image_url = $person['image_url'];   
+                      }
+                      else{
+                        // echo 'lolo';exit();
+                        $request->session()->flash('status_image_fail', ''); 
+                        return redirect('/profile');
+                      }           
+                  // $person->image_url = $person['image_url'];        
                   }
           }
           $person->save();

@@ -158,7 +158,9 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>ServiceIt | Manager</title>
+  <?php $s_store_name=session('s_store_name','default'); ?>
+  <!-- <title>ServiceIt | Manager</title> -->
+  <title>{{$s_store_name}}</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -179,7 +181,16 @@
 
 </head>
 <!--End css header-leftmenu -->
-
+<!-- js header-leftmenu -->
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- End js header-leftmenu -->
  @include('form/header-leftmenu')
 
 <!-- Main content -->
@@ -266,7 +277,20 @@
     <!-- /.box -->
   </div>
   <!-- /.col -->
+ 
   <div class="col-md-9">
+            @if(session()->has('status_image_fail'))               
+                  <script type="text/javascript">
+                          $(window).on('load',function(){
+                              $('#modal-edit-gallery<?php echo session()->get('status_id'); ?>').modal('show');
+                          });   
+                    </script>   
+                  <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h4><i class="icon fa fa-warning"></i>ผิดพลาด การอัพโหลดรูปล้มเหลว!</h4>
+                    กรุณาอัพโหลดรูปภาพที่เป็น .png .jpg .gif เท่านั่น.
+                  </div>       
+              @endif
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs">
         <li class="active"><a href="#activity" data-toggle="tab">โปรไฟล์</a></li>
@@ -288,7 +312,7 @@
               <div class="col-sm-6">
                 <!-- <img class="img-responsive" src="dist/img/photo1.png" alt="Photo"> -->
                 @if($type==1||$type==2)
-                <img class="img-responsive" src="{{ asset('image/person-manager/picture/'.$image_url) }}"style="height:40%;" ></a>
+                <img class="img-responsive" src="{{ asset('image/person-manager/picture/'.$image_url) }}"style="width:70%;margin: auto auto;" ></a>
                 @elseif($type==3)
                 <img class="img-responsive" src="{{ asset('image/person-employee/picture/'.$image_url) }}" ></a>
                 @endif
@@ -837,17 +861,6 @@
 </div>
 
 @include('form/footer')
-
-<!-- js header-leftmenu -->
-<!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<!-- End js header-leftmenu -->
 
   <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">

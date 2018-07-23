@@ -25,7 +25,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <!-- <title>AdminLTE 2 | Dashboard</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -63,7 +63,7 @@
     {{ csrf_field() }}
       <div class="col-md-6">
         <div class="box box-success">
-                <div class="box-header with-border">
+                <div class="box-header with-border bg-success">
                     <h3 class="box-title">เปิดบิลใหม่</h3>
                 </div>
             <div class="box-body">
@@ -144,7 +144,13 @@
           @foreach ($repairs as $repair)
           <tr>
           <td>{{ $i=$i+1 }}</td>
-            <td>{{ $repair->bin_number }}</td>
+            <td>{{ $repair->bin_number }} <br>
+            @if($repair->status_pay==0)
+            <b style="color:red;">ยังไม่จ่ายเงิน</b> 
+            @elseif($repair->status_pay==1)
+            <b style="color:green;">จ่ายเงินแล้ว</b> 
+            @endif
+             </td>
             <td>{{ $repair->member_name }}</td>
             <!-- <td>{{ number_format($repair->price, 2) }}</td> -->
             <td>{{ $repair->persons_name }}</td>
@@ -184,7 +190,7 @@
             @elseif( $repair->status_color==12 )
             <button style="width:190px;" type="button" class="btn bg-black-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $repair->id }}">
             @endif
-            {{ $repair->status_name }}</td>
+           <i class="fa  fa-chevron-circle-up fa-lg"></i> {{ $repair->status_name }}</td>
             </button>
             </td>
  
@@ -211,7 +217,7 @@
             <div class="modal" id="modal-manage-repair-member{{ $repair->id }}">
               <div class="modal-dialog "style="width:350px;margin-right:100px;" >
                 <div class="modal-content " >
-                  <div class="modal-header " >
+                  <div class="modal-header bg-primary" >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title text-center">เมนูจัดการ</h4>
@@ -305,7 +311,7 @@
             <div class="modal fade " id="modal-status-bill-repair-member{{ $repair->id }}">
               <div class="modal-dialog ">
                 <div class="modal-content ">
-                  <div class="modal-header " >
+                  <div class="modal-header bg-red" >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">ยืนยันการปิดบิล</h4>
@@ -341,7 +347,7 @@
             <div class="modal fade " id="modal-status-pay-repair-member{{ $repair->id }}">
               <div class="modal-dialog ">
                 <div class="modal-content ">
-                  <div class="modal-header " >
+                  <div class="modal-header bg-warning" >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">สถานะการจ่ายเงิน</h4>
@@ -379,7 +385,7 @@
             <div class="modal fade " id="modal-print-bill-repair-member{{ $repair->id }}">
               <div class="modal-dialog ">
                 <div class="modal-content ">
-                  <div class="modal-header " >
+                  <div class="modal-header bg-green" >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">ออกใบเสร็จ</h4>
@@ -418,7 +424,7 @@
         
         <div class="modal-dialog ">
         <div class="modal-content ">
-          <div class="modal-header " >
+          <div class="modal-header bg-yellow" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">สถานะสินค้า</h4>
@@ -459,7 +465,7 @@
             <div class="modal fade " id="modal-delete-repair-member{{ $repair->id }}">
               <div class="modal-dialog ">
                 <div class="modal-content ">
-                  <div class="modal-header " >
+                  <div class="modal-header bg-red" >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">ลบข้อมูล</h4>
@@ -495,10 +501,10 @@
         
         <div class="modal-dialog ">
         <div class="modal-content ">
-          <div class="modal-header " >
+          <div class="modal-header bg-yellow" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">แก้ไขข้อมูลแจ้งซ่อมใหม่</h4>
+            <h4 class="modal-title">แก้ไขข้อมูลแจ้งซ่อม</h4>
           </div>        
           <?= Form::open(array('url' => '/repair-member/edit/'. $repair->id)) ?>
           <div class="modal-body">

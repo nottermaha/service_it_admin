@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <!-- <title>AdminLTE 2 | Dashboard</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -26,6 +26,16 @@
 <!-- <script src="https://unpkg.com/promise-polyfill@7.1.0/dist/promise.min.js"></script> -->
 </head>
 <!--End css header-leftmenu -->
+<!-- js header-leftmenu -->
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- End js header-leftmenu -->
 
  @include('form/header-leftmenu')
  <section class="content-header">
@@ -91,7 +101,7 @@
             <div class="modal fade " id="modal-delete-gallery{{ $gallery->id }}">
               <div class="modal-dialog ">
                 <div class="modal-content ">
-                  <div class="modal-header " >
+                  <div class="modal-header bg-red" >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">ลบข้อมูล</h4>
@@ -120,7 +130,7 @@
         
         <div class="modal-dialog ">
         <div class="modal-content ">
-          <div class="modal-header " >
+          <div class="modal-header bg-yellow" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">แก้ไขข้อมูลรูปภาพ</h4>
@@ -128,7 +138,20 @@
           <!-- <?= Form::open(array('url' => '/gallery/edit/'.$gallery->id)) ?> -->
           {!!  Form::open(['url'=>'/gallery/edit/'.$gallery->id,'class'=>'form','files'=>true])   !!}
           <div class="modal-body">
-            
+
+          @if(session()->has('status_image_fail'))               
+            <script type="text/javascript">
+                      $(window).on('load',function(){
+                          $('#modal-edit-gallery<?php echo session()->get('status_id'); ?>').modal('show');
+                      });   
+                </script>   
+              <div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-warning"></i> การอัพโหลดรูปล้มเหลว!</h4>
+                กรุณาอัพโหลดรูปภาพที่เป็น .png .jpg .gif เท่านั่น.
+              </div>       
+          @endif
+  
           <div class="row" >
               <div class="form-group">
                   <b for="" class="control-label col-md-3"style="text-align:right"></b>
@@ -175,7 +198,7 @@
         
         <div class="modal-dialog ">
         <div class="modal-content ">
-          <div class="modal-header " >
+          <div class="modal-header bg-green" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">บันทึกข้อมูลรูปภาพ</h4>
@@ -183,6 +206,18 @@
           <!-- <?= Form::open(array('url' => '/gallery/create')) ?> -->
           {!!  Form::open(['url'=>'/gallery/create','class'=>'form','files'=>true])   !!}
           <div class="modal-body">
+          @if(session()->has('status_image_fail'))               
+            <script type="text/javascript">
+                      $(window).on('load',function(){
+                          $('#modal-add-gallery').modal('show');
+                      });   
+                </script>   
+              <div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-warning"></i> การอัพโหลดรูปล้มเหลว!</h4>
+                กรุณาอัพโหลดรูปภาพที่เป็น .png .jpg .gif เท่านั่น.
+              </div>       
+          @endif
             
             <div class="row">
               <div class="form-group">
@@ -246,19 +281,6 @@
 
     </section>
 @include('form/footer')
-<!-- js header-leftmenu -->
-<!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<!-- End js header-leftmenu -->
-
-
-
 
 
   <!-- DataTables -->

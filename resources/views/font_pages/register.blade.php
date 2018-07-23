@@ -276,7 +276,8 @@
     <div class="row">
         <div class="col-md-5">
                 <div class="example-box-wrapper">
-                    <img src="https://main.msger.info/uploads/images/websiteImages/img_logo/mac2fix.jpg" alt="" style="height:100%;width:80%;">
+                <?php $s_logo=session('s_logo','default'); ?>
+                    <img  src="{{ asset('image/'.$s_logo) }}" alt="" style="height:100%;width:80%;">
                 </div>
             </div>
             {!!  Form::open(['url'=>'/font-register-create','class'=>'form-horizontal','files'=>true,'id'=>'ChkForm'])   !!}
@@ -286,7 +287,23 @@
                     <form class="form-horizontal bordered-row">
                         <div class="form-group">
 
-
+                            <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-8">
+                                    @if(session()->has('status_image_fail'))               
+                                        <script type="text/javascript">
+                                                $(window).on('load',function(){
+                                                    $('#modal-edit-gallery<?php echo session()->get('status_id'); ?>').modal('show');
+                                                });   
+                                            </script>   
+                                        <div class="alert alert-warning alert-dismissible">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                            <h4><i class="icon fa fa-warning"></i> การอัพโหลดรูปล้มเหลว!</h4>
+                                            กรุณาอัพโหลดรูปภาพที่เป็น .png .jpg .gif เท่านั่น.
+                                        </div>       
+                                    @endif
+                            </div>
+                            </div>
                             <div class="row">
                                 <label class="col-sm-3 control-label">ชื่อผู้ใช้ <b style="color:red;">*</b></label>
                                 <div class="col-sm-8">
@@ -393,6 +410,7 @@
                                     </div>
                                 </div>
                             </div><br>
+                            
                             <div class="row">
                                 <label class="col-sm-3 control-label">ที่อยู่</label>
                                 <div class="col-sm-8">

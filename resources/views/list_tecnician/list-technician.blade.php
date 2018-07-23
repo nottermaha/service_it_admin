@@ -38,7 +38,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <!-- <title>AdminLTE 2 | Dashboard</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -143,11 +143,12 @@
             <?php $k=0; $temp=0; ?>
             @foreach($data_use_parts as $data_use_part)
               @if( $list_repair->id==$data_use_part->list_repair_id_chk ) 
-                  <a>{{ $k=$k+1 }}. {{ $data_use_part->list_parts_name }} {{ $data_use_part->pay_out }}</a> <br>
+                  <a>{{ $k=$k+1 }}. {{ $data_use_part->list_parts_name }} 
+                  {{ number_format($data_use_part->pay_out, 0) }}บ.</a> <br>
                   <?php $temp =$temp+$data_use_part->pay_out; ?>
               @endif      
             @endforeach   
-            <b>ราคาอะไหล่ทั้งหมด <?php echo $temp; ?>บ.</b> <br>
+            <b>ราคาอะไหล่ทั้งหมด {{ number_format($temp, 0) }}บ.</b> <br>
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-manage-part{{ $list_repair->id }}">
                   <i class="fa fa-wrench fa-lg"></i>&nbsp; จัดการอะไหล่
               </button>
@@ -178,7 +179,7 @@
             @elseif( $list_repair->status_color==12 )
             <button style="width:190px;" type="button" class="btn bg-black-active color-palette" data-toggle="modal" data-target="#modal-edit-status-repair{{ $list_repair->id }}">
             @endif
-            {{ $list_repair->name }}</td>
+            <i class="fa  fa-chevron-circle-up fa-lg"></i> {{ $list_repair->name }}</td>
             </button>
             </td>
  
@@ -189,7 +190,7 @@
         
         <div class="modal-dialog"  >
         <div class="modal-content ">
-          <div class="modal-header " >
+          <div class="modal-header bg-primary" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">จัดการอะไหล่</h4>
@@ -202,10 +203,13 @@
               @if( $list_repair->id==$data_use_part->list_repair_id_chk ) 
                 <div class="row">
                       <?= Form::open(array('url' => '/list-repair-for-technician-delete-data-use-part' )) ?>
-                      <b for="" class="control-label col-md-2"style="text-align:right">อะไหล่ที่ใช้</b>
-                    <div class="col-md-8" >               
+                      <b for="" class="control-label col-md-3"style="text-align:right">อะไหล่ที่ใช้</b>
+                    <div class="col-md-7" >               
                             
-                        <a>{{ $data_use_part->list_parts_name }}</a> <br>
+                        <a>{{ $data_use_part->list_parts_name }} :
+                        {{ $data_use_part->list_parts_generation }} :
+                        {{ number_format($data_use_part->pay_out, 0) }}บ.
+                      [ {{ $data_use_part->lot_name3 }} ]</a> <br>
                                   
                     </div>
                     <div class="col-md-2">
@@ -230,7 +234,7 @@
                         <!-- <option disabled="disabled">California (disabled)</option> -->
                         @foreach ($list_parts as $list_part)
                         <option value="{{ $list_part->id }}">" {{ $list_part->name }} {{ $list_part->generation }} " 
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ราคา: {{ $list_part->pay_out }}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ราคา: {{ number_format($list_part->pay_out, 0) }}
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ล๊อต: {{ $list_part->import_parts_lot_name }}
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;คงเหลือ: {{ $list_part->number }}</option>                      
                         @endforeach
@@ -250,17 +254,18 @@
           <div class="col-md-2"></div>
             <div class="row col-md-9" >
             <!-- ///check fail is show modal/// -->
-                    @if ($chk==0)
+                    <!-- if $chk==0 status_part_null_id-->
+                    @if(session()->has('status_part_null_id'))    
                         <script type="text/javascript">
                             $(window).on('load',function(){
-                                $('#modal-manage-part{{$status_part_null_id}}').modal('show');
+                                $('#modal-manage-part<?php echo session()->get('status_part_null_id'); ?>').modal('show');
                             });
                         </script>
                     <!-- ///end//// -->
                     <!-- ///message fail/// -->
                         <div class="alert alert-danger alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        <h4><i class="icon fa fa-ban"></i>อะไหล่ "{{ $status_part_null_name }}" หมด!</h4>
+                        <h4><i class="icon fa fa-ban"></i>อะไหล่ "<?php echo session()->get('status_part_null_name'); ?>" หมด!</h4>
                         กรุณาเพิ่มอะไหล่เข้าระบบ ก่อนที่จะใช้อะไหล่
                       </div>
                     <!-- ///end//// -->
@@ -283,7 +288,7 @@
         
         <div class="modal-dialog ">
         <div class="modal-content ">
-          <div class="modal-header " >
+          <div class="modal-header bg-yellow" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">สถานะการซ่อม</h4>

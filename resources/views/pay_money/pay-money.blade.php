@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <!-- <title>AdminLTE 2 | Dashboard</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -38,18 +38,18 @@
 
     <div class="row">
       <div class="col-md-12">
-        <div class="box box-default">
+        <div class="box box-primary">
                   <!-- <div class="box-header with-border">
                       <h3 class="box-title">บันทึกข้อมูลการเข้าสู่ระบบ</h3>
                   </div> -->
-          <div class="box-body">
-                <div class="row">
+          <div class="box-body bg-info">
+                <div class="row" style="margin-top:-20px;margin-bottom:-20px;">
                 <div class="col-md-2" style="margin-right:60px;">
                       <br>
                       
                       <?= Form::open(array('url' => '/search-pay-money')) ?>
                       {{ csrf_field() }}
-                      <div class="input-group date">
+                     จาก <div class="input-group date">
                           <div class="input-group-addon">
                               <i class="fa fa-calendar fa-lg"></i>
                           </div>
@@ -58,7 +58,7 @@
                     </div>
                     <div class="col-md-3">
                       <br>
-                      <div class="input-group date">
+                      ถึง<div class="input-group date">
                           <div class="input-group-addon">
                               <i class="fa fa-calendar fa-lg"></i>
                           </div>
@@ -67,11 +67,11 @@
                     </div>
                     @if($s_type == 1)
                     <div class="col-md-3">
-                      <br>
+                      <br><br>
                         <select  required class="form-control select2" style="width: 100%;" name="store_branch_id">      
                         <option value="" ><b>เลือกสาขา</b></option>  
                           <!-- <option disabled="disabled"></option> -->
-                          <option value="-1">เลือกทั้งหมด</option>
+                          <option value="-1">สาขาทั้งหมด</option>
                           @foreach($store_branchs as $store_branch)
                               <option value="{{ $store_branch->id }}" >{{ $store_branch->name }}</option>
                           @endforeach
@@ -79,7 +79,7 @@
                     </div>
                     @elseif($s_type == 2 || $s_type == 3)
                     <div class="col-md-3">
-                      <br>
+                      <br><br>
                         @foreach($store_branchs as $store_branch) 
                           @if($s_store_branch_id==$store_branch->id)
                           <input hidden="text" name="store_branch_id" value="{{$s_store_branch_id}}">
@@ -89,7 +89,7 @@
                     </div>
                     @endif
                     <div class="col-md-2">
-                      <br>
+                      <br><br>
                         <select  required class="form-control select2" style="width: 100%;" name="status_bill">      
                         <option value="" ><b>เลือกหมวด</b></option>  
                           <!-- <option disabled="disabled"></option> -->
@@ -99,10 +99,11 @@
                                 
                         </select>             
                     </div>
-
+<br>
                     <div class="col-md-1 col-xs-1" style="margin-top:17px;">
                       <input type="hidden" name="chk_table" value="">
-                      <button type="submit" class="btn btn-success ">ค้นหา</button>
+                      <button type="submit" class="btn btn-success ">
+                      <i class="fa fa-search"></i> ค้นหา</button>
                     </div>
                       {!! Form::close() !!}
                 </div><br>
@@ -113,10 +114,24 @@
 
     <div class="row">
       <div class="col-md-12">
-        <div class="box box-default">
-                  <!-- <div class="box-header with-border">
-                      <h3 class="box-title">บันทึกข้อมูลการเข้าสู่ระบบ</h3>
-                  </div> -->
+        <div class="box box-warning">
+                  <div class="box-header with-border">
+                      <h3 class="box-title"><b>ยอดรวม</b> รายรับ-รายจ่าย
+                      @if($name_status_bill!=-1)
+                      <b>ของ</b>  <i style="color:gray;">{{ $name_store_branch }}</i> 
+                        @if($name_status_bill=='รายการทั้งหมด')
+                            <b style="color:blue;">{{ $name_status_bill }}</b> 
+                        @elseif($name_status_bill=='รายการที่ปิดบิลแล้ว')
+                            <b style="color:green;">{{ $name_status_bill }}</b> 
+                        @elseif($name_status_bill=='รายการที่ยังไม่ปิดบิล')
+                            <b style="color:red;">{{ $name_status_bill }}</b> 
+                        @endif
+                      
+                      <b>จาก</b><i style="color:gray;"> {{ $request_chk_date_in }}</i>  
+                      <b>ถึง</b><i style="color:gray;"> {{ $request_chk_date_out }}</i> 
+                      @endif
+                      </h3>
+                  </div>
           <div class="box-body">
 
           <div class="box-body table-responsive ">
@@ -159,10 +174,10 @@
 
       <div class="box">
             <div class="box-header">
-              <h3 class="box-title">รายการล็อตอะไหล่</h3>
+              <h3 class="box-title ">รายการ รายรับ-รายจ่าย</h3>
             </div>
 
-       <div class="box-body table-responsive ">
+       <div class="box-body table-responsive  ">
               <table id="example" class="table table-bordered table-striped table-hover  ">
         <thead >
           <tr>
@@ -219,7 +234,7 @@
             @if( $list_repair->repair_id_from_list == $repair->id )
             - {{ $list_repair->list_name}} <b style="color:blue;">
             
-            ราคา {{ number_format($list_repair->price, 2) }}บ.
+            ราคา {{ number_format($list_repair->price, 2) }} บ.
             <?php $num_price =$num_price+$list_repair->price; ?>
             </b>  <br> อะไหล่ที่ใช้
             <!-- ///เช็ค การใช้อะไหล่ กับรายการซ่อม// -->
@@ -236,8 +251,8 @@
             @endif
             
           @endforeach
-          <b style="color:green;">ราคารวมที่รับจากลูกค้า {{ number_format($num_price, 2) }}บ. <br></b> 
-         <b  style="color:orange;">ยอดรวมอะไหล่  {{ $num_part }}บ. <br></b> 
+          <b style="color:green;">ราคารวมที่รับจากลูกค้า {{ number_format($num_price, 2) }} บ. <br></b> 
+         <b  style="color:orange;">ยอดรวมอะไหล่  {{ number_format($num_part, 2) }} บ. <br> </b> 
           <?php $temp_num =$num_price-$num_part; ?><?php $num_price = 0;$num_part =0; ?>
           <!-- @if( $temp_num>=0 )
           <b style="color:green;">กำไร {{ number_format($temp_num, 2) }}บ.</b> 

@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>ServiceIt | Manager</title>
+  <!-- <title>ServiceIt | Manager</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -197,7 +197,7 @@
             <div class="modal fade " id="modal-delete-person-manager{{ $person->id }}">
               <div class="modal-dialog ">
                 <div class="modal-content ">
-                  <div class="modal-header " >
+                  <div class="modal-header bg-yellow" >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">สถานะการเปิดปิดการใช้งานบุคคล</h4>

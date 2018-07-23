@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <!-- <title>AdminLTE 2 | Dashboard</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -43,13 +43,13 @@
     {{ csrf_field() }}
     <div class="col-md-10">
         <div class="box box-success">
-                <div class="box-header with-border">
+                <div class="box-header with-border bg-success">
                     <h3 class="box-title">บันทึกข้อมูลรายละเอียดการรับประกัน</h3>
                     <I><h5>ข้อมูลส่วนนี้จะแสดงในหน้าใช้งานของลูกค้า ในส่วนของการรับประกัน</h5></I>
                 </div>
             <div class="box-body">
             <input type="hidden" name="_token" value="fHc8pJvh1Gj4zf3SYopWZGvi0VztqE9wno25Za8z">
-
+            {{ csrf_field() }}
                 <div class="form-group">
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
@@ -118,7 +118,7 @@
             <div class="modal fade " id="modal-delete-guarantee{{ $guarantee->id }}">
               <div class="modal-dialog ">
                 <div class="modal-content ">
-                  <div class="modal-header " >
+                  <div class="modal-header bg-red" >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">ลบข้อมูล</h4>
@@ -147,7 +147,7 @@
         
         <div class="modal-dialog ">
         <div class="modal-content ">
-          <div class="modal-header " >
+          <div class="modal-header bg-yellow" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">แก้ไขข้อมูลการรับประกัน</h4>
@@ -194,7 +194,7 @@
         
         <div class="modal-dialog ">
         <div class="modal-content ">
-          <div class="modal-header " >
+          <div class="modal-header bg-green" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">บันทึกข้อมูลการรับประกันใหม่</h4>

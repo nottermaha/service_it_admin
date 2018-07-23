@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <!-- <title>AdminLTE 2 | Dashboard</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -63,7 +63,7 @@
             <!-- <th class="text-center">แก้ไขล่าสุด</th> -->
             <th class="text-center">รายการอะไหล่</th>
             <th class="text-center">แก้ไข</th>
-            <th class="text-center">ลบ</th>
+            <th class="text-center">สถานะ</th>
           </tr>
         </thead>
         
@@ -107,7 +107,7 @@
             <div class="modal fade " id="modal-delete-import-part{{ $Import_part->id }}">
               <div class="modal-dialog ">
                 <div class="modal-content ">
-                  <div class="modal-header " >
+                  <div class="modal-header bg-yellow" >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">สถานะการเปิดปิดการใช้งานล็อตอะไหล่</h4>
@@ -148,7 +148,7 @@
         
         <div class="modal-dialog ">
         <div class="modal-content ">
-          <div class="modal-header " >
+          <div class="modal-header bg-yellow" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">แก้ไขข้อมูลล็อตอะไหล่</h4>
@@ -196,7 +196,7 @@
         
         <div class="modal-dialog ">
         <div class="modal-content ">
-          <div class="modal-header " >
+          <div class="modal-header bg-green" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">บันทึกข้อมูลล็อตใหม่</h4>

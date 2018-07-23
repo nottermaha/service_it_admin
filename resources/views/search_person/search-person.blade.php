@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <!-- <title>AdminLTE 2 | Dashboard</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -40,11 +40,11 @@
 
     <div class="row">
       <div class="col-md-11">
-        <div class="box box-default">
+        <div class="box box-primary">
                   <!-- <div class="box-header with-border">
                       <h3 class="box-title">บันทึกข้อมูลการเข้าสู่ระบบ</h3>
                   </div> -->
-          <div class="box-body">
+          <div class="box-body bg-info">
                 <div class="row">
                     <div class="col-md-4">
                       <br>
@@ -118,9 +118,9 @@
     </div>
     <div class="col-md-8" >
     <div class="panel" >
-    <div class="panel-body">
+    <div class="panel-body bg-primary" >
         <h3 class="title-hero">
-            <h3 class="modal-title text-center" style="color:gray;"><b>รายละเอียด</b></h3>
+            <h3 class="modal-title text-center" style="color:white;"><b>รายละเอียด</b></h3>
         </h3>
         <br>
         <div class="box box-info">
@@ -130,7 +130,7 @@
               <div class="box-body">
 
                     <div class="row">
-                        <b for="" class="control-label col-md-4"style="text-align:right">
+                        <b for="" class="control-label col-md-4"style="text-align:right;color:gray;">
                         </b>
                         <b for="" class="control-label col-md-8"style="text-align:left">
                             @if($person_type==2 )
@@ -146,7 +146,7 @@
                     </div><br>
                     <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-4"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right;color:gray;">
                           ชื่อ : </b>
                           <b for="" class="control-label col-md-8" style="color:gray">
                           {{ $name }}</b>
@@ -155,7 +155,7 @@
 
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-4"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right;color:gray;">
                           เพศ : </b>
                           <b for="" class="control-label col-md-8" style="color:gray">
                           @if($gender==1)ชาย 
@@ -166,7 +166,7 @@
 
                        <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-4"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right;color:gray;">
                           เบอร์โทร : </b>
                           <b for="" class="control-label col-md-8" style="color:gray">
                           {{ $phone }}</b>
@@ -175,7 +175,7 @@
 
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-4"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right;color:gray;">
                           วันเกิด : </b>
                           <b for="" class="control-label col-md-8" style="color:gray">
                           {{ $birth }}</b>
@@ -184,7 +184,7 @@
 
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-4"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right;color:gray;">
                           อีเมล์ : </b>
                           <b for="" class="control-label col-md-8" style="color:gray">
                           {{ $email }}</b>
@@ -193,7 +193,7 @@
 
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-4"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right;color:gray;">
                           ที่อยู่ : </b>
                           <b for="" class="control-label col-md-8" style="color:gray">
                           {{ $address }}</b>
@@ -202,7 +202,7 @@
 
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-4"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right;color:gray;">
                           วันที่เป็นสมาชิกของระบบ : </b>
                           <b for="" class="control-label col-md-8" style="color:gray">
                          {{ $created }}</b>

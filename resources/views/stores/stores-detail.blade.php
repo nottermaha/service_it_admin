@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <!-- <title>AdminLTE 2 | Dashboard</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -40,8 +40,8 @@
     <div class="col-md-10 ">
         <div class="col-md-12">
           <div class="box box-solid">
-            <div class="box-header with-border">
-              <h2 class="text-center">{{ $name}}</h2>
+            <div class="box-header with-border bg-primary">
+              <h2 class="text-center"style="color:white;">{{ $name}}</h2>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -55,7 +55,7 @@
                   <i class="fa fa-home fa-lg"></i>&nbsp;  ที่อยู่ : {{$address}} <br><br>
                   <i class="fa fa-phone fa-lg"></i>&nbsp;  เบอร์โทร : {{$phone}} <br><br>
                   <i class="fa fa-envelope fa-lg"></i>&nbsp;  อีเมล์ : {{$email}} <br><br>
-                  <i class="fa fa-list fa-lg"></i>&nbsp;   : {{$contact}} <br>
+                  <i class="fa  fa-facebook-official fa-lg"></i>&nbsp;   : <a target="_blank" href="{{$contact}}">{{$contact}}</a><br>
                 </div>
               </div>
               <div class="row">

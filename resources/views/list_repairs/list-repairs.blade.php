@@ -38,7 +38,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <!-- <title>AdminLTE 2 | Dashboard</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -60,6 +60,9 @@
   <script src="  https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
 
 
+
+</head>
+<!--End css header-leftmenu -->
 <!-- ///////////////////////js ย้ายขึ้นมาเพราะใช้ auto modal/////////////////////// -->
 <!-- js header-leftmenu -->
 <!-- jQuery 3 -->
@@ -72,9 +75,6 @@
 <script src="dist/js/demo.js"></script>
 <!-- End js header-leftmenu -->
 <!-- //////////////////////////////////////////////////////////////////// -->
-</head>
-<!--End css header-leftmenu -->
-
  @include('form/header-leftmenu')
  <section class="content-header">
             <h1 style="background-color:#DCDCDC;padding-top:10px;padding-bottom:10px;padding-left:10px;">
@@ -91,7 +91,7 @@
     {{ csrf_field() }}
       <div class="col-md-6">
         <div class="box box-success">
-                <div class="box-header with-border">
+                <div class="box-header with-border bg-success">
                     <h3 class="box-title">เพิ่มรายการแจ้งซ่อมใหม่</h3>
                 </div>
             <div class="box-body">
@@ -175,9 +175,9 @@
       <div class="row">
         <div class="col-xs-12">
             @if($back=='general')
-            <a href="{{ url('/repair-general')  }}" class="btn btn-warning"><i class="fa fa-reply"></i>ย้อนกลับ</a>
+            <a href="{{ url('/repair-general')  }}" class="btn btn-warning"><i class="fa fa-reply"></i> ย้อนกลับ</a>
             @elseif($back=='member')
-            <a href="{{ url('/repair-member')  }}" class="btn btn-warning"><i class="fa fa-reply"></i>ย้อนกลับ</a>
+            <a href="{{ url('/repair-member')  }}" class="btn btn-warning"><i class="fa fa-reply"></i> ย้อนกลับ</a>
             @endif
       <div class="box">
             <div class="box-header">
@@ -265,7 +265,7 @@
             <div class="modal fade " id="modal-delete-list-repair{{ $list_repair->id }}">
               <div class="modal-dialog ">
                 <div class="modal-content ">
-                  <div class="modal-header " >
+                  <div class="modal-header bg-red" >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">ลบข้อมูล</h4>
@@ -443,14 +443,14 @@
         
         <div class="modal-dialog ">
         <div class="modal-content ">
-          <div class="modal-header " >
+          <div class="modal-header bg-yellow" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">แก้ไขข้อมูลรายการแจ้งซ่อม</h4>
           </div>        
           {!!  Form::open(['url'=>'list-repair-edit','class'=>'form-horizontal','files'=>true])   !!}
           <div class="modal-body">
-            <div class="row" style="padding-top:20px;">
+            <div class="row" >
               <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">รายการแจ้งซ่อม</b>
                     <div class="col-md-8">
@@ -556,6 +556,7 @@
                     </div>
               </div>
             </div>
+            
             <div class="row" style="padding-top:20px;">
               <div class="form-group">
                     <b for="" class="control-label col-md-3"style="text-align:right">รูปภาพ</b>
@@ -569,7 +570,18 @@
                     </div>
               </div>
             </div>
-<br>
+<br>    @if(session()->has('status_image_fail'))               
+            <script type="text/javascript">
+                      $(window).on('load',function(){
+                          $('#modal-edit-repair<?php echo session()->get('status_id'); ?>').modal('show');
+                      });   
+                </script>   
+              <div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-warning"></i> การอัพโหลดรูปล้มเหลว!</h4>
+                กรุณาอัพโหลดรูปภาพที่เป็น .png .jpg .gif เท่านั่น.
+              </div>       
+          @endif
           <div class="row"> 
             <div class="text-center">
             @if($list_repair->image=="default.jpg") ยังไม่มีรูปภาพ @endif <br>
@@ -693,7 +705,7 @@
      @elseif (session()->has('list_status_edit'))     
      <script>swal({ title: "<?php echo session()->get('list_status_edit'); ?>",        
                      text: "ผลการทํางาน",         
-                     timer: 12500,         
+                     timer: 2500,         
                      type: 'success',  
                      position: 'top-end',       
                      showConfirmButton: false     }); 
@@ -701,7 +713,7 @@
          @elseif (session()->has('list_status_delete'))     
      <script>swal({ title: "<?php echo session()->get('list_status_delete'); ?>",        
                      text: "ผลการทํางาน",         
-                     timer: 12500,         
+                     timer: 2500,         
                      type: 'success',  
                      position: 'top-end',       
                      showConfirmButton: false     }); 

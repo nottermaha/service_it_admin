@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <!-- <title>AdminLTE 2 | Dashboard</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -42,7 +42,7 @@
               <button type="submit" class="btn btn-warning margin-bottom"><i class="fa fa-reply fa-lg"></i>&nbsp; ย้อนกลับ
         </button>
         <button type="button" class="btn btn-info margin-bottom" data-toggle="modal" data-target="#modal-add-answer-post">
-                   <i class="fa fa-comments-o fa-lg"></i> &nbsp; ตอบกระทู้
+                   <i class="fa  fa-send fa-lg"></i> &nbsp; ตอบกระทู้
           </button>
         {!! Form::close() !!}
           <!-- <a href="{{ url('questtion-post') }}" class="btn btn-warning margin-bottom">
@@ -56,7 +56,7 @@
         
         <div class="modal-dialog ">
         <div class="modal-content ">
-          <div class="modal-header " >
+          <div class="modal-header bg-green" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">ตอบกระทู้</h4>
@@ -65,6 +65,7 @@
           <div class="modal-body">
             <div class="row" style="padding-top:20px;">
             <div class="form-group" style="padding-left:20px;padding-right:20px;">
+                    รายละเอียด
                     <textarea id="compose-textarea" class="form-control" style="height: 300px" placeholder="รายละเอียด..." name="message">
                       
                     </textarea>
@@ -138,10 +139,10 @@
             <div class="modal fade " id="modal-delete-question-post">
               <div class="modal-dialog ">
                 <div class="modal-content ">
-                  <div class="modal-header " >
+                  <div class="modal-header bg-red" >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">ลบกระทู้</h4>
+                        <h4 class="modal-title">ลบกระทู้ของท่าน</h4>
                   </div>        
                 <?= Form::open(array('url' => '/questtion-post-delete')) ?>
                     <div class="modal-body">
@@ -168,7 +169,7 @@
         
         <div class="modal-dialog ">
         <div class="modal-content ">
-          <div class="modal-header " >
+          <div class="modal-header bg-yellow" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">แก้ไขกระทู้ของท่าน</h4>
@@ -211,11 +212,11 @@
                 <h3>หัวข้อ :{{$question_posts_topic}}</h3>
                 <h4>
                 @if($person_type==1 || $person_type==2)
-                <img class="img-circle img-sm" src="{{ asset('image/person-manager/resize/'.$person_image_url) }}" alt="">
+                <img class="img-circle " src="{{ asset('image/person-manager/resize/'.$person_image_url) }}" alt="" style="width:100px;">
                 @elseif($person_type==3)
-                <img class="img-circle img-sm" src="{{ asset('image/person-employee/resize/'.$person_image_url) }}" alt="">
+                <img class="img-circle " src="{{ asset('image/person-employee/resize/'.$person_image_url) }}" alt="" style="width:100px;">
                 @elseif($person_type==4)
-                <img class="img-circle img-sm" src="{{ asset('image/person-member/resize/'.$person_image_url) }}" alt="">
+                <img class="img-circle " src="{{ asset('image/person-member/resize/'.$person_image_url) }}" alt="" style="width:100px;">
                 @endif
                 &nbsp;&nbsp;&nbsp;{{ $person_name }} <b style="color:gray;">สถานะ :</b>
                         @if($person_type==1)
@@ -259,11 +260,11 @@
               <div class="box-comment">
                 <!-- User image -->
                 @if($ansewr_post->is_type==1 || $ansewr_post->is_type==2)
-                <img class="img-circle img-sm" src="{{ asset('image/person-manager/resize/'.$ansewr_post->is_image_url) }}" alt="">
+                <img class="img-circle" src="{{ asset('image/person-manager/resize/'.$ansewr_post->is_image_url) }}" alt="" style="height:100px;">
                 @elseif($ansewr_post->is_type==3)
-                <img class="img-circle img-sm" src="{{ asset('image/person-employee/resize/'.$ansewr_post->is_image_url) }}" alt="">
+                <img class="img-circle" src="{{ asset('image/person-employee/resize/'.$ansewr_post->is_image_url) }}" alt="" style="height:100px;">
                 @elseif($ansewr_post->is_type==4)
-                <img class="img-circle img-sm" src="{{ asset('image/person-member/resize/'.$ansewr_post->is_image_url) }}" alt="">
+                <img class="img-circle" src="{{ asset('image/person-member/resize/'.$ansewr_post->is_image_url) }}" alt="" style="height:100px;">
                 @endif
                 <!-- <img class="img-circle img-sm" src="dist/img/user3-128x128.jpg" alt="User Image"> -->
 
@@ -302,7 +303,7 @@
             <div class="modal fade " id="modal-delete-answer-post{{ $ansewr_post->id }}">
               <div class="modal-dialog ">
                 <div class="modal-content ">
-                  <div class="modal-header " >
+                  <div class="modal-header bg-danger" >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">ลบความคิดเห็น</h4>
@@ -334,7 +335,7 @@
         
         <div class="modal-dialog ">
         <div class="modal-content ">
-          <div class="modal-header " >
+          <div class="modal-header bg-warning" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">แก้ไขกระความคิดเห็น</h4>
@@ -386,7 +387,7 @@
       <!-- /.row -->    
       <div class="text-right">
         <button type="button" class="btn btn-info margin-bottom" data-toggle="modal" data-target="#modal-add-answer-post">
-              <i class="fa  fa-comments-o fa-lg"></i> &nbsp; ตอบกระทู้
+              <i class="fa  fa-send fa-lg"></i> &nbsp; ตอบกระทู้
         </button>
       </div>
     </section>

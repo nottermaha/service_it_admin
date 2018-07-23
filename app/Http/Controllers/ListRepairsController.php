@@ -215,22 +215,49 @@ class ListRepairsController extends Controller
       $repair->price =  $request->price;
       $repair->price_before =  $request->price_before;
 
-      if ($request->hasFile('image')) {        
+      if ($request->hasFile('image')) {  
+        
+        $chk_name =$request->file('image')
+        ->getClientOriginalName();     
+        $value = substr($chk_name,-3);
+        if($value=='jpg' || $value=='JPG' || $value=='png' || $value=='PNG' || $value=='gif' || $value=='GIF'){
+          // echo '44';exit();
+        }
+        else{
+          // echo 'tt';exit();
+          $request->session()->flash('status_image_fail', ''); 
+          $request->session()->flash('status_id',$request->id); 
+          // return redirect('gallery');
+        }
+
         $filename = str_random(10) . '.' . $request->file('image')
         ->getClientOriginalName();             
         $request->file('image')->move('image/list-repair/picture/', $filename);           
         Image::make('image/list-repair/picture/' . $filename)
         ->resize(200, 200)->save('image/list-repair/resize/' . $filename);     
-        $repair->image = $filename;         
+        $repair->image = $filename;      
+        $repair->status = true;
+        $repair->save();
+        $request->session()->flash('list_status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว');   
       } 
       else{
         // echo '5555555555555';exit();                
-        $repair->image =$repair['image'];
+          if($repair['image']==''){
+              $repair->image =$repair['image'];
+              $repair->status = true;
+              $repair->save();
+              $request->session()->flash('list_status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว');
+          }
+          else{
+            $request->session()->flash('status_image_fail', ''); 
+            $request->session()->flash('status_id',$request->id); 
+
+          }
        }
 
-      $repair->status = true;
-      $repair->save();
-      $request->session()->flash('list_status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+      // $repair->status = true;
+      // $repair->save();
+      // $request->session()->flash('list_status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
 
       // return redirect('list-repair/'.$repair['repair_id']);
       $items = [// select data show in table

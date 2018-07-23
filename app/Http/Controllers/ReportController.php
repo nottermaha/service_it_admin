@@ -63,7 +63,7 @@ class ReportController extends Controller
 
               $data =['chk'=>$request->chk,'type_name'=>'ทั้งหมด','current_date'=>$current_date['current_date']];
               // echo $result;exit;
-              return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
+              // return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
             }
             elseif($request->chk_print==2){
               $store_branchs = StoreBranch::where('status',1)
@@ -75,12 +75,12 @@ class ReportController extends Controller
               ->where('persons.status', 1)
               ->orderBy('persons.store_branch_id','asc')
               ->where('persons.type',3)
-              ->where('persons.store_branch_id',$s_store_branch_id)
+              ->where('persons.store_branch_id',$request->store_branch_id)
               ->get($item);
               $data =['chk'=>$request->chk,'type_name'=>$store_branchs['0']['name'],'current_date'=>$current_date['current_date']];
 
               // echo $result;exit;
-              return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
+              // return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
             }
             elseif($request->chk_print==3){
               $store_branchs = StoreBranch::where('status',1)
@@ -97,8 +97,11 @@ class ReportController extends Controller
               $data =['chk'=>$request->chk,'type_name'=>$store_branchs['0']['name'],'current_date'=>$current_date['current_date']];
 
               // echo $result;exit;
-              return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
+              // return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
             }
+            $stores = Store::where('id',1)
+            ->get();
+          return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs,'stores'=>$stores],$data);
         
     }
     elseif($request->chk==2){
@@ -106,9 +109,14 @@ class ReportController extends Controller
           if($request->chk_print==3){
             $result = PersonsMember::where('status',1)
             ->get();
+            $date = new CallUseController();
+            $result = $date->get_date_all($result,'created','created_at');
+
             $data =['chk'=>$request->chk];
             // echo $persons;exit;
-            return view('report/re-excel',['result'=>$result,'current_date'=>$current_date['current_date']],$data);
+            $stores = Store::where('id',1)
+            ->get();
+            return view('report/re-excel',['result'=>$result,'current_date'=>$current_date['current_date'],'stores'=>$stores],$data);
           }
     }
     elseif($request->chk==3){
@@ -120,7 +128,7 @@ class ReportController extends Controller
             ->get();
             $data =['chk'=>$request->chk,'type_name'=>'ทั้งหมด','current_date'=>$current_date['current_date']];
 
-            return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
+            // return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
           }
           elseif($request->chk_print==2){
             $store_branchs = StoreBranch::where('status',1)
@@ -132,7 +140,7 @@ class ReportController extends Controller
             ->get();
             $data =['chk'=>$request->chk,'type_name'=>$store_branchs['0']['name'],'current_date'=>$current_date['current_date']];
 
-            return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
+            // return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
           }
           elseif($request->chk_print==3){
             $store_branchs = StoreBranch::where('status',1)
@@ -144,13 +152,17 @@ class ReportController extends Controller
             ->get();
             $data =['chk'=>$request->chk,'type_name'=>$store_branchs['0']['name'],'current_date'=>$current_date['current_date']];
 
-            return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
           }
+          $stores = Store::where('id',1)
+            ->get();
+          return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs,'stores'=>$stores],$data);
     }
     ////////////สำคัญมากกกกกกกกกกกกกก//////////////
+     ////////////สำคัญมากกกกกกกกกกกกกก//////////////
+      ////////////สำคัญมากกกกกกกกกกกกกก//////////////
 
     elseif($request->chk==4){////มีเพียงออกรายงานการซ่อมที่อยู่ในอีฟนี้ ซึ่งมันมีเยอะและแพทเทิลแตกต่างจากอันอื่นเลยเอามาไว้ที่นี้
-      if($request->chk_get_person=='1'){
+      if($request->chk_get_person=='1'){  ///เอามาเชคบุคคลเฉยๆ
           $item = [
             'persons.id as id',
               'persons.name as person_name',
@@ -188,11 +200,16 @@ class ReportController extends Controller
               'repair.id',
               'repair.store_branch_id',
 
+              
               'repair.bin_number',
               'repair.status_bill',
               'repair.status_repair',
               'repair.date_in_repair',
               'repair.date_out_repair',
+              'repair.name as member_name',
+              
+              'persons_member.id as person_member_id',//
+              'persons_member.name as person_member_name',//
 
               'setting_status_repair_shop.name as status_repair_shop_name',
             ];
@@ -218,21 +235,26 @@ class ReportController extends Controller
                       $result = Repair::where('repair.status', 1)
                       ->where('repair.date_in_repair','>=',$request['chk_date_in'])
                       ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+                      ->orderBy('repair.status_bill','asc')//
                       ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
                       ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
+                      ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
                       ->get($item);     
 
                       $date = new CallUseController();
-                      $date_print = $date->get_date_all($question_posts,'created','created_at');
-                      $date_print = $date->get_time_all($question_posts,'time_created','created_at');
+                      $date_print = $date->get_date_all($result,'created','created_at');
+                      $date_print = $date->get_time_all($result,'time_created','created_at');
+
+                      $chk_date_in_na = $date->get_date_only_request_date($request['chk_date_in']);//
+                      $chk_date_out_na = $date->get_date_only_request_date($request['chk_date_out']);//
 
                       $data =['chk'=>$request->chk,
-                      'type_name'=>'ร้านทั้งหมด',
+                      'type_name'=>'ตามสถานะ ร้านทุกสาขา',
                       'current_date'=>$current_date['current_date'],
                       'chk_print'=>$request['chk_print'],
                       'chk_get_per'=>0,
-                      'chk_date_in'=>$request['chk_date_in'],
-                      'chk_date_out'=>$request['chk_date_out'],
+                      'chk_date_in'=>$chk_date_in_na,//
+                      'chk_date_out'=>$chk_date_out_na,//
                     ];
                     }
                     else{///สถานะตามที่เลือก
@@ -246,10 +268,26 @@ class ReportController extends Controller
                       ->where('repair.status_repair',$request->status_repair_id)
                       ->where('repair.date_in_repair','>=',$request['chk_date_in'])
                       ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+                      ->orderBy('repair.status_bill','asc')//
                       ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
                       ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
+                      ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
                       ->get($item);
-                      $data =['chk'=>$request->chk,'type_name'=>'ร้านทั้งหมด','current_date'=>$current_date['current_date'],'chk_print'=>$request['chk_print']];
+
+                      $date = new CallUseController();
+                      $date_print = $date->get_date_all($result,'created','created_at');
+                      $date_print = $date->get_time_all($result,'time_created','created_at');
+                      $chk_date_in_na = $date->get_date_only_request_date($request['chk_date_in']);//
+                      $chk_date_out_na = $date->get_date_only_request_date($request['chk_date_out']);//
+
+                      $data =['chk'=>$request->chk,
+                      'type_name'=>'ตามสถานะ ร้านทุกสาขา',
+                      'current_date'=>$current_date['current_date'],
+                      'chk_print'=>$request['chk_print'],
+                      'chk_get_per'=>0,
+                      'chk_date_in'=>$chk_date_in_na,//
+                      'chk_date_out'=>$chk_date_out_na,//
+                    ];
 
                     }
             }
@@ -268,11 +306,26 @@ class ReportController extends Controller
                       ->where('repair.store_branch_id',$request->store_branch_id)
                       ->where('repair.date_in_repair','>=',$request['chk_date_in'])
                       ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+                      ->orderBy('repair.status_bill','asc')//
                       ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
                       ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
+                      ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
                       ->get($item);
 
-                      $data =['chk'=>$request->chk,'type_name'=>$store_branchs['0']['name'],'current_date'=>$current_date['current_date'],'chk_print'=>$request['chk_print'],'chk_get_per'=>0];
+                      $date = new CallUseController();
+                      $date_print = $date->get_date_all($result,'created','created_at');
+                      $date_print = $date->get_time_all($result,'time_created','created_at');
+                      $chk_date_in_na = $date->get_date_only_request_date($request['chk_date_in']);//
+                      $chk_date_out_na = $date->get_date_only_request_date($request['chk_date_out']);//
+
+                      $data =['chk'=>$request->chk,
+                      'type_name'=>'ตามสถานะ'.' '.$store_branchs['0']['name'],
+                      'current_date'=>$current_date['current_date'],
+                      'chk_print'=>$request['chk_print'],
+                      'chk_get_per'=>0,
+                      'chk_date_in'=>$chk_date_in_na,//
+                      'chk_date_out'=>$chk_date_out_na,//
+                    ];
 
                     }
                     elseif($request->status_repair_id!=-1)///สถานะทั้งหมด
@@ -291,9 +344,23 @@ class ReportController extends Controller
                       ->where('repair.date_in_repair','<=',$request['chk_date_out'])
                       ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
                       ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
+                      ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
                       ->get($item);
 
-                      $data =['chk'=>$request->chk,'type_name'=>$store_branchs['0']['name'],'current_date'=>$current_date['current_date'],'chk_print'=>$request['chk_print'],'chk_get_per'=>0];
+                      $date = new CallUseController();
+                      $date_print = $date->get_date_all($result,'created','created_at');
+                      $date_print = $date->get_time_all($result,'time_created','created_at');
+                      $chk_date_in_na = $date->get_date_only_request_date($request['chk_date_in']);//
+                      $chk_date_out_na = $date->get_date_only_request_date($request['chk_date_out']);//
+
+                      $data =['chk'=>$request->chk,
+                      'type_name'=>'ตามสถานะ'.' '.$store_branchs['0']['name'],
+                      'current_date'=>$current_date['current_date'],
+                      'chk_print'=>$request['chk_print'],
+                      'chk_get_per'=>0,
+                      'chk_date_in'=>$chk_date_in_na,//
+                      'chk_date_out'=>$chk_date_out_na,//
+                    ];
 
                     }
             }
@@ -327,7 +394,13 @@ class ReportController extends Controller
             'repair.status_repair',
             'repair.date_in_repair',
             'repair.date_out_repair',
-              'persons_member.name as member_name',
+
+            'repair.name as member_name',
+              
+            'persons_member.id as person_member_id',//
+            'persons_member.name as person_member_name',//
+            
+              // 'persons_member.name as member_name',
             'setting_status_repair_shop.name as status_repair_shop_name',
           ];
           $item2 =[
@@ -353,12 +426,26 @@ class ReportController extends Controller
                     ->where('repair.persons_member_id','!=',NULL)
                     ->where('repair.date_in_repair','>=',$request['chk_date_in'])
                     ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+                    ->orderBy('repair.status_bill','asc')//
                     ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
                     ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
                     ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
                     ->get($item);                    
                     
-                    $data =['chk'=>$request->chk,'type_name'=>'ลูกค้าสมาชิกทั้งหมด ของสาขาทั้งหมด','current_date'=>$current_date['current_date'],'chk_print'=>$request['chk_print'],'chk_get_per'=>0];
+                    $date = new CallUseController();
+                    $date_print = $date->get_date_all($result,'created','created_at');
+                    $date_print = $date->get_time_all($result,'time_created','created_at');
+                    $chk_date_in_na = $date->get_date_only_request_date($request['chk_date_in']);//
+                    $chk_date_out_na = $date->get_date_only_request_date($request['chk_date_out']);//
+
+                    $data =['chk'=>$request->chk,
+                    'type_name'=>'ลูกค้าสมาชิกทั้งหมด สาขาทั้งหมด',
+                    'current_date'=>$current_date['current_date'],
+                    'chk_print'=>$request['chk_print'],
+                    'chk_get_per'=>0,
+                    'chk_date_in'=>$chk_date_in_na,//
+                    'chk_date_out'=>$chk_date_out_na,//
+                  ];
                   }
                   elseif($request->person_member_id!=-1)///ร้านทั้งหมด สมาชิกบางคน 
                   {
@@ -372,6 +459,7 @@ class ReportController extends Controller
                     ->where('repair.persons_member_id',$request->person_member_id)
                     ->where('repair.date_in_repair','>=',$request['chk_date_in'])
                     ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+                    ->orderBy('repair.status_bill','asc')//
                     ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
                     ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
 
@@ -380,7 +468,19 @@ class ReportController extends Controller
 
                     $person_get = PersonsMember::find($request->person_member_id);
 
-                    $data =['chk'=>$request->chk,'type_name'=>'ลูกค้าสมาชิก ['.''.$person_get['name'].''.'] ของสาขาทั้งหมด','current_date'=>$current_date['current_date'],'chk_print'=>$request['chk_print'],'chk_get_per'=>0];
+                    $date = new CallUseController();
+                    $date_print = $date->get_date_all($result,'created','created_at');
+                    $date_print = $date->get_time_all($result,'time_created','created_at');
+                    $chk_date_in_na = $date->get_date_only_request_date($request['chk_date_in']);//
+                    $chk_date_out_na = $date->get_date_only_request_date($request['chk_date_out']);//
+
+                    $data =['chk'=>$request->chk,
+                    'type_name'=>'ลูกค้าสมาชิก ['.''.$person_get['name'].''.'] สาขาทั้งหมด','current_date'=>$current_date['current_date'],
+                    'chk_print'=>$request['chk_print'],
+                    'chk_get_per'=>0,
+                    'chk_date_in'=>$chk_date_in_na,//
+                    'chk_date_out'=>$chk_date_out_na,//
+                  ];
                   }
           }
           elseif($request->store_branch_id!=-1){///ร้านที่เลือก
@@ -398,6 +498,7 @@ class ReportController extends Controller
                     ->where('repair.persons_member_id','!=',NULL)
                     ->where('repair.date_in_repair','>=',$request['chk_date_in'])
                     ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+                    ->orderBy('repair.status_bill','asc')//
                     ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
                     ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
                     ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
@@ -405,7 +506,19 @@ class ReportController extends Controller
                     
                     $store_branch__get = StoreBranch::find($request->store_branch_id);
 
-                    $data =['chk'=>$request->chk,'type_name'=>'ลูกค้าสมาชิกทั้งหมด ของสาขา'.''.$store_branch__get['name'],'current_date'=>$current_date['current_date'],'chk_print'=>$request['chk_print'],'chk_get_per'=>0];
+                    $date = new CallUseController();
+                    $date_print = $date->get_date_all($result,'created','created_at');
+                    $date_print = $date->get_time_all($result,'time_created','created_at');
+                    $chk_date_in_na = $date->get_date_only_request_date($request['chk_date_in']);//
+                    $chk_date_out_na = $date->get_date_only_request_date($request['chk_date_out']);//
+
+                    $data =['chk'=>$request->chk,
+                    'type_name'=>'ลูกค้าสมาชิกทั้งหมด ของสาขา'.''.$store_branch__get['name'],'current_date'=>$current_date['current_date'],
+                    'chk_print'=>$request['chk_print'],
+                    'chk_get_per'=>0,
+                    'chk_date_in'=>$chk_date_in_na,//
+                    'chk_date_out'=>$chk_date_out_na,//
+                  ];
                   }
                   elseif($request->person_member_id!=-1)///เลือกร้าน สมาชิกบางคน
                   {
@@ -422,6 +535,7 @@ class ReportController extends Controller
                     ->where('repair.persons_member_id','!=',NULL)
                     ->where('repair.date_in_repair','>=',$request['chk_date_in'])
                     ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+                    ->orderBy('repair.status_bill','asc')//
                     ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
                     ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
                     ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
@@ -430,7 +544,21 @@ class ReportController extends Controller
                     $person_get = PersonsMember::find($request->person_member_id);
                     $store_branch__get = StoreBranch::find($request->store_branch_id);
 
-                    $data =['chk'=>$request->chk,'type_name'=>'ลูกค้าสมาชิก ['.''.$person_get['name'].''.']'.''.$store_branch__get['name'],'current_date'=>$current_date['current_date'],'chk_print'=>$request['chk_print'],'chk_get_per'=>0];
+                    
+                    $date = new CallUseController();
+                    $date_print = $date->get_date_all($result,'created','created_at');
+                    $date_print = $date->get_time_all($result,'time_created','created_at');
+                    $chk_date_in_na = $date->get_date_only_request_date($request['chk_date_in']);//
+                    $chk_date_out_na = $date->get_date_only_request_date($request['chk_date_out']);//
+
+
+                    $data =['chk'=>$request->chk,
+                    'type_name'=>'ลูกค้าสมาชิก ['.''.$person_get['name'].''.']'.''.$store_branch__get['name'],'current_date'=>$current_date['current_date'],
+                    'chk_print'=>$request['chk_print'],
+                    'chk_get_per'=>0,
+                    'chk_date_in'=>$chk_date_in_na,//
+                    'chk_date_out'=>$chk_date_out_na,//
+                  ];
                   }
           }
 
@@ -444,8 +572,11 @@ class ReportController extends Controller
             $result = $date->get_date_all($result,'date_in','date_in_repair');
             $result = $date->get_date_all($result,'date_out','date_out_repair');
 
+            $stores = Store::where('id',1)
+            ->get();
+
             // echo $chk_print['chk_print'];exit();
-            return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs,'status_repair'=>$status_repair,'list_repair'=>$list_repair,'chk_get_per'=>0],$data);
+            return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs,'status_repair'=>$status_repair,'list_repair'=>$list_repair,'chk_get_per'=>0,'stores'=>$stores],$data);
         }//////end chk_print2
 
         if($request->chk_print==3){///chk_print คือข้อที่ 3
@@ -454,13 +585,15 @@ class ReportController extends Controller
             'repair.id',
             'repair.store_branch_id',
 
-            'repair.name as member_name',//ที่จริงทำไว้เพื่อในหน้าปริ้นจะได้เแ็นตัวแปรเดียวกับลูกค้าทั่วไป
+            
             'repair.bin_number',
             'repair.status_bill',
             'repair.status_repair',
             'repair.date_in_repair',
             'repair.date_out_repair',
-              // 'persons_member.name as member_name',
+            'repair.name as member_name',//ที่จริงทำไว้เพื่อในหน้าปริ้นจะได้เแ็นตัวแปรเดียวกับลูกค้าทั่วไป
+              'persons_member.id as person_member_id',//
+              'persons_member.name as person_member_name',//
             'setting_status_repair_shop.name as status_repair_shop_name',
           ];
           $item2 =[
@@ -485,12 +618,26 @@ class ReportController extends Controller
                     ->where('repair.persons_member_id','=',NULL)
                     ->where('repair.date_in_repair','>=',$request['chk_date_in'])
                     ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+                    ->orderBy('repair.status_bill','asc')//
                     ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
                     ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
                     ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
-                    ->get($item);                    
+                    ->get($item);             
                     
-                    $data =['chk'=>$request->chk,'type_name'=>'ลูกค้าทั่วไปทั้งหมด ของสาขาทั้งหมด','current_date'=>$current_date['current_date'],'chk_print'=>$request['chk_print'],'chk_get_per'=>0];
+                    $date = new CallUseController();
+                    $date_print = $date->get_date_all($result,'created','created_at');
+                    $date_print = $date->get_time_all($result,'time_created','created_at');
+                    $chk_date_in_na = $date->get_date_only_request_date($request['chk_date_in']);//
+                    $chk_date_out_na = $date->get_date_only_request_date($request['chk_date_out']);//
+                    
+                    $data =['chk'=>$request->chk,
+                    'type_name'=>'ลูกค้าทั่วไปทั้งหมด ของสาขาทั้งหมด',
+                    'current_date'=>$current_date['current_date'],
+                    'chk_print'=>$request['chk_print'],
+                    'chk_get_per'=>0,
+                    'chk_date_in'=>$chk_date_in_na,//
+                    'chk_date_out'=>$chk_date_out_na,//
+                  ];
             }
             elseif($request->store_branch_id!=-1){///ร้านทั้งหมด สมาชิกทั่วไป
 
@@ -506,14 +653,28 @@ class ReportController extends Controller
                     ->where('repair.persons_member_id','=',NULL)
                     ->where('repair.date_in_repair','>=',$request['chk_date_in'])
                     ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+                    ->orderBy('repair.status_bill','asc')//
                     ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
                     ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
                     ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
                     ->get($item);                    
                     
                     $store_branch__get = StoreBranch::find($request->store_branch_id);
+                    $date = new CallUseController();
+                    $date_print = $date->get_date_all($result,'created','created_at');
+                    $date_print = $date->get_time_all($result,'time_created','created_at');
+                    $chk_date_in_na = $date->get_date_only_request_date($request['chk_date_in']);//
+                    $chk_date_out_na = $date->get_date_only_request_date($request['chk_date_out']);//
 
-                    $data =['chk'=>$request->chk,'type_name'=>'ลูกค้าทั่วไปทั้งหมด ของสาขา'.''.$store_branch__get['name'],'current_date'=>$current_date['current_date'],'chk_print'=>$request['chk_print'],'chk_get_per'=>0];
+                    $data =['chk'=>$request->chk,
+                    'type_name'=>'ลูกค้าทั่วไปทั้งหมด ของสาขา'.''.$store_branch__get['name'],
+                    'current_date'=>$current_date['current_date'],
+                    'chk_print'=>$request['chk_print'],
+                    'chk_get_per'=>0,
+                    'chk_date_in'=>$chk_date_in_na,//
+                    'chk_date_out'=>$chk_date_out_na,//
+
+                  ];
             }
             $list_repair = ListRepair::where('list_repair.status', 1)
             ->leftJoin('repair','repair.id','=','list_repair.repair_id')
@@ -525,8 +686,11 @@ class ReportController extends Controller
             $result = $date->get_date_all($result,'date_in','date_in_repair');
             $result = $date->get_date_all($result,'date_out','date_out_repair');
 
+            $stores = Store::where('id',1)
+            ->get();
+
             // echo $chk_print['chk_print'];exit();
-            return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs,'status_repair'=>$status_repair,'list_repair'=>$list_repair,'chk_get_per'=>0],$data);
+            return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs,'status_repair'=>$status_repair,'list_repair'=>$list_repair,'chk_get_per'=>0,'stores'=>$stores],$data);
 
         }//end chk_print 3
 
@@ -560,27 +724,47 @@ class ReportController extends Controller
 
             $status_repair = SettingStatusRepair::where('status',1)
             ->get();
+
+            $get_tecnic = Persons::where('id',$request->person_id)
+            ->get();
+
             $result = Repair::where('repair.status', 1)
             ->where('list_repair.person_id',$request->person_id)
             ->where('repair.date_in_repair','>=',$request['chk_date_in'])
             ->where('repair.date_in_repair','<=',$request['chk_date_out'])
-            ->orderBy('repair.bin_number')
+            ->orderBy('repair.status_bill','asc')//
             ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
             ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
             ->leftJoin('list_repair','list_repair.repair_id','=','repair.id')
             ->leftJoin('persons','persons.id','=','list_repair.person_id')
             ->leftJoin('setting_status_repair','setting_status_repair.id','=','list_repair.status_list_repair')
             ->get($item);
+            // echo $get_tecnic;exit();
+            $date = new CallUseController();
+            $date_print = $date->get_date_all($result,'created','created_at');
+            $date_print = $date->get_time_all($result,'time_created','created_at');
+            $chk_date_in_na = $date->get_date_only_request_date($request['chk_date_in']);//
+            $chk_date_out_na = $date->get_date_only_request_date($request['chk_date_out']);//
 
-            $data =['chk'=>$request->chk,'type_name'=>'ร้านทั้งหมด','current_date'=>$current_date['current_date'],'chk_print'=>$request['chk_print'],'chk_get_per'=>0,'store_branch_name'=>$get_store_by_person_id2['0']['name']];
+            $data =['chk'=>$request->chk,'type_name'=>'ของช่างซ่อม รายบุคคล['.$get_tecnic['0']['name'].']',
+            'current_date'=>$current_date['current_date'],
+            'chk_print'=>$request['chk_print'],
+            'chk_get_per'=>0,
+            'store_branch_name'=>$get_store_by_person_id2['0']['name'],
+            'chk_date_in'=>$chk_date_in_na,//
+            'chk_date_out'=>$chk_date_out_na,//
+          ];
                 // echo $result;exit();
-
+// echo $result;exit();
                 $date = new CallUseController();
                 $result = $date->get_date_all($result,'date_in','date_in_repair');
                 $result = $date->get_date_all($result,'date_out','date_out_repair');
 
+                $stores = Store::where('id',1)
+                ->get();
+
                 // echo $result;exit();
-                return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs,'status_repair'=>$status_repair,'chk_get_per'=>0],$data);
+                return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs,'status_repair'=>$status_repair,'chk_get_per'=>0,'stores'=>$stores],$data);
           // }
       }////end chk_print4
 
@@ -628,11 +812,25 @@ class ReportController extends Controller
                   $result = Repair::where('repair.status', 1)
                   ->where('repair.date_in_repair','>=',$request['chk_date_in'])
                   ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+                  ->orderBy('repair.status_bill','asc')//
                   ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
                   ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
-                  ->get($item);                 
-                  
-                  $data =['chk'=>$request->chk,'type_name'=>'ร้านทั้งหมด','current_date'=>$current_date['current_date'],'chk_print'=>$request['chk_print'],'chk_get_per'=>0];
+                  ->get($item);      
+
+                  $date = new CallUseController();
+                  $date_print = $date->get_date_all($result,'created','created_at');
+                  $date_print = $date->get_time_all($result,'time_created','created_at');
+                  $chk_date_in_na = $date->get_date_only_request_date($request['chk_date_in']);//
+                  $chk_date_out_na = $date->get_date_only_request_date($request['chk_date_out']);//
+
+                  $data =['chk'=>$request->chk,
+                  'type_name'=>'ของอะไหล่ที่ใช้ซ่อมแต่ละรายการ ร้านทั้งหมด สถานะการซ่อมทั้งหมด',
+                  'current_date'=>$current_date['current_date'],
+                  'chk_print'=>$request['chk_print'],
+                  'chk_get_per'=>0,
+                  'chk_date_in'=>$chk_date_in_na,//
+                  'chk_date_out'=>$chk_date_out_na,//
+                ];
                 }
                 else{///สถานะตามที่เลือก
                   $store_branchs = StoreBranch::where('status',1)
@@ -645,10 +843,24 @@ class ReportController extends Controller
                   ->where('repair.status_repair',$request->status_repair_id)
                   ->where('repair.date_in_repair','>=',$request['chk_date_in'])
                   ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+                  ->orderBy('repair.status_bill','asc')//
                   ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
                   ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
                   ->get($item);
-                  $data =['chk'=>$request->chk,'type_name'=>'ร้านทั้งหมด','current_date'=>$current_date['current_date'],'chk_print'=>$request['chk_print']];
+
+                  $date = new CallUseController();
+                  $date_print = $date->get_date_all($result,'created','created_at');
+                  $date_print = $date->get_time_all($result,'time_created','created_at');
+                  $chk_date_in_na = $date->get_date_only_request_date($request['chk_date_in']);//
+                  $chk_date_out_na = $date->get_date_only_request_date($request['chk_date_out']);//
+
+                  $data =['chk'=>$request->chk,
+                  'type_name'=>'ของอะไหล่ที่ใช้ซ่อมแต่ละรายการ ร้านทั้งหมด สถานะการซ่อม'.$result['0']['status_repair_shop_name'],
+                  'current_date'=>$current_date['current_date'],
+                  'chk_print'=>$request['chk_print'],
+                  'chk_date_in'=>$chk_date_in_na,//
+                  'chk_date_out'=>$chk_date_out_na,//
+                ];
 
                 }
         }
@@ -667,11 +879,25 @@ class ReportController extends Controller
                   ->where('repair.store_branch_id',$request->store_branch_id)
                   ->where('repair.date_in_repair','>=',$request['chk_date_in'])
                   ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+                  ->orderBy('repair.status_bill','asc')//
                   ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
                   ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
                   ->get($item);
 
-                  $data =['chk'=>$request->chk,'type_name'=>$store_branchs['0']['name'],'current_date'=>$current_date['current_date'],'chk_print'=>$request['chk_print'],'chk_get_per'=>0];
+                  $date = new CallUseController();
+                  $date_print = $date->get_date_all($result,'created','created_at');
+                  $date_print = $date->get_time_all($result,'time_created','created_at');
+                  $chk_date_in_na = $date->get_date_only_request_date($request['chk_date_in']);//
+                  $chk_date_out_na = $date->get_date_only_request_date($request['chk_date_out']);//
+
+                  $data =['chk'=>$request->chk,
+                  'type_name'=>'ของอะไหล่ที่ใช้ซ่อมแต่ละรายการ'.$store_branchs['0']['name'].' สถานะการซ่อมทั้งหมด',
+                  'current_date'=>$current_date['current_date'],
+                  'chk_print'=>$request['chk_print'],
+                  'chk_get_per'=>0,
+                  'chk_date_in'=>$chk_date_in_na,//
+                  'chk_date_out'=>$chk_date_out_na,//
+                ];
 
                 }
                 elseif($request->status_repair_id!=-1)///สถานะทั้งหมด
@@ -688,11 +914,25 @@ class ReportController extends Controller
                   ->where('repair.store_branch_id',$request->store_branch_id)
                   ->where('repair.date_in_repair','>=',$request['chk_date_in'])
                   ->where('repair.date_in_repair','<=',$request['chk_date_out'])
+                  ->orderBy('repair.status_bill','asc')//
                   ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
                   ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
                   ->get($item);
 
-                  $data =['chk'=>$request->chk,'type_name'=>$store_branchs['0']['name'],'current_date'=>$current_date['current_date'],'chk_print'=>$request['chk_print'],'chk_get_per'=>0];
+                  $date = new CallUseController();
+                  $date_print = $date->get_date_all($result,'created','created_at');
+                  $date_print = $date->get_time_all($result,'time_created','created_at');
+                  $chk_date_in_na = $date->get_date_only_request_date($request['chk_date_in']);//
+                  $chk_date_out_na = $date->get_date_only_request_date($request['chk_date_out']);//
+
+                  $data =['chk'=>$request->chk,
+                  'type_name'=>'ของอะไหล่ที่ใช้ซ่อมแต่ละรายการ'.$store_branchs['0']['name'].'สถานะการซ่อม'.$result['0']['status_repair_shop_name'],
+                  'current_date'=>$current_date['current_date'],
+                  'chk_print'=>$request['chk_print'],
+                  'chk_get_per'=>0,
+                  'chk_date_in'=>$chk_date_in_na,//
+                  'chk_date_out'=>$chk_date_out_na,//
+                ];
 
                 }
         }
@@ -712,9 +952,11 @@ class ReportController extends Controller
         $date = new CallUseController();
         $result = $date->get_date_all($result,'date_in','date_in_repair');
         $result = $date->get_date_all($result,'date_out','date_out_repair');
-
+        
+        $stores = Store::where('id',1)
+        ->get();
         // echo $chk_print['chk_print'];exit();
-        return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs,'status_repair'=>$status_repair,'list_repair'=>$list_repair,'data_use_parts'=>$data_use_parts,'chk_get_per'=>0],$data);
+        return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs,'status_repair'=>$status_repair,'list_repair'=>$list_repair,'data_use_parts'=>$data_use_parts,'chk_get_per'=>0,'stores'=>$stores],$data);
         
     }////end chk_print5
      
@@ -729,7 +971,7 @@ class ReportController extends Controller
             ->get();
             $data =['chk'=>$request->chk,'type_name'=>'ทั้งหมด','current_date'=>$current_date['current_date']];
 
-            return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
+            // return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
           }
           elseif($request->chk_print==2){
             $store_branchs = StoreBranch::where('status',1)
@@ -741,7 +983,7 @@ class ReportController extends Controller
             ->get();
             $data =['chk'=>$request->chk,'type_name'=>$store_branchs['0']['name'],'current_date'=>$current_date['current_date']];
 
-            return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
+            // return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
           }
           elseif($request->chk_print==3){
             $store_branchs = StoreBranch::where('status',1)
@@ -753,8 +995,11 @@ class ReportController extends Controller
             ->get();
             $data =['chk'=>$request->chk,'type_name'=>$store_branchs['0']['name'],'current_date'=>$current_date['current_date']];
 
-            return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
+            // return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs],$data);
           }
+          $stores = Store::where('id',1)
+          ->get();
+          return view('report/re-excel',['result'=>$result,'store_branchs'=>$store_branchs,'stores'=>$stores],$data);
     }
 
     
@@ -791,7 +1036,7 @@ class ReportController extends Controller
               // echo '111';exit();
               $store_branch = StoreBranch::where('status', 1)
               ->get();
-              $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>$store_branch['0']['name'],'chk_get'=>0];
+              $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>'พนักงานสาขา '.$store_branch['0']['name'],'chk_get'=>0];
               return view('report/report-detail',['result'=>$result,'store_branch'=>$store_branch],$data);
             }
             else{
@@ -840,7 +1085,7 @@ class ReportController extends Controller
                 $result = StoreBranch::where('status', 1)
                 ->where('id',$request->get_store_branch_id)
                 ->get();
-                $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>$result['0']['name'],'chk_get'=>0];
+                $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>'ร้านสาขา '.$result['0']['name'],'chk_get'=>0];
               }
               else{
                 $result = StoreBranch::where('status', 1)
@@ -899,7 +1144,7 @@ class ReportController extends Controller
                   // echo '111';exit();
                   $store_branch = StoreBranch::where('status', 1)
                   ->get();
-                  $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>$store_branch['0']['name'],'chk_get'=>0];
+                  $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>'อะไหล่สาขา '.$store_branch['0']['name'],'chk_get'=>0];
                   return view('report/report-detail',['result'=>$result,'store_branch'=>$store_branch],$data);
                 }
                 else{
@@ -914,7 +1159,7 @@ class ReportController extends Controller
             $result = ListPart::where('list_parts.status', 1)
             ->leftJoin('import_parts', 'import_parts.id', '=', 'list_parts.import_parts_id')
             ->get();
-          $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>'ร้านทั้งหมด','chk_get'=>0];
+          $data =['s_type'=>$s_type,'chk'=>$request->chk,'chk_name'=>'อะไหล่ของทุกสาขา','chk_get'=>0];
           }
 
         }

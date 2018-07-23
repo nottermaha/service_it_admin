@@ -153,7 +153,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <!-- <title>AdminLTE 2 | Dashboard</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -184,7 +184,7 @@
       <br>
     <section class="content">
   <!-- <form role="form" class="form-horizontal" action="/person/create" method="post"> -->
-  <form role="form" class="form-horizontal" id="ChkForm" action="<?php echo url('/person-member/create') ?>" method="post">
+  {!!  Form::open(['url'=>'/person-member/create','class'=>'form-horizontal','files'=>true,'id'=>'ChkForm'])   !!}
 
 <div class="row">
     <div class="col-md-6">
@@ -269,7 +269,18 @@
                             </div>
                         </div> 
                 </div>
-
+                        @if(session()->has('status_image_fail'))               
+                            <script type="text/javascript">
+                                    $(window).on('load',function(){
+                                        $('#modal-add-gallery').modal('show');
+                                    });   
+                                </script>   
+                            <div class="alert alert-warning alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <h4><i class="icon fa fa-warning"></i> การอัพโหลดรูปล้มเหลว!</h4>
+                                กรุณาอัพโหลดรูปภาพที่เป็น .png .jpg .gif เท่านั่น.
+                            </div>       
+                        @endif
                 <div class="form-group">
                     <label for="Address" class="control-label col-sm-3">ที่อยู่</label>
                         <div class="col-sm-9">

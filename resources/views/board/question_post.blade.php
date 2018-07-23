@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <!-- <title>AdminLTE 2 | Dashboard</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -50,7 +50,7 @@
         
         <div class="modal-dialog ">
         <div class="modal-content ">
-          <div class="modal-header " >
+          <div class="modal-header bg-green" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">ตั้งกระทู้ใหม่</h4>
@@ -117,8 +117,8 @@
         <!-- /.col -->
         <div class="col-md-9">
           <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">กระทู้คำถาม</h3>
+            <div class="box-header with-border bg-primary">
+              <h3 class="box-title" style="color:white;">กระทู้คำถาม</h3>
 
               <!-- /.box-tools -->
             </div>
@@ -189,10 +189,10 @@
             <div class="modal fade " id="modal-delete-question-post{{ $question_post->id }}">
               <div class="modal-dialog ">
                 <div class="modal-content ">
-                  <div class="modal-header " >
+                  <div class="modal-header bg-red" >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">ลบกระทู้</h4>
+                        <h4 class="modal-title">ลบกระทู้ของท่าน</h4>
                   </div>        
                 <?= Form::open(array('url' => '/questtion-post-delete')) ?>
                     <div class="modal-body">
@@ -219,7 +219,7 @@
         
         <div class="modal-dialog ">
         <div class="modal-content ">
-          <div class="modal-header " >
+          <div class="modal-header bg-yellow" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">แก้ไขกระทู้ของท่าน</h4>

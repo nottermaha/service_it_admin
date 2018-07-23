@@ -7,7 +7,10 @@
     </style>
     <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-<title> Header fixed | Monarch </title>
+<!-- <title> Header fixed | Monarch </title> -->
+<?php $s_store_name='' ; $s_store_name=session('s_store_name','default');?>
+<title> <?php echo $s_store_name; ?> </title>
+
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -514,7 +517,7 @@
         </li>
         <li>
         {!!  Form::open(['url'=>'/font-board-question','id'=>'myForm'])   !!}
-            <a  title="Homepages" style="font-size:20px;padding-top:25px;" onclick="myForm.submit();">
+            <a  title="Homepages" style="font-size:20px;padding-top:25px;cursor:Pointer;" onclick="myForm.submit();">
            <i class="glyph-icon icon-comments-o"></i> กระทู้ถามตอบ
                 <input type="hidden" name="chk_get" value="all">
             </a>{!! Form::close() !!}

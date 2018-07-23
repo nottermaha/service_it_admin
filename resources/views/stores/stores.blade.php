@@ -177,7 +177,7 @@ document.getElementById("EditChkForm{{ $store->id }}").submit();
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <!-- <title>AdminLTE 2 | Dashboard</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -198,6 +198,17 @@ document.getElementById("EditChkForm{{ $store->id }}").submit();
   <!-- <script src="https://cdn.ckeditor.com/4.9.3/standard/ckeditor.js"></script> -->
 </head>
 <!--End css header-leftmenu -->
+<!-- js header-leftmenu -->
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- End js header-leftmenu -->
+
 
  @include('form/header-leftmenu')
  <section class="content-header">
@@ -215,7 +226,7 @@ document.getElementById("EditChkForm{{ $store->id }}").submit();
     
     <div class="col-md-10">
         <div class="box box-success">
-                <div class="box-header with-border">
+                <div class="box-header with-border bg-success">
                     <h3 class="box-title">แก้ไขข้อมูลร้าน</h3>
                     <!-- <I><h5>ข้อมูลส่วนนี้จะแสดงในหน้าใช้งานของลูกค้า ในส่วนของการรับประกัน</h5></I> -->
                 </div>
@@ -223,6 +234,19 @@ document.getElementById("EditChkForm{{ $store->id }}").submit();
             <!-- <input type="hidden" name="_token" value="fHc8pJvh1Gj4zf3SYopWZGvi0VztqE9wno25Za8z"> -->
 {{ csrf_field() }}
                 <div class="form-group">
+                @if(session()->has('status_image_fail'))  
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                          <div class="alert alert-warning alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-warning"></i> การอัพโหลดรูปล้มเหลว!</h4>
+                            กรุณาอัพโหลดรูปภาพที่เป็น .png .jpg .gif เท่านั่น.
+                          </div> 
+                    </div>
+                </div>
+                @endif
+      
                 <div class="row">
                 <div class="text-center">
                       <img src="{{ asset('image/'.$logo) }}"style="padding-bottom:20px;width:20%">
@@ -320,7 +344,7 @@ document.getElementById("EditChkForm{{ $store->id }}").submit();
             <div class="modal fade " id="modal-delete-branch{{ $store->id }}">
               <div class="modal-dialog ">
                 <div class="modal-content ">
-                  <div class="modal-header " >
+                  <div class="modal-header bg-yellow" >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">สถานะการเปิดให้บริการร้านสาขา</h4>
@@ -365,13 +389,27 @@ document.getElementById("EditChkForm{{ $store->id }}").submit();
       <div class="modal fade" id="modal-edit-branch{{ $store->id }}">
         <div class="modal-dialog" style="width:50%;">
           <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-yellow">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">แก้ไขข้อมูลสาขา</h4>
             </div>        {!!  Form::open(['url'=>'/store-branch/edit/'. $store->id,'class'=>'form','files'=>true,'id'=>'EditChkForm{{$store->id}}'] )   !!}
           <div class="modal-body">
           {{ csrf_field() }}
+
+          @if(session()->has('status_image_edit_fail'))               
+            <script type="text/javascript">
+                      $(window).on('load',function(){
+                          $('#modal-edit-branch<?php echo session()->get('status_id'); ?>').modal('show');
+                      });   
+                </script>   
+              <div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-warning"></i> การอัพโหลดรูปล้มเหลว!</h4>
+                กรุณาอัพโหลดรูปภาพที่เป็น .png .jpg .gif เท่านั่น.
+              </div>       
+          @endif
+
           <div class="row" >
               <div class="form-group">
                   <b for="" class="control-label col-md-4"style="text-align:right"></b>
@@ -401,7 +439,7 @@ document.getElementById("EditChkForm{{ $store->id }}").submit();
                     <div class="input-group-addon">
                         <i class="fa fa-home fa-lg"></i>
                     </div>
-                      <input type="text" class="form-control pull-right"  name="name" placeholder="ชื่อสาขา..." value="{{ $store->name }}" id="name{{ $store->id }}" onBlur="checkName{{ $store->id }}()">
+                      <input type="text" class="form-control pull-right"  name="name" placeholder="ชื่อสาขา..." value="{{ $store->name }}" id="name{{ $store->id }}" onBlur="checkName{{ $store->id }}()" required>
                   </div><b  id="txt_name{{ $store->id }}" style="color:red;"></b>
                 </div>
               </div>
@@ -416,7 +454,16 @@ document.getElementById("EditChkForm{{ $store->id }}").submit();
                             <i class="fa fa-phone fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right"  name="phone" placeholder="เบอร์โทร..." value="{{ $store->phone }}" id="phone{{ $store->id }}" onBlur="CheckMobileNumber{{ $store->id }}()">
-                      </div><b id="txt_phone{{ $store->id }}" style="color:red;"></b>
+                      </div>
+                      @if(session()->has('status_phone_fail'))   
+                      <script type="text/javascript">
+                      $(window).on('load',function(){
+                          $('#modal-edit-branch<?php echo session()->get('status_id'); ?>').modal('show');
+                      });   
+                      </script>             
+                     <b style="color:red;"> เบอร์โทรต้องอยู่ระหว่าง 9-10 หลัก และต้องเป็นตัวเลข และขึ้นต้นด้วย 02,03,04,05,06,08,09 เท่านั้น  </b>  
+                          @endif
+                      <b id="txt_phone{{ $store->id }}" style="color:red;"></b>
                     </div>
                   </div>
                 </div><br>
@@ -428,7 +475,7 @@ document.getElementById("EditChkForm{{ $store->id }}").submit();
                         <div class="input-group-addon">
                             <i class="fa fa-envelope fa-lg"></i>
                         </div>
-                          <input type="text" class="form-control pull-right" name="email" placeholder="อีเมล์..." value="{{ $store->email }}" onBlur="ChkEmail{{ $store->id }}()" id="email{{ $store->id }}">
+                          <input type="email" class="form-control pull-right" name="email" placeholder="อีเมล์..." value="{{ $store->email }}" onBlur="ChkEmail{{ $store->id }}()" id="email{{ $store->id }}" required>
                       </div><b  id="txt_email{{ $store->id }}" style="color:red;"></b>
                     </div>
                   </div>
@@ -442,7 +489,7 @@ document.getElementById("EditChkForm{{ $store->id }}").submit();
                             <i class="fa fa-map fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="map" placeholder="แผนที่..." value="{{ $store->map }}">
-                      </div>
+                      </div><b style="color:orange;">ใส่ url แผนที่ google map</b>
                     </div>
                   </div>
                 </div><br>
@@ -513,7 +560,7 @@ document.getElementById("EditChkForm{{ $store->id }}").submit();
         
             <div class="modal-dialog"style="width:50%;">
             <div class="modal-content" >
-              <div class="modal-header">
+              <div class="modal-header bg-green">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">บันทึกข้อมูลสาขาใหม่</h4>
@@ -521,6 +568,20 @@ document.getElementById("EditChkForm{{ $store->id }}").submit();
               {!!  Form::open(['url'=>'/store-branch/create','class'=>'form','files'=>true,'id'=>'ChkFormCre'])   !!}
               <div class="modal-body">
               {{ csrf_field() }}
+
+                @if(session()->has('status_image_create_fail'))               
+                  <script type="text/javascript">
+                            $(window).on('load',function(){
+                                $('#modal-add-branch').modal('show');
+                            });   
+                      </script>   
+                    <div class="alert alert-warning alert-dismissible">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      <h4><i class="icon fa fa-warning"></i> การอัพโหลดรูปล้มเหลว!</h4>
+                      กรุณาอัพโหลดรูปภาพที่เป็น .png .jpg .gif เท่านั่น.
+                    </div>       
+                @endif
+
                 <div class="row">
                   <div class="form-group">
                     <b for="" class="control-label col-sm-2"style="text-align:right">รูปภาพ</b>
@@ -582,7 +643,7 @@ document.getElementById("EditChkForm{{ $store->id }}").submit();
                             <i class="fa fa-map fa-lg"></i>
                         </div>
                           <input type="text" class="form-control pull-right" id="Name" name="map" placeholder="แผนที่...">
-                      </div>
+                      </div><b style="color:orange;">ใส่ url แผนที่ google map</b>
                     </div>
                   </div>
                 </div><br>
@@ -676,17 +737,6 @@ document.getElementById("EditChkForm{{ $store->id }}").submit();
   
         </section>
 @include('form/footer')
-
-<!-- js header-leftmenu -->
-<!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<!-- End js header-leftmenu -->
 
   <!-- DataTables -->
   <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">

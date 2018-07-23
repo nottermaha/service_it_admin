@@ -61,6 +61,7 @@ class PersonsMemberController extends Controller
     }
     public function create(Request $request)
     { 
+     
       // echo $request;exit();
         $person = new PersonsMember;
         $person->status = true;
@@ -75,22 +76,45 @@ class PersonsMemberController extends Controller
         $person->phone = $request->phone;
         // $person->image_url = $request->image_url;
         $person->address = $request->address;
-        if ($request->hasFile('image_url')) {        
+        if ($request->hasFile('image_url')) {   
+          
+          $chk_name =$request->file('image_url')
+          ->getClientOriginalName();     
+          $value = substr($chk_name,-3);
+          if($value=='jpg' || $value=='JPG' || $value=='png' || $value=='PNG' || $value=='gif' || $value=='GIF'){
+            // echo '44';exit();
+          }
+          else{
+            // echo 'tt';exit();
+            $request->session()->flash('status_image_fail', ''); 
+            // $request->session()->flash('status_id',$request->id); 
+            return redirect('person-member-form');
+          } 
+
           $filename = str_random(10) . '.' . $request->file('image_url')
           ->getClientOriginalName();             
           $request->file('image_url')->move('image/person-member/picture/', $filename);           
           Image::make('image/person-member/picture/' . $filename)
           ->resize(200, 200)->save('image/person-member/resize/' . $filename);     
-          $person->image_url = $filename;         
+          $person->image_url = $filename;        
+      
         } 
         else{
-          // echo '5555555555555';exit();                
-          $person->image_url = 'default.png';        
+        //  echo '5555555555555';exit();                
+            if($request['image_url']<=1)
+            { 
+              // echo 'g';exit();  
+              $person->image_url = 'default.png';        
+            }  
+            else{
+              // echo 'h';exit();  
+              $request->session()->flash('status_image_fail', '');
+              return redirect('person-member-form');    
+            }    
          }
-        $person->save();
-        $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
-
-        return redirect('persons-member');
+          $person->save();
+          $request->session()->flash('status_create', 'เพิ่มข้อมูลเรียบร้อยแล้ว'); 
+          return redirect('persons-member');  
     }
 
     public function edit(Request $request)

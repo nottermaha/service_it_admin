@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <!-- <title>AdminLTE 2 | Dashboard</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -112,7 +112,27 @@
       </div>
       <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
+
+         <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">กราฟแสดงการแจ้งซ่อมรายวัน</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <div class="chart">
+                <canvas id="lineChart" style="height:250px"></canvas>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+          
           <!-- AREA CHART -->
           <div class="box box-primary">
             <div class="box-header with-border">
@@ -132,10 +152,17 @@
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+
+
 <!-- /////////////////////////////user///////////////////////////////// -->
 <!-- <div class="col-md-6"> -->
-              <!-- USERS LIST -->
-              <div class="box box-danger">
+
+
+        </div>
+        <!-- /.col (LEFT) -->
+        <div class="col-md-6">
+                      <!-- USERS LIST -->
+                      <div class="box box-danger">
                 <div class="box-header with-border">
                   <h3 class="box-title">สมาชิกใหม่</h3>
 
@@ -159,41 +186,7 @@
                       <span class="users-list-date">{{ $value->created}}</span>
                     </li>
                     @endforeach
-                    <!-- <li>
-                      <img src="dist/img/user8-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Norman</a>
-                      <span class="users-list-date">Yesterday</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user7-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Jane</a>
-                      <span class="users-list-date">12 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user6-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">John</a>
-                      <span class="users-list-date">12 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user2-160x160.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Alexander</a>
-                      <span class="users-list-date">13 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user5-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Sarah</a>
-                      <span class="users-list-date">14 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user4-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Nora</a>
-                      <span class="users-list-date">15 Jan</span>
-                    </li>
-                    <li>
-                      <img src="dist/img/user3-128x128.jpg" alt="User Image">
-                      <a class="users-list-name" href="#">Nadia</a>
-                      <span class="users-list-date">15 Jan</span>
-                    </li> -->
+                   
                   </ul>
                   <!-- /.users-list -->
                 </div>
@@ -206,32 +199,9 @@
               <!--/.box -->
             <!-- </div> -->
             <!-- /.col -->
-
         </div>
-        <!-- /.col (LEFT) -->
         <div class="col-md-6">
           <!-- LINE CHART -->
-          <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">กราฟแสดงการแจ้งซ่อมรายวัน</h3>
-
-              <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-              </div>
-            </div>
-            <div class="box-body">
-              <div class="chart">
-                <canvas id="lineChart" style="height:250px"></canvas>
-              </div>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-
-
-
     <!-- /////////////////////////donut/////////////////////////// -->
     <div class="box box-danger">
             <div class="box-header with-border">

@@ -183,6 +183,54 @@ class CallUseController extends Controller
       return $results;
     }
 
+    public function get_date_only_request_date($results) {
+
+      date_default_timezone_set("Asia/Bangkok");
+        $year=date("Y", strtotime($results));
+        // echo $year;exit();
+        $month=date("m", strtotime($results));
+        if($month=='01'){
+          $month="มกราคม";
+        }
+        if($month=='02'){
+          $month="กุมภาพันธ์";
+        }
+        if($month=='03'){
+          $month="มีนาคม";
+        }
+        if($month=='04'){
+          $month="เมษายน";
+        }
+        if($month=='05'){
+          $month="พฤษภาคม";
+        }
+        if($month=='06'){
+          $month="มิถุนายน";
+        }
+        if($month=='07'){
+          $month="กรกฏาคม";
+        }
+        if($month=='08'){
+          $month="สิงหาคม";
+        }
+        if($month=='09'){
+          $month="กันยายน";
+        }
+        if($month=='10'){
+          $month="ตุลาคม";
+        }
+        if($month=='11'){
+          $month="พฤศจิกายน";
+        }
+        if($month=='12'){
+          $month="ธันวาคม";
+        }
+        $day=date("d", strtotime($results));
+        $results=$day." ".$month." ".($year+543);
+      // exit();
+      return $results;
+    }
+
     public function get_time_all($results,$text,$name) {
 
       foreach($results as $key=>$value)

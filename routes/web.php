@@ -151,6 +151,11 @@ Route::post('/list-repair-for-technician-delete-data-use-part', 'ListTechnicianC
 Route::get('/pay-money','PayMoneyController@get_pay_money');
 Route::post('/search-pay-money','PayMoneyController@search_pay_money');
 
+Route::get('/form-search-data-pay','DataPayController@form_search_data_pay');//
+// Route::post('/search-data-pay','DataPayController@search_data_pay');//
+Route::post('/data-pay-confirm','DataPayController@data_pay_confirm');//
+Route::post('/data-close-bill','DataPayController@data_close_bill');//
+
 Route::get('/import_part','ImportPartsController@get');
 Route::post('/import_part/create','ImportPartsController@create');
 Route::post('/import_part/edit/{id}','ImportPartsController@edit');

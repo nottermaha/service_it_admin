@@ -153,7 +153,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
+  <!-- <title>AdminLTE 2 | Dashboard</title> -->
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -188,13 +188,13 @@
   {!!  Form::open(['url'=>'/person-manager-edit','class'=>'form-horizontal','files'=>true,'id'=>'ChkForm'])   !!}
 <div class="row">
     <div class="col-md-12">
-        <div class="box box-default">
-            <div class="box-body">
+        <div class="box box-primary">
+            <div class="box-body bg-info">
             {{ csrf_field() }}
 
                 <div class="form-group">
-                    <label for="Name" class="control-label col-sm-3">ร้านที่สังกัด</label>
-                    <div for="Name" class="control-label col-sm-3">
+                    <label for="Name" class="control-label col-sm-3" style="font-size:25px;"> ร้านที่สังกัด</label>
+                    <div for="Name" class="control-label col-sm-8 t" style="font-size:25px;text-align:left;">
                     {{$branch_name}}
                     </div>
                 </div>
