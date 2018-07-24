@@ -7,7 +7,11 @@
         <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
         <script type="text/javascript" src="https://main.msger.info/assets/printer/data/js/jquery-1.3.2.min.js"></script>    
         <script type="text/javascript" src="https://main.msger.info/assets/printer/data/js/jquery-barcode.js"></script>  
-                <title>พิมพ์บิล ร้าน Mac service</title>
+                <title>พิมพ์บิล ร้าน 
+                @foreach($stores as $store)
+                        {{ $store->name }}
+                @endforeach
+                </title>
     </head>
 <body>
 
@@ -18,8 +22,8 @@
         <div class="col-md-12 " style="padding-top:10px;padding-buttom:10px;padding-left:10px;padding-right:10px;">
             <div class="col-md-5" style="text-align:left;padding-left: 10px;">
                 <button class="btn"style="color:white;background-color:gray;width:300px;text-align: left;">
-                <h4 style="margin-top:-1px;">Invoice INV0077319</h4>
-                <h5 style="margin-bottom:-1px;">อินวอยร์บิลรับเครื่องซ่อม ระบบออนไลน์</h5> 
+                <h4 style="margin-top:-1px;">Invoice {{$bin_number}}</h4>
+                <h5 style="margin-bottom:-1px;">อินวอยร์บิลซ่อม</h5> 
                 </button>
 
                   <h5 style="margin: 4px 1px;" class="color"> รหัส  :  {{$bin_number}}</b>
@@ -30,10 +34,17 @@
             <div class="col-md-7" style="text-align:right;padding-right: 10px;margin-top:-120px;">
                   <div style="margin-left:350px;">
                   <!-- <img src="/uploads/imageVoice/t-arter.jpg" style="height: 70px;padding-bottom: 10px;"> -->
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTPWe2GWn6ojcHN32JujpSVhjs2tj9sLz_XI2mAeUEgZ3UfTJ6" alt="" style="height: 70px;padding-bottom: 10px;">
+                  <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTPWe2GWn6ojcHN32JujpSVhjs2tj9sLz_XI2mAeUEgZ3UfTJ6" alt="" style="height: 70px;padding-bottom: 10px;"> -->
+                @foreach($stores as $store)
+                        <img src="{{ asset('image/'.$store->logo) }}"style="height: 70px;padding-bottom: 10px;">
+                @endforeach 
+
                   </div>   
                 <h4 class="color" style="margin-top: -1px;margin-bottom: 0px;text-align: right;">
-                Mac Service {{$store_name}}</h4>
+                @foreach($stores as $store)
+                        {{ $store->name }}
+                @endforeach 
+                {{$store_name}}</h4>
                 <h5 class="color" style="margin-top: 4px;margin-bottom: 0px;text-align: right;">{{$store_address}}</h5>
                 <h5 class="color" style="margin-top: 4px;margin-bottom: 0px;text-align: right;">โทร : {{$store_phone}} </h5>
             </div>
@@ -42,18 +53,19 @@
             <div class="col-xs-4 bg-col" style="text-align:left;background-color: #DCDCDC;padding-top: 5px;height:136px;">
             @foreach($list_repair as $value)
             <!-- <h5  class="color">อุปกรณ์ : iPhone : S5 (G900)</h5> -->
-                <h5  class="color">อุปกรณ์ : {{$value->list_name}} : {{$value->detail}}</h5>
+                <h5  class="color">อุปกรณ์ : {{$value->list_name}} : {{$value->symptom}}</h5>
             @endforeach
                 <!-- <h5  class="color">อิมี่ : </h5> -->
                 <!-- <h5 class="color">ระยะเวลาซ่อม : 1 วัน</h5> -->
-                <h5  class="color">สิ่งที่ติดมา : </h5>
+                <!-- <h5  class="color">สิ่งที่ติดมา : {{$equipment_follow}}</h5> -->
                 <!-- <h5 class="color">รหัส : </h5> -->
             </div>
             <div class="col-xs-4 bg-col" style="text-align:left;background-color: #DCDCDC;padding-top: 5px;height:136px;">
                 <h5  class="color">ราคาประเมินซ่อม : 500 บาท</h5>
-                <h5 class="color">วางมัดจำ : 0 บาท</h5>
-                <h5 class="color">วันที่รับเข้าระบบ : 2018-06-04</h5>
-                <h5  class="color">อาการ : แบตเสื่อม</h5>
+                <!-- <h5 class="color">วางมัดจำ : 0 บาท</h5> -->
+                <h5 class="color">วันที่รับเข้าระบบ : {{$date_in}}</h5>
+                <h5  class="color">สิ่งที่ติดมา : {{$equipment_follow}}</h5>
+                <!-- <h5  class="color">อาการ : แบตเสื่อม</h5> -->
                 <h5  class="color"></h5>
             </div>
             <div class="col-xs-4 bg-col" style="text-align:left;background-color: #DCDCDC;padding-top: 5px;height:136px;">
@@ -70,13 +82,13 @@
 			                
             </div>
         </div>
-        <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 5px 20px 0px 20px;height: 170px;">
+        <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 5px 20px 0px 20px;height: 150px;">
             <div class="col-xs-12" style="text-align: left;padding: 2;">
-                <p>1.โปรดตรวจสอบรายการสินค้าที่ส่งมาซ่อมให้ครบตามรายการที่ระบุไว้<br />2.เอกสารฉบับนี้เป็นเอกสารสำคัญที่ต้องนำมาใช้เป็นหลักฐานในการรับสินค้า<br />3.โปรดมารับเครื่องภายใน 30 วัน นับตั้งแต่วันที่ถึงกำหนดวันนัดรับเครื่อง หากพ้นกำหนดนี้ไปแล้ว ถือว่า สละสิทธิ์<br />4.การรับประกันงานซ่อม ทางร้านจะรับประกันเฉพาะอาการที่นำมาซ่อม หากเสียหายอาการอื่นทางร้านจะคิดค่าใช้จ่ายเพิ่ม<br />5.ทางร้านขอสงวนสิทธิ์ในการดำเนินการแก้ไข ปรับแต่ง รวมทั้งการซ่อมหรือเปลี่ยนส่วนที่ชำรุด</p><p><strong>หมายเหตุ</strong>&nbsp;ระยะเวลาในการซ่อมเครื่องแต่ละตัว จะไม่เกิน 1 , 3 , 7 , 30 วัน นับจากวันที่รับเครื่อง</p>            </div>
+                <p>1.โปรดตรวจสอบรายการสินค้าที่ส่งมาซ่อมให้ครบตามรายการที่ระบุไว้<br />2.เอกสารฉบับนี้เป็นเอกสารสำคัญที่ต้องนำมาใช้เป็นหลักฐานในการรับสินค้า<br </p>            </div>
         </div>
         <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 5px 20px 0px 80px;">
             <div class="col-xs-6" style="text-align: left;padding: 0;">
-                <h5 style="margin: 4px 1px 0px -52px;text-align: center;" class="color">ผู้มาซ่อม (.................................................)</h5>
+                <h5 style="margin: 4px 1px 0px -52px;text-align: center;" class="color">ลูกค้า (.................................................)</h5>
                 <h5 style="margin: 4px 1px;text-align: center;" class="color">{{$name}}</h5>
             </div>
             <div class="col-xs-6" style="text-align: left;padding: 0;">

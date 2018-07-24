@@ -212,7 +212,7 @@
 
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-4"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right;color:gray;">
                           วันที่รับเข้าระบบ : </b>
                           <b for="" class="control-label col-md-8" style="color:gray">
                           {{$date_in_repair}}</b>
@@ -221,7 +221,7 @@
 
                       <div class="row" >
                         <div class="form-group">
-                          <b for="" class="control-label col-md-4"style="text-align:right">
+                          <b for="" class="control-label col-md-4"style="text-align:right;color:gray;">
                           วันที่คืนสินค้า : </b>
                           <b for="" class="control-label col-md-8" style="color:gray">
                           {{$date_out_repair}}</b>

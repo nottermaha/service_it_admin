@@ -9,6 +9,7 @@ use App\DataUsePart;
 use App\StoreBranch;
 use App\DataPay;
 use App\Personsmember;
+use App\SettingStatusRepairShop;
 
 use App\Http\Controllers\CallUseController;
 
@@ -37,6 +38,9 @@ class DataPayController extends Controller
           ,'persons_member.type as type'
 
           ,'store_branch.name as store_branch_name'
+
+          ,'setting_status_repair_shop.status_color as status_color'
+          ,'setting_status_repair_shop.name as repair_shop_name'
       ];
           $repairs_status_pay_0 = Repair::where('repair.status', 1)
           ->where('data_pay.status_pay',0)
@@ -46,8 +50,9 @@ class DataPayController extends Controller
           ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
           ->leftJoin('data_pay','data_pay.repair_id','=','repair.id')
           ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
+          ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
           ->get($items);
-
+          
           foreach($repairs_status_pay_0 as $key=>$value)
           {
                 if($repairs_status_pay_0[$key]['persons_member_id']!=NULL)
@@ -68,6 +73,7 @@ class DataPayController extends Controller
           ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
           ->leftJoin('data_pay','data_pay.repair_id','=','repair.id')
           ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
+          ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
           ->get($items);
           foreach($repairs_status_pay_1 as $key=>$value)
           {
@@ -87,6 +93,7 @@ class DataPayController extends Controller
           ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
           ->leftJoin('data_pay','data_pay.repair_id','=','repair.id')
           ->leftJoin('store_branch','store_branch.id','=','repair.store_branch_id')
+          ->leftJoin('setting_status_repair_shop','setting_status_repair_shop.id','=','repair.status_repair')
           ->get($items);
           foreach($repairs_status_bill as $key=>$value)
           {

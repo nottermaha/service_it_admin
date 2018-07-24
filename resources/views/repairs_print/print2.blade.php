@@ -7,7 +7,12 @@
         <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
         <script type="text/javascript" src="https://main.msger.info/assets/printer/data/js/jquery-1.3.2.min.js"></script>    
         <script type="text/javascript" src="https://main.msger.info/assets/printer/data/js/jquery-barcode.js"></script>  
-                <title>พิมพ์บิล ร้านMac service</title>
+
+                <title>พิมพ์บิล ร้าน                
+                @foreach($stores as $store)
+                        {{ $store->name }}
+                @endforeach
+                </title>
     </head>
 <body>
 
@@ -19,7 +24,7 @@
             <div class="col-xs-5" style="text-align:left;padding-left: 0;">
                 <div class="text-muted well well-sm no-shadow head_left" style="background: #3d3d3d;border: 1px solid #2f2f2f;">
                     <h4 class="text-head1" style="margin-top: 0px;margin-bottom: 0px;color: #ffffff;">ใบเสร็จรับเงิน</h4>
-                    <h6 class="text-head1" style="margin-top: 0px;margin-bottom: 0px;color: #ffffff;">อินวอยร์บิลรับเครื่องซ่อม ระบบออนไลน์</h6>                   
+                    <h6 class="text-head1" style="margin-top: 0px;margin-bottom: 0px;color: #ffffff;">อินวอยร์บิลรับเครื่องซ่อม </h6>                   
                 </div>        
                 <h5 style="margin: 4px 1px;" class="color">รหัส  :  {{$bin_number}}</h5>
                 <h5 style="margin: 4px 1px;" class="color">ชื่อ  :  {{$name}}</h5>
@@ -27,15 +32,52 @@
             </div>
             <div class="col-xs-7" style="padding-right: 0;">
                 <h4 class="color" style="margin-top: 0px;margin-bottom: 0px;text-align: right;">
-                                        <!-- <img src="/uploads/imageVoice/t-arter.jpg" style="height: 70px;padding-bottom: 10px;"> -->
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTPWe2GWn6ojcHN32JujpSVhjs2tj9sLz_XI2mAeUEgZ3UfTJ6" alt="" style="height: 70px;padding-bottom: 10px;">
-                                    </h4>
-                <h4 class="color" style="margin-top: 0px;margin-bottom: 0px;text-align: right;">Mac Service {{$store_name}}</h4>
-                <h5 class="color" style="margin-top: 4px;margin-bottom: 0px;text-align: right;">91/2 {{$store_address}}</h5>
+
+                <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTPWe2GWn6ojcHN32JujpSVhjs2tj9sLz_XI2mAeUEgZ3UfTJ6" alt="" style="height: 70px;padding-bottom: 10px;"> -->
+                @foreach($stores as $store)
+                        <img src="{{ asset('image/'.$store->logo) }}"style="height: 70px;padding-bottom: 10px;">
+                @endforeach
+                </h4>
+                <h4 class="color" style="margin-top: 0px;margin-bottom: 0px;text-align: right;">          @foreach($stores as $store)
+                    {{ $store->name }}
+                @endforeach
+                 {{$store_name}}</h4>
+                <h5 class="color" style="margin-top: 4px;margin-bottom: 0px;text-align: right;">{{$store_address}}</h5>
                 <h5 class="color" style="margin-top: 4px;margin-bottom: 0px;text-align: right;">โทร : {{$store_phone}} </h5>
             </div>
-        </div>
-        <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 5px 20px 0px 20px;">
+        </div> <br>
+
+<div class="col-md-12 col-sm-12 col-xs-12" style="padding: 5px 20px 0px 20px;">
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ที่</th>
+        <th>รายการซ่อม</th>
+        <th>อาการ</th>
+        <th>ราคาซ่อม</th>
+      </tr>
+    </thead>
+    <tbody>
+    <?php $i=0; ?>
+    @foreach($list_repair as $value)
+      <tr>
+        <td>{{$i=$i+1}}</td>
+        <td>{{$value->list_name}}</td>
+        <td>{{$value->symptom}}</td>
+        <td>{{$value->price}}</td>
+      </tr>
+    @endforeach
+    <tr>
+        <td style="background-color:gray;"></td>
+        <td style="background-color:gray;"></td>
+        <td style="background-color:gray;color:white;"><b>ราคารวม</b> </td>
+        <td style="background-color:gray;color:white;"><b>{{$count_price}}</b> </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+        <!-- <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 5px 20px 0px 20px;">
             <div class="col-xs-1 bg-col" style="text-align:left;border-top: 1px solid #D8D8D8;background-color: #f5f5f5;
                 border-right: 1px solid #D8D8D8;border-bottom: 1px solid #D8D8D8;border-left: 1px solid #D8D8D8;padding: 0px;height:30px;">
                 <h5 class="color" style="text-align: center;margin-top: 7px;">ที่</h5>
@@ -65,7 +107,7 @@
             <div class="col-xs-4" style="text-align:left;border-top: 1px solid #D8D8D8;
                 border-right: 1px solid #D8D8D8;border-bottom: 1px solid #D8D8D8;padding: 0px;">
                 <h5 class="color" style="text-align: center;">
-                  {{$value->name}} : {{$value->detail}}              </h5>
+                  {{$value->list_name}}               </h5>
             </div>
             <div class="col-xs-5" style="text-align:left;border-top: 1px solid #D8D8D8;
                 border-right: 1px solid #D8D8D8;border-bottom: 1px solid #D8D8D8;padding: 0px;">
@@ -98,10 +140,10 @@
                 border-right: 1px solid #D8D8D8;border-bottom: 1px solid #D8D8D8;padding: 0px;height:30px;">
                 <h5 class="color" style="text-align: center;margin-top: 7px;">{{$count_price}}</h5>                   
             </div>
-        </div>
+        </div> -->
         <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 80px 20px 0px 80px;">
             <div class="col-xs-6" style="text-align: left;padding: 0;">
-                <h5 style="margin: 4px 1px 0px -52px;text-align: center;" class="color">ผู้มาซ่อม (.................................................)</h5>
+                <h5 style="margin: 4px 1px 0px -52px;text-align: center;" class="color">ลูกค้า (.................................................)</h5>
                 <h5 style="margin: 4px 1px;text-align: center;" class="color">{{$name}}</h5>
             </div>
             <div class="col-xs-6" style="text-align: left;padding: 0;">

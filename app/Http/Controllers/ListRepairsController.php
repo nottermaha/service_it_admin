@@ -242,7 +242,7 @@ class ListRepairsController extends Controller
       } 
       else{
         // echo '5555555555555';exit();                
-          if($repair['image']==''){
+          if($request['image']<=1){
               $repair->image =$repair['image'];
               $repair->status = true;
               $repair->save();

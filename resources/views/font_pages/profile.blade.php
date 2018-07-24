@@ -324,7 +324,7 @@
                                 <div class="col-sm-8">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyph-icon tooltip-button  icon-lock " ></i></span>
-                                        <input type="password" class="form-control" placeholder="รหัสผ่าน..." name="password" id="password"onBlur="ChkLengthPass()" required value="{{$password}}">
+                                        <input type="text" class="form-control" placeholder="รหัสผ่าน..." name="password" id="password"onBlur="ChkLengthPass()" required value="{{$password}}">
                                     </div><b id="pass" style="color:red;"></b>
                                 </div>
                             </div><br>

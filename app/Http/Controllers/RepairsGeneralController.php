@@ -9,6 +9,7 @@ use App\Persons;
 use App\DataPay;
 use App\DataUsePart;
 use App\SettingStatusRepairShop;
+use App\Store;
 
 use App\Http\Controllers\CallUseController;
 
@@ -21,6 +22,10 @@ class RepairsGeneralController extends Controller
 // echo $repairs;exit();
     $store_branch = StoreBranch::find($request->store_branch_id);
     if($repairs['persons_member_id']==NULL){
+
+    $date = new CallUseController();
+    $repairs = $date->get_date_only($repairs,'date_in','date_in_repair');
+
       $data = [
         'id' => $repairs['id'],
         'bin_number' => $repairs['bin_number'],
@@ -28,6 +33,7 @@ class RepairsGeneralController extends Controller
         'phone' => $repairs['phone'],
         'after_price' => $repairs['after_price'],
         'equipment_follow' => $repairs['equipment_follow'],
+        'date_in' => $repairs['date_in'],
 
         'store_name' => $store_branch['name'],
         'store_address' => $store_branch['address'],
@@ -41,15 +47,22 @@ class RepairsGeneralController extends Controller
 
         ,'repair.id as id'
         ,'repair.bin_number as bin_number'
+        ,'repair.date_in_repair as date_in_repair'
       ];
       $repairs2 = Repair::where('repair.id',$request->id)
       ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
       ->get($item);
+
+      $date = new CallUseController();
+      $repairs2 = $date->get_date_all($repairs2,'date_in','date_in_repair');
+
       $data = [
         'id' => $repairs2['0']['id'],
         'name' => $repairs2['0']['name'],
         'phone' => $repairs2['0']['phone'],
         'bin_number' => $repairs2['0']['bin_number'],
+        'equipment_follow' => $repairs['equipment_follow'],
+        'date_in' => $repairs2['0']['date_in'],
 
         'store_name' => $store_branch['name'],
         'store_address' => $store_branch['address'],
@@ -57,11 +70,15 @@ class RepairsGeneralController extends Controller
       ];
 
     }
+    
+    $stores = Store::where('id',1)
+    ->get();
+
     $list_repair = ListRepair::where('status',1)
     ->where('repair_id',$request->id)
     ->get();
     // echo $list_repair;exit();
-    return view('repairs_print/print',['list_repair'=>$list_repair],$data);
+    return view('repairs_print/print',['list_repair'=>$list_repair,'stores'=>$stores],$data);
   }
 
   public function status_bill(Request $request)
@@ -112,31 +129,68 @@ class RepairsGeneralController extends Controller
     $list_repair = ListRepair::where('status',1)
     ->where('repair_id',$request->id)
     ->get();
+        $result=0;
+        foreach($list_repair as $key=>$value){
+          $result=$result+$value['price'];
+        }
+    if($repairs['persons_member_id']==NULL){
 
-    $result=0;
-    foreach($list_repair as $key=>$value){
-      $result=$result+$value['price'];
+        $data = [
+          'id' => $repairs['id'],
+          'bin_number' => $repairs['bin_number'],
+          'name' => $repairs['name'],
+          'phone' => $repairs['phone'],
+          'after_price' => $repairs['after_price'],
+          'price' => $repairs['price'],
+          'symptom' => $repairs['symptom'],
+          'equipment_follow' => $repairs['equipment_follow'],
+
+          'store_name' => $store_branch['name'],
+          'store_address' => $store_branch['address'],
+          'store_phone' => $store_branch['phone'],
+
+          'count_price' => $result,
+        ];
     }
-    $data = [
-      'id' => $repairs['id'],
-      'bin_number' => $repairs['bin_number'],
-      'name' => $repairs['name'],
-      'phone' => $repairs['phone'],
-      'after_price' => $repairs['after_price'],
-      'price' => $repairs['price'],
-      'symptom' => $repairs['symptom'],
-      'equipment_follow' => $repairs['equipment_follow'],
+    else
+    {
+          $item =[
+            'persons_member.name as name'
+            ,'persons_member.phone as phone'
 
-      'store_name' => $store_branch['name'],
-      'store_address' => $store_branch['address'],
-      'store_phone' => $store_branch['phone'],
+            ,'repair.id as id'
+            ,'repair.bin_number as bin_number'
+            ,'repair.date_in_repair as date_in_repair'
+          ];
+          $repairs2 = Repair::where('repair.id',$request->id)
+          ->leftJoin('persons_member','persons_member.id','=','repair.persons_member_id')
+          ->get($item);
 
-      'count_price' => $result,
-    ];
+        $data = [
+          'id' => $repairs2['0']['id'],
+          'bin_number' => $repairs2['0']['bin_number'],
+          'name' => $repairs2['0']['name'],
+          'phone' => $repairs2['0']['phone'],
+          'after_price' => $repairs2['0']['after_price'],
+          'price' => $repairs2['0']['price'],
+          'symptom' => $repairs2['0']['symptom'],
+          'equipment_follow' => $repairs2['0']['equipment_follow'],
+
+          'store_name' => $store_branch['name'],
+          'store_address' => $store_branch['address'],
+          'store_phone' => $store_branch['phone'],
+
+          'count_price' => $result,
+        ];
+
+    }
 
     // echo $result;exit();
     // echo $list_repair;exit();
-    return view('repairs_print/print2',['list_repair'=>$list_repair],$data);
+    $stores = Store::where('id',1)
+    ->get();
+
+    return view('repairs_print/print2',['list_repair'=>$list_repair,'stores'=>$stores],$data);
   }
   
   public function font_general() {

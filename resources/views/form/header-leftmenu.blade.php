@@ -149,13 +149,20 @@
           </a>
           <ul class="treeview-menu">
           <li><a href="{{ url('/form-search-repair-only-bill')  }}"><i class="fa fa-search-minus"></i>ค้นหารายการซ่อม</a></li>
-          <li><a href="{{ url('/form-search-data-pay')  }}"><i class="fa fa-money"></i>การชำระเงิน</a></li>
+          <!-- <li><a href="{{ url('/form-search-data-pay')  }}"><i class="fa fa-money"></i>การชำระเงิน</a></li> -->
             <li><a href="{{ url('/repair-member')  }}"><i class="fa fa-circle-o"></i> ลูกค้าสมาชิก</a></li>
             <li><a href="{{ url('/repair-general')  }}"><i class="fa fa-circle-o"></i> ลูกค้าทั่วไป</a></li>
             <hr style="margin-top:0px;margin-bottom:0px;"><br>
             <a style="padding-left:20px;">สำหรับช่างซ่อม</a> 
             <li><a href="{{ url('/list-repair-for-technician')  }}"><i class="fa fa-circle-o"></i> รายการแจ้งซ่อมของท่าน(ช่าง)</a></li>
           </ul>
+        </li>
+
+         <li class="">
+          <a href="{{ url('/form-search-data-pay')  }}">
+            <i class="fa fa-money"></i>
+            <span>การชำระเงิน</span>
+          </a>
         </li>
 
         <li class="">

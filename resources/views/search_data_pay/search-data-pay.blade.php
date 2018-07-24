@@ -1,4 +1,34 @@
+<style>
+    .color-palette {
+      height: 35px;
+      line-height: 35px;
+      text-align: center;
+    }
 
+    .color-palette-set {
+      margin-bottom: 15px;
+    }
+
+    .color-palette span {
+      display: none;
+      font-size: 12px;
+    }
+
+    .color-palette:hover span {
+      display: block;
+    }
+
+    .color-palette-box h4 {
+      position: absolute;
+      top: 100%;
+      left: 25px;
+      margin-top: -40px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 12px;
+      display: block;
+      z-index: 7;
+    }
+  </style>
 <!-- css header-leftmenu -->
 <head>
   <meta charset="utf-8">
@@ -55,6 +85,7 @@
             <th class="text-center">ชื่อลูกค้า</th>
             <th class="text-center">วันที่รับสินค้า</th>
             <th class="text-center">จำนวน</th>
+            <th class="text-center">สถานะการซ่อมของบิล</th>
             <th class="text-center">สถานะการชำระเงิน</th>
           </tr>
         </thead>
@@ -83,6 +114,35 @@
                      จำนวน {{ $number }} รายการ  <br>
                      ราคารวม {{ number_format($number_price, 2) }} บ.
                 </td>
+            <td class="text-center">
+            @if( $repairs_status_pay_0s->status_color==1 )
+            <button style="width:190px;" type="button" class="btn btn-primary" >
+            @elseif( $repairs_status_pay_0s->status_color==2 )
+            <button style="width:190px;" type="button" class="btn btn-info" >
+            @elseif( $repairs_status_pay_0s->status_color==3 )
+            <button style="width:190px;" type="button" class="btn btn-success">
+            @elseif( $repairs_status_pay_0s->status_color==4 )
+            <button style="width:190px;" type="button" class="btn btn-warning" >
+            @elseif( $repairs_status_pay_0s->status_color==5 )
+            <button style="width:190px;" type="button" class="btn btn-danger" >
+            @elseif( $repairs_status_pay_0s->status_color==6 )
+            <button style="width:190px;" type="button" class="btn btn-default" d>
+            @elseif( $repairs_status_pay_0s->status_color==7 )
+            <button style="width:190px;" type="button" class="btn bg-navy color-palette" >
+            @elseif( $repairs_status_pay_0s->status_color==8 )
+            <button style="width:190px;" type="button" class="btn bg-teal-active color-palette" >
+            @elseif( $repairs_status_pay_0s->status_color==9 )
+            <button style="width:190px;" type="button" class="btn bg-purple-active color-palette" >
+            @elseif( $repairs_status_pay_0s->status_color==10 )
+            <button style="width:190px;" type="button" class="btn bg-orange-active color-palette" >
+            @elseif( $repairs_status_pay_0s->status_color==11 )
+            <button style="width:190px;" type="button" class="btn bg-maroon-active color-palette" >
+            @elseif( $repairs_status_pay_0s->status_color==12 )
+            <button style="width:190px;" type="button" class="btn bg-black-active color-palette" >
+            @endif
+             {{ $repairs_status_pay_0s->repair_shop_name }}</td>
+            </button>
+            </td>
                 <td class="text-center">
                 <div class="input-group-btn">
                   <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"><i class="fa fa-clock-o fa-lg"></i> รอการชำระเงิน
@@ -142,6 +202,7 @@
             <th class="text-center">ชื่อลูกค้า</th>
             <th class="text-center">วันที่ชำระเงิน</th>
             <th class="text-center">จำนวน</th>
+            <th class="text-center">สถานะการซ่อมของบิล</th>
             <th class="text-center">สถานะการชำระเงิน</th>
           </tr>
         </thead>
@@ -170,6 +231,37 @@
                      จำนวน {{ $number }} รายการ  <br>
                      ราคารวม {{ number_format($number_price, 2) }} บ.
                 </td>
+
+                            <td class="text-center">
+            @if( $repairs_status_pay_1s->status_color==1 )
+            <button style="width:190px;" type="button" class="btn btn-primary" >
+            @elseif( $repairs_status_pay_1s->status_color==2 )
+            <button style="width:190px;" type="button" class="btn btn-info" >
+            @elseif( $repairs_status_pay_1s->status_color==3 )
+            <button style="width:190px;" type="button" class="btn btn-success">
+            @elseif( $repairs_status_pay_1s->status_color==4 )
+            <button style="width:190px;" type="button" class="btn btn-warning" >
+            @elseif( $repairs_status_pay_1s->status_color==5 )
+            <button style="width:190px;" type="button" class="btn btn-danger" >
+            @elseif( $repairs_status_pay_1s->status_color==6 )
+            <button style="width:190px;" type="button" class="btn btn-default" d>
+            @elseif( $repairs_status_pay_1s->status_color==7 )
+            <button style="width:190px;" type="button" class="btn bg-navy color-palette" >
+            @elseif( $repairs_status_pay_1s->status_color==8 )
+            <button style="width:190px;" type="button" class="btn bg-teal-active color-palette" >
+            @elseif( $repairs_status_pay_1s->status_color==9 )
+            <button style="width:190px;" type="button" class="btn bg-purple-active color-palette" >
+            @elseif( $repairs_status_pay_1s->status_color==10 )
+            <button style="width:190px;" type="button" class="btn bg-orange-active color-palette" >
+            @elseif( $repairs_status_pay_1s->status_color==11 )
+            <button style="width:190px;" type="button" class="btn bg-maroon-active color-palette" >
+            @elseif( $repairs_status_pay_1s->status_color==12 )
+            <button style="width:190px;" type="button" class="btn bg-black-active color-palette" >
+            @endif
+             {{ $repairs_status_pay_1s->repair_shop_name }}</td>
+            </button>
+            </td>
+
                 <td class="text-center">
                 <div class="input-group-btn">
                   <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><i class="fa fa-money fa-lg"></i> ชำระเงินแล้ว
