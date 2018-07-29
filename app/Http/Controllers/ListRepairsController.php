@@ -228,6 +228,75 @@ class ListRepairsController extends Controller
           $request->session()->flash('status_image_fail', ''); 
           $request->session()->flash('status_id',$request->id); 
           // return redirect('gallery');
+          ///////////////////
+                            $items = [// select data show in table
+                              'setting_status_repair.*'
+                              , 'setting_status_repair.name'
+                              , 'setting_status_repair.status_color'
+                      
+                              , 'guarantee.name as guarantee_name'
+                      
+                              ,'persons.id as person_id'//
+                              ,'persons.name as person_name'//
+                      
+                              ,'list_repair.list_name'
+                              // ,'list_repair.detail'
+                              ,'list_repair.symptom'
+                              ,'list_repair.image'
+                              ,'list_repair.price'
+                              ,'list_repair.price_before'
+                              ,'list_repair.status_list_repair'
+                              ,'list_repair.guarantee_id'
+                              ,'list_repair.id'
+                          ];
+                            $list_repairs = ListRepair::
+                            leftJoin('setting_status_repair', 'setting_status_repair.id', '=', 'list_repair.status_list_repair')
+                            ->leftJoin('guarantee', 'guarantee.id', '=', 'list_repair.guarantee_id')
+                            ->leftJoin('persons', 'persons.id', '=', 'list_repair.person_id')//
+                            ->where('list_repair.status', 1)
+                            ->where('list_repair.repair_id',$request->repair_id)
+                            ->get($items);
+                      
+                      ////////เอาไว้ select///////////
+                            $setting_status_repairs = SettingStatusRepair::where('status', 1)
+                            ->get();
+                      
+                            $guarantees = Guarantee::where('status', 1)
+                            ->get();
+                      
+                            $persons = Persons::where('status', 1)
+                            ->get();
+                      
+                            $list_parts = ListPart::where('status', 1)
+                            ->get();
+                      //////////////////////////////
+                              $items2 = [// select data show in table
+                                'data_use_parts.list_repair_id as list_repair_id_chk'
+                                ,'data_use_parts.list_parts_id as list_parts_id_chk'
+                                ,'list_parts.name as list_parts_name'
+                                ,'list_parts.pay_out as pay_out'
+                              ];
+                              $data_use_parts = DataUsePart::where('data_use_parts.status', 1)
+                              ->where('data_use_parts.store_branch_id', $s_store_branch_id)
+                              ->leftJoin('list_parts', 'list_parts.id', '=', 'data_use_parts.list_parts_id')
+                              ->get($items2);
+                      
+                            // $repair_id['repair_id']=$request->repair_id;
+                            $data = [
+                              'repair_id'=>$request->repair_id,
+                              'chk'=>1,
+                              'back'=>$request->back,
+                            ];
+                      
+                            // echo $setting_status_repair;exit();
+                            return view('list_repairs/list-repairs', 
+                            ['list_repairs' => $list_repairs,
+                            'setting_status_repairs'=>$setting_status_repairs,
+                            'guarantees'=>$guarantees,
+                            'list_parts'=>$list_parts,
+                            'persons'=>$persons,
+                            'data_use_parts'=>$data_use_parts],$data);
+          /////////////////
         }
 
         $filename = str_random(10) . '.' . $request->file('image')
@@ -237,24 +306,94 @@ class ListRepairsController extends Controller
         ->resize(200, 200)->save('image/list-repair/resize/' . $filename);     
         $repair->image = $filename;      
         $repair->status = true;
-        $repair->save();
-        $request->session()->flash('list_status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว');   
+        // $repair->save();
+        // $request->session()->flash('list_status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว');   
       } 
       else{
         // echo '5555555555555';exit();                
           if($request['image']<=1){
               $repair->image =$repair['image'];
               $repair->status = true;
-              $repair->save();
-              $request->session()->flash('list_status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว');
+
           }
           else{
             $request->session()->flash('status_image_fail', ''); 
             $request->session()->flash('status_id',$request->id); 
 
-          }
-       }
+                      ///////////////////
+                      $items = [// select data show in table
+                        'setting_status_repair.*'
+                        , 'setting_status_repair.name'
+                        , 'setting_status_repair.status_color'
+                
+                        , 'guarantee.name as guarantee_name'
+                
+                        ,'persons.id as person_id'//
+                        ,'persons.name as person_name'//
+                
+                        ,'list_repair.list_name'
+                        // ,'list_repair.detail'
+                        ,'list_repair.symptom'
+                        ,'list_repair.image'
+                        ,'list_repair.price'
+                        ,'list_repair.price_before'
+                        ,'list_repair.status_list_repair'
+                        ,'list_repair.guarantee_id'
+                        ,'list_repair.id'
+                    ];
+                      $list_repairs = ListRepair::
+                      leftJoin('setting_status_repair', 'setting_status_repair.id', '=', 'list_repair.status_list_repair')
+                      ->leftJoin('guarantee', 'guarantee.id', '=', 'list_repair.guarantee_id')
+                      ->leftJoin('persons', 'persons.id', '=', 'list_repair.person_id')//
+                      ->where('list_repair.status', 1)
+                      ->where('list_repair.repair_id',$request->repair_id)
+                      ->get($items);
+                
+                ////////เอาไว้ select///////////
+                      $setting_status_repairs = SettingStatusRepair::where('status', 1)
+                      ->get();
+                
+                      $guarantees = Guarantee::where('status', 1)
+                      ->get();
+                
+                      $persons = Persons::where('status', 1)
+                      ->get();
+                
+                      $list_parts = ListPart::where('status', 1)
+                      ->get();
+                //////////////////////////////
+                        $items2 = [// select data show in table
+                          'data_use_parts.list_repair_id as list_repair_id_chk'
+                          ,'data_use_parts.list_parts_id as list_parts_id_chk'
+                          ,'list_parts.name as list_parts_name'
+                          ,'list_parts.pay_out as pay_out'
+                        ];
+                        $data_use_parts = DataUsePart::where('data_use_parts.status', 1)
+                        ->where('data_use_parts.store_branch_id', $s_store_branch_id)
+                        ->leftJoin('list_parts', 'list_parts.id', '=', 'data_use_parts.list_parts_id')
+                        ->get($items2);
+                
+                      // $repair_id['repair_id']=$request->repair_id;
+                      $data = [
+                        'repair_id'=>$request->repair_id,
+                        'chk'=>1,
+                        'back'=>$request->back,
+                      ];
+                
+                      // echo $setting_status_repair;exit();
+                      return view('list_repairs/list-repairs', 
+                      ['list_repairs' => $list_repairs,
+                      'setting_status_repairs'=>$setting_status_repairs,
+                      'guarantees'=>$guarantees,
+                      'list_parts'=>$list_parts,
+                      'persons'=>$persons,
+                      'data_use_parts'=>$data_use_parts],$data);
+    /////////////////
 
+          }             
+       }
+      $repair->save();
+      $request->session()->flash('list_status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว');
       // $repair->status = true;
       // $repair->save();
       // $request->session()->flash('list_status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 

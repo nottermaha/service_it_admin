@@ -49,7 +49,7 @@ class DashboardController extends Controller
       ->limit(8)
       ->get();
 
-      $results = Persons::where('persons.status', 1)
+      $results = Personsmember::where('persons_member.status', 1)
       ->get();
       $gender = $this->count_male2($results);
       $results2 = Repair::where('status', 1)
@@ -57,6 +57,7 @@ class DashboardController extends Controller
 
       $repair_day = $this->get_repair_hour_in_day($results2);
       $repair_month = $this->get_repair_day_in_month($results2);
+      $repair_year = $this->get_repair_day_in_year($results2);
 
       // echo $repair_month['day_03'];exit();
       $data = [
@@ -94,6 +95,13 @@ class DashboardController extends Controller
         'day_15' => $repair_month['day_15'],'day_30' => $repair_month['day_30'],
         'day_31' => $repair_month['day_31'],
 
+        'month_01' => $repair_year['month_01'],'month_02' => $repair_year['month_02'],
+        'month_03' => $repair_year['month_03'],'month_04' => $repair_year['month_04'],
+        'month_05' => $repair_year['month_05'],'month_06' => $repair_year['month_06'],
+        'month_07' => $repair_year['month_07'],'month_08' => $repair_year['month_08'],
+        'month_09' => $repair_year['month_09'],'month_10' => $repair_year['month_10'],
+        'month_11' => $repair_year['month_11'],'month_12' => $repair_year['month_12'],
+
         'month' => $repair_month['month'],'year' => $repair_month['year'],
         
       ];
@@ -113,20 +121,20 @@ class DashboardController extends Controller
       return $results;
     }
     public function countmale($id) {
-      $results = Persons::where('persons.status', 1)
-      ->where('persons.gender', 1)
+      $results = Personsmember::where('persons_member.status', 1)
+      ->where('persons_member.gender', 1)
       ->count();
       return $results;
     }
     public function countfemale($id) {
-      $results = Persons::where('persons.status', 1)
-      ->where('persons.gender', 0)
+      $results = Personsmember::where('persons_member.status', 1)
+      ->where('persons_member.gender', 2)
       ->count();
       return $results;
     }
     public function countundefine($id) {
-      $results = Persons::where('persons.status', 1)
-      ->where('persons.gender',null)
+      $results = Personsmember::where('persons_member.status', 1)
+      ->where('persons_member.gender',null)
       ->count();
       return $results;
     }
@@ -292,6 +300,53 @@ public function get_repair_day_in_month()
           // echo $count_day['month'];exit();
           return $count_day;
     }
+
+    public function get_repair_day_in_year()
+    {
+      $result = Repair::where('status',1)
+      ->get();
+        $current_month=(date('Y'));
+        $result1=[];$result2=[];$result3=[];$result4=[];$result5=[];
+        $result6=[];$result7=[];$result8=[];$result9=[];$result10=[];
+        $result11=[];$result12=[];
+        foreach($result as $key=>$value)
+        {
+        if($current_month==date("Y", strtotime($value['created_at'])) )
+          {
+            //  echo "....".$current_month."...."; 
+            if(date("m", strtotime($value['created_at']))=='01'){$result1[$key]['month_01']="n";}
+            if(date("m", strtotime($value['created_at']))=='02'){$result2[$key]['month_02']="n";}
+            if(date("m", strtotime($value['created_at']))=='03'){$result3[$key]['month_03']="n";}
+            if(date("m", strtotime($value['created_at']))=='04'){$result4[$key]['month_04']="n";}
+            if(date("m", strtotime($value['created_at']))=='05'){$result5[$key]['month_05']="n";}
+            if(date("m", strtotime($value['created_at']))=='06'){$result6[$key]['month_06']="n";}
+            if(date("m", strtotime($value['created_at']))=='07'){$result7[$key]['month_07']="n";}
+            if(date("m", strtotime($value['created_at']))=='08'){$result8[$key]['month_08']="n";}
+            if(date("m", strtotime($value['created_at']))=='09'){$result9[$key]['month_09']="n";}
+            if(date("m", strtotime($value['created_at']))=='10'){$result10[$key]['month_10']="n";}
+            if(date("m", strtotime($value['created_at']))=='11'){$result11[$key]['month_11']="n";}
+            if(date("m", strtotime($value['created_at']))=='12'){$result12[$key]['month_12']="n";}
+
+          }  
+        }
+      
+        $count_month['month_01']=count($result1);
+        $count_month['month_02']=count($result2);
+        $count_month['month_03']=count($result3);
+        $count_month['month_04']=count($result4);
+        $count_month['month_05']=count($result5);
+        $count_month['month_06']=count($result6);
+        $count_month['month_07']=count($result7);
+        $count_month['month_08']=count($result8);
+        $count_month['month_09']=count($result9);
+        $count_month['month_10']=count($result10);
+        $count_month['month_11']=count($result11);
+        $count_month['month_12']=count($result12);
+    
+        // echo $count_month['month_07'];exit();
+          return $count_month;
+    }
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
     public function dashboard_by_store_branch() {
@@ -342,6 +397,7 @@ public function get_repair_day_in_month()
 
       $repair_day = $this->get_repair_hour_in_day_by_store_branch($results2);
       $repair_month = $this->get_repair_day_in_month_by_store_branch($results2);
+      $repair_year = $this->get_repair_day_in_year_by_store_branch($results2);
 
       // echo $repair_month['day_03'];exit();
       $data = [
@@ -378,6 +434,13 @@ public function get_repair_day_in_month()
         'day_14' => $repair_month['day_14'],'day_29' => $repair_month['day_29'],
         'day_15' => $repair_month['day_15'],'day_30' => $repair_month['day_30'],
         'day_31' => $repair_month['day_31'],
+
+        'month_01' => $repair_year['month_01'],'month_02' => $repair_year['month_02'],
+        'month_03' => $repair_year['month_03'],'month_04' => $repair_year['month_04'],
+        'month_05' => $repair_year['month_05'],'month_06' => $repair_year['month_06'],
+        'month_07' => $repair_year['month_07'],'month_08' => $repair_year['month_08'],
+        'month_09' => $repair_year['month_09'],'month_10' => $repair_year['month_10'],
+        'month_11' => $repair_year['month_11'],'month_12' => $repair_year['month_12'],
 
         'month' => $repair_month['month'],'year' => $repair_month['year'],
         
@@ -583,6 +646,51 @@ public function get_repair_day_in_month_by_store_branch()
           if($month=='12'){$count_day['month']='ธ.ค';}
           // echo $count_day['month'];exit();
           return $count_day;
+    }
+    public function get_repair_day_in_year_by_store_branch()
+    {
+      $result = Repair::where('status',1)
+      ->get();
+        $current_month=(date('Y'));
+        $result1=[];$result2=[];$result3=[];$result4=[];$result5=[];
+        $result6=[];$result7=[];$result8=[];$result9=[];$result10=[];
+        $result11=[];$result12=[];
+        foreach($result as $key=>$value)
+        {
+        if($current_month==date("Y", strtotime($value['created_at'])) )
+          {
+            //  echo "....".$current_month."...."; 
+            if(date("m", strtotime($value['created_at']))=='01'){$result1[$key]['month_01']="n";}
+            if(date("m", strtotime($value['created_at']))=='02'){$result2[$key]['month_02']="n";}
+            if(date("m", strtotime($value['created_at']))=='03'){$result3[$key]['month_03']="n";}
+            if(date("m", strtotime($value['created_at']))=='04'){$result4[$key]['month_04']="n";}
+            if(date("m", strtotime($value['created_at']))=='05'){$result5[$key]['month_05']="n";}
+            if(date("m", strtotime($value['created_at']))=='06'){$result6[$key]['month_06']="n";}
+            if(date("m", strtotime($value['created_at']))=='07'){$result7[$key]['month_07']="n";}
+            if(date("m", strtotime($value['created_at']))=='08'){$result8[$key]['month_08']="n";}
+            if(date("m", strtotime($value['created_at']))=='09'){$result9[$key]['month_09']="n";}
+            if(date("m", strtotime($value['created_at']))=='10'){$result10[$key]['month_10']="n";}
+            if(date("m", strtotime($value['created_at']))=='11'){$result11[$key]['month_11']="n";}
+            if(date("m", strtotime($value['created_at']))=='12'){$result12[$key]['month_12']="n";}
+
+          }  
+        }
+      
+        $count_month['month_01']=count($result1);
+        $count_month['month_02']=count($result2);
+        $count_month['month_03']=count($result3);
+        $count_month['month_04']=count($result4);
+        $count_month['month_05']=count($result5);
+        $count_month['month_06']=count($result6);
+        $count_month['month_07']=count($result7);
+        $count_month['month_08']=count($result8);
+        $count_month['month_09']=count($result9);
+        $count_month['month_10']=count($result10);
+        $count_month['month_11']=count($result11);
+        $count_month['month_12']=count($result12);
+    
+        // echo $count_month['month_07'];exit();
+          return $count_month;
     }
 
 }

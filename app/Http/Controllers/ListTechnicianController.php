@@ -9,6 +9,8 @@ use App\Guarantee;
 use App\DataUsePart;
 use App\Persons;
 use App\ImportPart;
+use App\SettingBrandPart;
+use App\SettingGroupPart;
 
 use Illuminate\Http\Request;
 
@@ -89,6 +91,33 @@ class ListTechnicianController extends Controller
           ->leftJoin('import_parts', 'import_parts.id', '=', 'list_parts.import_parts_id')
           ->get($items2);
     //  echo $data_use_parts;exit();
+
+//////////////////////
+$item = [
+  'setting_group_part.id as group_id'
+  ,'setting_group_part.name as group_name'
+
+  ,'setting_brand_part.id as brand_id'
+  ,'setting_brand_part.name as brand_name'
+
+  ,'list_parts.id'
+  // ,'list_parts.setting_brand_part_id as momo'
+  ,'list_parts.name'
+  ,'list_parts.generation'
+  ,'list_parts.number'
+  ,'list_parts.pay_out'
+  ,'list_parts.status'
+];
+$list_parts = ListPart::where('list_parts.status',1)
+->leftJoin('setting_group_part','setting_group_part.id','=','list_parts.setting_group_part_id')
+->leftJoin('setting_brand_part','setting_brand_part.id','=','list_parts.setting_brand_part_id')
+->get($item);
+$group_parts = SettingGroupPart::where('status',1)
+->get();
+$brand_parts = SettingBrandPart::where('status',1)
+->get();
+/////////////////////
+
           if($list_repairs!='[]'){ 
             $data = [
             'repair_id'=>$list_repairs['0']['repair_id'],
@@ -101,7 +130,11 @@ class ListTechnicianController extends Controller
           ['list_repairs' => $list_repairs,
           'setting_status_repairs'=>$setting_status_repairs,
           'list_parts'=>$list_parts,
-          'data_use_parts'=>$data_use_parts],$data);
+          'data_use_parts'=>$data_use_parts
+          ,'group_parts'=>$group_parts,
+          'brand_parts'=>$brand_parts
+          ,'list_parts'=>$list_parts
+        ],$data);
           }
           else{
             $data = [
@@ -112,7 +145,11 @@ class ListTechnicianController extends Controller
             ['list_repairs' => $list_repairs,
             'setting_status_repairs'=>$setting_status_repairs,
             'list_parts'=>$list_parts,
-            'data_use_parts'=>$data_use_parts],$data);
+            'data_use_parts'=>$data_use_parts
+            ,'group_parts'=>$group_parts
+            ,'brand_parts'=>$brand_parts
+            ,'list_parts'=>$list_parts
+          ],$data);
           }
       }
       else{
@@ -142,6 +179,7 @@ class ListTechnicianController extends Controller
 
     public function create_data_use_part(Request $request)
     { 
+      // echo "jjj";
       // echo $request['list_parts_id'];exit();
         $s_store_branch_id=session('s_store_branch_id','default');
         $list_part = ListPart::find($request->list_parts_id);

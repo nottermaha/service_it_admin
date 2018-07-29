@@ -227,7 +227,14 @@
                             <input type="text" class="form-control" name="person_id" placeholder="เลขประจำตัวประชาชน..." id="person_id" onBlur="checkID()">
                         </div><b  id="txt_person_id" style="color:red;"></b>
                 </div>
-
+                    @if(session()->has('status_cre_emp_person_id_fail'))               
+                    
+                    <div class="alert alert-warning alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <h4><i class="icon fa fa-warning"></i> เลขรหัสประจำตัวประชาชนล้มเหลว!</h4>
+                        เลขประจำตัวประชาชนนี้ถูกใช้ไปแล้ว                              
+                    </div>       
+                    @endif
                 <div class="form-group">
                     <label for="Gender" class="control-label col-sm-3">เพศ</label>
                         <div class="col-sm-2">
@@ -290,11 +297,89 @@
                         </div> 
                 </div>
 
+                        @if(session()->has('status_cre_emp_image_fail'))               
+ 
+                            <div class="alert alert-warning alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <h4><i class="icon fa fa-warning"></i> การอัพโหลดรูปล้มเหลว!</h4>
+                                กรุณาอัพโหลดรูปภาพที่เป็น .png .jpg .gif เท่านั่น.
+                            </div>       
+                        @endif
+                
+
                 <div class="form-group">
-                    <label for="Address" class="control-label col-sm-3">ที่อยู่</label>
-                        <div class="col-sm-9">
-                            <textarea class="form-control" rows="3" placeholder="ที่อยู่ ..." name="address"></textarea>
+                    <div class="col-sm-6">
+                            <label for="Name" class="control-label col-sm-3">เลขที่</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="home_number" value="" placeholder="เลขที่...">
+                            </div>
+                    </div>
+                    <div class="col-sm-6">
+                            <label for="Name" class="control-label col-sm-3">หมู่ที่</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="group_number" value="" placeholder="หมู่ที่...">
+                            </div>
+                    </div>
+                </div>
+
+               <div class="form-group">
+                    <div class="col-sm-6">
+                            <label for="Name" class="control-label col-sm-3">หมู่บ้าน</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="home_name" value="" placeholder="หมู่บ้าน...">
+                            </div>
+                    </div>
+                    <div class="col-sm-6">
+                            <label for="Name" class="control-label col-sm-3">ตรอก</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="alley" value="" placeholder="ตรอก...">
+                            </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-6">
+                            <label for="Name" class="control-label col-sm-3">ซอย</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="soy" value="" placeholder="ซอย...">
+                            </div>
+                    </div>
+                    <div class="col-sm-6">
+                            <label for="Name" class="control-label col-sm-3">ถนน</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="road" value="" placeholder="ถนน...">
+                            </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <!-- <label for="Name" class="control-label col-sm-2">จังหวัด<b style="color:red;font-size:20px;">*</b></label> -->
+                    <div class="col-sm-6">
+                        <select  class="form-control " style="width: 100%;" name="PROVINCE_ID" id="province">
+                        <option value="PROVINCE_NAME">- กรุณาเลือกจังหวัด -</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <select  class="form-control " style="width: 100%;" name="AMPHUR_ID" id="amphur">
+                        <option>- กรุณาเลือกอำเภอ -</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+
+                    <div class="col-sm-6">
+                        <select  class="form-control " style="width: 100%;" name="DISTRICT_ID" id="district">
+                        <option>- กรุณาเลือกตำบล -</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input-group date">
+                                <input type="text" class="form-control pull-right" name="postcode" 
+                                id="postcode" disabled>
                         </div>
+                    </div> 
                 </div>
 
             </div>
@@ -444,7 +529,9 @@
   <!-- iCheck for checkboxes and radio inputs -->
   <link rel="stylesheet" href="plugins/iCheck/all.css">
 
-
+<!-- //////////// -->
+<script src="AutoProvince.js"></script>
+<!-- /////////// -->
 <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- date-range-picker -->
 <script src="bower_components/moment/min/moment.min.js"></script>
@@ -474,4 +561,13 @@
   })
     //Initialize Select2 Elements
     $('.select2').select2()
+</script>
+<script>
+$('body').AutoProvince({
+	PROVINCE:		'#province', // select div สำหรับรายชื่อจังหวัด
+	AMPHUR:			'#amphur', // select div สำหรับรายชื่ออำเภอ
+	DISTRICT:		'#district', // select div สำหรับรายชื่อตำบล
+	POSTCODE:		'#postcode', // input field สำหรับรายชื่อรหัสไปรษณีย์
+	arrangeByName:		false // กำหนดให้เรียงตามตัวอักษร
+});
 </script>

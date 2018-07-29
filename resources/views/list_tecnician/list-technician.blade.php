@@ -196,7 +196,12 @@
             <h4 class="modal-title">จัดการอะไหล่</h4>
           </div>       
           <div class="modal-body">
-
+          <div class="row">
+            <div class="text-center">
+              <b>อะไหล่ที่ใช้ไป</b>
+            </div>
+          </div>
+  
             <div class="row">
               <div class="form-group"> 
               @foreach($data_use_parts as $data_use_part)
@@ -204,7 +209,7 @@
                 <div class="row">
                       <?= Form::open(array('url' => '/list-repair-for-technician-delete-data-use-part' )) ?>
                       <b for="" class="control-label col-md-3"style="text-align:right">อะไหล่ที่ใช้</b>
-                    <div class="col-md-7" >               
+                    <div class="col-md-6" >               
                             
                         <a>{{ $data_use_part->list_parts_name }} :
                         {{ $data_use_part->list_parts_generation }} :
@@ -212,11 +217,11 @@
                       [ {{ $data_use_part->lot_name3 }} ]</a> <br>
                                   
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                       <input type="hidden" name="list_repair_id" value="{{ $list_repair->id }}">
                       <input type="hidden" name="list_parts_id" value="{{ $data_use_part->list_parts_id_chk }}">
                       <input type="hidden" name="repair_id"value="{{$repair_id}}">
-                      <button type="submit" class="btn btn-danger" >นำออก</button>
+                      <button type="submit" class="btn btn-danger" > <i class="fa fa-times-circle fa-lg"></i>&nbsp;นำออก</button>
                     </div>
                 </div>
                     {!! Form::close() !!}
@@ -224,14 +229,62 @@
               @endforeach   
               </div>
             </div><br>
-          <?= Form::open(array('url' => '/list-repair-for-technician-data-use-part' )) ?>
+            {{ csrf_field() }}
+            <form action="{{url('/list')}}" method="Post"  name="frmMain{{ $list_repair->id }}" 
+            >  
+            <div class="row">
+              <div class="text-center">
+                <b>เลือกอะไหล่ที่ต้องการใช้</b>
+              </div>
+            </div>
             <div class="row" >
               <div class="form-group">
-                    <b for="" class="control-label col-md-2"style="text-align:right">รายการอะไหล่</b>
+              {{ csrf_field() }}
+              <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">หมวดอะไหล่</b>
+                    <div class="col-md-8">               
+                        <select required class="form-control select2" style="width: 100%;" name="setting_group_part_id" id="group{{$list_repair->id}}" onChange="ListProvince{{$list_repair->id}}()">
+                        <option value="" ><b>เลือกหมวดอะไหล่</b></option>
+                        @foreach ($group_parts as $group_part)
+                        <option value="{{ $group_part->id }}">{{ $group_part->name }}</option>
+                        @endforeach
+                        </select>
+                    </div>
+              </div>
+            </div>
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">ยี่ห้ออะไหล่</b>
+                    <div class="col-md-8">               
+                        <select required class="form-control select2" style="width: 100%;" name="setting_brand_part_id" id="ddlGeo{{$list_repair->id}}"  onChange="ListProvince{{$list_repair->id}}()">
+                        <option value=""  ><b>เลือกยี่ห้ออะไหล่</b></option>
+                        @foreach ($brand_parts as $brand_part)
+                        <option value="{{ $brand_part->id }}">{{ $brand_part->name }}</option>
+                        @endforeach
+                        </select>
+                    </div>
+              </div>
+            </div>
+
+            <div class="row" style="padding-top:20px;">
+              <div class="form-group">
+                    <b for="" class="control-label col-md-3"style="text-align:right">เลือกโมเดล</b>
+                    <div class="col-md-8">       
+                          
+                        <select required class="form-control select2" style="width: 100%;"  id="ddlProvince{{$list_repair->id}}" name="list_parts_id">
+                          <option value="" disabled>เลือกโมเดล</option>  
+                        </select>
+                    </div>
+              </div>
+            </div>
+            <br>
+           
+
+                    <!-- <b for="" class="control-label col-md-2"style="text-align:right">รายการอะไหล่</b>
                     <div class="col-md-8">               
                         <select required class="form-control select2" style="width: 100%;" name="list_parts_id">
                         <option value="">เลือกอะไหล่ที่ต้องการเพิ่ม</option>
-                        <!-- <option disabled="disabled">California (disabled)</option> -->
                         @foreach ($list_parts as $list_part)
                         <option value="{{ $list_part->id }}">" {{ $list_part->name }} {{ $list_part->generation }} " 
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ราคา: {{ number_format($list_part->pay_out, 0) }}
@@ -239,15 +292,22 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;คงเหลือ: {{ $list_part->number }}</option>                      
                         @endforeach
                         </select>
-                    </div>
-                    <div class="col-md-2">
-                    <input type="hidden" name="list_repair_id" value="{{ $list_repair->id }}">
-                    <input type="hidden" name="repair_id"value="{{$repair_id}}">
-                    <button type="submit" class="btn btn-success">ใช้อะไหล่</button>
-                    </div> 
+                    </div> -->
                     
+              </div>            
+              <div class="row">    
+                  <div class="text-center">          
+                      <div class="col-md-12">
+                          <input type="hidden" name="list_repair_id" value="{{ $list_repair->id }}">
+                          <input type="hidden" name="repair_id"value="{{$repair_id}}">
+                          <button type="submit" class="btn btn-success"><i class="fa fa-check-circle fa-lg"></i>&nbsp;ใช้อะไหล่</button>
+                        </div> 
+                        {!! Form::close() !!}
+                    </div>
               </div>
+
             </div>
+
          
           </div> 
           <div class="modal-footer">
@@ -275,7 +335,7 @@
             <!-- <button type="button" class="btn btn-danger " data-dismiss="modal">ยกเลิก</button> -->
             <!-- <button type="submit" class="btn btn-success">บันทึก</button> -->
           </div>
-          {!! Form::close() !!}
+          <!-- {!! Form::close() !!} -->
         </div>
       </div>          
     </div>
@@ -363,6 +423,10 @@
     </script>
      @endif 
 
+<!-- ////////////////////////// -->
+
+<!-- ////////////////////////////// -->
+
     </section>
 @include('form/footer')
 
@@ -386,6 +450,37 @@
   $('.select2').select2()
 
 </script>
-
-
+@foreach($list_repairs as $value)
+<script >
+function ListProvince{{$value->id}}()
+		{
+      // alert('momo');
+      var se_brand{{$value->id}} = document.getElementById("ddlGeo{{$value->id}}").value;
+      var se_group{{$value->id}} = document.getElementById("group{{$value->id}}").value;
+			frmMain{{$value->id}}.ddlProvince{{$value->id}}.length = 0
+			// frmMain.ddlAmphur.length = 0
+			// alert(se_group{{$value->id}});
+			//*** Insert null Default Value ***//
+			var myOption = new Option('','')  
+			frmMain{{$value->id}}.ddlProvince{{$value->id}}.options[frmMain{{$value->id}}.ddlProvince{{$value->id}}.length]= myOption	
+      @foreach ($list_parts as $list_part)		
+				mySubList = new Array();
+        strGroup = "{{$list_part->group_id}}"
+        strBrand = "{{$list_part->brand_id}}"
+				strValue = "{{$list_part->id}}";
+				strItem = "{{$list_part->name}}";
+				if (strBrand == se_brand{{$value->id}} && strGroup == se_group{{$value->id}} ){
+          // alert('yes');
+					// var myOption = new Option(mySubList[x,0], mySubList[x,2])  
+          var myOption = new Option(strItem,strValue)  
+					frmMain{{$value->id}}.ddlProvince{{$value->id}}.options[frmMain{{$value->id}}.ddlProvince{{$value->id}}.length]= myOption					
+				}
+        else{
+          // alert('no');
+        }
+			@endforeach 
+      															
+		}
+</script>
+@endforeach
 

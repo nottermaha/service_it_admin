@@ -84,14 +84,14 @@
             หญิง
             @endif
             </td>
-            <!-- <td><a href="{{ url('/person-member-form-edit/'.$person->id)  }}" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a>
-            </td>    -->
-            <td style="text-align:center">
+            <td><a href="{{ url('/person-member-form-edit'.$person->id)  }}" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a>
+            </td>   
+            <!-- <td style="text-align:center">
                       <?= Form::open(array('url' => '/person-member-form-edit')) ?>
                       <input type="hidden" name="id" value="{{ $person->id }}">
                           <button type="submit" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</button>
                       {!! Form::close() !!}
-            </td>
+            </td> -->
             <!-- <td class="text-center"><a href="<?php echo url('/person-member/delete') ?>/{{$person->id}}" class="btn btn-danger">ลบ</a></td> -->
             <!-- <td style="text-align:center">
               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-person-member{{ $person->id }}"><i class="fa fa-trash fa-lg"></i>&nbsp; ลบ
@@ -99,12 +99,12 @@
             </td> -->
             @if($person->status==1)
             <td class="text-center">
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-delete-person-member{{ $person->id }}"><i class="fa fa-power-off fa-lg"></i>&nbsp; เปิดใช้งาน
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-delete-person-member{{ $person->id }}"><i class="fa fa-check-circle fa-lg"></i>&nbsp; เปิดใช้งาน
               </button>
             </td>
             @elseif($person->status==0)
             <td class="text-center">
-              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-person-member{{ $person->id }}"><i class="fa fa-power-off fa-lg"></i>&nbsp; ปิดใช้งาน
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-person-member{{ $person->id }}"><i class="fa  fa-times-circle fa-lg"></i>&nbsp; ปิดใช้งาน
               </button>
             </td>
             @endif

@@ -164,8 +164,8 @@
             @endif
             </td>
 
-            <!-- <td style="text-align:center"><a href="{{ url('/person-manager-form-edit/'.$person->id)  }}" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a></td>    -->
-            <td  class="text-center">
+            <td style="text-align:center"><a href="{{ url('/person-manager-form-edit'.$person->id)  }}" class="btn btn-warning"><i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข</a></td>   
+            <!-- <td  class="text-center">
               <div class="row">
                       <?= Form::open(array('url' => '/person-manager-form-edit')) ?>
                       <input type="hidden" name="id" value="{{ $person->id }}">
@@ -173,7 +173,7 @@
                       {!! Form::close() !!}
 
               </div>
-            </td>
+            </td> -->
       
 
             <!-- <td class="text-center"><a href="<?php echo url('/person-manager/delete') ?>/{{$person->id}}" class="btn btn-danger">ลบ</a></td> -->
@@ -183,12 +183,12 @@
             </td> -->
             @if($person->status==1)
             <td class="text-center">
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-delete-person-manager{{ $person->id }}"><i class="fa fa-power-off fa-lg"></i>&nbsp; เปิดใช้งาน
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-delete-person-manager{{ $person->id }}"><i class="fa fa-check-circle fa-lg"></i>&nbsp; เปิดใช้งาน
               </button>
             </td>
             @elseif($person->status==0)
             <td class="text-center">
-              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-person-manager{{ $person->id }}"><i class="fa fa-power-off fa-lg"></i>&nbsp; ปิดใช้งาน
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-person-manager{{ $person->id }}"><i class="fa fa-times-circle fa-lg"></i>&nbsp; ปิดใช้งาน
               </button>
             </td>
             @endif

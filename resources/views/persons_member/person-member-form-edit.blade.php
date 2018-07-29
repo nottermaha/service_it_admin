@@ -20,7 +20,7 @@
 		var elem = document.getElementById("password").value;
         if(!elem.match(/^([a-z0-9\_])+$/i))
 		{
-            document.getElementById('pass').innerHTML = "กรุณากรอกรหัสผ่านเแชป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";
+            document.getElementById('pass').innerHTML = "กรุณากรอกรหัสผ่านเป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";
 		}
 		else if(y.length<8){document.getElementById('pass').innerHTML = "รหัสผ่านไม่ควรต่ำกว่า 8 ตัว";}
 		else{document.getElementById('pass').innerHTML = "";}
@@ -29,8 +29,8 @@
 	{
 		var x = document.getElementById("password");
 		var y = document.getElementById("repassword");
-		if(x.value!=y.value){document.getElementById('repass').innerHTML = "การยืนยันรหัสผ่านไม่ตรงกัน";}
-		else{document.getElementById('repass').innerHTML = "";}
+		if(x.value!=y.value){document.getElementById('repassw').innerHTML = "การยืนยันรหัสผ่านไม่ตรงกัน";}
+		else{document.getElementById('repassw').innerHTML = "";}
 	}
     function ChkEmail(){
             var x = document.getElementById("email");
@@ -111,19 +111,19 @@
         if(y.length<1){document.getElementById('txt_name').innerHTML = "กรุณากรอก ชื่อ-นามสกุล";return false}
         else{document.getElementById('txt_name').innerHTML = "";}
         ///
-        var y = document.getElementById("password").value;
-		var elem = document.getElementById("password").value;
-        if(!elem.match(/^([a-z0-9\_])+$/i))
-		{
-            document.getElementById('pass').innerHTML = "กรุณากรอกรหัสผ่านเแชป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";return false;
-		}
-		else if(y.length<8){document.getElementById('pass').innerHTML = "รหัสผ่านไม่ควรต่ำกว่า 8 ตัว";return false;}
-		else{document.getElementById('pass').innerHTML = "";}
-        ////
-        var x = document.getElementById("password");
-		var y = document.getElementById("repassword");
-		if(x.value!=y.value){document.getElementById('repass').innerHTML = "การยืนยันรหัสผ่านไม่ตรงกัน";return false;}
-		else{document.getElementById('repass').innerHTML = "";}
+        // var y = document.getElementById("password").value;
+		// var elem = document.getElementById("password").value;
+        // if(!elem.match(/^([a-z0-9\_])+$/i))
+		// {
+        //     document.getElementById('pass').innerHTML = "กรุณากรอกรหัสผ่านเป็นตัวอักษรภาษาอังกฤษ หรือตัวเลข";return false;
+		// }
+		// else if(y.length<8){document.getElementById('pass').innerHTML = "รหัสผ่านไม่ควรต่ำกว่า 8 ตัว";return false;}
+		// else{document.getElementById('pass').innerHTML = "";}
+        // ////
+        // var x = document.getElementById("password");
+		// var y = document.getElementById("repassword");
+		// if(x.value!=y.value){document.getElementById('repass').innerHTML = "การยืนยันรหัสผ่านไม่ตรงกัน";return false;}
+		// else{document.getElementById('repass').innerHTML = "";}
         /////
         var x = document.getElementById("email").value;
         var emailFilter=/^.+@.+\..{2,3}$/;
@@ -195,6 +195,19 @@
                 </div>
             <div class="box-body">
                 {{ csrf_field() }}
+                <div class="form-group">
+                    <label for="Name" class="control-label col-sm-3">คำนำหน้าชื่อ<b style="color:red;font-size:20px;">*</b></label>
+                    <div class="col-sm-5">
+                    <select required class="form-control " style="width: 100%;" name="prefix">
+                    <option value="{{$prefix}}">คำนำหน้าชื่อ [ {{$prefix}} ]</option>
+                      <!-- <option disabled="disabled">California (disabled)</option> -->
+                    <option value="นาย">นาย</option>
+                    <option value="นาง">นาง</option>
+                    <option value="นางสาว">นางสาว</option>
+                    </select>
+                    </div><b id="txt_name" style="color:red;"></b>
+                </div>
+
                 <div class="form-group">
                     <label for="Name" class="control-label col-sm-3">ชื่อ-นามสกุล <b style="color:red;font-size:20px;">*</b></label>
                     <div class="col-sm-9">
@@ -274,15 +287,102 @@
                 <div class="form-group">
                     <label for="Address" class="control-label col-sm-3">ที่อยู่</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" rows="3" placeholder="ที่อยู่ ..." name="address" value="{{$address}}">{{$address}}</textarea>
+                            <textarea class="form-control" rows="3" placeholder="ที่อยู่ ..." name="address" value="{{$address}}" disabled>{{$address}}</textarea>
                         </div>
                 </div>
+
+                <div class="form-group">
+                    <label for="Name" class="control-label col-sm-7 text-right">แก้ไขที่อยู่</label>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-6">
+                            <label for="Name" class="control-label col-sm-3">เลขที่</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="home_number" value="{{$home_number}}">
+                            </div>
+                    </div>
+                    <div class="col-sm-6">
+                            <label for="Name" class="control-label col-sm-3">หมู่ที่</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="group_number" value="{{$group_number}}">
+                            </div>
+                    </div>
+                </div>
+
+               <div class="form-group">
+                    <div class="col-sm-6">
+                            <label for="Name" class="control-label col-sm-3">หมู่บ้าน</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="home_name" value="{{$home_name}}">
+                            </div>
+                    </div>
+                    <div class="col-sm-6">
+                            <label for="Name" class="control-label col-sm-3">ตรอก</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="alley" value="{{$alley}}">
+                            </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-6">
+                            <label for="Name" class="control-label col-sm-3">ซอย</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="soy" value="{{$soy}}">
+                            </div>
+                    </div>
+                    <div class="col-sm-6">
+                            <label for="Name" class="control-label col-sm-3">ถนน</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="road" value="{{$road}}">
+                            </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <!-- <label for="Name" class="control-label col-sm-2">จังหวัด<b style="color:red;font-size:20px;">*</b></label> -->
+                    <div class="col-sm-6">
+                        <select  class="form-control " style="width: 100%;" name="PROVINCE_ID" id="province">
+                        <option value="PROVINCE_NAME">- กรุณาเลือกจังหวัด -</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <select  class="form-control " style="width: 100%;" name="AMPHUR_ID" id="amphur">
+                        <option>- กรุณาเลือกอำเภอ -</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+
+                    <div class="col-sm-6">
+                        <select  class="form-control " style="width: 100%;" name="DISTRICT_ID" id="district">
+                        <option>- กรุณาเลือกตำบล -</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="input-group date">
+                                <input type="text" class="form-control pull-right" name="postcode" 
+                                id="postcode" disabled>
+                        </div>
+                    </div> 
+                </div>
+
 
             </div>
         </div>
     </div>
 
     <div class="col-md-6">
+            @if(session()->has('status_confirm_password_mem_fail'))  
+            <div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-warning"></i> แก้ไขข้อมูลส่วนตัวสมาชิกร้านล้มเหลว!</h4>
+                การยืนยันรหัสผ่านของท่านไม่ถูกต้อง                                     
+            </div>  
+            @endif  
         <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">บันทึกข้อมูลการเข้าสู่ระบบ</h3>
@@ -297,35 +397,88 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-user fa-lg"></i>
                                 </div>
-                                <input type="text" class="form-control pull-right"  name="username" placeholder="ชื่อผู้ใช้..." value="{{$username}}" id="username"required onBlur="checkText()">
-                            </div><b  id="txt_username" style="color:red;"></b>
+                                <input type="text" class="form-control pull-right"  name="" placeholder="ชื่อผู้ใช้..." value="{{$username}}" disabled>
+                            </div>
                         </div> 
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="Birthday" class="control-label col-sm-3">รหัสผ่าน <b style="color:red;font-size:20px;">*</b></label>
                         <div class="col-sm-9">
                             <div class="input-group date">
                                 <div class="input-group-addon">
                                     <i class="fa fa-lock fa-lg"></i>
                                 </div>
-                                <input type="password" class="form-control pull-right"  name="password" placeholder="รหัสผ่าน..." value="{{$password}}" id="password"onBlur="ChkLengthPass()" required>
-                            </div><b  id="pass" style="color:red;"></b>
+                                <input type="password" class="form-control pull-right"  name="" placeholder="รหัสผ่าน..." value="{{$password}}" disabled>
+                            </div>
                         </div>  
+                </div> -->
+
+<div class="row">
+    <div class="col-sm-12 text-center">
+        <input type="button"  class="btn btn-warning " name="answer" value="แก้ไขข้อมูลเข้าการสู่ระบบ <<คลิก>>" onclick="showDivna()" />
+          <div id="welcomeDivna"  style="display:none;" class="answer_list" >
+                <div class="form-group" style="padding-top:10px;">
+                    <label for="Birthday" class="control-label col-sm-3">ชื่อผู้ใช้ </label>
+                        <div class="col-sm-9">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-user fa-lg"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" name="username" placeholder="ชื่อผู้ใช้..." value="{{$username}}" id="username" onBlur="checkText()">
+                            </div><b  id="txt_username" style="color:red;"></b>
+                        </div> 
                 </div>
 
                 <div class="form-group">
-                    <label for="Birthday" class="control-label col-sm-3">รหัสผ่านอีกครั้ง <b style="color:red;font-size:20px;">*</b></label>
+                    <label for="Birthday" class="control-label col-sm-3">รหัสผ่านใหม่ </label>
                         <div class="col-sm-9">
                             <div class="input-group date">
                                 <div class="input-group-addon">
                                     <i class="fa fa-lock fa-lg"></i>
                                 </div>
-                                <input type="password" class="form-control pull-right" name="password" placeholder="ป้อนรหัสผ่านเดิม..." id="repassword" onBlur="ChkRePass()" required>
-                            </div><b id="repass" style="color:red;"></b>
+                                <input type="password" class="form-control pull-right"  name="newpassword" placeholder="(กรอกข้อมูลหากท่านต้องการเปลี่ยนรหัสผ่านใหม่)..." value="" id="password"onBlur="ChkLengthPass()" >
+                            </div><b  id="pass" style="color:red;"></b>
                         </div>  
                 </div>
-            
+
+                <div class="form-group">
+                    <label for="Birthday" class="control-label col-sm-3">รหัสผ่านอีกครั้ง </label>
+                        <div class="col-sm-9">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-lock fa-lg"></i>
+                                </div>
+                                <input type="password" class="form-control pull-right"  name="" placeholder="รหัสผ่านอีกครั้ง..." value="" id="repassword"onBlur="ChkRePass()" >
+                            </div><b  id="repassw" style="color:red;"></b>
+                        </div>  
+                </div>
+
+                <div class="form-group">
+                    <label for="Birthday" class="control-label col-sm-3">ยืนยันรหัสของท่าน</label>
+                        <div class="col-sm-9">
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-lock fa-lg"></i>
+                                </div>
+                                <input type="password" class="form-control pull-right"  name="confirmpassword" placeholder="ยืนยันรหัสของท่าน..." value="" >
+                            </div>
+                        </div>  
+                </div>
+                
+                <div class="form-group">
+                    <label for="Birthday" class="control-label col-sm-3"></label>
+                        <div class="col-sm-9">
+                            <b style="color:orange;">การเปลี่ยน ชื่อผู้ใช้ หรือ รหัสผ่าน จะต้องยืนยันรหัสผ่านของท่านด้วยเสมอ</b>
+                        </div>  
+                </div>
+
+          </div>
+
+          </div>
+          </div>
+
+
             </div>
         </div>
                 <div class="col-sm-12 text-center">
@@ -359,7 +512,9 @@
   <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <!-- iCheck for checkboxes and radio inputs -->
   <link rel="stylesheet" href="plugins/iCheck/all.css">
-
+<!-- //////////// -->
+<script src="AutoProvince.js"></script>
+<!-- /////////// -->
 <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- date-range-picker -->
 <script src="bower_components/moment/min/moment.min.js"></script>
@@ -389,4 +544,25 @@
   })
     //Initialize Select2 Elements
     $('.select2').select2()
+</script>
+<script>
+$('body').AutoProvince({
+	PROVINCE:		'#province', // select div สำหรับรายชื่อจังหวัด
+	AMPHUR:			'#amphur', // select div สำหรับรายชื่ออำเภอ
+	DISTRICT:		'#district', // select div สำหรับรายชื่อตำบล
+	POSTCODE:		'#postcode', // input field สำหรับรายชื่อรหัสไปรษณีย์
+	arrangeByName:		false // กำหนดให้เรียงตามตัวอักษร
+});
+</script>
+
+<script>
+    function showDivna(){ 
+        var x = document.getElementById("welcomeDivna");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }   
+
+    }
 </script>

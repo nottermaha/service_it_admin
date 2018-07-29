@@ -133,6 +133,12 @@ class RepairsGeneralController extends Controller
         foreach($list_repair as $key=>$value){
           $result=$result+$value['price'];
         }
+
+        $current_date = date('Y-m-d'); 
+        $date = new CallUseController();
+        $current_date = $date->get_date_only_request_date($current_date);
+        // echo $current_date;exit();
+
     if($repairs['persons_member_id']==NULL){
 
         $data = [
@@ -150,6 +156,8 @@ class RepairsGeneralController extends Controller
           'store_phone' => $store_branch['phone'],
 
           'count_price' => $result,
+
+          'current_date' => $current_date,
         ];
     }
     else
@@ -181,6 +189,8 @@ class RepairsGeneralController extends Controller
           'store_phone' => $store_branch['phone'],
 
           'count_price' => $result,
+
+          'current_date' => $current_date,
         ];
 
     }

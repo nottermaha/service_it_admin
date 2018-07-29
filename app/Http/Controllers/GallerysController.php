@@ -42,7 +42,7 @@ class GallerysController extends Controller
           }
           else{
             // echo 'tt';exit();
-            $request->session()->flash('status_image_fail', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+            $request->session()->flash('status_create_image_fail', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
             // $request->session()->flash('status_id',$request->id); 
             return redirect('gallery');
           }  
@@ -66,7 +66,7 @@ class GallerysController extends Controller
             $gallerys->img_url = 'default.jpg';         
           }  
           else{
-            $request->session()->flash('status_image_fail', '');
+            $request->session()->flash('status_create_image_fail', '');
             return redirect('gallery');
           }              
                  
@@ -93,7 +93,7 @@ class GallerysController extends Controller
       }
       else{
         // echo 'tt';exit();
-        $request->session()->flash('status_image_fail', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+        $request->session()->flash('status_edit_image_fail', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
         $request->session()->flash('status_id',$request->id); 
         return redirect('gallery');
       }
@@ -121,7 +121,7 @@ class GallerysController extends Controller
               $request->session()->flash('status_edit', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
           }
           else{
-            $request->session()->flash('status_image_fail', ''); 
+            $request->session()->flash('status_edit_image_fail', ''); 
             $request->session()->flash('status_id',$request->id); 
             return redirect('gallery');
           }

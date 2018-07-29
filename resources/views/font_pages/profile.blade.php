@@ -121,10 +121,10 @@
 		else if(y.length<8){document.getElementById('pass').innerHTML = "รหัสผ่านไม่ควรต่ำกว่า 8 ตัว";return false;}
 		else{document.getElementById('pass').innerHTML = "";}
         ////
-        var x = document.getElementById("password");
-		var y = document.getElementById("repassword");
-		if(x.value!=y.value){document.getElementById('repass').innerHTML = "การยืนยันรหัสผ่านไม่ตรงกัน";return false;}
-		else{document.getElementById('repass').innerHTML = "";}
+        // var x = document.getElementById("password");
+		// var y = document.getElementById("repassword");
+		// if(x.value!=y.value){document.getElementById('repass').innerHTML = "การยืนยันรหัสผ่านไม่ตรงกัน";return false;}
+		// else{document.getElementById('repass').innerHTML = "";}
         /////
         var x = document.getElementById("email").value;
         var emailFilter=/^.+@.+\..{2,3}$/;
@@ -328,7 +328,7 @@
                                     </div><b id="pass" style="color:red;"></b>
                                 </div>
                             </div><br>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <label class="col-sm-3 control-label">รหัสผ่านอีกครั้ง</label>
                                 <div class="col-sm-8">
                                     <div class="input-group">
@@ -336,7 +336,7 @@
                                         <input type="password" class="form-control" placeholder="รหัสผ่านอีกครั้ง.." name="password" id="repassword" onBlur="ChkRePass()" required >
                                     </div><b id="repass" style="color:red;"></b>
                                 </div>
-                            </div>
+                            </div> -->
                            
                         </div>  
                         <div class="form-group">
@@ -429,11 +429,78 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="glyph-icon icon-home"></i></span>
                                         <!-- <input type="text" class="form-control" placeholder="ที่อยู่.."> -->
-                                          <textarea  id="" class="form-control" placeholder="ที่อยู่..." name="address" value="{{$address}}">{{$address}}</textarea>
+                                          <textarea  id="" class="form-control" placeholder="ที่อยู่..." name="address" value="{{$address}}"disabled>{{$address}}</textarea>
 
                                     </div>
                                 </div>
                             </div><br>
+
+                <div class="form-group">
+                    <label for="Name" class="control-label col-sm-7 text-right">แก้ไขที่อยู่</label>
+                </div>
+                            <div class="row">
+                                <label class="col-sm-3 control-label">บ้านเลขที่</label>
+                                <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="home_number"  placeholder="บ้านเลขที่..." value="{{$home_number}}">
+                                </div>
+                                <label class="col-sm-2 control-label">หมู่ที่</label>
+                                <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="group_number"  placeholder="หมู่ที่..." value="{{$group_number}}">
+                                </div>
+                            </div><br>
+
+                             <div class="row">
+                                <label class="col-sm-3 control-label">หมู่บ้าน</label>
+                                <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="home_name"  placeholder="หมู่บ้าน..." value="{{$home_name}}">
+                                </div>
+                                <label class="col-sm-2 control-label">ตรอก</label>
+                                <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="alley" placeholder="ตรอก..." value="{{$alley}}">
+                                </div>
+                            </div><br>
+
+                            <div class="row">
+                                <label class="col-sm-3 control-label">ซอย</label>
+                                <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="soy"  placeholder="ซอย..." value="{{$soy}}">
+                                </div>
+                                <label class="col-sm-2 control-label">ถนน</label>
+                                <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="road"  placeholder="ถนน..." value="{{$road}}">
+                                </div>
+                            </div><br>
+
+                            <div class="row">
+                                <label class="col-sm-3 control-label">จังหวัด</label>
+                                <div class="col-sm-3">
+                                        <select  class="form-control " style="width: 100%;" name="PROVINCE_ID" id="province">
+                                        <option value="PROVINCE_NAME">- กรุณาเลือกจังหวัด -</option>
+                                        </select>
+                                </div>
+                                <label class="col-sm-2 control-label">อำเภอ</label>
+                                <div class="col-sm-3">
+                                        <select  class="form-control " style="width: 100%;" name="AMPHUR_ID" id="amphur">
+                                        <option>- กรุณาเลือกอำเภอ -</option>
+                                        </select>
+                                </div>
+                            </div><br>
+
+                            <div class="row">
+                                <label class="col-sm-3 control-label">ตำบล</label>
+                                <div class="col-sm-3">
+                                        <select  class="form-control " style="width: 100%;" name="DISTRICT_ID" id="district">
+                                        <option>- กรุณาเลือกตำบล -</option>
+                                        </select>
+                                </div>
+                                <label class="col-sm-2 control-label">รหัสไปรษณีย์</label>
+                                <div class="col-sm-3">
+                                        <input type="text" class="form-control pull-right" name="postcode" 
+                                        id="postcode" disabled>
+                                </div>
+                            </div><br>
+
+
                             <div class="row">
                                 <div class="col-sm-12 text-center">
                                 <input type="hidden" name="id" value="{{$id}}">
@@ -559,19 +626,21 @@
 
                     <div class="row" >
                         <div class="form-group">
-                        <b for="" class="control-label col-md-3"style="text-align:right">
-                                อุปกรณ์ที่นำมาซ่อม  </b><br>
+                        <b for="" class="control-label col-md-8"style="text-align:right">
+                               <U>อุปกรณ์ที่นำมาซ่อม</U>   </b><br>
                                 <?php $i=0 ?>
                         @foreach($list_repairs as $list_repair)
                               @if( $repair->r_id==$list_repair->repair_id_form_list )
-                                <b for="" class="control-label col-md-3"style="text-align:right">
+                              <div class="row" style="margin-top:10px;">
+                              <div class="col-md-8" >
+                                <b for="" class="control-label col-md-4"style="text-align:right">
                                 {{ $i=$i+1 }} : </b>
-                                <b for="" class="control-label col-md-9" style="color:gray">
+                                <b for="" class="control-label col-md-8" style="color:gray">
                                 {{ $list_repair->list_name }}.
                                 </b>
-                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                <b for="" class="control-label col-md-4"style="text-align:right">
                                 อาการเสีย : </b>
-                                <b for="" class="control-label col-md-9" style="color:gray">
+                                <b for="" class="control-label col-md-8" style="color:gray">
                                 {{ $list_repair->symptom }}
                                 </b>
                                 <!-- <b for="" class="control-label col-md-3"style="text-align:right">
@@ -579,19 +648,19 @@
                                 <b for="" class="control-label col-md-9" style="color:gray">
                                 {{ $list_repair->detail }}.
                                 </b> -->
-                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                <b for="" class="control-label col-md-4"style="text-align:right">
                                 ราคา : </b>
-                                <b for="" class="control-label col-md-9" style="color:gray">
+                                <b for="" class="control-label col-md-8" style="color:gray">
                                 {{ $list_repair->price }} บาท.
                                 </b>
-                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                <b for="" class="control-label col-md-4"style="text-align:right">
                                 ช่างซ่อม : </b>
-                                <b for="" class="control-label col-md-9" style="color:gray">
+                                <b for="" class="control-label col-md-8" style="color:gray">
                                 {{ $list_repair->person_name }}.
                                 </b>
-                                <b for="" class="control-label col-md-3"style="text-align:right">
+                                <b for="" class="control-label col-md-4"style="text-align:right">
                                 สถานะ : </b>
-                                <b for="" class="control-label col-md-9" style="color:gray">
+                                <b for="" class="control-label col-md-8" style="color:gray">
                                 @if( $list_repair->status_color==1 )
                                     <button style="width:190px;" type="button" class="btn btn-info">
                                     @elseif( $list_repair->status_color==2 )
@@ -620,6 +689,19 @@
                                     {{ $list_repair->status_name }}.
                                     </button>
                                 </b>
+
+                                </div>
+                                    <!-- ///col/// -->
+                                <div class="col-md-4">
+                                
+                                <a href="{{ asset('image/list-repair/picture/'.$list_repair->image) }}" target="_blank">
+                                <img src="{{ asset('image/list-repair/resize/'.$list_repair->image) }}" alt="" style="width:170px;height:100px;"><br>
+                                <b style="padding-left:30px;">รูปแสดงงานซ่อม</b> 
+                                </a>
+                                    </div>
+                                    </div>
+                                    <!-- ///row/// -->
+
                               @endif
                           @endforeach
                           
@@ -807,4 +889,19 @@
                      showConfirmButton: false     }); 
     </script>
 @endif
+
+<!-- //////////// -->
+<script src="AutoProvince.js"></script>
+<!-- /////////// -->
+
+     <script>
+$('body').AutoProvince({
+	PROVINCE:		'#province', // select div สำหรับรายชื่อจังหวัด
+	AMPHUR:			'#amphur', // select div สำหรับรายชื่ออำเภอ
+	DISTRICT:		'#district', // select div สำหรับรายชื่อตำบล
+	POSTCODE:		'#postcode', // input field สำหรับรายชื่อรหัสไปรษณีย์
+	arrangeByName:		false // กำหนดให้เรียงตามตัวอักษร
+});
+</script>
+
 @include('form/footer-font')

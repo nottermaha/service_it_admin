@@ -75,12 +75,16 @@
             <td class="text-center">{{ $Import_part->lot_name }}</td>
             <td class="text-center">{{ $Import_part->date }}</td>
             <!-- <td class="text-center">{{ $Import_part->updated_at }}</td> -->
+            
             <td class="text-center">
+              <a href="{{ url('/list-part'.$Import_part->id)  }}" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp; รายการอะไหล่</a>
+            </td> 
+            <!-- <td class="text-center">
             <?= Form::open(array('url' => '/list-part')) ?>
             <input type="hidden" name="id" value="{{$Import_part->id}}">
             <button type="submit" class="btn btn-default"><i class="fa fa-list fa-lg"></i>&nbsp;รายการอะไหล่</button>
-            {!! Form::close() !!}
-            </td> 
+            {!! Form::close() !!} 
+            </td> -->
             <td class="text-center">
             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit-import-part{{ $Import_part->id }}">
                 <i class="fa fa-edit fa-lg"></i>&nbsp; แก้ไข
@@ -92,12 +96,12 @@
           </td> -->
           @if($Import_part->status==1)
             <td class="text-center">
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-delete-import-part{{ $Import_part->id }}"><i class="fa fa-power-off fa-lg"></i>&nbsp; เปิดใช้งาน
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-delete-import-part{{ $Import_part->id }}"><i class="fa fa-check-circle fa-lg"></i>&nbsp; เปิดใช้งาน
               </button>
             </td>
             @elseif($Import_part->status==0)
             <td class="text-center">
-              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-import-part{{ $Import_part->id }}"><i class="fa fa-power-off fa-lg"></i>&nbsp; ปิดใช้งาน
+              <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-import-part{{ $Import_part->id }}"><i class="fa fa-times-circle fa-lg"></i>&nbsp; ปิดใช้งาน
               </button>
             </td>
             @endif

@@ -43,7 +43,8 @@
   <!-- jvectormap -->
   <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
   <script src="  https://unpkg.com/sweetalert2@7.19.1/dist/sweetalert2.all.js"></script>
-
+       <!-- Select2 -->
+       <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
 </head>
 <!--End css header-leftmenu -->
 
@@ -754,13 +755,19 @@
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
+  <!-- select2 -->
+  <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+
+<script>
+    //Initialize Select2 Elements
+    $('.select2').select2()
+</script>
+
 <script>
   // Datatable
   $(function () {
     $('#example').DataTable()
   })
-  //Initialize Select2 Elements
-  $('.select2').select2()
 
 </script>
 

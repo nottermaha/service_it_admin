@@ -7,25 +7,31 @@
         <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
         <script type="text/javascript" src="https://main.msger.info/assets/printer/data/js/jquery-1.3.2.min.js"></script>    
         <script type="text/javascript" src="https://main.msger.info/assets/printer/data/js/jquery-barcode.js"></script>  
-                <title>พิมพ์บิล ร้าน 
+        <!-- <title>พิมพ์ใบซ่อม ร้าน 
                 @foreach($stores as $store)
                         {{ $store->name }}
                 @endforeach
-                </title>
+                </title> -->
     </head>
 <body>
 
 
 <center>
     <div class="x_content">
-      <div id="copy" style="width:21cm;height:13.4cm;">
+
+      <div id="copy" style="width:21cm;height:13.4cm;">                
+      <b >พิมพ์ใบซ่อมสินค้า ร้าน 
+                @foreach($stores as $store)
+                        {{ $store->name }}
+                @endforeach
+                </b>
         <div class="col-md-12 " style="padding-top:10px;padding-buttom:10px;padding-left:10px;padding-right:10px;">
             <div class="col-md-5" style="text-align:left;padding-left: 10px;">
                 <button class="btn"style="color:white;background-color:gray;width:300px;text-align: left;">
+                
                 <h4 style="margin-top:-1px;">Invoice {{$bin_number}}</h4>
                 <h5 style="margin-bottom:-1px;">อินวอยร์บิลซ่อม</h5> 
                 </button>
-
                   <h5 style="margin: 4px 1px;" class="color"> รหัส  :  {{$bin_number}}</b>
                   <h5 style="margin: 4px 1px;" class="color">ชื่อ  :  {{$name}}</h5>
                   <h5 style="margin: 4px 1px;" class="color">เบอร์ติดต่อ  :  {{$phone}}</h5> 
@@ -99,7 +105,7 @@
       </div>
 
       <!-- <img src="/uploads/images/cut.png" style="width: 27px;margin-top: -15px;margin-bottom: -100px;margin-left: -700px;"> -->
-      <div id="clone"></div>
+      <div id="clone" style="padding-top:30px;"></div>
     </div>
 </center>
 
@@ -116,7 +122,7 @@
         }
         setTimeout(function() {
             window.print();
-        }, 3000);
+        }, 0);
         window.onafterprint = function(){
             setTimeout(function() {
                 window.close();

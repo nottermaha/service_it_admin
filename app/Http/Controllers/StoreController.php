@@ -268,9 +268,9 @@ class StoreController extends Controller
 
         $filename = str_random(10) . '.' . $request->file('image_url')
         ->getClientOriginalName();             
-        $request->file('image_url')->move(public_path() . '/image/store-branch/picture/', $filename);            
-        Image::make(public_path() . '/image/store-branch/picture/' . $filename)
-        ->resize(200, 200)->save(public_path() . '/image/store-branch/resize/' . $filename);     
+        $request->file('image_url')->move('image/store-branch/picture/', $filename);            
+        Image::make('image/store-branch/picture/' . $filename)
+        ->resize(200, 200)->save('image/store-branch/resize/' . $filename);     
         // $img = Image::make($request->file('image')->getRealPath());
         $store->image_url = $filename;
         $store->detail = $request->detail;

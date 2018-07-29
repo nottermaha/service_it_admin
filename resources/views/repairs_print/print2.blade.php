@@ -8,18 +8,24 @@
         <script type="text/javascript" src="https://main.msger.info/assets/printer/data/js/jquery-1.3.2.min.js"></script>    
         <script type="text/javascript" src="https://main.msger.info/assets/printer/data/js/jquery-barcode.js"></script>  
 
-                <title>พิมพ์บิล ร้าน                
+                <!-- <title>พิมพ์บิล ร้าน                
                 @foreach($stores as $store)
                         {{ $store->name }}
                 @endforeach
-                </title>
+                </title> -->
     </head>
 <body>
 
 
 <center>
     <div class="x_content">
-      <div id="copy" class="row" style="width: 21cm;height: 14.8cm;margin: auto;">
+      <div id="copy" class="row" style="width: 21cm;height: 13.4cm;margin: auto;">
+                <b>พิมพ์บิล ร้าน                
+                @foreach($stores as $store)
+                        {{ $store->name }} 
+                @endforeach
+                </b>
+                <br> <I>วันที่ออกบิล : {{$current_date}}</I> 
         <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 0.5cm 21px 0px 21px;">
             <div class="col-xs-5" style="text-align:left;padding-left: 0;">
                 <div class="text-muted well well-sm no-shadow head_left" style="background: #3d3d3d;border: 1px solid #2f2f2f;">
@@ -68,14 +74,17 @@
         <td>{{$value->price}}</td>
       </tr>
     @endforeach
-    <tr>
-        <td style="background-color:gray;"></td>
-        <td style="background-color:gray;"></td>
-        <td style="background-color:gray;color:white;"><b>ราคารวม</b> </td>
-        <td style="background-color:gray;color:white;"><b>{{$count_price}}</b> </td>
-    </tr>
+    <!-- <tr>
+        <td style="background: #3d3d3d;border: 1px solid #2f2f2f;"></td>
+        <td style="background: #3d3d3d;border: 1px solid #2f2f2f;"></td>
+        <td style="background: #3d3d3d;border: 1px solid #2f2f2f;"><b>ราคารวม</b> </td>
+        <td style="background: #3d3d3d;border: 1px solid #2f2f2f;"><b>{{$count_price}}</b> </td>
+    </tr> -->
     </tbody>
   </table>
+        <div class="text-muted well well-sm no-shadow head_left" style="background: ##DCDCDC;border: 1px solid #2f2f2f;">
+            <h4 class="text-head1" style="margin-top: 0px;margin-bottom: 0px;color: #ffffff;">ราคารวม {{$count_price}}</h4>
+        </div>
 </div>
         <!-- <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 5px 20px 0px 20px;">
             <div class="col-xs-1 bg-col" style="text-align:left;border-top: 1px solid #D8D8D8;background-color: #f5f5f5;
@@ -141,7 +150,7 @@
                 <h5 class="color" style="text-align: center;margin-top: 7px;">{{$count_price}}</h5>                   
             </div>
         </div> -->
-        <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 80px 20px 0px 80px;">
+        <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 10px 20px 0px 10px;padding-bottom:-50px;">
             <div class="col-xs-6" style="text-align: left;padding: 0;">
                 <h5 style="margin: 4px 1px 0px -52px;text-align: center;" class="color">ลูกค้า (.................................................)</h5>
                 <h5 style="margin: 4px 1px;text-align: center;" class="color">{{$name}}</h5>
@@ -153,7 +162,7 @@
         </div>
       </div>
       <!-- <img src="/uploads/images/cut.png" style="width: 27px;margin-top: -15px;margin-bottom: -100px;margin-left: -700px;"> -->
-      <div id="clone"></div>
+      <div id="clone" style="padding-top:30px;"></div>
     </div>
 </center>
 
@@ -170,7 +179,7 @@
         }
         setTimeout(function() {
             window.print();
-        }, 3000);
+        }, 0);
         window.onafterprint = function(){
             setTimeout(function() {
                 window.close();

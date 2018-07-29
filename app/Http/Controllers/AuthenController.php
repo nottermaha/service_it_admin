@@ -8,6 +8,7 @@ use App\Repair;
 use App\ListRepair;
 use App\PersonsMember;
 use App\Store;
+use App\AddressDistrict;
 use App\Http\Controllers\UploadController;
 
 use App\Http\Controllers\CallUseController;
@@ -22,7 +23,7 @@ class AuthenController extends Controller
         // echo $id;exit();
         $result = Persons::where('status',1)
         ->where('username',$request->username)
-        ->where('password',$request->password)
+        ->where('password',md5($request->password))
         ->get();
 
         // echo $result['0']['name'];exit();
@@ -72,7 +73,7 @@ class AuthenController extends Controller
         else if($result=='[]'){
           $result2 = PersonsMember::where('status',1)
           ->where('username',$request->username)
-          ->where('password',$request->password)
+          ->where('password',md5($request->password))
           ->get();
               if($result2!='[]'){
                   if($result2['0']['status']==0)
@@ -108,15 +109,37 @@ class AuthenController extends Controller
         $person->status = true;
         $person->type = 4;
         $person->username = $request->username;
-        $person->password = $request->password;
+        $person->password = md5($request->password);
         $person->name = $request->name;
         $person->person_id = $request->person_id;
+
+        $chk_person_id =  PersonsMember::where('person_id',$request->person_id)->get();
+        if(count($chk_person_id)>0)
+        {
+          // echo 'hoho';exit();
+            $request->session()->flash('status_person_id_fail', ''); 
+            return redirect('font-register');
+        }
+        // echo 'jojo';exit();
         $person->gender = $request->gender;
         $person->birthday = $request->birthday;
         $person->email = $request->email;
         $person->phone = $request->phone;
         // $person->image_url = $request->image_url;
-        $person->address = $request->address;
+        // $person->address = $request->address;
+        if($request->PROVINCE_ID!='PROVINCE_NAME'){
+          // echo $request->PROVINCE_ID;exit();
+        $person->PROVINCE_ID = $request->PROVINCE_ID;
+        $person->AMPHUR_ID = $request->AMPHUR_ID;
+        $person->DISTRICT_ID = $request->DISTRICT_ID;
+        }
+        $person->home_number = $request->home_number;
+        $person->group_number = $request->group_number;
+        $person->home_name = $request->home_name;
+        $person->alley = $request->alley;
+        $person->soy = $request->soy;
+        $person->road = $request->road;
+
         if ($request->hasFile('image_url')) {     
           
           $chk_name =$request->file('image_url')
@@ -127,7 +150,7 @@ class AuthenController extends Controller
           }
           else{
             // echo 'tt';exit();
-            $request->session()->flash('status_image_fail', 'แก้ไขข้อมูลเรียบร้อยแล้ว'); 
+            $request->session()->flash('status_image_fail', ''); 
             return redirect('font-register');
           }
 
@@ -167,7 +190,7 @@ class AuthenController extends Controller
         
         $result2 = PersonsMember::where('status',1)
         ->where('username',$request->username)
-        ->where('password',$request->password)
+        ->where('password',md5($request->password))
         ->get();
             if($result2!='[]'){
               session(['s_name'=>$result2['0']['name']]);
@@ -203,6 +226,93 @@ class AuthenController extends Controller
           ->where('persons_member_id',$id)
           ->where('status_bill',1)
           ->count();
+
+          $address = AddressDistrict::where('district.DISTRICT_ID',$person_member->DISTRICT_ID)
+          ->leftJoin('amphur','amphur.AMPHUR_ID','=','district.AMPHUR_ID')
+          ->leftJoin('geography','geography.GEO_ID','=','district.GEO_ID')
+          ->leftJoin('province','province.PROVINCE_ID','=','district.PROVINCE_ID')
+          ->get();
+          if(count($address)>0){
+            $data = [
+              'id' => $person_member['id'],
+              'type' => $person_member['type'],
+              'username' => $person_member['username'],
+              'password' => $person_member['password'],
+              'name' => $person_member['name'],
+              'person_id' => $person_member['person_id'],
+              'gender' => $person_member['gender'],
+              'email' => $person_member['email'],
+              'birthday2' => $person_member['birthday'],
+              'phone' => $person_member['phone'],
+              'image_url' => $person_member['image_url'],
+              // 'address' => $person_member['address'],
+              'profile_id' => $person_member['id'],
+              'created_at' => $person_member['created_at'],
+              'birthday' => $person_member['birth_day'],
+              'date_created' => $person_member['date_created'],
+              'count_on' => $count_on,
+              'count_close' => $count_close,
+  
+              'home_number' => $person_member->home_number,
+                  'group_number' => $person_member->group_number,
+                  'home_name' => $person_member->home_name,
+                  'alley' => $person_member->alley,
+                  'soy' => $person_member->soy,
+                  'road' => $person_member->road,
+          
+                  'address' =>
+                      $person_member->home_number.' '.
+                      ' หมู่ที่:'.$person_member->group_number.' '.
+                      ' หมู่บ้าน:'.$person_member->home_name.' '.
+                      ' ตรอก:'.$person_member->alley.' '.
+                      ' ซอย:'.$person_member->soy.' '.
+                      ' ถนน:'.$person_member->road.' '.
+                      ' ตำบล:'.$address['0']['DISTRICT_NAME'].' '.
+                        'อำเภอ:'.$address['0']['AMPHUR_NAME'].' '.
+                      ' จังหวัด:'.$address['0']['PROVINCE_NAME'].' '.
+                      ' รหัสไปรษณีย์:'.$address['0']['POSTCODE'].' '.
+                      ' '.$address['0']['GEO_NAME']
+                  ,
+              ];
+        }
+        else{
+          $data = [
+            'id' => $person_member['id'],
+            'type' => $person_member['type'],
+            'username' => $person_member['username'],
+            'password' => $person_member['password'],
+            'name' => $person_member['name'],
+            'person_id' => $person_member['person_id'],
+            'gender' => $person_member['gender'],
+            'email' => $person_member['email'],
+            'birthday2' => $person_member['birthday'],
+            'phone' => $person_member['phone'],
+            'image_url' => $person_member['image_url'],
+            // 'address' => $person_member['address'],
+            'profile_id' => $person_member['id'],
+            'created_at' => $person_member['created_at'],
+            'birthday' => $person_member['birth_day'],
+            'date_created' => $person_member['date_created'],
+            'count_on' => $count_on,
+            'count_close' => $count_close,
+  
+            'home_number' => $person_member->home_number,
+                'group_number' => $person_member->group_number,
+                'home_name' => $person_member->home_name,
+                'alley' => $person_member->alley,
+                'soy' => $person_member->soy,
+                'road' => $person_member->road,
+        
+                'address' =>
+                    $person_member->home_number.' '.
+                    ' หมู่ที่:'.$person_member->group_number.' '.
+                    ' หมู่บ้าน:'.$person_member->home_name.' '.
+                    ' ตรอก:'.$person_member->alley.' '.
+                    ' ซอย:'.$person_member->soy.' '.
+                    ' ถนน:'.$person_member->road
+                ,
+            ];
+      }
         
         // echo $count_close;exit();
         $date = new CallUseController();
@@ -244,6 +354,7 @@ class AuthenController extends Controller
         $repairs = $date->get_date_all($repairs,'date_in','date_in_repair');
         $repairs = $date->get_date_all($repairs,'date_out','date_out_repair');
         // echo $repairs;exit();
+
         if($repairs!='[]'){
               // foreach($repairs as $key=>$value)
               // {
@@ -253,7 +364,7 @@ class AuthenController extends Controller
                   ,'list_repair.status_list_repair as status_list_repair'
                   ,'list_repair.status_list_repair as status_list_repair'
                   ,'list_repair.list_name as list_name'
-                  // ,'list_repair.detail as detail'
+                  ,'list_repair.image as image'
                   ,'list_repair.symptom as symptom'
                   ,'list_repair.price as price'
 
@@ -271,55 +382,12 @@ class AuthenController extends Controller
               ->leftJoin('setting_status_repair', 'setting_status_repair.id', '=', 'list_repair.status_list_repair')
               ->get($items); 
 
-              $data = [
-                'id' => $person_member['id'],
-                'type' => $person_member['type'],
-                'username' => $person_member['username'],
-                'password' => $person_member['password'],
-                'name' => $person_member['name'],
-                'person_id' => $person_member['person_id'],
-                'gender' => $person_member['gender'],
-                'email' => $person_member['email'],
-                'birthday2' => $person_member['birthday'],
-                'phone' => $person_member['phone'],
-                'image_url' => $person_member['image_url'],
-                'address' => $person_member['address'],
-                'profile_id' => $person_member['id'],
-                'created_at' => $person_member['created_at'],
-                'birthday' => $person_member['birth_day'],
-                'date_created' => $person_member['date_created'],
-                'count_on' => $count_on,
-                'count_close' => $count_close,
-
-            ];
-
               // } 
           // echo $data['birthday2'];exit();
           return view('font_pages/profile',['repairs'=>$repairs,'list_repairs'=>$list_repairs], $data);
         }
 
         else{
-          $data = [
-            'id' => $person_member['id'],
-            'type' => $person_member['type'],
-            'username' => $person_member['username'],
-            'password' => $person_member['password'],
-            'name' => $person_member['name'],
-            'person_id' => $person_member['person_id'],
-            'gender' => $person_member['gender'],
-            'email' => $person_member['email'],
-            'birthday2' => $person_member['birthday'],
-            'phone' => $person_member['phone'],
-            'image_url' => $person_member['image_url'],
-            'address' => $person_member['address'],
-            'profile_id' => $person_member['id'],
-            'created_at' => $person_member['created_at'],
-            'birthday' => $person_member['birth_day'],
-            'date_created' => $person_member['date_created'],
-            'count_on' => $count_on,
-            'count_close' => $count_close,
-
-        ];
           return view('font_pages/profile',['repairs'=>$repairs], $data);
         }
 
@@ -332,7 +400,7 @@ class AuthenController extends Controller
       // $person->store_branch_id = $request->store_branch_id;
       $person->status = true;
       $person->username = $request->username;
-      $person->password = $request->password;
+      $person->password = md5($request->password);
       $person->name = $request->name;
       $person->person_id = $request->person_id;
       $person->gender = $request->gender;
@@ -340,7 +408,26 @@ class AuthenController extends Controller
       $person->email = $request->email;
       $person->phone = $request->phone;
       // $person->image_url = $request->image_url;
-      $person->address = $request->address;
+      // $person->address = $request->address;
+      if($request->PROVINCE_ID!='PROVINCE_NAME'){
+        // echo $request->PROVINCE_ID;exit();
+      $person->PROVINCE_ID = $request->PROVINCE_ID;
+      $person->AMPHUR_ID = $request->AMPHUR_ID;
+      $person->DISTRICT_ID = $request->DISTRICT_ID;
+      }
+      else{
+        // echo 'ggg';exit();
+        $person->PROVINCE_ID = $person['PROVINCE_ID'];
+        $person->AMPHUR_ID = $person['AMPHUR_ID'];
+        $person->DISTRICT_ID = $person['DISTRICT_ID'];
+      }
+      $person->home_number = $request->home_number;
+      $person->group_number = $request->group_number;
+      $person->home_name = $request->home_name;
+      $person->alley = $request->alley;
+      $person->soy = $request->soy;
+      $person->road = $request->road;
+
       if ($request->hasFile('image_url')) {
             $chk_name =$request->file('image_url')
             ->getClientOriginalName();     
@@ -388,29 +475,94 @@ class AuthenController extends Controller
         $person = Persons::find($id);
         $profile = $this->get_profile($person['id']);
 
+        $address = AddressDistrict::where('district.DISTRICT_ID',$person['DISTRICT_ID'])
+      ->leftJoin('amphur','amphur.AMPHUR_ID','=','district.AMPHUR_ID')
+      ->leftJoin('geography','geography.GEO_ID','=','district.GEO_ID')
+      ->leftJoin('province','province.PROVINCE_ID','=','district.PROVINCE_ID')
+      ->get();
+
         $date = new CallUseController();
         $profile = $date->get_date_only($profile,'created','created_at');//get วันที่ภาษาไทย แถวเดียว
         // $date = new CallUseController();
         $profile = $date->get_date_only($profile,'birth','birthday');//get วันที่ภาษาไทย แถวเดียว
         // echo $profile;exit();
-        $data = [
-          'store_branch_name' => $profile['0']['store_branch_name'],
-            'type' => $profile['0']['type'],
-            'username' => $profile['0']['username'],
-            'password' => $profile['0']['password'],
-            'name' => $profile['0']['name'],
-            'person_id' => $profile['0']['person_id'],
-            'gender' => $profile['0']['gender'],
-            'email' => $profile['0']['email'],
-            'birthday' => $profile['0']['birthday'],
-            'phone' => $profile['0']['phone'],
-            'image_url' => $profile['0']['image_url'],
-            'address' => $profile['0']['address'],
-            'profile_id' => $profile['0']['profile_id'],
-            // 'created_at' => $profile['0']['created'],  
-            'create_date' => $profile['created'],
-            'birth_date' => $profile['birth'], 
-        ];
+        if(count($address)>0){
+                  $data = [
+                    'store_branch_name' => $profile['0']['store_branch_name'],
+                      'type' => $profile['0']['type'],
+                      'username' => $profile['0']['username'],
+                      'password' => $profile['0']['password'],
+                      'name' => $profile['0']['name'],
+                      'person_id' => $profile['0']['person_id'],
+                      'gender' => $profile['0']['gender'],
+                      'email' => $profile['0']['email'],
+                      'birthday' => $profile['0']['birthday'],
+                      'phone' => $profile['0']['phone'],
+                      'image_url' => $profile['0']['image_url'],
+                      // 'address' => $profile['0']['address'],
+                      'profile_id' => $profile['0']['profile_id'],
+                      // 'created_at' => $profile['0']['created'],  
+                      'create_date' => $profile['created'],
+                      'birth_date' => $profile['birth'], 
+
+                      'home_number' => $person->home_number,
+                      'group_number' => $person->group_number,
+                      'home_name' => $person->home_name,
+                      'alley' => $person->alley,
+                      'soy' => $person->soy,
+                      'road' => $person->road,
+
+                      'address' =>
+                        $person->home_number.' '.
+                        ' หมู่ที่:'.$person->group_number.' '.
+                        ' หมู่บ้าน:'.$person->home_name.' '.
+                        ' ตรอก:'.$person->alley.' '.
+                        ' ซอย:'.$person->soy.' '.
+                        ' ถนน:'.$person->road.' '.
+                        ' ตำบล:'.$address['0']['DISTRICT_NAME'].' '.
+                          'อำเภอ:'.$address['0']['AMPHUR_NAME'].' '.
+                        ' จังหวัด:'.$address['0']['PROVINCE_NAME'].' '.
+                        ' รหัสไปรษณีย์: '.$address['0']['POSTCODE'].' '.
+                        ' '.$address['0']['GEO_NAME']
+                    ,
+                  ];
+      }
+      else{
+              $data = [
+                'store_branch_name' => $profile['0']['store_branch_name'],
+                  'type' => $profile['0']['type'],
+                  'username' => $profile['0']['username'],
+                  'password' => $profile['0']['password'],
+                  'name' => $profile['0']['name'],
+                  'person_id' => $profile['0']['person_id'],
+                  'gender' => $profile['0']['gender'],
+                  'email' => $profile['0']['email'],
+                  'birthday' => $profile['0']['birthday'],
+                  'phone' => $profile['0']['phone'],
+                  'image_url' => $profile['0']['image_url'],
+                  // 'address' => $profile['0']['address'],
+                  'profile_id' => $profile['0']['profile_id'],
+                  // 'created_at' => $profile['0']['created'],  
+                  'create_date' => $profile['created'],
+                  'birth_date' => $profile['birth'],
+                  
+                  'home_number' => $person->home_number,
+                  'group_number' => $person->group_number,
+                  'home_name' => $person->home_name,
+                  'alley' => $person->alley,
+                  'soy' => $person->soy,
+                  'road' => $person->road,
+
+                  'address' =>
+                    $person->home_number.' '.
+                    ' หมู่ที่:'.$person->group_number.' '.
+                    ' หมู่บ้าน:'.$person->home_name.' '.
+                    ' ตรอก:'.$person->alley.' '.
+                    ' ซอย:'.$person->soy.' '.
+                    ' ถนน:'.$person->road
+                ,
+              ];
+      }
         $items = [
           'persons_member.name as name_member'
           ,'persons_member.phone as phone_member'
@@ -466,12 +618,7 @@ class AuthenController extends Controller
               {
                 $repairs[$key]['is_type']='';
               }
-              // $date_in = new CallUseController();
-              // $n = $date->get_date_only($value['date_in_repair'],'date_in_repair'); //get วันที่ภาษาไทย ลูป date_in_repair
-              // $date_out = new CallUseController();
-              // $m = $date->get_date_only($value['date_out_repair'],'date_out_repair'); //get วันที่ภาษาไทย ลูป date_in_repair
-              // $repairs[$key]['date_in_repair']=$n;
-              // $repairs[$key]['date_out_repair']=$m;
+
         }
         if($repairs!='[]'){
               foreach($repairs as $key=>$value)
@@ -499,6 +646,7 @@ class AuthenController extends Controller
       }
 
       public function get_profile($person_id){
+
         $items = [
           'persons.id as profile_id'
           ,'store_branch.name as store_branch_name'
@@ -512,18 +660,21 @@ class AuthenController extends Controller
           ,'persons.email as email'
           ,'persons.birthday as birthday'
           ,'persons.image_url as image_url'
-          ,'persons.address as address'
+
+          ,'persons.home_number as home_number'
+          ,'persons.group_number as group_number'
+          ,'persons.home_name as home_name'
+          ,'persons.alley as alley'
+          ,'persons.soy as soy'
+          ,'persons.road as road'
+
+          // ,'persons.address as address'
           ,'persons.created_at as created_at'
           ];
         $data_profile = Persons::where('persons.id',$person_id)
         ->leftJoin('store_branch', 'store_branch.id', '=', 'persons.store_branch_id')
         ->get($items);
 
-        // echo $answer_posts;exit();
-        // $data = [
-        //     'name' => $answer_posts['0']['name'],
-        // ];
-        // echo $data['name'];exit();
 
         return $data_profile;
         
@@ -535,8 +686,31 @@ class AuthenController extends Controller
           $person = Persons::find($request->id);
           // $person->store_branch_id = $request->store_branch_id;
           $person->status = true;
-          $person->username = $request->username;
-          $person->password = $request->password;
+
+          if($request->newpassword != ''){
+              if($request->oldpassword==$person->password){
+                // echo 'yes';exit();
+              $person->username = $request->username;
+              $person->password = md5($request->newpassword);
+              }
+              else{
+                $request->session()->flash('status_confirm_password_fail', ''); 
+                return redirect('/profile');
+              }
+          }
+          elseif($request->username!=$person->username ){
+            if($request->oldpassword==$person->password){
+              // echo 'yes';exit();
+            $person->username = $request->username;
+            $person->password = md5($request->oldpassword);
+            }
+            else{
+              $request->session()->flash('status_confirm_password_fail', ''); 
+              return redirect('/profile');
+            }
+        }
+
+          // echo 'not doing';exit();
           $person->name = $request->name;
           $person->person_id = $request->person_id;
           $person->gender = $request->gender;
@@ -544,11 +718,31 @@ class AuthenController extends Controller
           $person->email = $request->email;
           $person->phone = $request->phone;
           // $person->image_url = $request->image_url;
-          $person->address = $request->address;
+          // $person->address = $request->address;
           $person->position = $request->position;
           $person->salary = $request->salary;
           $person->date_in = $request->date_in;
           $person->date_out = $request->date_out;
+
+          if($request->PROVINCE_ID!='PROVINCE_NAME'){
+            // echo $request->PROVINCE_ID;exit();
+          $person->PROVINCE_ID = $request->PROVINCE_ID;
+          $person->AMPHUR_ID = $request->AMPHUR_ID;
+          $person->DISTRICT_ID = $request->DISTRICT_ID;
+          }
+          else{
+            // echo $request->PROVINCE_ID;exit();
+            $person->PROVINCE_ID = $person['PROVINCE_ID'];
+            $person->AMPHUR_ID = $person['AMPHUR_ID'];
+            $person->DISTRICT_ID = $person['DISTRICT_ID'];
+          }
+          $person->home_number = $request->home_number;
+          $person->group_number = $request->group_number;
+          $person->home_name = $request->home_name;
+          $person->alley = $request->alley;
+          $person->soy = $request->soy;
+          $person->road = $request->road;
+
           $type=session('s_type','default');
           if($type==1||$type==2){
               if ($request->hasFile('image_url')) {  
@@ -619,110 +813,12 @@ class AuthenController extends Controller
                   // $person->image_url = $person['image_url'];        
                   }
           }
+          // echo "ho";exit();
           $person->save();
           $request->session()->flash('status_edit', 'แก้ไขข้อมูลส่วนตัวเรียบร้อยแล้ว'); 
     
-          $id=session('s_id','default');
-        $person = Persons::find($id);
-        $profile = $this->get_profile($person['id']);
-        $date = new CallUseController();
-        $profile = $date->get_date_only($profile,'created','created_at');//get วันที่ภาษาไทย แถวเดียว
-        // $date = new CallUseController();
-        $profile = $date->get_date_only($profile,'birth','birthday');//get วันที่ภาษาไทย แถวเดียว
-
-        $data = [
-          'store_branch_name' => $profile['0']['store_branch_name'],
-            'type' => $profile['0']['type'],
-            'username' => $profile['0']['username'],
-            'password' => $profile['0']['password'],
-            'name' => $profile['0']['name'],
-            'person_id' => $profile['0']['person_id'],
-            'gender' => $profile['0']['gender'],
-            'email' => $profile['0']['email'],
-            'birthday' => $profile['0']['birthday'],
-            'phone' => $profile['0']['phone'],
-            'image_url' => $profile['0']['image_url'],
-            'address' => $profile['0']['address'],
-            'profile_id' => $profile['0']['profile_id'],
-            // 'created_at' => $profile['0']['created_at'],
-            'create_date' => $profile['created'],
-            'birth_date' => $profile['birth'], 
-
-        ];
-
-        $items = [
-          'persons_member.name as name_member'
-          ,'persons_member.phone as phone_member'
-          ,'persons_member.type as type_member'
-          
-          ,'repair.id as r_id'
-          ,'repair.persons_member_id as persons_member_id' //check
-          ,'repair.bin_number as bin_number'
-          ,'repair.name as name_general'
-          ,'repair.phone as phone_general'
-          ,'repair.status_repair as status_repair'
-          ,'repair.status_bill as status_bill'
-          // ,'repair.price as price'
-          ,'repair.date_in_repair as date_in_repair'
-          ,'repair.date_out_repair as date_out_repair'
-          // ,'repair.after_price as after_price'
-          ,'repair.equipment_follow as equipment_follow'
-
-          // ,'list_repair.status_list_repair as status_list_repair'
-          // ,'list_repair.list_name as list_name'
-          // ,'list_repair.detail as detail'
-          // ,'list_repair.symptom as symptom'
-          ];
-        $repairs = Repair::where('repair.status', 1)
-        ->where('repair.persons_id',$id)
-        ->orderBy('repair.id','desc')
-        // ->leftJoin('list_repair', 'list_repair.repair_id', '=', 'repair.id')
-        ->leftJoin('persons_member', 'persons_member.id', '=', 'repair.persons_member_id')
-        ->get($items);
-        foreach($repairs as $key=>$value)
-        {
-              if($repairs[$key]['persons_member_id']!=NULL)
-              {
-                $repairs[$key]['is_name']=$value['name_member'];
-                $repairs[$key]['is_phone']=$value['phone_member'];
-              }
-              else if($repairs[$key]['persons_member_id']==NULL)
-              {
-                $repairs[$key]['is_name']=$value['name_general'];
-                $repairs[$key]['is_phone']=$value['phone_general'];
-              }
-              if($repairs[$key]['type_member']!=NULL)
-              {
-                $repairs[$key]['is_type']=$value['type_member'];
-              }
-              else if($repairs[$key]['type_member']==NULL)
-              {
-                $repairs[$key]['is_type']='';
-              }
-              
-        }
-        if($repairs!='[]'){
-              foreach($repairs as $key=>$value)
-              {         
-                $items = [
-                  'list_repair.repair_id as repair_id_form_list'
-                  ,'list_repair.id as id'
-                  ,'list_repair.status_list_repair as status_list_repair'
-                  ,'list_repair.status_list_repair as status_list_repair'
-                  ,'list_repair.list_name as list_name'
-                  // ,'list_repair.detail as detail'
-                  ,'list_repair.symptom as symptom'
-                  ];
-              $list_repairs = ListRepair::where('list_repair.status', 1)
-              ->leftJoin('repair', 'repair.id', '=', 'list_repair.repair_id')
-              // ->where('repair_id',24)
-              ->get($items);   
-              }
-              return view('profile/profile',['repairs'=>$repairs,'list_repairs'=>$list_repairs], $data);
-            }
-            else{
-              return view('profile/profile',['repairs'=>$repairs], $data);
-            }
+          return redirect('/profile');
+      
       }
 
       public function logout() {

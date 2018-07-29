@@ -83,8 +83,8 @@ Route::post('/persons-search', 'PersonsManagerController@search_person');
 Route::get('/persons-manager', 'PersonsManagerController@get_persons');
 Route::post('/persons-manager2', 'PersonsManagerController@get_persons2');
 Route::post('/person-manager-form', 'PersonsManagerController@form');
-// Route::get('/person-manager-form-edit/{id}', 'PersonsManagerController@form_edit')->where('id', '[0-9]+');
-Route::post('/person-manager-form-edit', 'PersonsManagerController@form_edit');
+Route::get('/person-manager-form-edit{id}', 'PersonsManagerController@form_edit')->where('id', '[0-9]+');
+// Route::post('/person-manager-form-edit', 'PersonsManagerController@form_edit');
 Route::post('/person-manager-create', 'PersonsManagerController@create');
 Route::post('/person-manager-edit', 'PersonsManagerController@edit')->where('id', '[0-9]+');
 Route::post('/person-manager-delete' ,'PersonsManagerController@delete')->where('id', '[0-9]+');
@@ -92,15 +92,17 @@ Route::post('/person-manager-delete' ,'PersonsManagerController@delete')->where(
 Route::get('/persons-employee', 'PersonsEmployeeController@get_persons');
 Route::post('/persons-employee2', 'PersonsEmployeeController@get_persons2');
 Route::post('/person-employee-form', 'PersonsEmployeeController@form');
-Route::post('/person-employee-form-edit', 'PersonsEmployeeController@form_edit')->where('id', '[0-9]+');
+Route::get('/person-employee-form-edit{id}', 'PersonsEmployeeController@form_edit')->where('id', '[0-9]+');
+// Route::post('/person-employee-form-edit', 'PersonsEmployeeController@form_edit')->where('id', '[0-9]+');
 Route::post('/person-employee-create', 'PersonsEmployeeController@create');
 Route::post('/person-employee-edit', 'PersonsEmployeeController@edit')->where('id', '[0-9]+');
-Route::post('/person-employee-delete' ,'PersonsEmployeeController@delete')->where('id', '[0-9]+');
+Route::get('/person-employee-delete' ,'PersonsEmployeeController@delete')->where('id', '[0-9]+');
 
 Route::get('/persons-member', 'PersonsMemberController@get_persons');
 // Route::get('/persons-member', 'PersonsMemberController@get_persons');
 Route::get('/person-member-form', 'PersonsMemberController@form');
-Route::post('/person-member-form-edit', 'PersonsMemberController@form_edit')->where('id', '[0-9]+');
+Route::get('/person-member-form-edit{id}', 'PersonsMemberController@form_edit')->where('id', '[0-9]+');
+// Route::post('/person-member-form-edit', 'PersonsMemberController@form_edit')->where('id', '[0-9]+');
 Route::post('/person-member/create', 'PersonsMemberController@create');
 Route::post('/person-member-edit', 'PersonsMemberController@edit')->where('id', '[0-9]+');
 Route::post('/person-member/delete/{id}' ,'PersonsMemberController@delete')->where('id', '[0-9]+');
@@ -145,7 +147,7 @@ Route::post('/list-repair-delete-data-use-part', 'ListRepairsController@delete_d
 
 Route::get('/list-repair-for-technician', 'ListTechnicianController@get_list_repair_for_technician');
 Route::post('/list-repair-for-technician-status-edit', 'ListTechnicianController@edit_status');
-Route::post('/list-repair-for-technician-data-use-part', 'ListTechnicianController@create_data_use_part');
+Route::post('/list', 'ListTechnicianController@create_data_use_part');
 Route::post('/list-repair-for-technician-delete-data-use-part', 'ListTechnicianController@delete_data_use_part');
 
 Route::get('/pay-money','PayMoneyController@get_pay_money');
@@ -161,7 +163,8 @@ Route::post('/import_part/create','ImportPartsController@create');
 Route::post('/import_part/edit/{id}','ImportPartsController@edit');
 Route::post('/import_part/delete/{id}','ImportPartsController@delete');
 
-Route::post('/list-part', 'ListPartsController@get_list_parts_by_id');
+Route::get('/list-part{id}', 'ListPartsController@get_list_parts_by_id');
+// Route::post('/list-part', 'ListPartsController@get_list_parts_by_id');
 Route::post('/list-part-create', 'ListPartsController@create');
 Route::post('/list-part-edit', 'ListPartsController@edit');
 Route::post('/list-part-delete', 'ListPartsController@delete');
@@ -175,6 +178,16 @@ Route::get('/setting-status-repair','SettingStatusController@get');
 Route::post('/setting-status-repair/create','SettingStatusController@create');
 Route::post('/setting-status-repair/edit/{id}','SettingStatusController@edit');
 Route::post('/setting-status-repair/delete/{id}','SettingStatusController@delete');
+
+Route::get('/setting-group-part','SettingGroupPartController@get');
+Route::post('/setting-status-group-part/create','SettingGroupPartController@create');
+Route::post('/setting-status-group-part/edit/{id}','SettingGroupPartController@edit');
+Route::post('/setting-status-group-part/delete/{id}','SettingGroupPartController@delete');
+
+Route::get('/setting-brand-part','SettingBrandPartController@get');
+Route::post('/setting-status-brand-part/create','SettingBrandPartController@create');
+Route::post('/setting-status-brand-part/edit/{id}','SettingBrandPartController@edit');
+Route::post('/setting-status-brand-part/delete/{id}','SettingBrandPartController@delete');
 
 Route::get('/gallery','GallerysController@get');
 Route::post('/gallery/create','GallerysController@create');

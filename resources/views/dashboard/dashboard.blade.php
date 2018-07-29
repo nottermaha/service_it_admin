@@ -44,9 +44,9 @@
     <section class="content">
 
           <!-- Small boxes (Stat box) -->
-      <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
+      <div class="row"><!-- small box -->
+        <!-- <div class="col-lg-3 col-xs-6">
+          
           <div class="small-box bg-aqua">
             <div class="inner">
               <h3>150</h3>
@@ -58,9 +58,9 @@
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
-        </div>
+        </div> -->
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-6 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
@@ -73,11 +73,13 @@
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ url('/repair-member')  }}" class="small-box-footer"> แจ้งซ่อมของสมาชิก <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ url('/repair-general')  }}" class="small-box-footer"> แจ้งซ่อมลูกค้าทั่วไป <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ url('/form-search-repair-only-bill')  }}" class="small-box-footer"> ค้าหารายการซ่อม <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-6 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
@@ -90,12 +92,14 @@
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ url('/persons-manager')  }}" class="small-box-footer">ผู้จัดการร้าน<i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ url('/persons-employee')  }}" class="small-box-footer">พนักงาน<i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{ url('/persons-member')  }}" class="small-box-footer">ลูกค้าสมาชิก<i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
+        <!-- ./col --><!-- small box -->
+        <!-- <div class="col-lg-3 col-xs-6">
+          
           <div class="small-box bg-red">
             <div class="inner">
               <h3>65</h3>
@@ -107,7 +111,7 @@
             </div>
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
-        </div>
+        </div> -->
         <!-- ./col -->
       </div>
       <!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -116,7 +120,7 @@
 
          <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">กราฟแสดงการแจ้งซ่อมรายวัน</h3>
+              <h3 class="box-title">กราฟแสดงจำนวนการแจ้งซ่อมรายวัน</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -136,7 +140,7 @@
           <!-- AREA CHART -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">กราฟแสดงการแจ้งซ่อมรายเดือน</h3>
+              <h3 class="box-title">กราฟแสดงจำนวนการแจ้งซ่อมรายเดือน</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -147,6 +151,26 @@
             <div class="box-body">
               <div class="chart">
                 <canvas id="areaChart" style="height:250px"></canvas>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+           <!-- AREA CHART -->
+           <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">กราฟแสดงจำนวนการแจ้งซ่อมรายปี</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <div class="chart">
+                <canvas id="areaChartYear" style="height:250px"></canvas>
               </div>
             </div>
             <!-- /.box-body -->
@@ -205,7 +229,7 @@
     <!-- /////////////////////////donut/////////////////////////// -->
     <div class="box box-danger">
             <div class="box-header with-border">
-              <h3 class="box-title">เพศ</h3>
+              <h3 class="box-title">เพศ (สมาชิก)</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -307,6 +331,11 @@
     // This will get the first returned node in the jQuery collection.
     var areaChart       = new Chart(areaChartCanvas)
 
+////////////year//////////////
+        var areaChartCanvasYear = $('#areaChartYear').get(0).getContext('2d')
+    // This will get the first returned node in the jQuery collection.
+    var areaChartYear       = new Chart(areaChartCanvasYear)
+
     var areaChartData = {
       labels  : ['1 {{$month}} {{$year}}','2 {{$month}} {{$year}}', '3 {{$month}} {{$year}}','4 {{$month}} {{$year}}', '5 {{$month}} {{$year}}','6 {{$month}} {{$year}}',
       '7 {{$month}} {{$year}}','8 {{$month}} {{$year}}', '9 {{$month}} {{$year}}','10 {{$month}} {{$year}}', '11 {{$month}} {{$year}}','12 {{$month}} {{$year}}',
@@ -341,6 +370,36 @@
         }
       ]
     }
+
+        var areaChartDataYear = {
+      labels  : ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน'
+                ,'กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'],
+      datasets: [
+        // {
+        //   label               : 'Electronics',
+        //   fillColor           : 'rgba(210, 214, 222, 1)',
+        //   strokeColor         : 'rgba(210, 214, 222, 1)',
+        //   pointColor          : 'rgba(210, 214, 222, 1)',
+        //   pointStrokeColor    : '#c1c7d1',
+        //   pointHighlightFill  : '#fff',
+        //   pointHighlightStroke: 'rgba(220,220,220,1)',
+        //   data                : [65, 59, 80, 81, 56, 55, 40]
+        // },
+        {
+          label               : 'Digital Goods',
+          fillColor           : 'rgba(60,141,188,0.9)',
+          strokeColor         : 'rgba(60,141,188,0.8)',
+          pointColor          : '#3b8bba',
+          pointStrokeColor    : 'rgba(60,141,188,1)',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(60,141,188,1)',
+          data                : [{{$month_01}},{{$month_02}}, {{$month_03}},{{$month_04}}, {{$month_05}}
+          ,{{$month_06}},{{$month_07}},{{$month_08}},{{$month_09}} ,{{$month_10}},{{$month_11}}  
+          ,{{$month_12}}]
+        }
+      ]
+    }
+
     var lineChartData = {
       labels  : ['08.00', '09.00', '10.00', '11.00', '12.00', '13.00', '14.00' ,'15.00' ,'16.00' ,'17.00'],
       datasets: [
@@ -407,7 +466,7 @@
     }
 
     areaChart.Line(areaChartData, areaChartOptions)
-    
+    areaChartYear.Line(areaChartDataYear, areaChartOptions)
     //Create the line chart
     //-------------
     //- LINE CHART -

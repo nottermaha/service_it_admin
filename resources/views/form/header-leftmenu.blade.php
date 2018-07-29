@@ -259,6 +259,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
+          <li class="active"><a href="{{ url('/setting-group-part')  }}"><i class="fa fa-circle-o"></i>หมวดอะไหล่</a></li>
+          <li class="active"><a href="{{ url('/setting-brand-part')  }}"><i class="fa fa-circle-o"></i>ยี่ห้ออะไหล่</a></li>
+
             <li class="active"><a href="{{ url('/setting-status-repair')  }}"><i class="fa fa-circle-o"></i> สถานะการแจ้งซ่อม (ช่าง)</a></li>
             <li class="active"><a href="{{ url('/setting-status-repair-shop')  }}"><i class="fa fa-circle-o"></i> สถานะการแจ้งซ่อม (หน้าร้าน)</a></li>
             <li class="active"><a href="{{ url('/gallery')  }}"><i class="fa fa-circle-o"></i>สไลด์ภาพ</a></li>

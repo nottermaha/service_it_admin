@@ -288,22 +288,41 @@
                         <div class="form-group">
 
                             <div class="row">
-                            <div class="col-md-3"></div>
-                            <div class="col-md-8">
-                                    @if(session()->has('status_image_fail'))               
-                                        <script type="text/javascript">
-                                                $(window).on('load',function(){
-                                                    $('#modal-edit-gallery<?php echo session()->get('status_id'); ?>').modal('show');
-                                                });   
-                                            </script>   
-                                        <div class="alert alert-warning alert-dismissible">
-                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                            <h4><i class="icon fa fa-warning"></i> การอัพโหลดรูปล้มเหลว!</h4>
-                                            กรุณาอัพโหลดรูปภาพที่เป็น .png .jpg .gif เท่านั่น.
-                                        </div>       
-                                    @endif
+                                <div class="col-md-3"></div>
+                                <div class="col-md-8">
+                                        @if(session()->has('status_image_fail'))               
+                                            <script type="text/javascript">
+                                                    $(window).on('load',function(){
+                                                        $('#modal-edit-gallery<?php echo session()->get('status_id'); ?>').modal('show');
+                                                    });   
+                                                </script>   
+                                            <div class="alert alert-warning alert-dismissible">
+                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                <h4><i class="icon fa fa-warning"></i> การอัพโหลดรูปล้มเหลว!</h4>
+                                                กรุณาอัพโหลดรูปภาพที่เป็น .png .jpg .gif เท่านั่น.
+                                            </div>       
+                                        @endif
+                                </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-8">
+                                        @if(session()->has('status_person_id_fail'))               
+                                            <script type="text/javascript">
+                                                    $(window).on('load',function(){
+                                                        $('#modal-edit-gallery<?php echo session()->get('status_id'); ?>').modal('show');
+                                                    });   
+                                                </script>   
+                                            <div class="alert alert-warning alert-dismissible">
+                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                <h4><i class="icon fa fa-warning"></i> เลขรหัสประจำตัวประชาชนล้มเหลว!</h4>
+                                                เลขประจำตัวประชาชนนี้ถูกใช้ไปแล้ว
+                                            </div>       
+                                        @endif
+                                </div>
                             </div>
+
                             <div class="row">
                                 <label class="col-sm-3 control-label">ชื่อผู้ใช้ <b style="color:red;">*</b></label>
                                 <div class="col-sm-8">
@@ -410,19 +429,70 @@
                                     </div>
                                 </div>
                             </div><br>
-                            
+
                             <div class="row">
-                                <label class="col-sm-3 control-label">ที่อยู่</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="glyph-icon icon-home"></i></span>
-                                        <!-- <input type="text" class="form-control" placeholder="ที่อยู่.."> -->
-                                          <textarea  id="" class="form-control" placeholder="ที่อยู่..." name="address"></textarea>
-
-
-                                    </div>
+                                <label class="col-sm-2 control-label">บ้านเลขที่</label>
+                                <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="home_number" value="" placeholder="บ้านเลขที่...">
+                                </div>
+                                <label class="col-sm-1 control-label">หมู่ที่</label>
+                                <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="group_number" value="" placeholder="หมู่ที่...">
                                 </div>
                             </div><br>
+
+                             <div class="row">
+                                <label class="col-sm-2 control-label">หมู่บ้าน</label>
+                                <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="home_name" value="" placeholder="หมู่บ้าน...">
+                                </div>
+                                <label class="col-sm-1 control-label">ตรอก</label>
+                                <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="alley" value="" placeholder="ตรอก...">
+                                </div>
+                            </div><br>
+
+                            <div class="row">
+                                <label class="col-sm-2 control-label">ซอย</label>
+                                <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="soy" value="" placeholder="ซอย...">
+                                </div>
+                                <label class="col-sm-1 control-label">ถนน</label>
+                                <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="road" value="" placeholder="ถนน...">
+                                </div>
+                            </div><br>
+
+                            <div class="row">
+                                <label class="col-sm-2 control-label">จังหวัด</label>
+                                <div class="col-sm-4">
+                                        <select  class="form-control " style="width: 100%;" name="PROVINCE_ID" id="province">
+                                        <option value="PROVINCE_NAME">- กรุณาเลือกจังหวัด -</option>
+                                        </select>
+                                </div>
+                                <label class="col-sm-1 control-label">อำเภอ</label>
+                                <div class="col-sm-4">
+                                        <select  class="form-control " style="width: 100%;" name="AMPHUR_ID" id="amphur">
+                                        <option>- กรุณาเลือกอำเภอ -</option>
+                                        </select>
+                                </div>
+                            </div><br>
+
+                            <div class="row">
+                                <label class="col-sm-2 control-label">ตำบล</label>
+                                <div class="col-sm-4">
+                                        <select  class="form-control " style="width: 100%;" name="DISTRICT_ID" id="district">
+                                        <option>- กรุณาเลือกตำบล -</option>
+                                        </select>
+                                </div>
+                                <label class="col-sm-1 control-label">รหัสไปรษณีย์</label>
+                                <div class="col-sm-4">
+                                        <input type="text" class="form-control pull-right" name="postcode" 
+                                        id="postcode" disabled>
+                                </div>
+                            </div><br>
+
+
                             <div class="row">
                                 <div class="col-sm-12 text-center">
                                 <button type="button" onClick="BtnChkSubmit()" class="btn btn-primary">สมัครสมาชิก</button>
@@ -458,4 +528,18 @@
     </script>
 
      @endif 
+
+<!-- //////////// -->
+<script src="AutoProvince.js"></script>
+<!-- /////////// -->
+
+     <script>
+$('body').AutoProvince({
+	PROVINCE:		'#province', // select div สำหรับรายชื่อจังหวัด
+	AMPHUR:			'#amphur', // select div สำหรับรายชื่ออำเภอ
+	DISTRICT:		'#district', // select div สำหรับรายชื่อตำบล
+	POSTCODE:		'#postcode', // input field สำหรับรายชื่อรหัสไปรษณีย์
+	arrangeByName:		false // กำหนดให้เรียงตามตัวอักษร
+});
+</script>
 @include('form/footer-font')
